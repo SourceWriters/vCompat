@@ -1,6 +1,7 @@
 package com.syntaxphoenix.versionutils.reflection;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import org.bukkit.Bukkit;
@@ -42,7 +43,7 @@ public class GeneralReflections {
         }, 1);
     }
  
-    public static void changeMOTD(String motd) throws IllegalAccessException, IllegalArgumentException,
+    public static void changeMotd(String motd) throws IllegalAccessException, IllegalArgumentException,
             InvocationTargetException, NoSuchMethodException, SecurityException, NoSuchFieldException {
         Class<?> dedicatedServerClass = Reflector.getNMSClass("DedicatedServer");
         dedicatedServerClass.getMethod("setMotd", String.class).invoke(ReflectionHelper.getMinecraftServer(), motd);
@@ -59,6 +60,29 @@ public class GeneralReflections {
         } else {
         	Class<?> chatMessage = Reflector.getNMSClass("ChatMessageType");
             packet = packetPlayOutChat.getConstructor(baseComponent, chatMessage).newInstance(chatComponent, ReflectionHelper.getEnumByName(chatMessage, "GAME_INFO"));
+        }
+        ReflectionHelper.sendPacket(player, packet);
+    }
+
+    public static void sendHeaderAndFooter(Player player, String header, String footer) throws IllegalAccessException, IllegalArgumentException,
+    		InvocationTargetException, NoSuchMethodException, SecurityException, NoSuchFieldException, InstantiationException {
+    	Object iHeader = ReflectionHelper.getAsIChatBaseComponent(header);
+    	Object iFooter = ReflectionHelper.getAsIChatBaseComponent(footer);
+        Class<?> packetClass = Reflector.getNMSClass("PacketPlayOutPlayerListHeaderFooter");
+        Object packet = packetClass.newInstance();
+        try {
+            Field headerField = packet.getClass().getDeclaredField("a");
+            headerField.setAccessible(true);
+            headerField.set(packet, iHeader);
+            headerField.setAccessible(!headerField.isAccessible());
+
+
+            Field footerField = packet.getClass().getDeclaredField("b");
+            footerField.setAccessible(true);
+            footerField.set(packet, iFooter);
+            footerField.setAccessible(!footerField.isAccessible());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         ReflectionHelper.sendPacket(player, packet);
     }
