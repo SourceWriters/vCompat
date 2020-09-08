@@ -86,4 +86,67 @@ public class GeneralReflections {
         }
         ReflectionHelper.sendPacket(player, packet);
     }
+	
+	public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) throws InstantiationException, IllegalAccessException, 
+		IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, NoSuchFieldException {
+		Class<?> packetPlayOutTitleClass = Reflector.getNMSClass("PacketPlayOutTitle");
+		Class<?> baseComponent = Reflector.getNMSClass("IChatBaseComponent");
+		
+        Class<?> enumTitleActionClass = null;
+        for (Class<?> subClass : packetPlayOutTitleClass.getClasses()) {
+            if (subClass.getSimpleName().startsWith("EnumTitleAction")) {
+            	enumTitleActionClass = subClass;
+                break;
+            }
+        }
+        if (enumTitleActionClass == null) {
+            return;
+        }
+		Object packetPlayOutTitleTimes = packetPlayOutTitleClass.getConstructor(
+			enumTitleActionClass,
+			baseComponent,
+			int.class,
+			int.class,
+			int.class
+		).newInstance(
+			ReflectionHelper.getEnumByName(enumTitleActionClass, "TIMES"),
+			null,
+			fadeIn.intValue(),
+			stay.intValue(),
+			fadeOut.intValue()
+		);
+		ReflectionHelper.sendPacket(player, packetPlayOutTitleTimes);
+		
+        if (subtitle != null) {
+        	Object titleSub = ReflectionHelper.getAsIChatBaseComponent(subtitle);
+            Object packetPlayOutSubTitle = packetPlayOutTitleClass.getConstructor(
+        		enumTitleActionClass,
+        		baseComponent
+        	).newInstance(
+        		ReflectionHelper.getEnumByName(enumTitleActionClass, "SUBTITLE"),
+        		titleSub
+        	);      
+            ReflectionHelper.sendPacket(player, packetPlayOutSubTitle);
+        }
+        if (title != null) {
+        	Object titleMain = ReflectionHelper.getAsIChatBaseComponent(title);
+            Object packetPlayOutTitle = packetPlayOutTitleClass.getConstructor(
+        		enumTitleActionClass,
+        		baseComponent
+        	).newInstance(
+        		ReflectionHelper.getEnumByName(enumTitleActionClass, "TITLE"),
+        		titleMain
+        	);
+            ReflectionHelper.sendPacket(player, packetPlayOutTitle);
+        }
+    }
+	
+	public static int getPing(Player player) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+			NoSuchMethodException, SecurityException, NoSuchFieldException {
+		Object craftPlayer = ReflectionHelper.getCraftPlayer(player);
+		Object entityPlayer = ReflectionHelper.getEntityPlayer(player);
+		ReflectionHelper.craftPlayerClass.getDeclaredMethod("getHandle").invoke(craftPlayer); 
+		Field ping = ReflectionHelper.entityPlayerClass.getDeclaredField("ping");
+		return ping.getInt(entityPlayer);
+	}
 }
