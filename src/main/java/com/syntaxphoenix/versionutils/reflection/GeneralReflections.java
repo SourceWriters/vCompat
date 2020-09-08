@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.syntaxphoenix.versionutils.VersionUtils;
 import com.syntaxphoenix.versionutils.reflection.helper.ReflectionHelper;
 import com.syntaxphoenix.versionutils.reflection.helper.Reflector;
 
@@ -47,15 +48,18 @@ public class GeneralReflections {
         dedicatedServerClass.getMethod("setMotd", String.class).invoke(ReflectionHelper.getMinecraftServer(), motd);
     }
 
-
     public static void sendActionBar(Player player, String message) throws InstantiationException, IllegalAccessException,
     		IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, NoSuchFieldException {
-    	Object chatComponent = ReflectionHelper.createChatComponent(message);
-        //IChatBaseComponent cbc = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + msg + "\"}");
+    	Object chatComponent = ReflectionHelper.getAsIChatBaseComponent(message);
         Class<?> packetPlayOutChat = Reflector.getNMSClass("PacketPlayOutChat");
-        Object packet = packetPlayOutChat.getConstructor(packetPlayOutChat, Byte.class).newInstance(chatComponent, (byte) 2);
-        //PacketPlayOutChat ppoc = new PacketPlayOutChat(cbc, (byte)2);
-        ReflectionHelper.playerConnectionClass.getDeclaredMethod("a", packetPlayOutChat).invoke(ReflectionHelper.getConnection(player), packet);
-        //((CraftPlayer)p).getHandle().playerConnection.sendPacket(ppoc);
+        Class<?> baseComponent = Reflector.getNMSClass("IChatBaseComponent");
+        Object packet;
+        if (!VersionUtils.isNewerVersion(VersionUtils.getServerVersion(), 1, 12)) {
+            packet = packetPlayOutChat.getConstructor(baseComponent, byte.class).newInstance(chatComponent, (byte) 2);
+        } else {
+        	Class<?> chatMessage = Reflector.getNMSClass("ChatMessageType");
+            packet = packetPlayOutChat.getConstructor(baseComponent, chatMessage).newInstance(chatComponent, ReflectionHelper.getEnumByName(chatMessage, "GAME_INFO"));
+        }
+        ReflectionHelper.sendPacket(player, packet);
     }
 }

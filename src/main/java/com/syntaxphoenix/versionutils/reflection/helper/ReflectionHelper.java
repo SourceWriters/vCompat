@@ -75,4 +75,11 @@ public class ReflectionHelper {
         Constructor<?> c = chatMessageClass.getConstructor(String.class, Object[].class);
         return c.newInstance(text, new Object[0]);
     }
+    
+   	public static Object getAsIChatBaseComponent(String name) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+   			NoSuchMethodException, SecurityException {
+   		Class<?> iChatBaseComponent = Reflector.getNMSClass("IChatBaseComponent");
+   		Method method = iChatBaseComponent.getDeclaredClasses()[0].getMethod("a", String.class);
+   		return method.invoke(iChatBaseComponent, "{\"text\":\"" + name + "\"}");
+   	}
 }

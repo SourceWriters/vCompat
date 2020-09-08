@@ -37,4 +37,15 @@ public class VersionUtils {
 		}
 		return true;
 	}
+	
+	public static boolean isNewerVersion(String version, int major, int minor) {
+		String cleared_version = version.replace("v", "");
+		String[] parts = cleared_version.split("_");
+		if (Integer.valueOf(parts[0]) >= major) {
+			if (Integer.valueOf(parts[1]) >= minor) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
