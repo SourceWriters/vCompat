@@ -2,6 +2,7 @@ package net.sourcewriters.minecraft.versiontools.reflection.helper;
 
 import net.sourcewriters.minecraft.versiontools.VersionUtils;
 
+@Deprecated
 public class Reflector {
 	
     public static Class<?> getNMSClass(String nmsClassString) {

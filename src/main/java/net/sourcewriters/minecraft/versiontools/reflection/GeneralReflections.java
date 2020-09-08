@@ -12,6 +12,7 @@ import net.sourcewriters.minecraft.versiontools.VersionUtils;
 import net.sourcewriters.minecraft.versiontools.reflection.helper.ReflectionHelper;
 import net.sourcewriters.minecraft.versiontools.reflection.helper.Reflector;
 
+@SuppressWarnings("deprecation")
 public class GeneralReflections {
  
     public static void respawn(JavaPlugin plugin, Player player) {
@@ -49,7 +50,7 @@ public class GeneralReflections {
         dedicatedServerClass.getMethod("setMotd", String.class).invoke(ReflectionHelper.getMinecraftServer(), motd);
     }
 
-    public static void sendActionBar(Player player, String message) throws InstantiationException, IllegalAccessException,
+	public static void sendActionBar(Player player, String message) throws InstantiationException, IllegalAccessException,
     		IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, NoSuchFieldException {
     	Object chatComponent = ReflectionHelper.getAsIChatBaseComponent(message);
         Class<?> packetPlayOutChat = Reflector.getNMSClass("PacketPlayOutChat");

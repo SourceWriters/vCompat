@@ -16,6 +16,7 @@ import net.sourcewriters.minecraft.versiontools.utils.tasks.ObjectTask;
 import net.sourcewriters.minecraft.versiontools.utils.tasks.PlayerTask;
 import net.sourcewriters.minecraft.versiontools.utils.tasks.TaskUtils;
 
+@SuppressWarnings("deprecation")
 public class Hologram {
  
     public static HashMap<Integer, ArrayList<Object>> globalEntities = new HashMap<>();
