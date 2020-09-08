@@ -15,4 +15,26 @@ public class VersionUtils {
 
 		return version;
 	}
+	
+	public static boolean isBlockDataUsed(String version) {	
+		String[] splittedVersion = version.replace("v", "").split("_");
+		if (splittedVersion[0].equalsIgnoreCase("1")) {
+			int subVersion = Integer.valueOf(splittedVersion[1]);
+			if (subVersion <= 12) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static boolean isNewSound(String version) {	
+		String[] splittedVersion = version.replace("v", "").split("_");
+		if (splittedVersion[0].equalsIgnoreCase("1")) {
+			int subVersion = Integer.valueOf(splittedVersion[1]);
+			if (subVersion <= 8) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
