@@ -2,6 +2,7 @@ package net.sourcewriters.minecraft.versiontools;
 
 import org.bukkit.Bukkit;
 
+@Deprecated
 public class VersionUtils {
 	
 	public static String getServerVersion() {
