@@ -7,20 +7,24 @@ import com.syntaxphoenix.syntaxapi.version.VersionFormatter;
 
 public class ServerVersion extends Version {
 
+	public static final ServerAnalyzer ANALYZER = new ServerAnalyzer();
+
 	protected int refaction;
 
-	/*
-	 * 
-	 */
-
 	public ServerVersion() {
-		super();
-		refaction = 0;
+		this(0);
+	}
+
+	public ServerVersion(int major) {
+		this(major, 0);
+	}
+
+	public ServerVersion(int major, int minor) {
+		this(major, minor, 0);
 	}
 
 	public ServerVersion(int major, int minor, int patch) {
-		super(major, minor, patch);
-		refaction = 0;
+		this(major, minor, patch, 0);
 	}
 
 	public ServerVersion(int major, int minor, int patch, int refaction) {
@@ -28,95 +32,69 @@ public class ServerVersion extends Version {
 		this.refaction = refaction;
 	}
 
-	/*
-	 * 
-	 */
-
 	public int getRefaction() {
 		return refaction;
 	}
 
-	/*
-	 * 
-	 */
+	@Override
+	protected ServerVersion setMajor(int major) {
+		super.setMajor(major);
+		return this;
+	}
+
+	@Override
+	protected ServerVersion setMinor(int minor) {
+		super.setMinor(minor);
+		return this;
+	}
+
+	@Override
+	protected ServerVersion setPatch(int patch) {
+		super.setPatch(patch);
+		return this;
+	}
 
 	protected ServerVersion setRefaction(int refaction) {
 		this.refaction = refaction;
 		return this;
 	}
 
-	/*
-	 * 
-	 */
-
 	@Override
 	public boolean isHigher(Version version) {
-		if (getMajor() > version.getMajor())
+		if (super.isHigher(version))
 			return true;
-		if (getMajor() < version.getMajor())
-			return false;
-		if (getMinor() > version.getMinor())
-			return true;
-		if (getMinor() < version.getMinor())
-			return false;
-		if (getPatch() > version.getPatch())
-			return true;
-		if (getPatch() < version.getPatch())
-			return false;
 		if (version instanceof ServerVersion) {
 			ServerVersion other = (ServerVersion) version;
-			if (refaction > other.refaction)
-				return true;
-			if (refaction < other.refaction)
-				return false;
-		} else if (refaction > 0) {
-			return true;
-		}
-		return false;
+			return refaction > other.refaction;
+		} else
+			return refaction > 0;
 	}
 
 	@Override
 	public boolean isSimilar(Version version) {
 		return super.isSimilar(version)
-				&& (version instanceof ServerVersion ? ((ServerVersion) version).refaction == refaction
-						: refaction == 0);
+			&& ((version instanceof ServerVersion) && refaction == ((ServerVersion) version).refaction);
 	}
 
 	@Override
 	public boolean isLower(Version version) {
-		if (getMajor() < version.getMajor())
+		if (super.isHigher(version))
 			return true;
-		if (getMajor() > version.getMajor())
-			return false;
-		if (getMinor() < version.getMinor())
-			return true;
-		if (getMinor() > version.getMinor())
-			return false;
-		if (getPatch() < version.getPatch())
-			return true;
-		if (getPatch() > version.getPatch())
-			return false;
 		if (version instanceof ServerVersion) {
 			ServerVersion other = (ServerVersion) version;
-			if (refaction < other.refaction)
-				return true;
-			if (refaction > other.refaction)
-				return false;
+			return refaction < other.refaction;
 		}
 		return false;
 	}
-
-	/*
-	 * 
-	 */
 
 	@Override
 	public ServerVersion clone() {
 		return new ServerVersion(getMajor(), getMinor(), getPatch(), refaction);
 	}
 
+	@Override
 	public ServerVersion update(int major, int minor, int patch) {
-		return ((ServerVersion) super.update(major, minor, patch)).setRefaction(refaction);
+		return update(major, minor, patch, 0);
 	}
 
 	public ServerVersion update(int major, int minor, int patch, int refaction) {
@@ -128,13 +106,9 @@ public class ServerVersion extends Version {
 		return new ServerVersion(major, minor, patch);
 	}
 
-	/*
-	 * 
-	 */
-
 	@Override
-	public ServerVersionAnalyzer getAnalyzer() {
-		return new ServerVersionAnalyzer();
+	public ServerAnalyzer getAnalyzer() {
+		return ANALYZER;
 	}
 
 	@Override
@@ -147,31 +121,25 @@ public class ServerVersion extends Version {
 			builder.append(version.getMinor());
 			builder.append("_R");
 			builder.append(version.getPatch());
-			
-			if(version instanceof ServerVersion) {
+
+			if (version instanceof ServerVersion) {
 				ServerVersion server = (ServerVersion) version;
-				if(server.getRefaction() != 0) {
+				if (server.getRefaction() != 0) {
 					builder.append('.');
 					builder.append(server.getRefaction());
 				}
 			}
-			
+
 			return builder.toString();
 		};
 	}
 
-	/*
-	 * 
-	 * 
-	 * 
-	 */
-
-	public class ServerVersionAnalyzer implements VersionAnalyzer {
+	public static class ServerAnalyzer implements VersionAnalyzer {
 		@Override
 		public ServerVersion analyze(String formatted) {
 			ServerVersion version = new ServerVersion();
 			String[] parts = (formatted = formatted.replaceFirst("v", "")).contains("_") ? formatted.split("_")
-					: (formatted.contains(".") ? formatted.split("\\.") : new String[] { formatted });
+				: (formatted.contains(".") ? formatted.split("\\.") : new String[] { formatted });
 			try {
 				if (parts.length == 1) {
 					version.setMajor(Strings.isNumeric(parts[0]) ? Integer.parseInt(parts[0]) : 0);

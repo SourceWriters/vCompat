@@ -12,7 +12,7 @@ import net.sourcewriters.minecraft.versiontools.VersionUtils;
 import net.sourcewriters.minecraft.versiontools.reflection.helper.ReflectionHelper;
 import net.sourcewriters.minecraft.versiontools.reflection.helper.Reflector;
 
-@SuppressWarnings("deprecation")
+@Deprecated
 public class GeneralReflections {
  
     public static void respawn(JavaPlugin plugin, Player player) {

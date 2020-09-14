@@ -10,7 +10,7 @@ import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-@SuppressWarnings("deprecation")
+@Deprecated
 public class ReflectionHelper {
  
     public static Class<?> craftPlayerClass = Reflector.getCBClass("entity.CraftPlayer");

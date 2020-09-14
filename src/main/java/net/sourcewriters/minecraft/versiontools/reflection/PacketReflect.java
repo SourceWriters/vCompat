@@ -1,6 +1,6 @@
 package net.sourcewriters.minecraft.versiontools.reflection;
 
-import static net.sourcewriters.minecraft.versiontools.setup.MinecraftReflect.CACHE;
+import static net.sourcewriters.minecraft.versiontools.setup.ReflectionProvider.DEFAULT;
 
 import java.util.Collection;
 
@@ -12,10 +12,13 @@ public class PacketReflect {
 
 	public static void sendPacket(Object packet, Player player) {
 
-		Object entityPlayer = CACHE.get("cbCraftPlayer").get().run(player, "handle");
-		Object connection = CACHE.get("nmsEntityPlayer").get().getFieldValue("connection", entityPlayer);
+		Object entityPlayer = DEFAULT.getOptionalReflect("cbCraftPlayer").get().run(player, "handle");
+		Object connection = DEFAULT
+			.getOptionalReflect("nmsEntityPlayer")
+			.get()
+			.getFieldValue("connection", entityPlayer);
 
-		CACHE.get("nmsPlayerConnection").get().execute(connection, "sendPacket", packet);
+		DEFAULT.getOptionalReflect("nmsPlayerConnection").get().execute(connection, "sendPacket", packet);
 
 	}
 
@@ -29,9 +32,9 @@ public class PacketReflect {
 			return;
 		}
 
-		Reflect refCraftPlayer = CACHE.get("cbCraftPlayer").get();
-		Reflect refEntityPlayer = CACHE.get("nmsEntityPlayer").get();
-		Reflect refPlayerConnection = CACHE.get("nmsPlayerConnection").get();
+		Reflect refCraftPlayer = DEFAULT.getOptionalReflect("cbCraftPlayer").get();
+		Reflect refEntityPlayer = DEFAULT.getOptionalReflect("nmsEntityPlayer").get();
+		Reflect refPlayerConnection = DEFAULT.getOptionalReflect("nmsPlayerConnection").get();
 
 		for (Player player : players) {
 			Object entityPlayer = refCraftPlayer.run(player, "handle");
@@ -51,9 +54,9 @@ public class PacketReflect {
 			return;
 		}
 
-		Reflect refCraftPlayer = CACHE.get("cbCraftPlayer").get();
-		Reflect refEntityPlayer = CACHE.get("nmsEntityPlayer").get();
-		Reflect refPlayerConnection = CACHE.get("nmsPlayerConnection").get();
+		Reflect refCraftPlayer = DEFAULT.getOptionalReflect("cbCraftPlayer").get();
+		Reflect refEntityPlayer = DEFAULT.getOptionalReflect("nmsEntityPlayer").get();
+		Reflect refPlayerConnection = DEFAULT.getOptionalReflect("nmsPlayerConnection").get();
 
 		for (Player player : players) {
 			Object entityPlayer = refCraftPlayer.run(player, "handle");

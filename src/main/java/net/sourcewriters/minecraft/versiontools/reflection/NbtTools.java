@@ -1,6 +1,6 @@
 package net.sourcewriters.minecraft.versiontools.reflection;
 
-import static net.sourcewriters.minecraft.versiontools.setup.MinecraftReflect.CACHE;
+import static net.sourcewriters.minecraft.versiontools.setup.ReflectionProvider.DEFAULT;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -27,7 +27,7 @@ public class NbtTools {
 			PipedOutputStream output = new PipedOutputStream(input);
 
 			NbtSerializer.UNCOMPRESSED.toStream(new NbtNamedTag("root", compound), output);
-			Object nbtCompound = CACHE.get("nmsNBTTools").get().run("read", new DataInputStream(input));
+			Object nbtCompound = DEFAULT.getOptionalReflect("nmsNBTTools").get().run("read", new DataInputStream(input));
 
 			input.close();
 			output.close();
@@ -49,7 +49,7 @@ public class NbtTools {
 			PipedOutputStream output = new PipedOutputStream();
 			PipedInputStream input = new PipedInputStream(output);
 
-			CACHE.get("nmsNBTTools").get().execute("write", compound, new DataOutputStream(output));
+			DEFAULT.getOptionalReflect("nmsNBTTools").get().execute("write", compound, new DataOutputStream(output));
 			NbtTag nbtTag = NbtDeserializer.UNCOMPRESSED.fromStream(input).getTag();
 
 			if (nbtTag.getType() != NbtType.COMPOUND)
@@ -86,10 +86,10 @@ public class NbtTools {
 
 	public static Object itemToMinecraftCompound(ItemStack itemStack) {
 
-		Object nbtCompound = CACHE.get("nmsNBTCompound").get().init();
-		Object nmsStack = CACHE.get("cbItemStack").get().run("nms", itemStack);
+		Object nbtCompound = DEFAULT.getOptionalReflect("nmsNBTCompound").get().init();
+		Object nmsStack = DEFAULT.getOptionalReflect("cbItemStack").get().run("nms", itemStack);
 
-		nbtCompound = CACHE.get("nmsItemStack").get().run(nmsStack, "save", nbtCompound);
+		nbtCompound = DEFAULT.getOptionalReflect("nmsItemStack").get().run(nmsStack, "save", nbtCompound);
 
 		return nbtCompound;
 
@@ -97,8 +97,8 @@ public class NbtTools {
 
 	public static ItemStack itemFromMinecraftCompound(Object compound) {
 		
-		Object nmsStack = CACHE.get("nmsItemStack").get().run("load", compound);
-		ItemStack itemStack = (ItemStack) CACHE.get("cbItemStack").get().run("bukkit", nmsStack);
+		Object nmsStack = DEFAULT.getOptionalReflect("nmsItemStack").get().run("load", compound);
+		ItemStack itemStack = (ItemStack) DEFAULT.getOptionalReflect("cbItemStack").get().run("bukkit", nmsStack);
 		
 		return itemStack;
 		
