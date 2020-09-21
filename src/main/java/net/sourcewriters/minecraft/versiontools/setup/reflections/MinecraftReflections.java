@@ -6,8 +6,6 @@ import static net.sourcewriters.minecraft.versiontools.version.Versions.*;
 import java.io.DataInputStream;
 import java.io.DataOutput;
 
-import org.bukkit.inventory.ItemStack;
-
 import com.mojang.authlib.GameProfile;
 
 import net.sourcewriters.minecraft.versiontools.setup.ReflectionProvider;
@@ -34,11 +32,6 @@ public class MinecraftReflections extends Reflections {
 
 		Class<?> nmsNbtCompound = provider.createNMSReflect("nmsNBTCompound", "NBTCompound").getOwner();
 
-		Class<?> nmsItemStack = provider
-			.createNMSReflect("nmsItemStack", "ItemStack")
-			.searchMethod("save", "save", nmsNbtCompound)
-			.searchMethod("load", "a", nmsNbtCompound)
-			.getOwner();
 		Class<?> nmsEntityPlayer = provider
 			.createNMSReflect("nmsEntityPlayer", "EntityPlayer")
 			.searchField("connection", "playerConnection")
@@ -68,14 +61,6 @@ public class MinecraftReflections extends Reflections {
 		// Create Reflects
 		//
 
-		//
-		// Mojang
-
-		provider.createReflect("mjGameProfile", GameProfile.class).searchField("name", "name");
-
-		//
-		// NMS
-
 		provider
 			.createNMSReflect("nmsPlayerConnection", "PlayerConnection")
 			.searchMethod("sendPacket", "sendPacket", nmsPacket);
@@ -84,9 +69,13 @@ public class MinecraftReflections extends Reflections {
 			.searchMethod("read", "a", DataInputStream.class)
 			.searchMethod("write", "a", nmsNbtCompound, DataOutput.class);
 		provider.createNMSReflect("nmsEntity", "Entity").searchField("dimension", "dimension");
+		provider
+			.createNMSReflect("nmsItemStack", "ItemStack")
+			.searchMethod("save", "save", nmsNbtCompound)
+			.searchMethod("load", "a", nmsNbtCompound);
 
 		//
-		// NMS Packet
+		// Packets
 
 		provider
 			.createNMSReflect("nmsPacketPlayOutPlayerInfo", "PacketPlayOutPlayerInfo")
@@ -104,15 +93,11 @@ public class MinecraftReflections extends Reflections {
 			.searchConstructor(ignore -> minor(14, 15), "construct", nmsDimensionManager, nmsWorldType,
 				nmsEnumGamemode);
 
-		//
-		// CB Reflect
+	}
 
-		provider.createCBReflect("cbCraftPlayer", "entity.CraftPlayer").searchMethod("handle", "getHandle");
-		provider
-			.createCBReflect("cbItemStack", "inventory.CraftItemStack")
-			.searchMethod("nms", "asNMSCopy", ItemStack.class)
-			.searchMethod("bukkit", "asBukkitCopy", nmsItemStack);
-
+	@Override
+	public int priority() {
+		return 10;
 	}
 
 }
