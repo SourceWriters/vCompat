@@ -87,8 +87,8 @@ public class MinecraftReflections extends Reflections {
 		//
 		// Packets
 
-		provider.createNMSReflect("nmsPacketPlayOutChat", "PacketPlayOutChat")
-			.searchConstructor(ignore -> minor(minor -> minor > 12), "construct", );
+//		provider.createNMSReflect("nmsPacketPlayOutChat", "PacketPlayOutChat")
+//			.searchConstructor(ignore -> minor(minor -> minor > 12), "construct", );
 		provider
 			.createReflect("nmsPacketPlayInClientCommand", nmsPacketPlayInClientCommand)
 			.searchConstructor("construct", nmsEnumClientCommand);
