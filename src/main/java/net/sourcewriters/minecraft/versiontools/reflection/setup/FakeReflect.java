@@ -1,4 +1,4 @@
-package net.sourcewriters.minecraft.versiontools.setup;
+package net.sourcewriters.minecraft.versiontools.reflection.setup;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

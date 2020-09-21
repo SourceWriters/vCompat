@@ -117,6 +117,11 @@
 			<artifactId>reflection</artifactId>
 			<version>2.0.2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>random</artifactId>
+			<version>2.0.2</version>
+		</dependency>
 
 		<!-- Test -->
 		<dependency>

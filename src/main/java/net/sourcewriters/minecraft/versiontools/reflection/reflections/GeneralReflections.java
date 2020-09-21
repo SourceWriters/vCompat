@@ -1,9 +1,9 @@
-package net.sourcewriters.minecraft.versiontools.setup.reflections;
+package net.sourcewriters.minecraft.versiontools.reflection.reflections;
 
 import com.mojang.authlib.GameProfile;
 
-import net.sourcewriters.minecraft.versiontools.setup.ReflectionProvider;
-import net.sourcewriters.minecraft.versiontools.setup.Reflections;
+import net.sourcewriters.minecraft.versiontools.reflection.setup.ReflectionProvider;
+import net.sourcewriters.minecraft.versiontools.reflection.setup.Reflections;
 
 public class GeneralReflections extends Reflections {
 

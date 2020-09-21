@@ -1,4 +1,4 @@
-package net.sourcewriters.minecraft.versiontools.setup.reflections;
+package net.sourcewriters.minecraft.versiontools.reflection.reflections;
 
 import static net.sourcewriters.minecraft.versiontools.utils.java.ReflectionTools.*;
 import static net.sourcewriters.minecraft.versiontools.version.Versions.*;
@@ -8,8 +8,8 @@ import java.io.DataOutput;
 
 import com.mojang.authlib.GameProfile;
 
-import net.sourcewriters.minecraft.versiontools.setup.ReflectionProvider;
-import net.sourcewriters.minecraft.versiontools.setup.Reflections;
+import net.sourcewriters.minecraft.versiontools.reflection.setup.ReflectionProvider;
+import net.sourcewriters.minecraft.versiontools.reflection.setup.Reflections;
 
 public class MinecraftReflections extends Reflections {
 
@@ -26,6 +26,8 @@ public class MinecraftReflections extends Reflections {
 
 		Class<?> nmsPacket = provider.getNMSClass("Packet");
 		Class<?> nmsDimensionManager = provider.getNMSClass("DimensionManager");
+		Class<?> nmsIChatBaseComponent = provider.getNMSClass("IChatBaseComponent");
+		Class<?> nmsPacketPlayInClientCommand = provider.getNMSClass("PacketPlayInClientCommand");
 
 		//
 		// NMS Reflect
@@ -35,32 +37,40 @@ public class MinecraftReflections extends Reflections {
 		Class<?> nmsEntityPlayer = provider
 			.createNMSReflect("nmsEntityPlayer", "EntityPlayer")
 			.searchField("connection", "playerConnection")
+			.searchField("ping", "ping")
 			.getOwner();
 		Class<?> nmsWorldType = provider
 			.createNMSReflect("nmsWorldType", "WorldType")
 			.searchMethod("get", "getType", String.class)
 			.getOwner();
-
-		Class<?> nmsEnumPlayerInfoAction = provider
-			.createReflect("nmsEnumPlayerInfoAction",
-				subclass(provider.getNMSClass("PacketPlayOutPlayerInfo"), "EnumPlayerInfoAction"))
-			.searchMethod("get", "getType", String.class)
-			.getOwner();
-		Class<?> nmsEnumDifficulty = provider.createNMSReflect("nmsEnumDifficulty", "EnumDifficulty").getOwner();
-		Class<?> nmsEnumGamemode = provider.createNMSReflect("nmsEnumGamemode", "EnumGamemode").getOwner();
 		Class<?> nmsEntityHuman = provider
 			.createNMSReflect("nmsEntityHuman", "EntityHuman")
 			.searchField("profile", GameProfile.class)
 			.getOwner();
 
 		//
-		// CB Reflect
+		// NMS Enum
+
+		Class<?> nmsEnumPlayerInfoAction = provider
+			.createReflect("nmsEnumPlayerInfoAction",
+				subclass(provider.getNMSClass("PacketPlayOutPlayerInfo"), "EnumPlayerInfoAction"))
+			.searchMethod("get", "getType", String.class)
+			.getOwner();
+
+		Class<?> nmsEnumDifficulty = provider.createNMSReflect("nmsEnumDifficulty", "EnumDifficulty").getOwner();
+		Class<?> nmsEnumGamemode = provider.createNMSReflect("nmsEnumGamemode", "EnumGamemode").getOwner();
+		Class<?> nmsEnumClientCommand = provider
+			.createReflect("nmsEnumClientCommand", subclass(nmsPacketPlayInClientCommand, "EnumClientCommand"))
+			.getOwner();
 
 		//
 		//
 		// Create Reflects
 		//
 
+		provider
+			.createNMSReflect("nmsDedicatedServer", "DedicatedServer")
+			.searchMethod("setMotd", "setMotd", String.class);
 		provider
 			.createNMSReflect("nmsPlayerConnection", "PlayerConnection")
 			.searchMethod("sendPacket", "sendPacket", nmsPacket);
@@ -76,6 +86,12 @@ public class MinecraftReflections extends Reflections {
 
 		//
 		// Packets
+
+		provider.createNMSReflect("nmsPacketPlayOutChat", "PacketPlayOutChat")
+			.searchConstructor(ignore -> minor(minor -> minor > 12), "construct", );
+		provider
+			.createReflect("nmsPacketPlayInClientCommand", nmsPacketPlayInClientCommand)
+			.searchConstructor("construct", nmsEnumClientCommand);
 
 		provider
 			.createNMSReflect("nmsPacketPlayOutPlayerInfo", "PacketPlayOutPlayerInfo")

@@ -1,13 +1,15 @@
 package net.sourcewriters.minecraft.versiontools.reflection;
 
-import static net.sourcewriters.minecraft.versiontools.setup.ReflectionProvider.DEFAULT;
 import static net.sourcewriters.minecraft.versiontools.version.Versions.*;
-import static net.sourcewriters.minecraft.versiontools.reflection.PacketReflect.sendPacket;
+import static net.sourcewriters.minecraft.versiontools.reflection.PacketTools.sendPacket;
+import static net.sourcewriters.minecraft.versiontools.reflection.setup.ReflectionProvider.DEFAULT;
 import static net.sourcewriters.minecraft.versiontools.utils.java.ArrayTools.filter;
+import static net.sourcewriters.minecraft.versiontools.utils.java.OptionTools.checkPresence;
 import static net.sourcewriters.minecraft.versiontools.utils.bukkit.Players.getOnline;
 import static net.sourcewriters.minecraft.versiontools.utils.bukkit.Players.getOnlineWithout;
 
 import java.lang.reflect.Array;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.bukkit.World;
@@ -19,146 +21,199 @@ import com.mojang.authlib.properties.PropertyMap;
 import com.syntaxphoenix.syntaxapi.reflection.Reflect;
 
 import net.sourcewriters.minecraft.versiontools.skin.Skin;
+import net.sourcewriters.minecraft.versiontools.utils.java.ArrayTools;
 
-public class PlayerTools {
+public abstract class PlayerTools {
 
-	public static Skin getSkinFromPlayer(Player player) {
+    public static Skin getSkinFromPlayer(Player player) {
 
-		Object entityPlayer = DEFAULT.getOptionalReflect("cbCraftPlayer").get().run(player, "handle");
-		GameProfile profile = (GameProfile) DEFAULT
-			.getOptionalReflect("nmsEntityHuman")
-			.get()
-			.getFieldValue("profile", entityPlayer);
+        Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("cbCraftPlayer");
+        Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEntityHuman");
 
-		return getSkinFromGameProfile(profile);
+        if (checkPresence(optional0, optional1))
+            return null;
 
-	}
+        Object entityPlayer = optional0.get().run(player, "handle");
+        GameProfile profile = (GameProfile) optional1.get().getFieldValue("profile", entityPlayer);
 
-	public static Skin getSkinFromGameProfile(GameProfile profile) {
+        return getSkinFromGameProfile(profile);
 
-		PropertyMap properties = profile.getProperties();
+    }
 
-		if (!properties.containsKey("textures"))
-			return null;
+    public static Skin getSkinFromGameProfile(GameProfile profile) {
 
-		Property property = properties.get("textures").iterator().next();
+        PropertyMap properties = profile.getProperties();
 
-		return new Skin(profile.getName(), property.getValue(), property.getSignature());
+        if (!properties.containsKey("textures"))
+            return null;
 
-	}
+        Property property = properties.get("textures").iterator().next();
 
-	/*
-	 * 
-	 */
+        return new Skin(profile.getName(), property.getValue(), property.getSignature());
 
-	public static Player setSkin(Player player, Skin skin) {
+    }
 
-		if (player == null || skin == null)
-			return player;
+    /*
+     * 
+     */
 
-		Object entityPlayer = DEFAULT.getOptionalReflect("cbCraftPlayer").get().run(player, "handle");
-		GameProfile profile = (GameProfile) DEFAULT
-			.getOptionalReflect("nmsEntityHuman")
-			.get()
-			.getFieldValue("profile", entityPlayer);
+    public static Player setSkin(Player player, Skin skin) {
 
-		PropertyMap properties = profile.getProperties();
-		properties.removeAll("textures");
+        Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("cbCraftPlayer");
+        Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEntityHuman");
 
-		Property property = new Property("textures", skin.getValue(), skin.getSignature());
-		properties.put("textures", property);
+        if (checkPresence(optional0, optional1))
+            return null;
 
-		return player;
+        if (player == null || skin == null)
+            return player;
 
-	}
+        Object entityPlayer = optional0.get().run(player, "handle");
+        GameProfile profile = (GameProfile) optional1.get().getFieldValue("profile", entityPlayer);
 
-	public static Player setName(Player player, String name) {
+        PropertyMap properties = profile.getProperties();
+        properties.removeAll("textures");
 
-		Object entityPlayer = DEFAULT.getOptionalReflect("cbCraftPlayer").get().run(player, "handle");
-		GameProfile profile = (GameProfile) DEFAULT
-			.getOptionalReflect("nmsEntityHuman")
-			.get()
-			.getFieldValue("profile", entityPlayer);
+        Property property = new Property("textures", skin.getValue(), skin.getSignature());
+        properties.put("textures", property);
 
-		DEFAULT.getOptionalReflect("mjGameProfile").get().setFieldValue(profile, "name", name);
+        return player;
 
-		return player;
+    }
 
-	}
+    public static Player setName(Player player, String name) {
 
-	/*
-	 * 
-	 */
+        Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("cbCraftPlayer");
+        Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEntityHuman");
+        Optional<Reflect> optional2 = DEFAULT.getOptionalReflect("mjGameProfile");
 
-	public static Player fakeRespawn(Player player) {
+        if (checkPresence(optional0, optional1, optional2))
+            return null;
 
-		Object entityPlayer = DEFAULT.getOptionalReflect("cbCraftPlayer").get().run(player, "handle");
-		Object dimension = DEFAULT.getOptionalReflect("nmsEntity").get().getFieldValue("dimension", entityPlayer);
+        Object entityPlayer = optional0.get().run(player, "handle");
+        GameProfile profile = (GameProfile) optional1.get().getFieldValue("profile", entityPlayer);
 
-		World world = player.getWorld();
+        optional2.get().setFieldValue(profile, "name", name);
 
-		Object gamemode = filter(DEFAULT.getOptionalReflect("nmsEnumGamemode").get().getOwner().getEnumConstants(),
-			player.getGameMode().name());
-		Object worldType = DEFAULT
-			.getOptionalReflect("nmsWorldType")
-			.get()
-			.run("get", (Object) world.getWorldType().getName());
+        return player;
 
-		Object[] actionInfoEnums = DEFAULT
-			.getOptionalReflect("nmsEnumPlayerInfoAction")
-			.get()
-			.getOwner()
-			.getEnumConstants();
-		Object enumRemovePlayerInfoAction = filter(actionInfoEnums, "REMOVE_PLAYER");
-		Object enumAddPlayerInfoAction = filter(actionInfoEnums, "ADD_PLAYER");
+    }
 
-		Object entityPlayerArray = Array.newInstance(DEFAULT.getOptionalReflect("nmsEntityPlayer").get().getOwner(), 1);
-		Object intArray = Array.newInstance(int.class, 1);
+    /*
+     * 
+     */
 
-		Array.set(entityPlayerArray, 0, entityPlayer);
-		Array.set(intArray, 0, player.getEntityId());
+    public static Player respawn(Player player) {
 
-		Reflect refPlayerInfo = DEFAULT.getOptionalReflect("nmsPacketPlayOutPlayerInfo").get();
-		Object packetRemovePlayerInfo = refPlayerInfo.init("construct", enumRemovePlayerInfoAction, entityPlayerArray);
-		Object packetAddPlayerInfo = refPlayerInfo.init("construct", enumAddPlayerInfoAction, entityPlayerArray);
+        Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsEnumClientCommand");
+        Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsPacketPlayInClientCommand");
 
-		Object packetEntityDestroy = DEFAULT
-			.getOptionalReflect("nmsPacketPlayOutEntityDestroy")
-			.get()
-			.init("construct", intArray);
-		Object packetEntitySpawn = DEFAULT
-			.getOptionalReflect("nmsPacketPlayOutNamedEntitySpawn")
-			.get()
-			.init("construct", entityPlayer);
+        if (checkPresence(optional0, optional1))
+            return null;
 
-		UUID uniqueId = player.getUniqueId();
+        Object clientCommand = optional0
+            .map(reflect -> ArrayTools.filter(reflect.getOwner().getEnumConstants(), "PERFORM_RESPAWN"))
+            .get();
 
-		Player[] withoutOwner = getOnlineWithout(uniqueId);
-		Player[] all = getOnline();
+        Object clientCommandPacket = optional1.get().init("construct", clientCommand);
 
-		sendPacket(packetRemovePlayerInfo, all);
-		sendPacket(packetAddPlayerInfo, all);
-		sendPacket(packetEntityDestroy, withoutOwner);
-		sendPacket(packetEntitySpawn, withoutOwner);
+        sendPacket(clientCommandPacket);
 
-		if (minor(13)) {
-			sendPacket(DEFAULT
-				.getOptionalReflect("nmsPacketPlayOutRespawn")
-				.get()
-				.init("construct", dimension,
-					filter(DEFAULT.getOptionalReflect("nmsEnumDifficulty").get().getOwner().getEnumConstants(),
-						world.getDifficulty().name()),
-					worldType, gamemode),
-				player);
-		} else {
-			sendPacket(DEFAULT
-				.getOptionalReflect("nmsPacketPlayOutRespawn")
-				.get()
-				.init("construct", dimension, worldType, gamemode), player);
-		}
+        return player;
 
-		return player;
+    }
 
-	}
+    public static Player fakeRespawn(Player player) {
+
+        Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("cbCraftPlayer");
+        Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEntity");
+        Optional<Reflect> optional2 = DEFAULT.getOptionalReflect("nmsEnumGamemode");
+        Optional<Reflect> optional3 = DEFAULT.getOptionalReflect("nmsWorldType");
+        Optional<Reflect> optional4 = DEFAULT.getOptionalReflect("nmsEntityPlayer");
+        Optional<Reflect> optional5 = DEFAULT.getOptionalReflect("nmsEnumPlayerInfoAction");
+        Optional<Reflect> optional6 = DEFAULT.getOptionalReflect("nmsPacketPlayOutEntityDestroy");
+        Optional<Reflect> optional7 = DEFAULT.getOptionalReflect("nmsPacketPlayOutNamedEntitySpawn");
+        Optional<Reflect> optional8 = DEFAULT.getOptionalReflect("nmsPacketPlayOutRespawn");
+
+        if (checkPresence(optional0, optional1, optional2, optional3, optional4, optional5, optional6, optional7,
+            optional8))
+            return null;
+
+        Object entityPlayer = optional0.get().run(player, "handle");
+        Object dimension = optional1.get().getFieldValue("dimension", entityPlayer);
+
+        World world = player.getWorld();
+
+        Object gamemode = filter(optional2.get().getOwner().getEnumConstants(), player.getGameMode().name());
+        Object worldType = optional3.get().run("get", (Object) world.getWorldType().getName());
+
+        Object[] actionInfoEnums = optional5.get().getOwner().getEnumConstants();
+        Object enumRemovePlayerInfoAction = filter(actionInfoEnums, "REMOVE_PLAYER");
+        Object enumAddPlayerInfoAction = filter(actionInfoEnums, "ADD_PLAYER");
+
+        Object entityPlayerArray = Array.newInstance(optional4.get().getOwner(), 1);
+        Object intArray = Array.newInstance(int.class, 1);
+
+        Array.set(entityPlayerArray, 0, entityPlayer);
+        Array.set(intArray, 0, player.getEntityId());
+
+        Reflect refPlayerInfo = optional5.get();
+        Object packetRemovePlayerInfo = refPlayerInfo.init("construct", enumRemovePlayerInfoAction, entityPlayerArray);
+        Object packetAddPlayerInfo = refPlayerInfo.init("construct", enumAddPlayerInfoAction, entityPlayerArray);
+
+        Object packetEntityDestroy = optional6.get().init("construct", intArray);
+        Object packetEntitySpawn = optional7.get().init("construct", entityPlayer);
+
+        UUID uniqueId = player.getUniqueId();
+
+        Player[] withoutOwner = getOnlineWithout(uniqueId);
+        Player[] all = getOnline();
+
+        sendPacket(packetRemovePlayerInfo, all);
+        sendPacket(packetAddPlayerInfo,
+
+            all);
+        sendPacket(packetEntityDestroy,
+
+            withoutOwner);
+        sendPacket(packetEntitySpawn, withoutOwner);
+
+        if (minor(13)) {
+            sendPacket(optional8
+                .get()
+                .init("construct", dimension,
+                    filter(DEFAULT.getOptionalReflect("nmsEnumDifficulty").get().getOwner().getEnumConstants(),
+                        world.getDifficulty().name()),
+                    worldType, gamemode),
+                player);
+        } else {
+            sendPacket(optional8.get().init("construct", dimension, worldType, gamemode), player);
+        }
+
+        return player;
+
+    }
+
+    /*
+     * 
+     */
+
+    public static void sendActionBar(Player player, String message) {
+
+    }
+
+    public static int getPing(Player player) {
+
+        Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("cbCraftPlayer");
+        Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEntityPlayer");
+
+        if (checkPresence(optional0, optional1))
+            return -1;
+
+        Object entityPlayer = optional0.get().run(player, "handle");
+
+        return (int) optional1.get().run(entityPlayer, "ping");
+
+    }
 
 }

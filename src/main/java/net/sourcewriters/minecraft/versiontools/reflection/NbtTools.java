@@ -1,6 +1,6 @@
 package net.sourcewriters.minecraft.versiontools.reflection;
 
-import static net.sourcewriters.minecraft.versiontools.setup.ReflectionProvider.DEFAULT;
+import static net.sourcewriters.minecraft.versiontools.reflection.setup.ReflectionProvider.DEFAULT;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -17,7 +17,7 @@ import com.syntaxphoenix.syntaxapi.nbt.NbtType;
 import com.syntaxphoenix.syntaxapi.nbt.tools.NbtDeserializer;
 import com.syntaxphoenix.syntaxapi.nbt.tools.NbtSerializer;
 
-public class NbtTools {
+public abstract class NbtTools {
 
 	public static Object toMinecraftCompound(NbtCompound compound) {
 

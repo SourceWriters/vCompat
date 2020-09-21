@@ -1,14 +1,13 @@
-package net.sourcewriters.minecraft.versiontools.setup;
+package net.sourcewriters.minecraft.versiontools.reflection.setup;
 
 import java.util.function.Consumer;
 
-import net.sourcewriters.minecraft.versiontools.setup.reflections.CraftbukkitReflections;
-import net.sourcewriters.minecraft.versiontools.setup.reflections.MinecraftReflections;
+import net.sourcewriters.minecraft.versiontools.reflection.reflections.*;
 
 public abstract class Reflections {
 
 	public static void globalSetup(ReflectionProvider provider) {
-		// TODO: Switch to reflections
+		new GeneralReflections().setup(provider);
 		new MinecraftReflections().setup(provider);
 		new CraftbukkitReflections().setup(provider);
 	}

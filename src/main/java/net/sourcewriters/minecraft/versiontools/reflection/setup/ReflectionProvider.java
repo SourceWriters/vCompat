@@ -1,6 +1,6 @@
-package net.sourcewriters.minecraft.versiontools.setup;
+package net.sourcewriters.minecraft.versiontools.reflection.setup;
 
-import static net.sourcewriters.minecraft.versiontools.setup.FakeReflect.FAKE;
+import static net.sourcewriters.minecraft.versiontools.reflection.setup.FakeReflect.FAKE;
 
 import java.util.Optional;
 import java.util.function.Consumer;
