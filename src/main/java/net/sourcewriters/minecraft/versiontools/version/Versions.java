@@ -69,25 +69,31 @@ public abstract class Versions {
 
 	public static boolean major(int... major) {
 		int server = getServer().getMajor();
-		for (int current : major)
-			if (server == current)
+		for (int current : major) {
+			if (server == current) {
 				return true;
+			}
+		}
 		return false;
 	}
 
 	public static boolean minor(int... minor) {
 		int server = getServer().getMinor();
-		for (int current : minor)
-			if (server == current)
+		for (int current : minor) {
+			if (server == current) {
 				return true;
+			}
+		}
 		return false;
 	}
 
 	public static boolean refaction(int... refaction) {
 		int server = getServer().getRefaction();
-		for (int current : refaction)
-			if (server == current)
+		for (int current : refaction) {
+			if (server == current) {
 				return true;
+			}
+		}
 		return false;
 	}
 

@@ -18,20 +18,22 @@ public abstract class PacketTools {
 		Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEntityPlayer");
 		Optional<Reflect> optional2 = DEFAULT.getOptionalReflect("nmsPlayerConnection");
 
-		if (checkPresence(optional0, optional1, optional2))
+		if (checkPresence(optional0, optional1, optional2)) {
 			return;
+		}
 
 		Object entityPlayer = optional0.get().run(player, "handle");
 		Object connection = optional1.get().getFieldValue("connection", entityPlayer);
 
 		optional2.get().execute(connection, "sendPacket", packet);
-		
+
 	}
 
 	public static void sendPacket(Object packet, Player... players) {
 
-		if (players.length == 0)
+		if (players.length == 0) {
 			return;
+		}
 
 		if (players.length == 1) {
 			sendPacket(packet, players[0]);
@@ -42,8 +44,9 @@ public abstract class PacketTools {
 		Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEntityPlayer");
 		Optional<Reflect> optional2 = DEFAULT.getOptionalReflect("nmsPlayerConnection");
 
-		if (checkPresence(optional0, optional1, optional2))
+		if (checkPresence(optional0, optional1, optional2)) {
 			return;
+		}
 
 		Reflect refCraftPlayer = optional0.get();
 		Reflect refEntityPlayer = optional1.get();
@@ -59,8 +62,9 @@ public abstract class PacketTools {
 
 	public static void sendPacket(Object packet, Collection<Player> players) {
 
-		if (players.size() == 0)
+		if (players.size() == 0) {
 			return;
+		}
 
 		if (players.size() == 1) {
 			sendPacket(packet, players.iterator().next());
@@ -71,8 +75,9 @@ public abstract class PacketTools {
 		Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEntityPlayer");
 		Optional<Reflect> optional2 = DEFAULT.getOptionalReflect("nmsPlayerConnection");
 
-		if (checkPresence(optional0, optional1, optional2))
+		if (checkPresence(optional0, optional1, optional2)) {
 			return;
+		}
 
 		Reflect refCraftPlayer = optional0.get();
 		Reflect refEntityPlayer = optional1.get();

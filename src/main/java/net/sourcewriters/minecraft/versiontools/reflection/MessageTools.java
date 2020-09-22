@@ -17,8 +17,9 @@ public abstract class MessageTools {
 
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("cbCraftChatMessage");
 
-		if (checkPresence(optional0))
+		if (checkPresence(optional0)) {
 			return null;
+		}
 
 		return Array.get(optional0.get().run("fromString0", (Object) color(text)), 0);
 
@@ -28,8 +29,9 @@ public abstract class MessageTools {
 
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("cbCraftChatMessage");
 
-		if (checkPresence(optional0))
+		if (checkPresence(optional0)) {
 			return null;
+		}
 
 		return Array.get(optional0.get().run("fromString1", (Object) color(text), (Object) keepNewLines), 0);
 
@@ -39,8 +41,9 @@ public abstract class MessageTools {
 
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("cbCraftChatMessage");
 
-		if (checkPresence(optional0))
+		if (checkPresence(optional0)) {
 			return null;
+		}
 
 		return uncolor((String) optional0.get().run("toString", (Object) components));
 

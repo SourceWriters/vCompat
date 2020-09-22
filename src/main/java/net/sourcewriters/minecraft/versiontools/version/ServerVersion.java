@@ -61,13 +61,15 @@ public class ServerVersion extends Version {
 
 	@Override
 	public boolean isHigher(Version version) {
-		if (super.isHigher(version))
+		if (super.isHigher(version)) {
 			return true;
+		}
 		if (version instanceof ServerVersion) {
 			ServerVersion other = (ServerVersion) version;
 			return refaction > other.refaction;
-		} else
+		} else {
 			return refaction > 0;
+		}
 	}
 
 	@Override
@@ -78,8 +80,9 @@ public class ServerVersion extends Version {
 
 	@Override
 	public boolean isLower(Version version) {
-		if (super.isHigher(version))
+		if (super.isHigher(version)) {
 			return true;
+		}
 		if (version instanceof ServerVersion) {
 			ServerVersion other = (ServerVersion) version;
 			return refaction < other.refaction;

@@ -60,8 +60,9 @@ public class Profile {
 	 */
 
 	public boolean validate() {
-		if (authToken == null)
+		if (authToken == null) {
 			return false;
+		}
 
 		try {
 
@@ -73,10 +74,11 @@ public class Profile {
 
 			int code = request.execute(String.format(AUTH_SERVER, "validate"), ContentType.JSON).getCode();
 
-			if (code == 204)
+			if (code == 204) {
 				return true;
-			else
+			} else {
 				return false;
+			}
 
 		} catch (IOException ignore) {
 			return false;
@@ -85,8 +87,9 @@ public class Profile {
 	}
 
 	public Profile refresh() {
-		if (authToken == null)
+		if (authToken == null) {
 			return this;
+		}
 
 		try {
 
@@ -102,8 +105,9 @@ public class Profile {
 
 			authToken = null;
 
-			if (!response.has("accessToken"))
+			if (!response.has("accessToken")) {
 				return this;
+			}
 
 			authToken = response.get("accessToken").getAsString();
 
@@ -139,8 +143,9 @@ public class Profile {
 
 			authToken = null;
 
-			if (!object.has("selectedProfile"))
+			if (!object.has("selectedProfile")) {
 				return this;
+			}
 
 			JsonObject profile = response.get("selectedProfile").getAsJsonObject();
 

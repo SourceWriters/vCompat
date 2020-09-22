@@ -34,8 +34,9 @@ public abstract class PlayerTools {
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("cbCraftPlayer");
 		Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEntityPlayer");
 
-		if (checkPresence(optional0, optional1))
+		if (checkPresence(optional0, optional1)) {
 			return -1;
+		}
 
 		Object entityPlayer = optional0.get().run(player, "handle");
 
@@ -52,11 +53,13 @@ public abstract class PlayerTools {
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("cbCraftPlayer");
 		Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEntityHuman");
 
-		if (checkPresence(optional0, optional1))
+		if (checkPresence(optional0, optional1)) {
 			return null;
+		}
 
-		if (player == null || skin == null)
+		if (player == null || skin == null) {
 			return player;
+		}
 
 		Object entityPlayer = optional0.get().run(player, "handle");
 		GameProfile profile = (GameProfile) optional1.get().getFieldValue("profile", entityPlayer);
@@ -77,8 +80,9 @@ public abstract class PlayerTools {
 		Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEntityHuman");
 		Optional<Reflect> optional2 = DEFAULT.getOptionalReflect("mjGameProfile");
 
-		if (checkPresence(optional0, optional1, optional2))
+		if (checkPresence(optional0, optional1, optional2)) {
 			return null;
+		}
 
 		Object entityPlayer = optional0.get().run(player, "handle");
 		GameProfile profile = (GameProfile) optional1.get().getFieldValue("profile", entityPlayer);
@@ -98,8 +102,9 @@ public abstract class PlayerTools {
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsEnumClientCommand");
 		Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsPacketPlayInClientCommand");
 
-		if (checkPresence(optional0, optional1))
+		if (checkPresence(optional0, optional1)) {
 			return null;
+		}
 
 		Object clientCommand = optional0
 			.map(reflect -> ArrayTools.filter(reflect.getOwner().getEnumConstants(), "PERFORM_RESPAWN"))
@@ -126,8 +131,9 @@ public abstract class PlayerTools {
 		Optional<Reflect> optional8 = DEFAULT.getOptionalReflect("nmsPacketPlayOutRespawn");
 
 		if (checkPresence(optional0, optional1, optional2, optional3, optional4, optional5, optional6, optional7,
-			optional8))
+			optional8)) {
 			return null;
+		}
 
 		Object entityPlayer = optional0.get().run(player, "handle");
 		Object dimension = optional1.get().getFieldValue("dimension", entityPlayer);
@@ -193,8 +199,9 @@ public abstract class PlayerTools {
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("cbCraftChatMessage");
 		Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsPacketPlayOutPlayerListHeaderFooter");
 
-		if (checkPresence(optional0, optional1))
+		if (checkPresence(optional0, optional1)) {
 			return;
+		}
 		
 		Reflect craftChatMessageRef = optional0.get();
 		Reflect packetRef = optional1.get();
@@ -217,8 +224,9 @@ public abstract class PlayerTools {
 		Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsChatMessageType");
 		Optional<Reflect> optional2 = DEFAULT.getOptionalReflect("nmsPacketPlayOutChat");
 
-		if (checkPresence(optional0, optional1, optional2))
+		if (checkPresence(optional0, optional1, optional2)) {
 			return;
+		}
 
 		Reflect chatMessageTypeRef = optional1.get();
 

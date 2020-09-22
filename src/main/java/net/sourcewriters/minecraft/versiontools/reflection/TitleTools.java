@@ -18,8 +18,9 @@ public abstract class TitleTools {
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsPacketPlayOutTitle");
 		Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEnumTitleAction");
 
-		if (!checkPresence(optional0, optional1))
+		if (!checkPresence(optional0, optional1)) {
 			return;
+		}
 
 		Object action = filter(optional1.get().getOwner().getEnumConstants(), "TIMES");
 
@@ -34,8 +35,9 @@ public abstract class TitleTools {
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsPacketPlayOutTitle");
 		Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEnumTitleAction");
 
-		if (!checkPresence(optional0, optional1))
+		if (!checkPresence(optional0, optional1)) {
 			return;
+		}
 
 		Object action = filter(optional1.get().getOwner().getEnumConstants(), "TITLE");
 		Object component = MessageTools.toComponents(title);
@@ -51,8 +53,9 @@ public abstract class TitleTools {
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsPacketPlayOutTitle");
 		Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEnumTitleAction");
 
-		if (!checkPresence(optional0, optional1))
+		if (!checkPresence(optional0, optional1)) {
 			return;
+		}
 
 		Object action = filter(optional1.get().getOwner().getEnumConstants(), "SUBTITLE");
 		Object component = MessageTools.toComponents(subtitle);

@@ -15,8 +15,9 @@ public abstract class Reflections {
 	public abstract void setup(ReflectionProvider provider);
 
 	public static <T> T predicate(boolean condition, T value, Consumer<T> action) {
-		if (condition)
+		if (condition) {
 			action.accept(value);
+		}
 		return value;
 	}
 	

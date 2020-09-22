@@ -54,9 +54,11 @@ public class Players {
 	public static <E extends OfflinePlayer> List<E> filter(E[] players, UUID[] uniqueIds, boolean blacklist) {
 		ArrayList<E> output = new ArrayList<>();
 		List<UUID> filter = Arrays.asList(uniqueIds);
-		for (E player : players)
-			if (blacklist ? !filter.contains(player.getUniqueId()) : filter.contains(player.getUniqueId()))
+		for (E player : players) {
+			if (blacklist ? !filter.contains(player.getUniqueId()) : filter.contains(player.getUniqueId())) {
 				output.add(player);
+			}
+		}
 		return output;
 	}
 

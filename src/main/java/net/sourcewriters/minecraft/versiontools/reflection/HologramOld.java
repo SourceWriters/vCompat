@@ -1,7 +1,7 @@
 package net.sourcewriters.minecraft.versiontools.reflection;
 
 @Deprecated
-public class Hologram {
+public class HologramOld {
  
 //    public static HashMap<Integer, ArrayList<Object>> globalEntities = new HashMap<>();
 // 

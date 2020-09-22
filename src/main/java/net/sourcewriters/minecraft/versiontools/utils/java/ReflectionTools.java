@@ -5,9 +5,11 @@ import java.lang.reflect.Array;
 public abstract class ReflectionTools {
 
 	public static Class<?> subclass(Class<?> clazz, String name) {
-		for (Class<?> search : clazz.getClasses())
-			if (search.getSimpleName().split("\\.")[0].equals(name))
+		for (Class<?> search : clazz.getClasses()) {
+			if (search.getSimpleName().split("\\.")[0].equals(name)) {
 				return search;
+			}
+		}
 		return null;
 	}
 

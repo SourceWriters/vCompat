@@ -16,8 +16,9 @@ public abstract class ServerTools {
         Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsDedicatedServer");
         Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("cbCraftServer");
 
-        if (checkPresence(optional0, optional1))
-            return;
+        if (checkPresence(optional0, optional1)) {
+			return;
+		}
 
         Object minecraftServer = optional1.get().getFieldValue("minecraftServer", Bukkit.getServer());
 

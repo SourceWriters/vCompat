@@ -6,6 +6,8 @@ import static net.sourcewriters.minecraft.versiontools.version.Versions.*;
 import java.io.DataInputStream;
 import java.io.DataOutput;
 
+import org.bukkit.Location;
+
 import com.mojang.authlib.GameProfile;
 
 import net.sourcewriters.minecraft.versiontools.reflection.setup.ReflectionProvider;
@@ -29,12 +31,15 @@ public class MinecraftReflections extends Reflections {
 		Class<?> nmsIChatBaseComponent = provider.getNMSClass("IChatBaseComponent");
 		Class<?> nmsPacketPlayInClientCommand = provider.getNMSClass("PacketPlayInClientCommand");
 		Class<?> nmsPacketPlayOutTitle = provider.getNMSClass("PacketPlayOutTitle");
+		Class<?> nmsEntityLiving = provider.getNMSClass("EntityLiving");
+		Class<?> nmsWorld = provider.getNMSClass("World");
 
 		//
 		// NMS Reflect
 
 		Class<?> nmsNbtCompound = provider.createNMSReflect("nmsNBTCompound", "NBTCompound").getOwner();
 
+		
 		Class<?> nmsEntityPlayer = provider
 			.createNMSReflect("nmsEntityPlayer", "EntityPlayer")
 			.searchField("connection", "playerConnection")
@@ -84,7 +89,14 @@ public class MinecraftReflections extends Reflections {
 			.searchMethod(ignore -> minor(minor -> minor <= 9), "setGravity", "setGravity", boolean.class)
 			.searchMethod("setCustomNameVisible", "setCustomNameVisible", boolean.class)
 			.searchMethod("setInvisible", "setInvisible", boolean.class)
-			.searchMethod("setInvulnerable", "setInvulnerable", boolean.class);
+			.searchMethod("setInvulnerable", "setInvulnerable", boolean.class)
+			.searchMethod("getId", "getId", int.class)
+			.searchMethod("teleportTo", "teleportTo", Location.class, boolean.class)
+			.searchField("dimension", "dimension");
+		provider
+			.createNMSReflect("nmsEntityArmorStand", "EntityArmorStand")
+			.searchMethod("setSmall", "setSmall", boolean.class)
+			.searchConstructor("construct", nmsWorld);
 		provider
 			.createNMSReflect("nmsDedicatedServer", "DedicatedServer")
 			.searchMethod("setMotd", "setMotd", String.class);
@@ -95,7 +107,6 @@ public class MinecraftReflections extends Reflections {
 			.createNMSReflect("nmsNBTTools", "NBTCompressedStreamTools")
 			.searchMethod("read", "a", DataInputStream.class)
 			.searchMethod("write", "a", nmsNbtCompound, DataOutput.class);
-		provider.createNMSReflect("nmsEntity", "Entity").searchField("dimension", "dimension");
 		provider
 			.createNMSReflect("nmsItemStack", "ItemStack")
 			.searchMethod("save", "save", nmsNbtCompound)
@@ -128,6 +139,9 @@ public class MinecraftReflections extends Reflections {
 		provider
 			.createNMSReflect("nmsPacketPlayOutEntityDestroy", "PacketPlayOutEntityDestroy")
 			.searchConstructor("construct", arrayclass(int.class));
+		provider
+			.createNMSReflect("nmsPacketPlayOutSpawnEntityLiving", "PacketPlayOutSpawnEntityLiving")
+			.searchConstructor("construct", nmsEntityLiving);
 		provider
 			.createNMSReflect("nmsPacketPlayOutNamedEntitySpawn", "PacketPlayOutNamedEntitySpawn")
 			.searchConstructor("construct", nmsEntityHuman);

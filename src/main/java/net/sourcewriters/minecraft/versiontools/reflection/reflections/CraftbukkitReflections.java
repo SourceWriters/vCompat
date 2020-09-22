@@ -19,20 +19,21 @@ public class CraftbukkitReflections extends Reflections {
 
 		//
 		// From ClassCache
-		
+
 		Class<?> nmsIChatBaseComponent = provider.getNMSClass("IChatBaseComponent");
-		
+
 		//
 		// From existing reflect
-		
+
 		Class<?> nmsItemStack = provider.getOptionalReflect("nmsItemStack").map(AbstractReflect::getOwner).orElse(null);
-		
+
 		//
 		//
 		// Create Reflects
 		//
 
 		provider.createCBReflect("cbCraftServer", "CraftServer").searchField("minecraftServer", "console");
+		provider.createCBReflect("cbCraftWorld", "CraftWorld").searchMethod("handle", "getHandle");
 		provider
 			.createCBReflect("cbCraftChatMessage", "util.CraftChatMessage")
 			.searchMethod("fromString0", "fromString", String.class)

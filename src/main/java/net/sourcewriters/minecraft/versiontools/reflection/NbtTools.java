@@ -52,8 +52,9 @@ public abstract class NbtTools {
 			DEFAULT.getOptionalReflect("nmsNBTTools").get().execute("write", compound, new DataOutputStream(output));
 			NbtTag nbtTag = NbtDeserializer.UNCOMPRESSED.fromStream(input).getTag();
 
-			if (nbtTag.getType() != NbtType.COMPOUND)
+			if (nbtTag.getType() != NbtType.COMPOUND) {
 				return new NbtCompound();
+			}
 
 			output.close();
 			input.close();

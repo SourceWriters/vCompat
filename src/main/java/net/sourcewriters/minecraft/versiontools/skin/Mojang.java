@@ -43,8 +43,9 @@ public class Mojang {
 
 		Skin skin = getSkin(name.toLowerCase());
 
-		if (skin == null)
+		if (skin == null) {
 			return false;
+		}
 
 		return request(player, skin);
 
@@ -54,9 +55,11 @@ public class Mojang {
 
 		Skin skin = getSkin((name = name.toLowerCase()));
 
-		if (skin == null)
-			if ((skin = downloadSkinFromPlayer(name, uniqueId)) == null)
+		if (skin == null) {
+			if ((skin = downloadSkinFromPlayer(name, uniqueId)) == null) {
 				return false;
+			}
+		}
 
 		return request(player, skin);
 
@@ -66,9 +69,11 @@ public class Mojang {
 
 		Skin skin = getSkin(request.getName());
 
-		if (skin == null)
-			if ((skin = downloadSkin(request)) == null)
+		if (skin == null) {
+			if ((skin = downloadSkin(request)) == null) {
 				return false;
+			}
+		}
 
 		return request(request.getRequester(), skin);
 
@@ -80,13 +85,15 @@ public class Mojang {
 
 	public boolean request(Player player, Skin skin) {
 
-		if (player == null || skin == null)
+		if (player == null || skin == null) {
 			return false;
+		}
 
 		provider.setSkinProperty(player, skin);
 
-		if (player.isOnline())
+		if (player.isOnline()) {
 			PlayerTools.setSkin(player.getPlayer(), skin);
+		}
 
 		return true;
 
@@ -114,8 +121,9 @@ public class Mojang {
 
 	public Skin getSkin(String name) {
 		Optional<Skin> option = getOptionalSkin(name);
-		if (option.isPresent())
+		if (option.isPresent()) {
 			return option.get();
+		}
 		return null;
 	}
 
@@ -136,21 +144,26 @@ public class Mojang {
 
 		if (array.length != 0) {
 			for (Profile profile : array) {
-				if (profile.validate())
+				if (profile.validate()) {
 					return profile;
-				if (profile.refresh().validate())
+				}
+				if (profile.refresh().validate()) {
 					return profile;
+				}
 			}
 		}
 
 		array = getProfiles().stream().filter(profile -> !profile.isAuthenticated()).toArray(size -> new Profile[size]);
 
-		if (array.length == 0)
+		if (array.length == 0) {
 			return null;
+		}
 
-		for (Profile profile : array)
-			if (profile.authenticate().isAuthenticated())
+		for (Profile profile : array) {
+			if (profile.authenticate().isAuthenticated()) {
 				return profile;
+			}
+		}
 
 		return null;
 
@@ -164,8 +177,9 @@ public class Mojang {
 
 		Profile profile = getUseableProfile();
 
-		if (profile == null)
+		if (profile == null) {
 			return null;
+		}
 
 		try {
 
@@ -179,8 +193,9 @@ public class Mojang {
 				.execute(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), ContentType.X_WWW_FORM_URLENCODED)
 				.getCode();
 
-			if (code != 204)
+			if (code != 204) {
 				return null;
+			}
 
 			return downloadSkinFromPlayer(skinRequest.getName(), profile.getUniqueId());
 
@@ -201,8 +216,9 @@ public class Mojang {
 				.execute(URL_SKIN_PROFILE, ContentType.X_WWW_FORM_URLENCODED)
 				.getResponseAsJson();
 
-			if (!object.has("properties"))
+			if (!object.has("properties")) {
 				return null;
+			}
 
 			JsonObject property = object.get("properties").getAsJsonArray().get(0).getAsJsonObject();
 
@@ -210,8 +226,9 @@ public class Mojang {
 			String signature = property.get("signature").getAsString();
 			String url = getSkinUrl(value);
 
-			if (url == null)
+			if (url == null) {
 				return null;
+			}
 
 			return new Skin(name, value, signature, false);
 
@@ -231,13 +248,15 @@ public class Mojang {
 
 		JsonObject json = JsonTools.readJson(decoded);
 
-		if (!json.has("textures"))
+		if (!json.has("textures")) {
 			return null;
+		}
 
 		JsonObject textures = json.get("textures").getAsJsonObject();
 
-		if (textures.entrySet().isEmpty())
+		if (textures.entrySet().isEmpty()) {
 			return null;
+		}
 
 		return textures.get("SKIN").getAsJsonObject().get("url").getAsString();
 

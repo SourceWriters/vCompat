@@ -21,8 +21,9 @@ public abstract class SkinTools {
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("cbCraftPlayer");
 		Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("nmsEntityHuman");
 
-		if (checkPresence(optional0, optional1))
+		if (checkPresence(optional0, optional1)) {
 			return null;
+		}
 
 		Object entityPlayer = optional0.get().run(player, "handle");
 		GameProfile profile = (GameProfile) optional1.get().getFieldValue("profile", entityPlayer);
@@ -35,8 +36,9 @@ public abstract class SkinTools {
 
 		PropertyMap properties = profile.getProperties();
 
-		if (!properties.containsKey("textures"))
+		if (!properties.containsKey("textures")) {
 			return null;
+		}
 
 		Property property = properties.get("textures").iterator().next();
 

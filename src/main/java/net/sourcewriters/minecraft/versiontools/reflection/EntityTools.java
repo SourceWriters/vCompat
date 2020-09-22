@@ -6,6 +6,8 @@ import static net.sourcewriters.minecraft.versiontools.utils.java.OptionTools.ch
 
 import java.util.Optional;
 
+import org.bukkit.Location;
+
 import com.syntaxphoenix.syntaxapi.reflection.Reflect;
 
 public abstract class EntityTools {
@@ -14,8 +16,9 @@ public abstract class EntityTools {
 
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsEntity");
 
-		if (!checkPresence(optional0))
+		if (!checkPresence(optional0)) {
 			return;
+		}
 
 		Object value = minor(minor -> minor <= 12) ? (Object) MessageTools.color(name)
 			: MessageTools.toComponents(name);
@@ -28,8 +31,9 @@ public abstract class EntityTools {
 
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsEntity");
 
-		if (!checkPresence(optional0))
+		if (!checkPresence(optional0)) {
 			return;
+		}
 
 		boolean value = minor(minor -> minor <= 9) ? gravity : !gravity;
 
@@ -41,8 +45,9 @@ public abstract class EntityTools {
 
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsEntity");
 
-		if (!checkPresence(optional0))
+		if (!checkPresence(optional0)) {
 			return;
+		}
 
 		optional0.get().execute(entity, "setCustomNameVisible", visible);
 
@@ -52,8 +57,9 @@ public abstract class EntityTools {
 
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsEntity");
 
-		if (!checkPresence(optional0))
+		if (!checkPresence(optional0)) {
 			return;
+		}
 
 		optional0.get().execute(entity, "setInvisible", invisible);
 
@@ -63,22 +69,68 @@ public abstract class EntityTools {
 
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsEntity");
 
-		if (!checkPresence(optional0))
+		if (!checkPresence(optional0)) {
 			return;
+		}
 
 		optional0.get().execute(entity, "setInvulnerable", invulnerable);
 
 	}
 
-	public static void kill(Object entity) {
-		
+	public static void setPosition(Object entity, Location location) {
+		setPosition(entity, location.getX(), location.getY(), location.getZ());
+	}
+
+	public static void setPosition(Object entity, double x, double y, double z) {
+
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsEntity");
-		
-		if(!checkPresence(optional0))
+
+		if (!checkPresence(optional0)) {
 			return;
-		
-		
-		
+		}
+
+		optional0.get().execute(entity, "setPosition", x, y, z);
+
+	}
+
+	public static int getId(Object entity) {
+
+		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsEntity");
+
+		if (!checkPresence(optional0)) {
+			return -1;
+		}
+
+		int id = (int) optional0.get().run(entity, "getId");
+
+		return id;
+
+	}
+
+	public static Object teleport(Object entity, Location location) {
+
+		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsEntity");
+
+		if (!checkPresence(optional0)) {
+			return null;
+		}
+
+		Object teleported = optional0.get().run(entity, "teleportTo", location, false);
+
+		return teleported;
+
+	}
+
+	public static void kill(Object entity) {
+
+		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsEntity");
+
+		if (!checkPresence(optional0)) {
+			return;
+		}
+
+		// TODO: Set entity to dead
+
 	}
 
 }
