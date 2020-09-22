@@ -1,5 +1,6 @@
 package net.sourcewriters.minecraft.versiontools.reflection.translate;
 
+@Deprecated
 public abstract class BlockTools {
 	
 //	public static void setHeadDeprecated(Block block, String texture) {

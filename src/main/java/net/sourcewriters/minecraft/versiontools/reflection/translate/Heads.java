@@ -1,5 +1,7 @@
 package net.sourcewriters.minecraft.versiontools.reflection.translate;
 
+import static net.sourcewriters.minecraft.versiontools.utils.constants.MinecraftConstants.TEXTURE_ID;
+
 import java.lang.reflect.Field;
 import java.util.UUID;
 
@@ -11,12 +13,9 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.syntaxphoenix.syntaxapi.random.Keys;
 
-/**
- * @author Lauriichen
- */
+@Deprecated
 public class Heads {
-
-	public final static String textureId = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUv";
+	
 //	private final static Map<String, ItemStack> heads = new HashMap<>();
 //	private final static Map<UUID, ItemStack> pheads = new HashMap<>();
 //	private final static Map<String, ItemStack> nheads = new HashMap<>();
@@ -27,7 +26,7 @@ public class Heads {
 //			return blockHeads.get(textureValue);
 //		}
 		GameProfile profile = new GameProfile(UUID.randomUUID(), Keys.generateKey(10));
-		profile.getProperties().put("textures", new Property("textures", textureId + textureValue));
+		profile.getProperties().put("textures", new Property("textures", TEXTURE_ID + textureValue));
 //		blockHeads.put(textureValue, profile);
 		return profile;
 	}
@@ -48,7 +47,7 @@ public class Heads {
 		ItemStack st = new ItemStack(/* TODO: ADD MATERIAL HERE */ Material.AIR);
 		SkullMeta meta = (SkullMeta) st.getItemMeta();
 		GameProfile profile = new GameProfile(UUID.randomUUID(), Keys.generateKey(10));
-		profile.getProperties().put("textures", new Property("textures", textureId + textureValue));
+		profile.getProperties().put("textures", new Property("textures", TEXTURE_ID + textureValue));
 		try {
 			Field profileField = meta.getClass().getDeclaredField("profile");
 			profileField.setAccessible(true);
