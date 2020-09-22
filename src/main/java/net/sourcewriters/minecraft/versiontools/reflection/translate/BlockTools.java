@@ -1,15 +1,5 @@
 package net.sourcewriters.minecraft.versiontools.reflection.translate;
 
-import java.util.Collection;
-import java.util.Optional;
-
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.Skull;
-
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
-
 public abstract class BlockTools {
 	
 //	public static void setHeadDeprecated(Block block, String texture) {

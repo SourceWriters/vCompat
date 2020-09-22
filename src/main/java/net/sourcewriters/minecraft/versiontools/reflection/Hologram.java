@@ -1,14 +1,5 @@
 package net.sourcewriters.minecraft.versiontools.reflection;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-
 @Deprecated
 public class Hologram {
  

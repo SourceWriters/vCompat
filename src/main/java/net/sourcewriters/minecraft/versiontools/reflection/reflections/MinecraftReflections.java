@@ -28,6 +28,7 @@ public class MinecraftReflections extends Reflections {
 		Class<?> nmsDimensionManager = provider.getNMSClass("DimensionManager");
 		Class<?> nmsIChatBaseComponent = provider.getNMSClass("IChatBaseComponent");
 		Class<?> nmsPacketPlayInClientCommand = provider.getNMSClass("PacketPlayInClientCommand");
+		Class<?> nmsPacketPlayOutTitle = provider.getNMSClass("PacketPlayOutTitle");
 
 		//
 		// NMS Reflect
@@ -56,11 +57,18 @@ public class MinecraftReflections extends Reflections {
 				subclass(provider.getNMSClass("PacketPlayOutPlayerInfo"), "EnumPlayerInfoAction"))
 			.searchMethod("get", "getType", String.class)
 			.getOwner();
+		Class<?> nmsEnumClientCommand = provider
+			.createReflect("nmsEnumClientCommand", subclass(nmsPacketPlayInClientCommand, "EnumClientCommand"))
+			.getOwner();
+		Class<?> nmsEnumTitleAction = provider
+			.createReflect("nmsEnumTitleAction", subclass(nmsPacketPlayOutTitle, "EnumTitleAction"))
+			.getOwner();
 
 		Class<?> nmsEnumDifficulty = provider.createNMSReflect("nmsEnumDifficulty", "EnumDifficulty").getOwner();
 		Class<?> nmsEnumGamemode = provider.createNMSReflect("nmsEnumGamemode", "EnumGamemode").getOwner();
-		Class<?> nmsEnumClientCommand = provider
-			.createReflect("nmsEnumClientCommand", subclass(nmsPacketPlayInClientCommand, "EnumClientCommand"))
+		Class<?> nmsChatMessageType = provider
+			.createNMSReflect("nmsChatMessageType", "ChatMessageType")
+			.searchField(ignore -> minor(minor -> minor <= 12), "asByte", "a")
 			.getOwner();
 
 		//
@@ -68,6 +76,15 @@ public class MinecraftReflections extends Reflections {
 		// Create Reflects
 		//
 
+		provider
+			.createNMSReflect("nmsEntity", "Entity")
+			.searchMethod(ignore -> minor(minor -> minor <= 12), "setCustomName", "setCustomName", String.class)
+			.searchMethod(ignore -> minor(minor -> minor > 12), "setCustomName", "setCustomName", nmsIChatBaseComponent)
+			.searchMethod(ignore -> minor(minor -> minor > 9), "setGravity", "setNoGravity", boolean.class)
+			.searchMethod(ignore -> minor(minor -> minor <= 9), "setGravity", "setGravity", boolean.class)
+			.searchMethod("setCustomNameVisible", "setCustomNameVisible", boolean.class)
+			.searchMethod("setInvisible", "setInvisible", boolean.class)
+			.searchMethod("setInvulnerable", "setInvulnerable", boolean.class);
 		provider
 			.createNMSReflect("nmsDedicatedServer", "DedicatedServer")
 			.searchMethod("setMotd", "setMotd", String.class);
@@ -87,12 +104,24 @@ public class MinecraftReflections extends Reflections {
 		//
 		// Packets
 
-//		provider.createNMSReflect("nmsPacketPlayOutChat", "PacketPlayOutChat")
-//			.searchConstructor(ignore -> minor(minor -> minor > 12), "construct", );
+		provider
+			.createReflect("nmsPacketPlayOutTitle", nmsPacketPlayOutTitle)
+			.searchConstructor("construct0", nmsEnumTitleAction, nmsIChatBaseComponent)
+			.searchConstructor("construct1", nmsEnumTitleAction, nmsIChatBaseComponent, int.class, int.class,
+				int.class);
 		provider
 			.createReflect("nmsPacketPlayInClientCommand", nmsPacketPlayInClientCommand)
 			.searchConstructor("construct", nmsEnumClientCommand);
 
+		provider
+			.createNMSReflect("nmsPacketPlayOutPlayerListHeaderFooter", "PacketPlayOutPlayerListHeaderFooter")
+			.searchField("header", "a")
+			.searchField("footer", "b");
+		provider
+			.createNMSReflect("nmsPacketPlayOutChat", "PacketPlayOutChat")
+			.searchConstructor(ignore -> minor(minor -> minor > 12), "construct", nmsIChatBaseComponent, byte.class)
+			.searchConstructor(ignore -> minor(minor -> minor <= 12), "construct", nmsIChatBaseComponent,
+				nmsChatMessageType);
 		provider
 			.createNMSReflect("nmsPacketPlayOutPlayerInfo", "PacketPlayOutPlayerInfo")
 			.searchConstructor("construct", nmsEnumPlayerInfoAction, arrayclass(nmsEntityPlayer));
