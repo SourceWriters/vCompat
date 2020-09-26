@@ -1,4 +1,4 @@
-package net.sourcewriters.minecraft.versiontools.reflection.translate;
+package net.sourcewriters.minecraft.versiontools.deprecated.reflection.translate;
 
 import static net.sourcewriters.minecraft.versiontools.utils.constants.MinecraftConstants.TEXTURE_ID;
 

@@ -1,6 +1,6 @@
-package net.sourcewriters.minecraft.versiontools.reflection.entity;
+package net.sourcewriters.minecraft.versiontools.deprecated.reflection.entity;
 
-import static net.sourcewriters.minecraft.versiontools.reflection.setup.ReflectionProvider.DEFAULT;
+import static net.sourcewriters.minecraft.versiontools.deprecated.reflection.setup.ReflectionProvider.DEFAULT;
 import static net.sourcewriters.minecraft.versiontools.utils.java.OptionTools.checkPresence;
 
 import java.util.Optional;
@@ -27,15 +27,22 @@ public abstract class ArmorStandTools {
 
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("nmsEntityArmorStand");
 		Optional<Reflect> optional1 = DEFAULT.getOptionalReflect("cbCraftWorld");
+		Optional<Reflect> optional2 = DEFAULT.getOptionalReflect("nmsEntityTypes");
 
 		if (!checkPresence(optional0, optional1)) {
 			return null;
 		}
 
 		Object nmsWorld = optional1.get().run(world, "handle");
-
-		Object entity = optional0.get().init("construct", nmsWorld);
-
+		
+		Object entity;
+		if(optional2.isPresent()) {
+			Object type = optional2.get().getFieldValue("ARMOR_STAND");
+			entity = optional0.get().init("construct", type, nmsWorld);
+		} else {
+			entity = optional0.get().init("construct", nmsWorld);
+		}
+		
 		return entity;
 
 	}

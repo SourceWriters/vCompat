@@ -1,11 +1,11 @@
-package net.sourcewriters.minecraft.versiontools.reflection.reflections;
+package net.sourcewriters.minecraft.versiontools.deprecated.reflection.reflections;
 
 import org.bukkit.inventory.ItemStack;
 
 import com.syntaxphoenix.syntaxapi.reflection.AbstractReflect;
 
-import net.sourcewriters.minecraft.versiontools.reflection.setup.ReflectionProvider;
-import net.sourcewriters.minecraft.versiontools.reflection.setup.Reflections;
+import net.sourcewriters.minecraft.versiontools.deprecated.reflection.setup.ReflectionProvider;
+import net.sourcewriters.minecraft.versiontools.deprecated.reflection.setup.Reflections;
 
 public class CraftbukkitReflections extends Reflections {
 

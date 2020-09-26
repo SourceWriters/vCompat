@@ -1,7 +1,7 @@
-package net.sourcewriters.minecraft.versiontools.reflection;
+package net.sourcewriters.minecraft.versiontools.deprecated.reflection;
 
 import static net.sourcewriters.minecraft.versiontools.version.Versions.*;
-import static net.sourcewriters.minecraft.versiontools.reflection.setup.ReflectionProvider.DEFAULT;
+import static net.sourcewriters.minecraft.versiontools.deprecated.reflection.setup.ReflectionProvider.DEFAULT;
 import static net.sourcewriters.minecraft.versiontools.utils.java.OptionTools.checkPresence;
 
 import java.util.Optional;

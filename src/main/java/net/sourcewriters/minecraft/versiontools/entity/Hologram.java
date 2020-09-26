@@ -9,13 +9,13 @@ import java.util.UUID;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import net.sourcewriters.minecraft.versiontools.deprecated.reflection.EntityLivingTools;
+import net.sourcewriters.minecraft.versiontools.deprecated.reflection.EntityTools;
+import net.sourcewriters.minecraft.versiontools.deprecated.reflection.entity.ArmorStandTools;
 import net.sourcewriters.minecraft.versiontools.entity.handler.CustomEntity;
 import net.sourcewriters.minecraft.versiontools.entity.handler.DefaultEntityType;
 import net.sourcewriters.minecraft.versiontools.entity.handler.EntityBuilder;
 import net.sourcewriters.minecraft.versiontools.entity.handler.EntityType;
-import net.sourcewriters.minecraft.versiontools.reflection.EntityLivingTools;
-import net.sourcewriters.minecraft.versiontools.reflection.EntityTools;
-import net.sourcewriters.minecraft.versiontools.reflection.entity.ArmorStandTools;
 
 public class Hologram extends CustomEntity {
 
@@ -26,7 +26,6 @@ public class Hologram extends CustomEntity {
 
 	private Location location;
 	private boolean alive = false;
-	private boolean progress = false;
 	private double offset = 0.25D;
 
 	private Hologram(UUID uniqueId) {
@@ -39,26 +38,23 @@ public class Hologram extends CustomEntity {
 
 	@Override
 	public boolean spawn() {
-		if (alive || progress || !isSpawnable() || !hasLines() || location == null) {
+		if (alive || !isSpawnable() || !hasLines() || location == null) {
 			return false;
 		}
-		progress = true;
 		synchronized (lines) {
 			for (String line : lines) {
 				spawnEntity(line);
 			}
 		}
 		alive = true;
-		progress = false;
 		return true;
 	}
 
 	@Override
 	public boolean kill() {
-		if (!alive || progress) {
+		if (!alive) {
 			return false;
 		}
-		progress = true;
 		synchronized (entities) {
 			for (Object entity : entities) {
 				EntityTools.kill(entity);
@@ -66,7 +62,6 @@ public class Hologram extends CustomEntity {
 			entities.clear();
 		}
 		alive = false;
-		progress = false;
 		return true;
 	}
 
@@ -77,7 +72,7 @@ public class Hologram extends CustomEntity {
 
 	@Override
 	public Location getLocation() {
-		return location.clone();
+		return location == null ? null : location.clone();
 	}
 
 	@Override
@@ -335,7 +330,7 @@ public class Hologram extends CustomEntity {
 
 	public boolean hasLines() {
 		synchronized (lines) {
-			return lines.isEmpty();
+			return !lines.isEmpty();
 		}
 	}
 

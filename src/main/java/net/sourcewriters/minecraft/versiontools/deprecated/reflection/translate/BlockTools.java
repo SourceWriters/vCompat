@@ -1,4 +1,4 @@
-package net.sourcewriters.minecraft.versiontools.reflection.translate;
+package net.sourcewriters.minecraft.versiontools.deprecated.reflection.translate;
 
 @Deprecated
 public abstract class BlockTools {

@@ -1,4 +1,4 @@
-package net.sourcewriters.minecraft.versiontools.reflection.setup;
+package net.sourcewriters.minecraft.versiontools.reflection.tools;
 
 import java.util.Optional;
 
@@ -10,9 +10,13 @@ import com.syntaxphoenix.syntaxapi.utils.java.Arrays;
 
 public abstract class Tracker {
 
-	public static Optional<Class<?>> getCallerClass() {
-		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
+	public static Optional<Class<?>> getClassFromStack(int offset) {
+		StackTraceElement element = Thread.currentThread().getStackTrace()[2 + offset];
 		return element == null ? Optional.empty() : ClassCache.getOptionalClass(element.getClassName());
+	}
+
+	public static Optional<Class<?>> getCallerClass() {
+		return getClassFromStack(1);
 	}
 
 	public static Optional<Plugin> getCallerPlugin() {

@@ -1,4 +1,4 @@
-package net.sourcewriters.minecraft.versiontools.reflection.reflections;
+package net.sourcewriters.minecraft.versiontools.deprecated.reflection.reflections;
 
 import static net.sourcewriters.minecraft.versiontools.utils.java.ReflectionTools.*;
 import static net.sourcewriters.minecraft.versiontools.version.Versions.*;
@@ -10,8 +10,8 @@ import org.bukkit.Location;
 
 import com.mojang.authlib.GameProfile;
 
-import net.sourcewriters.minecraft.versiontools.reflection.setup.ReflectionProvider;
-import net.sourcewriters.minecraft.versiontools.reflection.setup.Reflections;
+import net.sourcewriters.minecraft.versiontools.deprecated.reflection.setup.ReflectionProvider;
+import net.sourcewriters.minecraft.versiontools.deprecated.reflection.setup.Reflections;
 
 public class MinecraftReflections extends Reflections {
 
@@ -39,7 +39,6 @@ public class MinecraftReflections extends Reflections {
 
 		Class<?> nmsNbtCompound = provider.createNMSReflect("nmsNBTCompound", "NBTCompound").getOwner();
 
-		
 		Class<?> nmsEntityPlayer = provider
 			.createNMSReflect("nmsEntityPlayer", "EntityPlayer")
 			.searchField("connection", "playerConnection")
@@ -52,6 +51,10 @@ public class MinecraftReflections extends Reflections {
 		Class<?> nmsEntityHuman = provider
 			.createNMSReflect("nmsEntityHuman", "EntityHuman")
 			.searchField("profile", GameProfile.class)
+			.getOwner();
+		Class<?> nmsEntityTypes = provider
+			.createNMSReflect("nmsEntityTypes", "EntityTypes")
+			.searchField("ARMOR_STAND", "ARMOR_STAND")
 			.getOwner();
 
 		//
@@ -96,7 +99,8 @@ public class MinecraftReflections extends Reflections {
 		provider
 			.createNMSReflect("nmsEntityArmorStand", "EntityArmorStand")
 			.searchMethod("setSmall", "setSmall", boolean.class)
-			.searchConstructor("construct", nmsWorld);
+			.searchConstructor("construct", nmsWorld)
+			.searchConstructor("construct", nmsEntityTypes, nmsWorld);
 		provider
 			.createNMSReflect("nmsDedicatedServer", "DedicatedServer")
 			.searchMethod("setMotd", "setMotd", String.class);

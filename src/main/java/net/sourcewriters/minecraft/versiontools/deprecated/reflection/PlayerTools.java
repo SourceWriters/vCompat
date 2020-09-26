@@ -1,10 +1,10 @@
-package net.sourcewriters.minecraft.versiontools.reflection;
+package net.sourcewriters.minecraft.versiontools.deprecated.reflection;
 
 import static net.sourcewriters.minecraft.versiontools.version.Versions.*;
-import static net.sourcewriters.minecraft.versiontools.reflection.PacketTools.sendPacket;
-import static net.sourcewriters.minecraft.versiontools.reflection.setup.ReflectionProvider.DEFAULT;
 import static net.sourcewriters.minecraft.versiontools.utils.java.ArrayTools.filter;
 import static net.sourcewriters.minecraft.versiontools.utils.java.OptionTools.checkPresence;
+import static net.sourcewriters.minecraft.versiontools.deprecated.reflection.PacketTools.sendPacket;
+import static net.sourcewriters.minecraft.versiontools.deprecated.reflection.setup.ReflectionProvider.DEFAULT;
 import static net.sourcewriters.minecraft.versiontools.utils.bukkit.Players.getOnline;
 import static net.sourcewriters.minecraft.versiontools.utils.bukkit.Players.getOnlineWithout;
 
@@ -118,6 +118,7 @@ public abstract class PlayerTools {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	public static Player fakeRespawn(Player player) {
 
 		Optional<Reflect> optional0 = DEFAULT.getOptionalReflect("cbCraftPlayer");

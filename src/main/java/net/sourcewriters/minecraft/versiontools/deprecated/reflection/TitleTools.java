@@ -1,9 +1,9 @@
-package net.sourcewriters.minecraft.versiontools.reflection;
+package net.sourcewriters.minecraft.versiontools.deprecated.reflection;
 
-import static net.sourcewriters.minecraft.versiontools.reflection.setup.ReflectionProvider.DEFAULT;
 import static net.sourcewriters.minecraft.versiontools.utils.java.OptionTools.checkPresence;
+import static net.sourcewriters.minecraft.versiontools.deprecated.reflection.PacketTools.sendPacket;
+import static net.sourcewriters.minecraft.versiontools.deprecated.reflection.setup.ReflectionProvider.DEFAULT;
 import static net.sourcewriters.minecraft.versiontools.utils.java.ArrayTools.filter;
-import static net.sourcewriters.minecraft.versiontools.reflection.PacketTools.sendPacket;
 
 import java.util.Optional;
 

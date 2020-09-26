@@ -1,8 +1,8 @@
-package net.sourcewriters.minecraft.versiontools.reflection.setup;
+package net.sourcewriters.minecraft.versiontools.deprecated.reflection.setup;
 
 import java.util.function.Consumer;
 
-import net.sourcewriters.minecraft.versiontools.reflection.reflections.*;
+import net.sourcewriters.minecraft.versiontools.deprecated.reflection.reflections.*;
 
 public abstract class Reflections {
 
