@@ -14,7 +14,7 @@ import com.syntaxphoenix.syntaxapi.net.http.Request;
 import com.syntaxphoenix.syntaxapi.net.http.RequestType;
 import com.syntaxphoenix.syntaxapi.utils.json.JsonTools;
 
-import net.sourcewriters.minecraft.versiontools.deprecated.reflection.PlayerTools;
+import net.sourcewriters.minecraft.versiontools.reflection.VersionControl;
 
 public class Mojang {
 
@@ -92,7 +92,7 @@ public class Mojang {
 		provider.setSkinProperty(player, skin);
 
 		if (player.isOnline()) {
-			PlayerTools.setSkin(player.getPlayer(), skin);
+			VersionControl.get().getPlayerProvider().getPlayer(player).setSkin(skin);
 		}
 
 		return true;
@@ -102,7 +102,7 @@ public class Mojang {
 	/*
 	 * 
 	 */
-	
+
 	public final MojangProvider getProvider() {
 		return provider;
 	}

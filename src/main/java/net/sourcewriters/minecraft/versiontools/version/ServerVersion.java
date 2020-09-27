@@ -9,7 +9,7 @@ public class ServerVersion extends Version {
 
 	public static final ServerAnalyzer ANALYZER = new ServerAnalyzer();
 
-	protected int refaction;
+	protected int revision;
 
 	public ServerVersion() {
 		this(0);
@@ -27,13 +27,13 @@ public class ServerVersion extends Version {
 		this(major, minor, patch, 0);
 	}
 
-	public ServerVersion(int major, int minor, int patch, int refaction) {
+	public ServerVersion(int major, int minor, int patch, int revision) {
 		super(major, minor, patch);
-		this.refaction = refaction;
+		this.revision = revision;
 	}
 
-	public int getRefaction() {
-		return refaction;
+	public int getRevision() {
+		return revision;
 	}
 
 	@Override
@@ -54,8 +54,8 @@ public class ServerVersion extends Version {
 		return this;
 	}
 
-	protected ServerVersion setRefaction(int refaction) {
-		this.refaction = refaction;
+	protected ServerVersion setRevision(int revision) {
+		this.revision = revision;
 		return this;
 	}
 
@@ -66,16 +66,16 @@ public class ServerVersion extends Version {
 		}
 		if (version instanceof ServerVersion) {
 			ServerVersion other = (ServerVersion) version;
-			return refaction > other.refaction;
+			return revision > other.revision;
 		} else {
-			return refaction > 0;
+			return revision > 0;
 		}
 	}
 
 	@Override
 	public boolean isSimilar(Version version) {
 		return super.isSimilar(version)
-			&& ((version instanceof ServerVersion) && refaction == ((ServerVersion) version).refaction);
+			&& ((version instanceof ServerVersion) && revision == ((ServerVersion) version).revision);
 	}
 
 	@Override
@@ -85,14 +85,14 @@ public class ServerVersion extends Version {
 		}
 		if (version instanceof ServerVersion) {
 			ServerVersion other = (ServerVersion) version;
-			return refaction < other.refaction;
+			return revision < other.revision;
 		}
 		return false;
 	}
 
 	@Override
 	public ServerVersion clone() {
-		return new ServerVersion(getMajor(), getMinor(), getPatch(), refaction);
+		return new ServerVersion(getMajor(), getMinor(), getPatch(), revision);
 	}
 
 	@Override
@@ -100,8 +100,8 @@ public class ServerVersion extends Version {
 		return update(major, minor, patch, 0);
 	}
 
-	public ServerVersion update(int major, int minor, int patch, int refaction) {
-		return ((ServerVersion) super.update(major, minor, patch)).setRefaction(this.refaction + refaction);
+	public ServerVersion update(int major, int minor, int patch, int revision) {
+		return ((ServerVersion) super.update(major, minor, patch)).setRevision(this.revision + revision);
 	}
 
 	@Override
@@ -127,9 +127,9 @@ public class ServerVersion extends Version {
 
 			if (version instanceof ServerVersion) {
 				ServerVersion server = (ServerVersion) version;
-				if (server.getRefaction() != 0) {
+				if (server.getRevision() != 0) {
 					builder.append('.');
-					builder.append(server.getRefaction());
+					builder.append(server.getRevision());
 				}
 			}
 
@@ -155,7 +155,7 @@ public class ServerVersion extends Version {
 					if ((parts[2] = parts[2].replaceFirst("R", "")).contains(".")) {
 						String[] parts0 = parts[2].split("\\.");
 						version.setPatch(Strings.isNumeric(parts0[0]) ? Integer.parseInt(parts0[0]) : 0);
-						version.setRefaction(Strings.isNumeric(parts0[1]) ? Integer.parseInt(parts0[1]) : 0);
+						version.setRevision(Strings.isNumeric(parts0[1]) ? Integer.parseInt(parts0[1]) : 0);
 					} else {
 						version.setPatch(Strings.isNumeric(parts[2]) ? Integer.parseInt(parts[2]) : 0);
 					}

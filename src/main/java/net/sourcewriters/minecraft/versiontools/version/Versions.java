@@ -88,7 +88,7 @@ public abstract class Versions {
 	}
 
 	public static boolean refaction(int... refaction) {
-		int server = getServer().getRefaction();
+		int server = getServer().getRevision();
 		for (int current : refaction) {
 			if (server == current) {
 				return true;
@@ -99,7 +99,7 @@ public abstract class Versions {
 
 	public static boolean version(TriPredicate<Integer, Integer, Integer> predicate) {
 		ServerVersion version = getServer();
-		return predicate.test(version.getMajor(), version.getMinor(), version.getRefaction());
+		return predicate.test(version.getMajor(), version.getMinor(), version.getRevision());
 	}
 
 	public static boolean version(BiPredicate<Integer, Integer> predicate) {
@@ -116,7 +116,7 @@ public abstract class Versions {
 	}
 
 	public boolean refaction(Predicate<Integer> predicate) {
-		return predicate.test(getServer().getRefaction());
+		return predicate.test(getServer().getRevision());
 	}
 
 }

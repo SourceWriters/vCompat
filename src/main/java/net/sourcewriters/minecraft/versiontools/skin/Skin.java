@@ -10,6 +10,8 @@ import com.syntaxphoenix.syntaxapi.nbt.NbtCompound;
 import com.syntaxphoenix.syntaxapi.nbt.utils.NbtStorage;
 
 public class Skin implements Serializable, NbtStorage<NbtCompound> {
+	
+	public static final Skin NONE = new Skin();
 
 	/**
 	 * 
@@ -20,8 +22,8 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
 	private String value;
 	private String signature;
 	private SkinModel model;
-	
-	public Skin() {
+
+	private Skin() {
 		this.editable = false;
 	}
 
@@ -40,11 +42,11 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
 		this.signature = signature;
 		setModel(parseModel());
 	}
-	
+
 	public boolean isEditable() {
 		return editable;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -54,7 +56,7 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
 	}
 
 	public void setValue(String value) {
-		if(!isEditable()) {
+		if (!isEditable()) {
 			return;
 		}
 		this.value = value;
@@ -66,7 +68,7 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
 	}
 
 	public void setSignature(String signature) {
-		if(!isEditable()) {
+		if (!isEditable()) {
 			return;
 		}
 		this.signature = signature;
@@ -77,7 +79,7 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
 	}
 
 	public void setModel(SkinModel model) {
-		if(!isEditable()) {
+		if (!isEditable()) {
 			return;
 		}
 		this.model = model;
@@ -135,7 +137,20 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
 		JsonObject json = new JsonParser().parse(decoded).getAsJsonObject();
 		return json.get("textures").getAsJsonObject();
 	}
-	
+
+	/*
+	 * 
+	 */
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Skin) {
+			Skin skin = (Skin) obj;
+			return skin.name.equals(name) && skin.value.equals(value) && skin.signature.equals(signature);
+		}
+		return false;
+	}
+
 	/*
 	 * 
 	 */

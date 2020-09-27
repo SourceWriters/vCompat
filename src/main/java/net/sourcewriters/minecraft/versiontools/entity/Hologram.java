@@ -9,19 +9,19 @@ import java.util.UUID;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import net.sourcewriters.minecraft.versiontools.deprecated.reflection.EntityLivingTools;
-import net.sourcewriters.minecraft.versiontools.deprecated.reflection.EntityTools;
-import net.sourcewriters.minecraft.versiontools.deprecated.reflection.entity.ArmorStandTools;
 import net.sourcewriters.minecraft.versiontools.entity.handler.CustomEntity;
 import net.sourcewriters.minecraft.versiontools.entity.handler.DefaultEntityType;
 import net.sourcewriters.minecraft.versiontools.entity.handler.EntityBuilder;
 import net.sourcewriters.minecraft.versiontools.entity.handler.EntityType;
+import net.sourcewriters.minecraft.versiontools.reflection.VersionControl;
+import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsArmorStand;
+import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsEntityType;
 
 public class Hologram extends CustomEntity {
 
 	public static final EntityBuilder<Hologram> BUILDER = new HologramBuilder();
 
-	private final ArrayList<Object> entities = new ArrayList<>();
+	private final ArrayList<NmsArmorStand> entities = new ArrayList<>();
 	private final ArrayList<String> lines = new ArrayList<>();
 
 	private Location location;
@@ -56,8 +56,8 @@ public class Hologram extends CustomEntity {
 			return false;
 		}
 		synchronized (entities) {
-			for (Object entity : entities) {
-				EntityTools.kill(entity);
+			for (NmsArmorStand entity : entities) {
+				entity.kill();
 			}
 			entities.clear();
 		}
@@ -111,16 +111,13 @@ public class Hologram extends CustomEntity {
 			amount = entities.size();
 		}
 		for (int index = 0; index < amount; index++) {
-			Object entity;
+			NmsArmorStand entity;
 			synchronized (entities) {
 				entity = entities.get(index);
 			}
-			entity = EntityTools
-				.teleport(entity, new Location(location.getWorld(), location.getX(),
-					location.getY() + (this.offset * index), location.getZ()));
-			synchronized (entities) {
-				entities.set(index, entity);
-			}
+			entity
+				.setLocation(new Location(location.getWorld(), location.getX(), location.getY() + (this.offset * index),
+					location.getZ()));
 		}
 	}
 
@@ -129,12 +126,32 @@ public class Hologram extends CustomEntity {
 	 */
 
 	public Hologram show(Player... players) {
-		EntityLivingTools.showAllFor(getEntities(), players);
+		int amount;
+		synchronized (entities) {
+			amount = entities.size();
+		}
+		for (int index = 0; index < amount; index++) {
+			NmsArmorStand entity;
+			synchronized (entities) {
+				entity = entities.get(index);
+			}
+			entity.show(players);
+		}
 		return this;
 	}
 
 	public Hologram hide(Player... players) {
-		EntityLivingTools.hideAllFor(getEntities(), players);
+		int amount;
+		synchronized (entities) {
+			amount = entities.size();
+		}
+		for (int index = 0; index < amount; index++) {
+			NmsArmorStand entity;
+			synchronized (entities) {
+				entity = entities.get(index);
+			}
+			entity.hide(players);
+		}
 		return this;
 	}
 
@@ -165,24 +182,27 @@ public class Hologram extends CustomEntity {
 			return;
 		}
 		for (int index = offset; index < amount; index++) {
-			Object entity;
+			NmsArmorStand entity;
 			synchronized (entities) {
 				entity = entities.get(index);
 			}
-			EntityTools.setPosition(entity, location.getX(), location.getY() + (this.offset * index), location.getZ());
+			entity
+				.setLocation(
+					new Location(null, location.getX(), location.getY() + (this.offset * index), location.getZ()));
 		}
 	}
 
 	private void spawnEntity(String line) {
 
-		Object entity = ArmorStandTools.createArmorStand(location.getWorld());
+		NmsArmorStand entity = (NmsArmorStand) VersionControl
+			.get()
+			.getEntityProvider()
+			.createEntity(location.getWorld(), NmsEntityType.ARMOR_STAND);
 
-		EntityTools.setCustomName(entity, line);
-		EntityTools.setCustomNameVisible(entity, true);
-		EntityTools.setInvisible(entity, true);
-		EntityTools.setInvulnerable(entity, true);
-		EntityTools.setGravity(entity, false);
-		ArmorStandTools.setSmall(entity, true);
+		entity.setCustomName(line);
+		entity.setCustomNameVisible(true);
+		entity.setInvisible(true);
+		entity.setSmall(true);
 
 		int position;
 		synchronized (entities) {
@@ -190,24 +210,24 @@ public class Hologram extends CustomEntity {
 			entities.add(entity);
 		}
 
-		EntityTools.setPosition(entity, location.getX(), location.getY() + (offset * position), location.getZ());
+		entity.setLocation(new Location(null, location.getX(), location.getY() + (offset * position), location.getZ()));
 
 	}
 
 	private void updateEntity(int index, String line) {
-		Object entity;
+		NmsArmorStand entity;
 		synchronized (entities) {
 			entity = entities.get(index);
 		}
-		EntityTools.setCustomName(entity, line);
+		entity.setCustomName(line);
 	}
 
 	private void killEntity(int index) {
-		Object entity;
+		NmsArmorStand entity;
 		synchronized (entities) {
 			entity = entities.remove(index);
 		}
-		EntityTools.kill(entity);
+		entity.kill();
 	}
 
 	/*
@@ -222,9 +242,9 @@ public class Hologram extends CustomEntity {
 		return offset;
 	}
 
-	public Object[] getEntities() {
+	public NmsArmorStand[] getEntities() {
 		synchronized (entities) {
-			return entities.toArray();
+			return entities.toArray(new NmsArmorStand[0]);
 		}
 	}
 
