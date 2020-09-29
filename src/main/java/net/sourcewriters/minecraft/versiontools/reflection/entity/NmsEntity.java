@@ -46,6 +46,10 @@ public interface NmsEntity {
 	void hide(Player... players);
 	
 	void show(Player... players);
+
+	UUID[] getVisible();
+
+	Player[] getVisibleAsPlayer();
 	
 	void kill();
 	

@@ -26,6 +26,8 @@ public class Hologram extends CustomEntity {
 
 	private Location location;
 	private boolean alive = false;
+
+	private double height = 0.1D;
 	private double offset = 0.25D;
 
 	private Hologram(UUID uniqueId) {
@@ -45,6 +47,7 @@ public class Hologram extends CustomEntity {
 			for (String line : lines) {
 				spawnEntity(line);
 			}
+			updateOrder(0);
 		}
 		alive = true;
 		return true;
@@ -106,19 +109,7 @@ public class Hologram extends CustomEntity {
 		if (!alive) {
 			return;
 		}
-		int amount;
-		synchronized (entities) {
-			amount = entities.size();
-		}
-		for (int index = 0; index < amount; index++) {
-			NmsArmorStand entity;
-			synchronized (entities) {
-				entity = entities.get(index);
-			}
-			entity
-				.setLocation(new Location(location.getWorld(), location.getX(), location.getY() + (this.offset * index),
-					location.getZ()));
-		}
+		updateOrder(0);
 	}
 
 	/*
@@ -171,6 +162,7 @@ public class Hologram extends CustomEntity {
 			}
 			updateEntity(index, line);
 		}
+		updateOrder(0);
 	}
 
 	private void updateOrder(int offset) {
@@ -181,14 +173,14 @@ public class Hologram extends CustomEntity {
 		if (amount == offset) {
 			return;
 		}
-		for (int index = offset; index < amount; index++) {
+		for (int index = amount - offset - 1; index >= 0; index--) {
 			NmsArmorStand entity;
 			synchronized (entities) {
 				entity = entities.get(index);
 			}
 			entity
-				.setLocation(
-					new Location(null, location.getX(), location.getY() + (this.offset * index), location.getZ()));
+				.setLocation(new Location(null, location.getX(), location.getY() + (this.offset * (amount - index)),
+					location.getZ()));
 		}
 	}
 
@@ -203,14 +195,16 @@ public class Hologram extends CustomEntity {
 		entity.setCustomNameVisible(true);
 		entity.setInvisible(true);
 		entity.setSmall(true);
-
-		int position;
+		
+		NmsArmorStand entity0;
 		synchronized (entities) {
-			position = entities.size();
 			entities.add(entity);
+			if(entities.size() == 1)
+				return;
+			entity0 = entities.get(0);
 		}
-
-		entity.setLocation(new Location(null, location.getX(), location.getY() + (offset * position), location.getZ()));
+		
+		entity.show(entity0.getVisibleAsPlayer());
 
 	}
 
@@ -233,6 +227,14 @@ public class Hologram extends CustomEntity {
 	/*
 	 * Text handle
 	 */
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+	public double getHeight() {
+		return height;
+	}
 
 	public void setOffset(double offset) {
 		this.offset = offset;
@@ -307,6 +309,7 @@ public class Hologram extends CustomEntity {
 		}
 		if (alive) {
 			spawnEntity(line);
+			updateOrder(0);
 		}
 		return this;
 	}
@@ -320,6 +323,7 @@ public class Hologram extends CustomEntity {
 		}
 		if (alive) {
 			spawnEntity(line);
+			updateOrder(0);
 		}
 		return this;
 	}

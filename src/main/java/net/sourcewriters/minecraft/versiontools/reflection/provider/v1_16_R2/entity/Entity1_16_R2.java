@@ -15,7 +15,9 @@ import org.bukkit.entity.Player;
 
 import net.minecraft.server.v1_16_R2.Entity;
 import net.minecraft.server.v1_16_R2.PacketPlayOutEntityDestroy;
+import net.minecraft.server.v1_16_R2.PacketPlayOutEntityMetadata;
 import net.minecraft.server.v1_16_R2.PacketPlayOutSpawnEntity;
+import net.minecraft.server.v1_16_R2.PlayerConnection;
 import net.minecraft.server.v1_16_R2.Vec3D;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsEntity;
 
@@ -124,19 +126,24 @@ public abstract class Entity1_16_R2<E extends Entity> implements NmsEntity {
 	private void updateVisibility() {
 		if (visible.isEmpty())
 			return;
-		Player[] players = visible
-			.stream()
-			.map(Bukkit::getOfflinePlayer)
-			.filter(OfflinePlayer::isOnline)
-			.map(OfflinePlayer::getPlayer)
-			.toArray(Player[]::new);
+		Player[] players;
+		synchronized (visible) {
+			players = visible
+				.stream()
+				.map(Bukkit::getOfflinePlayer)
+				.filter(OfflinePlayer::isOnline)
+				.map(OfflinePlayer::getPlayer)
+				.toArray(Player[]::new);
+		}
 		hide(players);
 		show(players);
 	}
 
 	@Override
 	public boolean isShown(Player player) {
-		return visible.contains(player.getUniqueId());
+		synchronized (visible) {
+			return visible.contains(player.getUniqueId());
+		}
 	}
 
 	@Override
@@ -148,7 +155,9 @@ public abstract class Entity1_16_R2<E extends Entity> implements NmsEntity {
 			if (!isShown(player))
 				continue;
 			((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
-			visible.remove(player.getUniqueId());
+			synchronized (visible) {
+				visible.remove(player.getUniqueId());
+			}
 		}
 	}
 
@@ -157,11 +166,37 @@ public abstract class Entity1_16_R2<E extends Entity> implements NmsEntity {
 		if (players.length == 0)
 			return;
 		PacketPlayOutSpawnEntity packet = new PacketPlayOutSpawnEntity(handle);
+		PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(handle.getId(),
+			handle.getDataWatcher(), true);
+		PlayerConnection connection;
 		for (Player player : players) {
 			if (isShown(player))
 				continue;
-			((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
-			visible.add(player.getUniqueId());
+			connection = ((CraftPlayer) player).getHandle().playerConnection;
+			connection.sendPacket(packet);
+			connection.sendPacket(metadataPacket);
+			synchronized (visible) {
+				visible.add(player.getUniqueId());
+			}
+		}
+	}
+
+	@Override
+	public UUID[] getVisible() {
+		synchronized (visible) {
+			return visible.toArray(new UUID[0]);
+		}
+	}
+
+	@Override
+	public Player[] getVisibleAsPlayer() {
+		synchronized (visible) {
+			return visible
+				.stream()
+				.map(Bukkit::getOfflinePlayer)
+				.filter(OfflinePlayer::isOnline)
+				.map(OfflinePlayer::getPlayer)
+				.toArray(Player[]::new);
 		}
 	}
 
