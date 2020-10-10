@@ -45,7 +45,7 @@ import net.sourcewriters.minecraft.versiontools.reflection.reflect.ReflectionPro
 import net.sourcewriters.minecraft.versiontools.skin.Skin;
 import net.sourcewriters.minecraft.versiontools.utils.bukkit.MojangProfileServer;
 import net.sourcewriters.minecraft.versiontools.utils.bukkit.Players;
-import net.sourcewriters.minecraft.versiontools.utils.bukkit.persistence.SkinDataType;
+import net.sourcewriters.minecraft.versiontools.utils.data.type.SkinDataType;
 import net.sourcewriters.minecraft.versiontools.utils.thread.PostAsync;
 
 public class Player1_16_R1 extends EntityLiving1_16_R1<EntityPlayer> implements NmsPlayer<PersistentDataContainer> {
