@@ -13,7 +13,7 @@ public final class SkinDataType implements PersistentDataType<PersistentDataCont
 	public static final SkinDataType INSTANCE = new SkinDataType();
 	
 	private SkinDataType() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override

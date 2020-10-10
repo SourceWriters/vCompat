@@ -18,7 +18,9 @@ public abstract class VersionControl {
 			return null;
 		return CURRENT.replace((VersionControl) reflect.searchMethod("init", "init").run("init")).lock().get();
 	}
-
+	
+	public abstract DataProvider<?> getDataProvider();
+	
 	public abstract ToolProvider<?> getToolProvider();
 
 	public abstract EntityProvider<?> getEntityProvider();

@@ -8,7 +8,6 @@ import java.util.Collections;
 import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_16_R2.util.CraftChatMessage;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataContainer;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
@@ -40,6 +39,7 @@ import net.minecraft.server.v1_16_R2.PacketPlayOutTitle.EnumTitleAction;
 import net.minecraft.server.v1_16_R2.PlayerConnection;
 import net.minecraft.server.v1_16_R2.WorldServer;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsPlayer;
+import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_16_R2.data.PersistentDataAdapter1_16_R2;
 import net.sourcewriters.minecraft.versiontools.reflection.reflect.ReflectionProvider;
 import net.sourcewriters.minecraft.versiontools.skin.Skin;
 import net.sourcewriters.minecraft.versiontools.utils.bukkit.MojangProfileServer;
@@ -50,9 +50,11 @@ import net.sourcewriters.minecraft.versiontools.utils.thread.PostAsync;
 public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements NmsPlayer {
 
 	private String realName;
+	private final PersistentDataAdapter1_16_R2 dataAdapter;
 
 	public Player1_16_R2(Player player) {
 		super(((CraftPlayer) player).getHandle());
+		dataAdapter = new PersistentDataAdapter1_16_R2(getBukkitPlayer().getPersistentDataContainer());
 		update(false);
 	}
 
@@ -62,20 +64,20 @@ public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements 
 	}
 
 	@Override
-	public PersistentDataContainer getDataContainer() {
-		return getBukkitPlayer().getPersistentDataContainer();
+	public PersistentDataAdapter1_16_R2 getDataAdapter() {
+		return dataAdapter;
 	}
 
 	@Override
 	public void setSkin(Skin skin) {
 		if (skin == null || getSkin().equals(skin))
 			return;
-		getDataContainer().set(KEYS.get("skin"), SkinDataType.INSTANCE, skin);
+		dataAdapter.getHandle().set(KEYS.get("skin"), SkinDataType.INSTANCE, skin);
 	}
 
 	@Override
 	public Skin getSkin() {
-		return getDataContainer().getOrDefault(KEYS.get("skin"), SkinDataType.INSTANCE, Skin.NONE);
+		return dataAdapter.getHandle().getOrDefault(KEYS.get("skin"), SkinDataType.INSTANCE, Skin.NONE);
 	}
 
 	@Override
@@ -83,15 +85,15 @@ public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements 
 		if (getName().equals(name))
 			return;
 		if (name == null) {
-			getDataContainer().remove(KEYS.get("name"));
+			dataAdapter.getHandle().remove(KEYS.get("name"));
 			return;
 		}
-		getDataContainer().set(KEYS.get("name"), SkinDataType.STRING, name);
+		dataAdapter.getHandle().set(KEYS.get("name"), SkinDataType.STRING, name);
 	}
 
 	@Override
 	public String getName() {
-		return getDataContainer().getOrDefault(KEYS.get("name"), SkinDataType.STRING, realName);
+		return dataAdapter.getHandle().getOrDefault(KEYS.get("name"), SkinDataType.STRING, realName);
 	}
 
 	@Override
@@ -106,7 +108,7 @@ public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements 
 
 	@Override
 	public String getPlayerListHeader() {
-		return getDataContainer().getOrDefault(KEYS.get("header"), SkinDataType.STRING, "");
+		return dataAdapter.getHandle().getOrDefault(KEYS.get("header"), SkinDataType.STRING, "");
 	}
 
 	@Override
@@ -116,7 +118,7 @@ public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements 
 
 	@Override
 	public String getPlayerListFooter() {
-		return getDataContainer().getOrDefault(KEYS.get("footer"), SkinDataType.STRING, "");
+		return dataAdapter.getHandle().getOrDefault(KEYS.get("footer"), SkinDataType.STRING, "");
 	}
 
 	@Override
@@ -126,8 +128,8 @@ public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements 
 
 	@Override
 	public void setPlayerListHeaderAndFooter(String header, String footer) {
-		getDataContainer().set(KEYS.get("header"), SkinDataType.STRING, header);
-		getDataContainer().set(KEYS.get("footer"), SkinDataType.STRING, footer);
+		dataAdapter.getHandle().set(KEYS.get("header"), SkinDataType.STRING, header);
+		dataAdapter.getHandle().set(KEYS.get("footer"), SkinDataType.STRING, footer);
 		sendPlayerListInfo(header, footer);
 	}
 

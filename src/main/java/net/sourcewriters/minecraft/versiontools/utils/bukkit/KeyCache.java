@@ -8,12 +8,28 @@ import org.bukkit.NamespacedKey;
 
 public final class KeyCache {
 
-	public static final KeyCache KEYS = new KeyCache("verionUtils");
+	private static final Map<String, KeyCache> KEYS = Collections.synchronizedMap(new HashMap<>());
+
+	public static final KeyCache versionUtils() {
+		return cache("versionUtils");
+	}
+
+	public static final KeyCache cache(String namespace) {
+		return KEYS.computeIfAbsent(namespace, name -> new KeyCache(name));
+	}
+
+	public static final NamespacedKey key(String key) {
+		if (!key.contains(":")) {
+			return versionUtils().get(key);
+		}
+		String[] keys = key.split(":", 2);
+		return cache(keys[0]).get(keys[1]);
+	}
 
 	private final String namespace;
 	private final Map<String, NamespacedKey> keys = Collections.synchronizedMap(new HashMap<>());
 
-	public KeyCache(String namespace) {
+	private KeyCache(String namespace) {
 		this.namespace = namespace;
 	}
 

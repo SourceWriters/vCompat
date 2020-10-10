@@ -1,15 +1,15 @@
 package net.sourcewriters.minecraft.versiontools.reflection.entity;
 
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataContainer;
 
+import net.sourcewriters.minecraft.versiontools.reflection.data.PersistentDataAdapter;
 import net.sourcewriters.minecraft.versiontools.skin.Skin;
 
 public interface NmsPlayer extends NmsEntityLiving {
 
 	Player getBukkitPlayer();
 
-	PersistentDataContainer getDataContainer();
+	PersistentDataAdapter getDataAdapter();
 
 	void setSkin(Skin skin);
 
