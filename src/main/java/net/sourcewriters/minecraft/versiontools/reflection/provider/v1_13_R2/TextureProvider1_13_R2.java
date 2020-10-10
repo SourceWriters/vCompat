@@ -75,7 +75,7 @@ public class TextureProvider1_13_R2 extends TextureProvider<VersionControl1_13_R
 			return false;
 		}
 		TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue("tileEntity", block);
-		applyTexture(entitySkull.getGameProfile();, texture);
+		applyTexture(entitySkull.getGameProfile(), texture);
 		return true;
 	}
 

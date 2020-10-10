@@ -1,37 +1,28 @@
-package net.sourcewriters.minecraft.versiontools.reflection.provider.v1_16_R1.data;
+package net.sourcewriters.minecraft.versiontools.reflection.data.wrap;
 
-import java.util.Arrays;
-import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.bukkit.NamespacedKey;
-import org.bukkit.persistence.PersistentDataAdapterContext;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 import com.syntaxphoenix.syntaxapi.data.IDataContainer;
 
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedKey;
-import net.sourcewriters.minecraft.versiontools.reflection.data.wrap.SyntaxKey;
 
-public final class BukkitContainer1_16_R1 extends WrappedContainer implements PersistentDataContainer {
+public final class SimpleSyntaxContainer<E extends IDataContainer> extends WrappedContainer {
 
-	private final IDataContainer container;
+	private final E container;
 
-	public BukkitContainer1_16_R1(IDataContainer container) {
+	public SimpleSyntaxContainer(E container) {
 		this.container = container;
 	}
 
 	@Override
-	public IDataContainer getHandle() {
+	public E getHandle() {
 		return container;
 	}
 
 	@Override
-	public IDataContainer getAsSyntaxContainer() {
+	public E getAsSyntaxContainer() {
 		return container;
 	}
 
@@ -40,51 +31,8 @@ public final class BukkitContainer1_16_R1 extends WrappedContainer implements Pe
 	 */
 
 	@Override
-	public <T, Z> boolean has(NamespacedKey key, PersistentDataType<T, Z> type) {
-		return has(new BukkitKey1_16_R1(key), WrappedType1_16_R1.wrap(type));
-	}
-
-	@Override
-	public <T, Z> Z get(NamespacedKey key, PersistentDataType<T, Z> type) {
-		return get(new BukkitKey1_16_R1(key), WrappedType1_16_R1.wrap(type));
-	}
-
-	@Override
-	public <T, Z> Z getOrDefault(NamespacedKey key, PersistentDataType<T, Z> type, Z value) {
-		return Optional.ofNullable(get(key, type)).orElse(value);
-	}
-
-	@Override
-	public <T, Z> void set(NamespacedKey key, PersistentDataType<T, Z> type, Z value) {
-		set(new BukkitKey1_16_R1(key), value, WrappedType1_16_R1.wrap(type));
-	}
-
-	@Override
-	public void remove(NamespacedKey key) {
-		remove(new BukkitKey1_16_R1(key));
-	}
-
-	@Override
-	public Set<NamespacedKey> getKeys() {
-		return Arrays
-			.stream(container.getDataKeys())
-			.map(SyntaxKey::new)
-			.map(BukkitKey1_16_R1::asBukkit)
-			.collect(Collectors.toSet());
-	}
-
-	@Override
-	public PersistentDataAdapterContext getAdapterContext() {
-		return getContext();
-	}
-
-	/*
-	 * 
-	 */
-
-	@Override
-	public BukkitContext1_16_R1 getContext() {
-		return new BukkitContext1_16_R1(container.getAdapterContext());
+	public SimpleSyntaxContext getContext() {
+		return new SimpleSyntaxContext(container.getAdapterContext());
 	}
 
 	@Override

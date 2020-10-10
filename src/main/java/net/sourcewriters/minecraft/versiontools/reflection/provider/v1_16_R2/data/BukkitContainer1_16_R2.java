@@ -12,10 +12,10 @@ import org.bukkit.persistence.PersistentDataType;
 
 import com.syntaxphoenix.syntaxapi.data.IDataContainer;
 
-import net.sourcewriters.minecraft.versiontools.reflection.data.SyntaxKey;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedKey;
+import net.sourcewriters.minecraft.versiontools.reflection.data.wrap.SyntaxKey;
 
 public final class BukkitContainer1_16_R2 extends WrappedContainer implements PersistentDataContainer {
 

@@ -5,11 +5,11 @@ import org.bukkit.persistence.PersistentDataType;
 
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 
-public class SimpleBukkitType1_15_R1<P, C> implements PersistentDataType<P, C> {
+public class SimpleBukkitType1_14_R1<P, C> implements PersistentDataType<P, C> {
 
 	private final WrapType<P, C> type;
 
-	public SimpleBukkitType1_15_R1(WrapType<P, C> type) {
+	public SimpleBukkitType1_14_R1(WrapType<P, C> type) {
 		this.type = type;
 	}
 
@@ -25,12 +25,12 @@ public class SimpleBukkitType1_15_R1<P, C> implements PersistentDataType<P, C> {
 
 	@Override
 	public P toPrimitive(C complex, PersistentDataAdapterContext context) {
-		return type.wrapToPrimitive(complex, new SyntaxContext1_15_R1(context));
+		return type.wrapToPrimitive(complex, new SyntaxContext1_14_R1(context));
 	}
 
 	@Override
 	public C fromPrimitive(P primitive, PersistentDataAdapterContext context) {
-		return type.wrapToComplex(primitive, new SyntaxContext1_15_R1(context));
+		return type.wrapToComplex(primitive, new SyntaxContext1_14_R1(context));
 	}
 
 }

@@ -7,11 +7,11 @@ import com.syntaxphoenix.syntaxapi.data.IDataContainer;
 
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;
 
-public final class SyntaxContext1_15_R1 extends WrappedContext<PersistentDataAdapterContext> implements PersistentDataAdapterContext {
+public final class SyntaxContext1_14_R1 extends WrappedContext<PersistentDataAdapterContext> implements PersistentDataAdapterContext {
 
 	private final PersistentDataAdapterContext context;
 
-	public SyntaxContext1_15_R1(PersistentDataAdapterContext context) {
+	public SyntaxContext1_14_R1(PersistentDataAdapterContext context) {
 		this.context = context;
 	}
 
@@ -31,8 +31,8 @@ public final class SyntaxContext1_15_R1 extends WrappedContext<PersistentDataAda
 	}
 
 	@Override
-	public SyntaxContainer1_15_R1 newContainer() {
-		return new SyntaxContainer1_15_R1(context.newPersistentDataContainer());
+	public SyntaxContainer1_14_R1 newContainer() {
+		return new SyntaxContainer1_14_R1(context.newPersistentDataContainer());
 	}
 
 }

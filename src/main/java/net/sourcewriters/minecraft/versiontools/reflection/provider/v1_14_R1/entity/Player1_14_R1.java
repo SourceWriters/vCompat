@@ -1,14 +1,11 @@
 package net.sourcewriters.minecraft.versiontools.reflection.provider.v1_14_R1.entity;
 
-import static net.sourcewriters.minecraft.versiontools.utils.bukkit.KeyCache.KEYS;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
 import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_14_R1.util.CraftChatMessage;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataContainer;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
@@ -39,7 +36,6 @@ import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.data.type.SkinDataType;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsPlayer;
-import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_14_R1.data.PersistentDataAdapter1_14_R1;
 import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_14_R1.data.SyntaxContainer1_14_R1;
 import net.sourcewriters.minecraft.versiontools.reflection.reflect.ReflectionProvider;
 import net.sourcewriters.minecraft.versiontools.skin.Skin;
@@ -47,7 +43,7 @@ import net.sourcewriters.minecraft.versiontools.utils.bukkit.MojangProfileServer
 import net.sourcewriters.minecraft.versiontools.utils.bukkit.Players;
 import net.sourcewriters.minecraft.versiontools.utils.thread.PostAsync;
 
-public class Player1_14_R1 extends EntityLiving1_14_R1<EntityPlayer> implements NmsPlayer<PersistentDataContainer> {
+public class Player1_14_R1 extends EntityLiving1_14_R1<EntityPlayer> implements NmsPlayer {
 
 	private String realName;
 	private final WrappedContainer dataAdapter;

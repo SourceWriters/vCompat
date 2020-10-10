@@ -8,11 +8,11 @@ import com.syntaxphoenix.syntaxapi.data.IDataContainer;
 
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;
 
-public final class BukkitContext1_15_R1 extends WrappedContext<DataAdapterContext> implements PersistentDataAdapterContext {
+public final class BukkitContext1_14_R1 extends WrappedContext<DataAdapterContext> implements PersistentDataAdapterContext {
 
 	private final DataAdapterContext context;
 
-	public BukkitContext1_15_R1(DataAdapterContext context) {
+	public BukkitContext1_14_R1(DataAdapterContext context) {
 		this.context = context;
 	}
 
@@ -32,8 +32,8 @@ public final class BukkitContext1_15_R1 extends WrappedContext<DataAdapterContex
 	}
 
 	@Override
-	public BukkitContainer1_15_R1 newContainer() {
-		return new BukkitContainer1_15_R1(context.newDataContainer());
+	public BukkitContainer1_14_R1 newContainer() {
+		return new BukkitContainer1_14_R1(context.newDataContainer());
 	}
 
 }

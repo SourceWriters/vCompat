@@ -10,7 +10,7 @@ import com.syntaxphoenix.syntaxapi.data.IDataContainer;
 
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 
-public abstract class WrappedType1_15_R1<H, P0, P1, C0, C1> implements WrapType<P0, C0> {
+public abstract class WrappedType1_14_R1<H, P0, P1, C0, C1> implements WrapType<P0, C0> {
 
 	protected final Class<P0> primitiveType;
 	protected final Class<C0> complexType;
@@ -19,11 +19,11 @@ public abstract class WrappedType1_15_R1<H, P0, P1, C0, C1> implements WrapType<
 	private final int complexWrap;
 
 	@SuppressWarnings("unchecked")
-	protected WrappedType1_15_R1(Class<P1> primitive, Class<C1> complex) {
-		this.primitiveWrap = WrappedType1_15_R1.internalState(primitive);
-		this.complexWrap = WrappedType1_15_R1.internalState(complex);
-		this.primitiveType = (Class<P0>) WrappedType1_15_R1.internalWrap(primitive, primitiveWrap);
-		this.complexType = (Class<C0>) WrappedType1_15_R1.internalWrap(complex, complexWrap);
+	protected WrappedType1_14_R1(Class<P1> primitive, Class<C1> complex) {
+		this.primitiveWrap = WrappedType1_14_R1.internalState(primitive);
+		this.complexWrap = WrappedType1_14_R1.internalState(complex);
+		this.primitiveType = (Class<P0>) WrappedType1_14_R1.internalWrap(primitive, primitiveWrap);
+		this.complexType = (Class<C0>) WrappedType1_14_R1.internalWrap(complex, complexWrap);
 	}
 
 	public abstract H getHandle();
@@ -44,18 +44,18 @@ public abstract class WrappedType1_15_R1<H, P0, P1, C0, C1> implements WrapType<
 	public P0 toPrimitiveWrapped(P1 primitive) {
 		switch (primitiveWrap) {
 		case 1:
-			return (P0) new SyntaxContainer1_15_R1((PersistentDataContainer) primitive);
+			return (P0) new SyntaxContainer1_14_R1((PersistentDataContainer) primitive);
 		case 2:
 			return (P0) Arrays
 				.stream((PersistentDataContainer[]) primitive)
-				.map(SyntaxContainer1_15_R1::new)
+				.map(SyntaxContainer1_14_R1::new)
 				.toArray(IDataContainer[]::new);
 		case 3:
-			return (P0) new BukkitContainer1_15_R1((IDataContainer) primitive);
+			return (P0) new BukkitContainer1_14_R1((IDataContainer) primitive);
 		case 4:
 			return (P0) Arrays
 				.stream((IDataContainer[]) primitive)
-				.map(BukkitContainer1_15_R1::new)
+				.map(BukkitContainer1_14_R1::new)
 				.toArray(PersistentDataContainer[]::new);
 		default:
 			return (P0) primitive;
@@ -66,18 +66,18 @@ public abstract class WrappedType1_15_R1<H, P0, P1, C0, C1> implements WrapType<
 	public C0 toComplexWrapped(C1 complex) {
 		switch (complexWrap) {
 		case 1:
-			return (C0) new SyntaxContainer1_15_R1((PersistentDataContainer) complex);
+			return (C0) new SyntaxContainer1_14_R1((PersistentDataContainer) complex);
 		case 2:
 			return (C0) Arrays
 				.stream((PersistentDataContainer[]) complex)
-				.map(SyntaxContainer1_15_R1::new)
+				.map(SyntaxContainer1_14_R1::new)
 				.toArray(IDataContainer[]::new);
 		case 3:
-			return (C0) new BukkitContainer1_15_R1((IDataContainer) complex);
+			return (C0) new BukkitContainer1_14_R1((IDataContainer) complex);
 		case 4:
 			return (C0) Arrays
 				.stream((IDataContainer[]) complex)
-				.map(BukkitContainer1_15_R1::new)
+				.map(BukkitContainer1_14_R1::new)
 				.toArray(PersistentDataContainer[]::new);
 		default:
 			return (C0) complex;
@@ -88,18 +88,18 @@ public abstract class WrappedType1_15_R1<H, P0, P1, C0, C1> implements WrapType<
 	public P1 toPrimitiveOriginal(P0 primitive) {
 		switch (primitiveWrap) {
 		case 1:
-			return (P1) new BukkitContainer1_15_R1((IDataContainer) primitive);
+			return (P1) new BukkitContainer1_14_R1((IDataContainer) primitive);
 		case 2:
 			return (P1) Arrays
 				.stream((IDataContainer[]) primitive)
-				.map(BukkitContainer1_15_R1::new)
+				.map(BukkitContainer1_14_R1::new)
 				.toArray(PersistentDataContainer[]::new);
 		case 3:
-			return (P1) new SyntaxContainer1_15_R1((PersistentDataContainer) primitive);
+			return (P1) new SyntaxContainer1_14_R1((PersistentDataContainer) primitive);
 		case 4:
 			return (P1) Arrays
 				.stream((PersistentDataContainer[]) primitive)
-				.map(SyntaxContainer1_15_R1::new)
+				.map(SyntaxContainer1_14_R1::new)
 				.toArray(IDataContainer[]::new);
 		default:
 			return (P1) primitive;
@@ -110,18 +110,18 @@ public abstract class WrappedType1_15_R1<H, P0, P1, C0, C1> implements WrapType<
 	public C1 toComplexOriginal(C0 complex) {
 		switch (complexWrap) {
 		case 1:
-			return (C1) new BukkitContainer1_15_R1((IDataContainer) complex);
+			return (C1) new BukkitContainer1_14_R1((IDataContainer) complex);
 		case 2:
 			return (C1) Arrays
 				.stream((IDataContainer[]) complex)
-				.map(BukkitContainer1_15_R1::new)
+				.map(BukkitContainer1_14_R1::new)
 				.toArray(PersistentDataContainer[]::new);
 		case 3:
-			return (C1) new SyntaxContainer1_15_R1((PersistentDataContainer) complex);
+			return (C1) new SyntaxContainer1_14_R1((PersistentDataContainer) complex);
 		case 4:
 			return (C1) Arrays
 				.stream((PersistentDataContainer[]) complex)
-				.map(SyntaxContainer1_15_R1::new)
+				.map(SyntaxContainer1_14_R1::new)
 				.toArray(IDataContainer[]::new);
 		default:
 			return (C1) complex;
@@ -159,12 +159,12 @@ public abstract class WrappedType1_15_R1<H, P0, P1, C0, C1> implements WrapType<
 		return 0;
 	}
 	
-	public static <A, B> BukkitType1_15_R1<?, A, ?, B> wrap(DataType<A, B> type) {
-		return new BukkitType1_15_R1<>(type);
+	public static <A, B> BukkitType1_14_R1<?, A, ?, B> wrap(DataType<A, B> type) {
+		return new BukkitType1_14_R1<>(type);
 	}
 	
-	public static <A, B> SyntaxType1_15_R1<?, A, ?, B> wrap(PersistentDataType<A, B> type) {
-		return new SyntaxType1_15_R1<>(type);
+	public static <A, B> SyntaxType1_14_R1<?, A, ?, B> wrap(PersistentDataType<A, B> type) {
+		return new SyntaxType1_14_R1<>(type);
 	}
 
 }

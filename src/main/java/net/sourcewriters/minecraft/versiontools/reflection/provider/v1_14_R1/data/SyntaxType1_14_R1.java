@@ -8,12 +8,12 @@ import com.syntaxphoenix.syntaxapi.data.DataType;
 
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;
 
-public class SyntaxType1_15_R1<P0, P1, C0, C1> extends WrappedType1_15_R1<PersistentDataType<P1, C1>, P0, P1, C0, C1>
+public class SyntaxType1_14_R1<P0, P1, C0, C1> extends WrappedType1_14_R1<PersistentDataType<P1, C1>, P0, P1, C0, C1>
 	implements DataType<P0, C0> {
 
 	private final PersistentDataType<P1, C1> type;
 
-	public SyntaxType1_15_R1(PersistentDataType<P1, C1> type) {
+	public SyntaxType1_14_R1(PersistentDataType<P1, C1> type) {
 		super(type.getPrimitiveType(), type.getComplexType());
 		this.type = type;
 	}
@@ -49,12 +49,12 @@ public class SyntaxType1_15_R1<P0, P1, C0, C1> extends WrappedType1_15_R1<Persis
 
 	@Override
 	public P0 toPrimitive(DataAdapterContext context, C0 complex) {
-		return wrapToPrimitive(complex, new BukkitContext1_15_R1(context));
+		return wrapToPrimitive(complex, new BukkitContext1_14_R1(context));
 	}
 
 	@Override
 	public C0 fromPrimitive(DataAdapterContext context, P0 primitive) {
-		return wrapToComplex(primitive, new BukkitContext1_15_R1(context));
+		return wrapToComplex(primitive, new BukkitContext1_14_R1(context));
 	}
 
 	@Override

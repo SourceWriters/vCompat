@@ -14,7 +14,7 @@ import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedKey;
 
-public final class BukkitContainer1_15_R1 extends WrappedContainer<IDataContainer> implements PersistentDataContainer {
+public final class BukkitContainer1_15_R1 extends WrappedContainer implements PersistentDataContainer {
 
 	private final IDataContainer container;
 

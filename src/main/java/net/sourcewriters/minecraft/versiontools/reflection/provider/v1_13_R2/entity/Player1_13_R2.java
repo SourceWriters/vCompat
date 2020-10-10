@@ -1,7 +1,5 @@
 package net.sourcewriters.minecraft.versiontools.reflection.provider.v1_13_R2.entity;
 
-import static net.sourcewriters.minecraft.versiontools.utils.bukkit.KeyCache.KEYS;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,12 +10,10 @@ import org.bukkit.entity.Player;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
-import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.server.v1_13_R2.EntityPlayer;
 import net.minecraft.server.v1_13_R2.EnumItemSlot;
 import net.minecraft.server.v1_13_R2.IChatBaseComponent;
-import net.minecraft.server.v1_13_R2.ItemStack;
 import net.minecraft.server.v1_13_R2.MathHelper;
 import net.minecraft.server.v1_13_R2.PacketPlayInClientCommand;
 import net.minecraft.server.v1_13_R2.PacketPlayInClientCommand.EnumClientCommand;
@@ -37,7 +33,11 @@ import net.minecraft.server.v1_13_R2.PacketPlayOutTitle;
 import net.minecraft.server.v1_13_R2.PacketPlayOutTitle.EnumTitleAction;
 import net.minecraft.server.v1_13_R2.PlayerConnection;
 import net.minecraft.server.v1_13_R2.WorldServer;
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
+import net.sourcewriters.minecraft.versiontools.reflection.data.persistence.PersistentContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.data.type.SkinDataType;
+import net.sourcewriters.minecraft.versiontools.reflection.data.wrap.SimpleSyntaxContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsPlayer;
 import net.sourcewriters.minecraft.versiontools.reflection.reflect.ReflectionProvider;
 import net.sourcewriters.minecraft.versiontools.skin.Skin;
@@ -48,9 +48,11 @@ import net.sourcewriters.minecraft.versiontools.utils.thread.PostAsync;
 public class Player1_13_R2 extends EntityLiving1_13_R2<EntityPlayer> implements NmsPlayer {
 
 	private String realName;
+	private final WrappedContainer dataAdapter;
 
-	public Player1_13_R2(Player player) {
+	public Player1_13_R2(Player player, PersistentContainer container) {
 		super(((CraftPlayer) player).getHandle());
+		this.dataAdapter = new SimpleSyntaxContainer<>(container);
 		update(false);
 	}
 
@@ -60,20 +62,20 @@ public class Player1_13_R2 extends EntityLiving1_13_R2<EntityPlayer> implements 
 	}
 
 	@Override
-	public PersistentDataContainer getDataContainer() {
-		return getBukkitPlayer().getPersistentDataContainer();
+	public WrappedContainer getDataAdapter() {
+		return dataAdapter;
 	}
 
 	@Override
 	public void setSkin(Skin skin) {
 		if (skin == null || getSkin().equals(skin))
 			return;
-		getDataContainer().set(KEYS.get("skin"), SkinDataType.INSTANCE, skin);
+		dataAdapter.set("skin", skin, SkinDataType.INSTANCE);
 	}
 
 	@Override
 	public Skin getSkin() {
-		return getDataContainer().getOrDefault(KEYS.get("skin"), SkinDataType.INSTANCE, Skin.NONE);
+		return dataAdapter.getOrDefault("skin", SkinDataType.INSTANCE, Skin.NONE);
 	}
 
 	@Override
@@ -81,15 +83,15 @@ public class Player1_13_R2 extends EntityLiving1_13_R2<EntityPlayer> implements 
 		if (getName().equals(name))
 			return;
 		if (name == null) {
-			getDataContainer().remove(KEYS.get("name"));
+			dataAdapter.remove("name");
 			return;
 		}
-		getDataContainer().set(KEYS.get("name"), SkinDataType.STRING, name);
+		dataAdapter.set("name", name, WrapType.STRING);
 	}
 
 	@Override
 	public String getName() {
-		return getDataContainer().getOrDefault(KEYS.get("name"), SkinDataType.STRING, realName);
+		return dataAdapter.getOrDefault("name", WrapType.STRING, realName);
 	}
 
 	@Override
@@ -104,7 +106,7 @@ public class Player1_13_R2 extends EntityLiving1_13_R2<EntityPlayer> implements 
 
 	@Override
 	public String getPlayerListHeader() {
-		return getDataContainer().getOrDefault(KEYS.get("header"), SkinDataType.STRING, "");
+		return dataAdapter.getOrDefault("header", WrapType.STRING, "");
 	}
 
 	@Override
@@ -114,7 +116,7 @@ public class Player1_13_R2 extends EntityLiving1_13_R2<EntityPlayer> implements 
 
 	@Override
 	public String getPlayerListFooter() {
-		return getDataContainer().getOrDefault(KEYS.get("footer"), SkinDataType.STRING, "");
+		return dataAdapter.getOrDefault("footer", WrapType.STRING, "");
 	}
 
 	@Override
@@ -124,8 +126,8 @@ public class Player1_13_R2 extends EntityLiving1_13_R2<EntityPlayer> implements 
 
 	@Override
 	public void setPlayerListHeaderAndFooter(String header, String footer) {
-		getDataContainer().set(KEYS.get("header"), SkinDataType.STRING, header);
-		getDataContainer().set(KEYS.get("footer"), SkinDataType.STRING, footer);
+		dataAdapter.set("header", header, WrapType.STRING);
+		dataAdapter.set("footer", footer, WrapType.STRING);
 		sendPlayerListInfo(header, footer);
 	}
 
@@ -133,8 +135,8 @@ public class Player1_13_R2 extends EntityLiving1_13_R2<EntityPlayer> implements 
 		if (handle.playerConnection.isDisconnected())
 			return;
 
-		IChatBaseComponent headerComponent = header.isEmpty() ? null : CraftChatMessage.fromStringOrNull(header, true);
-		IChatBaseComponent footerComponent = footer.isEmpty() ? null : CraftChatMessage.fromStringOrNull(footer, true);
+		IChatBaseComponent headerComponent = header.isEmpty() ? null : CraftChatMessage.fromString(header, true)[0];
+		IChatBaseComponent footerComponent = footer.isEmpty() ? null : CraftChatMessage.fromString(footer, true)[0];
 
 		PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter();
 
@@ -155,24 +157,21 @@ public class Player1_13_R2 extends EntityLiving1_13_R2<EntityPlayer> implements 
 	public void sendSubtitle(String text) {
 		if (handle.playerConnection.isDisconnected())
 			return;
-		handle.playerConnection
-			.sendPacket(new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, CraftChatMessage.fromStringOrNull(text)));
+		handle.playerConnection.sendPacket(new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, CraftChatMessage.fromStringOrNull(text)));
 	}
 
 	@Override
 	public void sendTitle(String text) {
 		if (handle.playerConnection.isDisconnected())
 			return;
-		handle.playerConnection
-			.sendPacket(new PacketPlayOutTitle(EnumTitleAction.TITLE, CraftChatMessage.fromStringOrNull(text)));
+		handle.playerConnection.sendPacket(new PacketPlayOutTitle(EnumTitleAction.TITLE, CraftChatMessage.fromStringOrNull(text)));
 	}
 
 	@Override
 	public void sendActionBar(String text) {
 		if (handle.playerConnection.isDisconnected())
 			return;
-		handle.playerConnection
-			.sendPacket(new PacketPlayOutTitle(EnumTitleAction.ACTIONBAR, CraftChatMessage.fromStringOrNull(text)));
+		handle.playerConnection.sendPacket(new PacketPlayOutTitle(EnumTitleAction.ACTIONBAR, CraftChatMessage.fromStringOrNull(text)));
 	}
 
 	@Override
@@ -187,11 +186,10 @@ public class Player1_13_R2 extends EntityLiving1_13_R2<EntityPlayer> implements 
 		PacketPlayOutEntityHeadRotation rotationPacket = new PacketPlayOutEntityHeadRotation(handle,
 			(byte) MathHelper.d(handle.getHeadRotation() * 256F / 360F));
 
-		ArrayList<Pair<EnumItemSlot, ItemStack>> list = new ArrayList<>();
+		ArrayList<PacketPlayOutEntityEquipment> equipmentPackets = new ArrayList<>();
 		for (EnumItemSlot slot : EnumItemSlot.values()) {
-			list.add(Pair.of(slot, handle.getEquipment(slot)));
+			equipmentPackets.add(new PacketPlayOutEntityEquipment(handle.getId(), slot, handle.getEquipment(slot)));
 		}
-		PacketPlayOutEntityEquipment equipmentPacket = new PacketPlayOutEntityEquipment(handle.getId(), list);
 
 		Player self = getBukkitPlayer();
 		Player[] players = Players.getOnlineWithout(getUniqueId());
@@ -204,20 +202,20 @@ public class Player1_13_R2 extends EntityLiving1_13_R2<EntityPlayer> implements 
 			connection.sendPacket(destroyPacket);
 			connection.sendPacket(spawnPacket);
 			connection.sendPacket(rotationPacket);
-			connection.sendPacket(equipmentPacket);
+			for (PacketPlayOutEntityEquipment equipmentPacket : equipmentPackets) {
+				connection.sendPacket(equipmentPacket);
+			}
 		}
 
 		WorldServer world = (WorldServer) handle.world;
 
-		PacketPlayOutRespawn respawnPacket = new PacketPlayOutRespawn(world.getDimensionManager(),
-			world.getDimensionKey(), BiomeManager.a(world.getSeed()), handle.playerInteractManager.getGameMode(),
-			handle.playerInteractManager.c(), world.isDebugWorld(), world.isFlatWorld(), true);
-		PacketPlayOutPosition positionPacket = new PacketPlayOutPosition(handle.locX(), handle.locY(), handle.locZ(),
-			handle.yaw, handle.pitch, Collections.emptySet(), 0);
+		PacketPlayOutRespawn respawnPacket = new PacketPlayOutRespawn(handle.dimension, world.getDifficulty(), handle.world.worldData.getType(),
+			handle.playerInteractManager.getGameMode());
+		PacketPlayOutPosition positionPacket = new PacketPlayOutPosition(handle.locX, handle.locY, handle.locZ, handle.yaw, handle.pitch,
+			Collections.emptySet(), 0);
 		PacketPlayOutHeldItemSlot itemPacket = new PacketPlayOutHeldItemSlot(handle.inventory.itemInHandIndex);
 		PacketPlayOutEntityStatus statusPacket = new PacketPlayOutEntityStatus(handle, (byte) 28);
-		PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(handle.getId(),
-			handle.getDataWatcher(), true);
+		PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(handle.getId(), handle.getDataWatcher(), true);
 
 		PlayerConnection connection = handle.playerConnection;
 		connection.sendPacket(remInfoPacket);

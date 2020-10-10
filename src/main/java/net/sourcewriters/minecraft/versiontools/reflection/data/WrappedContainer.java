@@ -8,6 +8,8 @@ import java.util.Set;
 import com.syntaxphoenix.syntaxapi.data.IDataContainer;
 import com.syntaxphoenix.syntaxapi.data.key.NamespacedKey;
 
+import net.sourcewriters.minecraft.versiontools.reflection.data.wrap.SyntaxKey;
+
 public abstract class WrappedContainer {
 
 	public abstract Object getHandle();

@@ -1,9 +1,10 @@
-package net.sourcewriters.minecraft.versiontools.reflection.data;
+package net.sourcewriters.minecraft.versiontools.reflection.data.wrap;
 
 import com.syntaxphoenix.syntaxapi.data.DataAdapterContext;
 import com.syntaxphoenix.syntaxapi.data.DataType;
 
 import net.sourcewriters.minecraft.versiontools.reflection.VersionControl;
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 
 public class SimpleSyntaxType<P, C> implements DataType<P, C> {
 

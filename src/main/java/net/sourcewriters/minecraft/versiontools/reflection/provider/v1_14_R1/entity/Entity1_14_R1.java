@@ -119,7 +119,7 @@ public abstract class Entity1_14_R1<E extends Entity> implements NmsEntity {
 
 	@Override
 	public Location getLocation() {
-		Vec3D vector = handle.getPositionVector();
+		Vec3D vector = handle.bO();
 		return new Location(handle.getWorld().getWorld(), vector.x, vector.y, vector.z);
 	}
 

@@ -14,11 +14,11 @@ import com.syntaxphoenix.syntaxapi.data.IDataContainer;
 import com.syntaxphoenix.syntaxapi.data.key.DataKey;
 import com.syntaxphoenix.syntaxapi.data.key.NamespacedKey;
 
-import net.sourcewriters.minecraft.versiontools.reflection.data.SyntaxKey;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedKey;
 import net.sourcewriters.minecraft.versiontools.reflection.data.type.ObjectType;
+import net.sourcewriters.minecraft.versiontools.reflection.data.wrap.SyntaxKey;
 
 public final class SyntaxContainer1_16_R2 extends WrappedContainer implements IDataContainer {
 

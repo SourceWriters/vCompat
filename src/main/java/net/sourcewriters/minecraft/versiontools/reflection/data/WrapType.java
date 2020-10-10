@@ -6,6 +6,9 @@ import java.math.BigInteger;
 import com.syntaxphoenix.syntaxapi.data.DataType;
 import com.syntaxphoenix.syntaxapi.data.PrimitiveDataType;
 
+import net.sourcewriters.minecraft.versiontools.reflection.data.wrap.SimpleSyntaxType;
+import net.sourcewriters.minecraft.versiontools.reflection.data.wrap.SimpleWrapType;
+
 public interface WrapType<P, C> {
 
 	public static final SimpleWrapType<Byte, Byte> BYTE = new SimpleWrapType<>(PrimitiveDataType.BYTE);

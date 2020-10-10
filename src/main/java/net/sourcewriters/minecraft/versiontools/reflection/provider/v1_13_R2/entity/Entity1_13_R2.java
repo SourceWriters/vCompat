@@ -14,6 +14,7 @@ import org.bukkit.craftbukkit.v1_13_R2.util.CraftChatMessage;
 import org.bukkit.entity.Player;
 
 import net.minecraft.server.v1_13_R2.Entity;
+import net.minecraft.server.v1_13_R2.IRegistry;
 import net.minecraft.server.v1_13_R2.PacketPlayOutEntityDestroy;
 import net.minecraft.server.v1_13_R2.PacketPlayOutEntityMetadata;
 import net.minecraft.server.v1_13_R2.PacketPlayOutSpawnEntity;
@@ -103,7 +104,7 @@ public abstract class Entity1_13_R2<E extends Entity> implements NmsEntity {
 
 	@Override
 	public boolean isInvulnerable() {
-		return handle.isInvulnerable();
+		return handle.bl();
 	}
 
 	@Override
@@ -119,7 +120,7 @@ public abstract class Entity1_13_R2<E extends Entity> implements NmsEntity {
 
 	@Override
 	public Location getLocation() {
-		Vec3D vector = handle.getPositionVector();
+		Vec3D vector = handle.bI();
 		return new Location(handle.getWorld().getWorld(), vector.x, vector.y, vector.z);
 	}
 
@@ -165,7 +166,7 @@ public abstract class Entity1_13_R2<E extends Entity> implements NmsEntity {
 	public void show(Player... players) {
 		if (players.length == 0)
 			return;
-		PacketPlayOutSpawnEntity packet = new PacketPlayOutSpawnEntity(handle);
+		PacketPlayOutSpawnEntity packet = new PacketPlayOutSpawnEntity(handle, IRegistry.ENTITY_TYPE.a(handle.P()));
 		PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(handle.getId(),
 			handle.getDataWatcher(), true);
 		PlayerConnection connection;

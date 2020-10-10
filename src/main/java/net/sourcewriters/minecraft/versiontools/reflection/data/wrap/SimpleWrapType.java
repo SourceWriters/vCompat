@@ -1,6 +1,9 @@
-package net.sourcewriters.minecraft.versiontools.reflection.data;
+package net.sourcewriters.minecraft.versiontools.reflection.data.wrap;
 
 import com.syntaxphoenix.syntaxapi.data.DataType;
+
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;
 
 public class SimpleWrapType<P, C> implements WrapType<P, C> {
 

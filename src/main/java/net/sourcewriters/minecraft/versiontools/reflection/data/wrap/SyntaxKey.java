@@ -1,4 +1,4 @@
-package net.sourcewriters.minecraft.versiontools.reflection.data;
+package net.sourcewriters.minecraft.versiontools.reflection.data.wrap;
 
 import static net.sourcewriters.minecraft.versiontools.utils.constants.DefaultConstants.NAMESPACE_STRING;
 
@@ -7,6 +7,8 @@ import org.bukkit.plugin.Plugin;
 import com.syntaxphoenix.syntaxapi.data.key.DataKey;
 import com.syntaxphoenix.syntaxapi.data.key.Namespace;
 import com.syntaxphoenix.syntaxapi.data.key.NamespacedKey;
+
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedKey;
 
 public final class SyntaxKey extends WrappedKey<NamespacedKey> {
 
