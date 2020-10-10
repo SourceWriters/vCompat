@@ -3,7 +3,7 @@ package net.sourcewriters.minecraft.versiontools.reflection.data;
 import com.syntaxphoenix.syntaxapi.data.DataAdapterContext;
 import com.syntaxphoenix.syntaxapi.data.DataType;
 
-import net.sourcewriters.minecraft.versiontools.utils.wrap.context.BukkitContext;
+import net.sourcewriters.minecraft.versiontools.reflection.VersionControl;
 
 public class SimpleSyntaxType<P, C> implements DataType<P, C> {
 
@@ -25,12 +25,12 @@ public class SimpleSyntaxType<P, C> implements DataType<P, C> {
 
 	@Override
 	public P toPrimitive(DataAdapterContext context, C complex) {
-		return type.wrapToPrimitive(complex, new BukkitContext1_16_R2(context));
+		return type.wrapToPrimitive(complex, VersionControl.get().getDataProvider().createContext(context));
 	}
 
 	@Override
 	public C fromPrimitive(DataAdapterContext context, P primitive) {
-		return type.wrapToComplex(primitive, new BukkitContext1_16_R2(context));
+		return type.wrapToComplex(primitive, VersionControl.get().getDataProvider().createContext(context));
 	}
 
 }

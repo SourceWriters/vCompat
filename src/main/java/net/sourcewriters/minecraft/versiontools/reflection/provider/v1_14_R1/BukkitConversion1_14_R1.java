@@ -5,6 +5,7 @@ import java.util.Set;
 import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 
+import com.syntaxphoenix.syntaxapi.data.DataAdapterContext;
 import com.syntaxphoenix.syntaxapi.nbt.*;
 
 import net.minecraft.server.v1_14_R1.ItemStack;
@@ -24,7 +25,9 @@ import net.minecraft.server.v1_14_R1.NBTTagLongArray;
 import net.minecraft.server.v1_14_R1.NBTTagShort;
 import net.minecraft.server.v1_14_R1.NBTTagString;
 import net.sourcewriters.minecraft.versiontools.reflection.BukkitConversion;
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsEntityType;
+import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_14_R1.data.BukkitContext1_14_R1;
 
 public class BukkitConversion1_14_R1 extends BukkitConversion<VersionControl1_14_R1> {
 
@@ -178,6 +181,11 @@ public class BukkitConversion1_14_R1 extends BukkitConversion<VersionControl1_14
 	@Override
 	public NbtCompound itemToCompound(org.bukkit.inventory.ItemStack itemStack) {
 		return fromMinecraftCompound(CraftItemStack.asNMSCopy(itemStack).getOrCreateTag());
+	}
+
+	@Override
+	public WrappedContext<DataAdapterContext> createContext(DataAdapterContext context) {
+		return new BukkitContext1_14_R1(context);
 	}
 
 }

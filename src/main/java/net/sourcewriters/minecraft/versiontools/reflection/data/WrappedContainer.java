@@ -7,11 +7,6 @@ import java.util.Set;
 import com.syntaxphoenix.syntaxapi.data.IDataContainer;
 import com.syntaxphoenix.syntaxapi.data.key.NamespacedKey;
 
-import net.sourcewriters.minecraft.versiontools.utils.wrap.context.WrappedContext;
-import net.sourcewriters.minecraft.versiontools.utils.wrap.key.SyntaxKey;
-import net.sourcewriters.minecraft.versiontools.utils.wrap.key.WrappedKey;
-import net.sourcewriters.minecraft.versiontools.utils.wrap.type.WrapType;
-
 public abstract class WrappedContainer<H> {
 
 	public abstract H getHandle();
@@ -51,7 +46,7 @@ public abstract class WrappedContainer<H> {
 	public abstract int size();
 	
 	protected SyntaxKey wrappedKey(String key) {
-		return SyntaxKey.of(NamespacedKey.fromStringOrDefault(key, NAMESPACE_STRING));
+		return new SyntaxKey(NamespacedKey.fromStringOrDefault(key, NAMESPACE_STRING));
 	}
 
 }
