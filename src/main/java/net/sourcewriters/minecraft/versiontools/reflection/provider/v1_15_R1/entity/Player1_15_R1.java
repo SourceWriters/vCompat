@@ -35,23 +35,26 @@ import net.minecraft.server.v1_15_R1.PacketPlayOutRespawn;
 import net.minecraft.server.v1_15_R1.PacketPlayOutTitle;
 import net.minecraft.server.v1_15_R1.PacketPlayOutTitle.EnumTitleAction;
 import net.minecraft.server.v1_15_R1.PlayerConnection;
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
+import net.sourcewriters.minecraft.versiontools.reflection.data.type.SkinDataType;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsPlayer;
 import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_15_R1.data.PersistentDataAdapter1_15_R1;
+import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_15_R1.data.SyntaxContainer1_15_R1;
 import net.sourcewriters.minecraft.versiontools.reflection.reflect.ReflectionProvider;
 import net.sourcewriters.minecraft.versiontools.skin.Skin;
 import net.sourcewriters.minecraft.versiontools.utils.bukkit.MojangProfileServer;
 import net.sourcewriters.minecraft.versiontools.utils.bukkit.Players;
-import net.sourcewriters.minecraft.versiontools.utils.data.type.SkinDataType;
 import net.sourcewriters.minecraft.versiontools.utils.thread.PostAsync;
 
 public class Player1_15_R1 extends EntityLiving1_15_R1<EntityPlayer> implements NmsPlayer<PersistentDataContainer> {
 
 	private String realName;
-	private final PersistentDataAdapter1_15_R1 dataAdapter;
+	private final WrappedContainer dataAdapter;
 
 	public Player1_15_R1(Player player) {
 		super(((CraftPlayer) player).getHandle());
-		dataAdapter = new PersistentDataAdapter1_15_R1(getBukkitPlayer().getPersistentDataContainer());
+		dataAdapter = new SyntaxContainer1_15_R1(getBukkitPlayer().getPersistentDataContainer());
 		update(false);
 	}
 
@@ -61,7 +64,7 @@ public class Player1_15_R1 extends EntityLiving1_15_R1<EntityPlayer> implements 
 	}
 
 	@Override
-	public PersistentDataAdapter1_15_R1 getDataAdapter() {
+	public WrappedContainer getDataAdapter() {
 		return dataAdapter;
 	}
 
@@ -69,12 +72,12 @@ public class Player1_15_R1 extends EntityLiving1_15_R1<EntityPlayer> implements 
 	public void setSkin(Skin skin) {
 		if (skin == null || getSkin().equals(skin))
 			return;
-		dataAdapter.getHandle().set(KEYS.get("skin"), SkinDataType.INSTANCE, skin);
+		dataAdapter.set("skin", skin, SkinDataType.INSTANCE);
 	}
 
 	@Override
 	public Skin getSkin() {
-		return dataAdapter.getHandle().getOrDefault(KEYS.get("skin"), SkinDataType.INSTANCE, Skin.NONE);
+		return dataAdapter.getOrDefault("skin", SkinDataType.INSTANCE, Skin.NONE);
 	}
 
 	@Override
@@ -82,15 +85,15 @@ public class Player1_15_R1 extends EntityLiving1_15_R1<EntityPlayer> implements 
 		if (getName().equals(name))
 			return;
 		if (name == null) {
-			dataAdapter.getHandle().remove(KEYS.get("name"));
+			dataAdapter.remove("name");
 			return;
 		}
-		dataAdapter.getHandle().set(KEYS.get("name"), SkinDataType.STRING, name);
+		dataAdapter.set("name", name, WrapType.STRING);
 	}
 
 	@Override
 	public String getName() {
-		return dataAdapter.getHandle().getOrDefault(KEYS.get("name"), SkinDataType.STRING, realName);
+		return dataAdapter.getOrDefault("name", WrapType.STRING, realName);
 	}
 
 	@Override
@@ -105,7 +108,7 @@ public class Player1_15_R1 extends EntityLiving1_15_R1<EntityPlayer> implements 
 
 	@Override
 	public String getPlayerListHeader() {
-		return dataAdapter.getHandle().getOrDefault(KEYS.get("header"), SkinDataType.STRING, "");
+		return dataAdapter.getOrDefault("header", WrapType.STRING, "");
 	}
 
 	@Override
@@ -115,7 +118,7 @@ public class Player1_15_R1 extends EntityLiving1_15_R1<EntityPlayer> implements 
 
 	@Override
 	public String getPlayerListFooter() {
-		return dataAdapter.getHandle().getOrDefault(KEYS.get("footer"), SkinDataType.STRING, "");
+		return dataAdapter.getOrDefault("footer", WrapType.STRING, "");
 	}
 
 	@Override
@@ -125,8 +128,8 @@ public class Player1_15_R1 extends EntityLiving1_15_R1<EntityPlayer> implements 
 
 	@Override
 	public void setPlayerListHeaderAndFooter(String header, String footer) {
-		dataAdapter.getHandle().set(KEYS.get("header"), SkinDataType.STRING, header);
-		dataAdapter.getHandle().set(KEYS.get("footer"), SkinDataType.STRING, footer);
+		dataAdapter.set("header", header, WrapType.STRING);
+		dataAdapter.set("footer", footer, WrapType.STRING);
 		sendPlayerListInfo(header, footer);
 	}
 

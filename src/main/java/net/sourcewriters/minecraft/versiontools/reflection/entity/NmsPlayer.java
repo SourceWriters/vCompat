@@ -9,7 +9,7 @@ public interface NmsPlayer extends NmsEntityLiving {
 
 	Player getBukkitPlayer();
 
-	WrappedContainer<?> getDataAdapter();
+	WrappedContainer getDataAdapter();
 
 	void setSkin(Skin skin);
 

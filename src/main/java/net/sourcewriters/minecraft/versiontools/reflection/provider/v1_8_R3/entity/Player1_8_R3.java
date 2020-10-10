@@ -39,12 +39,12 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle.EnumTitleAction;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
 import net.minecraft.server.v1_8_R3.WorldServer;
+import net.sourcewriters.minecraft.versiontools.reflection.data.type.SkinDataType;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsPlayer;
 import net.sourcewriters.minecraft.versiontools.reflection.reflect.ReflectionProvider;
 import net.sourcewriters.minecraft.versiontools.skin.Skin;
 import net.sourcewriters.minecraft.versiontools.utils.bukkit.MojangProfileServer;
 import net.sourcewriters.minecraft.versiontools.utils.bukkit.Players;
-import net.sourcewriters.minecraft.versiontools.utils.data.type.SkinDataType;
 import net.sourcewriters.minecraft.versiontools.utils.thread.PostAsync;
 
 public class Player1_8_R3 extends EntityLiving1_8_R3<EntityPlayer> implements NmsPlayer {

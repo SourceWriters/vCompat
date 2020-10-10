@@ -1,4 +1,4 @@
-package net.sourcewriters.minecraft.versiontools.utils.data.type;
+package net.sourcewriters.minecraft.versiontools.reflection.data.type;
 
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;

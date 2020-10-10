@@ -18,7 +18,7 @@ import net.sourcewriters.minecraft.versiontools.reflection.data.SyntaxKey;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedKey;
-import net.sourcewriters.minecraft.versiontools.utils.data.type.ObjectType;
+import net.sourcewriters.minecraft.versiontools.reflection.data.type.ObjectType;
 
 public final class SyntaxContainer1_16_R1 extends WrappedContainer<PersistentDataContainer> implements IDataContainer {
 

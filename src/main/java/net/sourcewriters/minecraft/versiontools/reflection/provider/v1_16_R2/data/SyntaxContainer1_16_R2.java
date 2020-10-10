@@ -18,9 +18,9 @@ import net.sourcewriters.minecraft.versiontools.reflection.data.SyntaxKey;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedKey;
-import net.sourcewriters.minecraft.versiontools.utils.data.type.ObjectType;
+import net.sourcewriters.minecraft.versiontools.reflection.data.type.ObjectType;
 
-public final class SyntaxContainer1_16_R2 extends WrappedContainer<PersistentDataContainer> implements IDataContainer {
+public final class SyntaxContainer1_16_R2 extends WrappedContainer implements IDataContainer {
 
 	public static final PersistentDataType<Object, Object> OBJECT_TYPE = new SimpleBukkitType1_16_R2<>(ObjectType.INSTANCE);
 
