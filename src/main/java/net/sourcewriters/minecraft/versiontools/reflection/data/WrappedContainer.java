@@ -31,9 +31,9 @@ public abstract class WrappedContainer<H> {
 
 	public abstract <P, C> C get(WrappedKey<?> key, WrapType<P, C> type);
 	
-	public abstract <P, C> void set(String key, C value, WrapType<P, C> type);
+	public abstract <B> void set(String key, B value, WrapType<?, B> type);
 
-	public abstract <P, C> void set(WrappedKey<?> key, C value, WrapType<P, C> type);
+	public abstract <B> void set(WrappedKey<?> key, B value, WrapType<?, B> type);
 
 	public abstract boolean remove(String key);
 

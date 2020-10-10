@@ -5,20 +5,20 @@ import org.bukkit.plugin.Plugin;
 
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedKey;
 
-public final class BukkitKey1_14_R1 extends WrappedKey<NamespacedKey> {
+public final class BukkitKey1_15_R1 extends WrappedKey<NamespacedKey> {
 
 	private final NamespacedKey key;
 
-	public BukkitKey1_14_R1(Plugin plugin, String key) {
+	public BukkitKey1_15_R1(Plugin plugin, String key) {
 		this.key = new NamespacedKey(plugin, key);
 	}
 
 	@SuppressWarnings("deprecation")
-	public BukkitKey1_14_R1(String name, String key) {
+	public BukkitKey1_15_R1(String name, String key) {
 		this.key = new NamespacedKey(name, key);
 	}
 
-	public BukkitKey1_14_R1(NamespacedKey key) {
+	public BukkitKey1_15_R1(NamespacedKey key) {
 		this.key = key;
 	}
 
@@ -46,7 +46,7 @@ public final class BukkitKey1_14_R1 extends WrappedKey<NamespacedKey> {
 		if(key.getHandle() instanceof NamespacedKey) {
 			return (NamespacedKey) key.getHandle();
 		}
-		return new BukkitKey1_14_R1(key.getName(), key.getKey()).getHandle();
+		return new BukkitKey1_15_R1(key.getName(), key.getKey()).getHandle();
 	}
 
 }

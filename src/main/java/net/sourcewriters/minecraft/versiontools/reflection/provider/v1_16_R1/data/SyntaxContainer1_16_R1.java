@@ -164,12 +164,12 @@ public final class SyntaxContainer1_16_R1 extends WrappedContainer<PersistentDat
 	}
 
 	@Override
-	public <P, C> void set(String key, C value, WrapType<P, C> type) {
+	public <B> void set(String key, B value, WrapType<?, B> type) {
 		set(wrappedKey(key), value, type);
 	}
 
 	@Override
-	public <P, C> void set(WrappedKey<?> key, C value, WrapType<P, C> type) {
+	public <B> void set(WrappedKey<?> key, B value, WrapType<?, B> type) {
 		container.set(BukkitKey1_16_R1.asBukkit(key), new SimpleBukkitType1_16_R1<>(type), value);
 	}
 

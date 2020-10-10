@@ -20,13 +20,13 @@ import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedKey;
 import net.sourcewriters.minecraft.versiontools.utils.data.type.ObjectType;
 
-public final class SyntaxContainer1_14_R1 extends WrappedContainer<PersistentDataContainer> implements IDataContainer {
+public final class SyntaxContainer1_15_R1 extends WrappedContainer<PersistentDataContainer> implements IDataContainer {
 
-	public static final PersistentDataType<Object, Object> OBJECT_TYPE = new SimpleBukkitType1_14_R1<>(ObjectType.INSTANCE);
+	public static final PersistentDataType<Object, Object> OBJECT_TYPE = new SimpleBukkitType1_15_R1<>(ObjectType.INSTANCE);
 
 	private final PersistentDataContainer container;
 
-	public SyntaxContainer1_14_R1(PersistentDataContainer container) {
+	public SyntaxContainer1_15_R1(PersistentDataContainer container) {
 		this.container = container;
 	}
 
@@ -37,7 +37,7 @@ public final class SyntaxContainer1_14_R1 extends WrappedContainer<PersistentDat
 
 	@Override
 	public IDataContainer getAsSyntaxContainer() {
-		return new SyntaxContainer1_14_R1(container);
+		return new SyntaxContainer1_15_R1(container);
 	}
 
 	/*
@@ -56,7 +56,7 @@ public final class SyntaxContainer1_14_R1 extends WrappedContainer<PersistentDat
 
 	@Override
 	public boolean has(DataKey key, DataType<?, ?> type) {
-		return has(new SyntaxKey(key), WrappedType1_14_R1.wrap(type));
+		return has(new SyntaxKey(key), WrappedType1_15_R1.wrap(type));
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public final class SyntaxContainer1_14_R1 extends WrappedContainer<PersistentDat
 
 	@Override
 	public <C> C get(DataKey key, DataType<?, C> type) {
-		return get(new SyntaxKey(key), WrappedType1_14_R1.wrap(type));
+		return get(new SyntaxKey(key), WrappedType1_15_R1.wrap(type));
 	}
 
 	@Override
@@ -81,12 +81,12 @@ public final class SyntaxContainer1_14_R1 extends WrappedContainer<PersistentDat
 
 	@Override
 	public <E, V> void set(String key, E value, DataType<V, E> type) {
-		set(wrappedKey(key), value, WrappedType1_14_R1.wrap(type));
+		set(wrappedKey(key), value, WrappedType1_15_R1.wrap(type));
 	}
 
 	@Override
 	public <E, V> void set(DataKey key, E value, DataType<V, E> type) {
-		set(new SyntaxKey(key), value, WrappedType1_14_R1.wrap(type));
+		set(new SyntaxKey(key), value, WrappedType1_15_R1.wrap(type));
 	}
 
 	@Override
@@ -119,8 +119,8 @@ public final class SyntaxContainer1_14_R1 extends WrappedContainer<PersistentDat
 	 */
 
 	@Override
-	public SyntaxContext1_14_R1 getContext() {
-		return new SyntaxContext1_14_R1(container.getAdapterContext());
+	public SyntaxContext1_15_R1 getContext() {
+		return new SyntaxContext1_15_R1(container.getAdapterContext());
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public final class SyntaxContainer1_14_R1 extends WrappedContainer<PersistentDat
 
 	@Override
 	public boolean has(WrappedKey<?> key) {
-		return container.has(BukkitKey1_14_R1.asBukkit(key), OBJECT_TYPE);
+		return container.has(BukkitKey1_15_R1.asBukkit(key), OBJECT_TYPE);
 	}
 
 	@Override
@@ -140,12 +140,12 @@ public final class SyntaxContainer1_14_R1 extends WrappedContainer<PersistentDat
 
 	@Override
 	public <P, C> boolean has(WrappedKey<?> key, WrapType<P, C> type) {
-		return container.has(BukkitKey1_14_R1.asBukkit(key), new SimpleBukkitType1_14_R1<>(type));
+		return container.has(BukkitKey1_15_R1.asBukkit(key), new SimpleBukkitType1_15_R1<>(type));
 	}
 
 	@Override
 	public Object get(WrappedKey<?> key) {
-		return container.get(BukkitKey1_14_R1.asBukkit(key), OBJECT_TYPE);
+		return container.get(BukkitKey1_15_R1.asBukkit(key), OBJECT_TYPE);
 	}
 
 	@Override
@@ -155,23 +155,23 @@ public final class SyntaxContainer1_14_R1 extends WrappedContainer<PersistentDat
 
 	@Override
 	public <P, C> C get(WrappedKey<?> key, WrapType<P, C> type) {
-		return container.get(BukkitKey1_14_R1.asBukkit(key), new SimpleBukkitType1_14_R1<>(type));
+		return container.get(BukkitKey1_15_R1.asBukkit(key), new SimpleBukkitType1_15_R1<>(type));
 	}
 
 	@Override
-	public <P, C> void set(String key, C value, WrapType<P, C> type) {
+	public <B> void set(String key, B value, WrapType<?, B> type) {
 		set(wrappedKey(key), value, type);
 	}
 
 	@Override
-	public <P, C> void set(WrappedKey<?> key, C value, WrapType<P, C> type) {
-		container.set(BukkitKey1_14_R1.asBukkit(key), new SimpleBukkitType1_14_R1<>(type), value);
+	public <B> void set(WrappedKey<?> key, B value, WrapType<?, B> type) {
+		container.set(BukkitKey1_15_R1.asBukkit(key), new SimpleBukkitType1_15_R1<>(type), value);
 	}
 
 	@Override
 	public boolean remove(WrappedKey<?> key) {
 		Object value = get(key);
-		container.remove(BukkitKey1_14_R1.asBukkit(key));
+		container.remove(BukkitKey1_15_R1.asBukkit(key));
 		return value != null && get(key) == null;
 	}
 

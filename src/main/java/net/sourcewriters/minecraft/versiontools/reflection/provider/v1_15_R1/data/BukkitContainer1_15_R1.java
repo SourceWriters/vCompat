@@ -116,12 +116,12 @@ public final class BukkitContainer1_15_R1 extends WrappedContainer<IDataContaine
 	}
 
 	@Override
-	public <P, C> void set(String key, C value, WrapType<P, C> type) {
+	public <B> void set(String key, B value, WrapType<?, B> type) {
 		set(wrappedKey(key), value, type);
 	}
 
 	@Override
-	public <P, C> void set(WrappedKey<?> key, C value, WrapType<P, C> type) {
+	public <B> void set(WrappedKey<?> key, B value, WrapType<?, B> type) {
 		container.set(key.getNamespacedKey(), value, type.syntaxType());
 	}
 

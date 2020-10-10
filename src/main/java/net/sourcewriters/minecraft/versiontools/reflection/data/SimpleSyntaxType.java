@@ -25,12 +25,12 @@ public class SimpleSyntaxType<P, C> implements DataType<P, C> {
 
 	@Override
 	public P toPrimitive(DataAdapterContext context, C complex) {
-		return type.wrapToPrimitive(complex, VersionControl.get().getDataProvider().createContext(context));
+		return type.wrapToPrimitive(complex, VersionControl.get().getBukkitConversion().createContext(context));
 	}
 
 	@Override
 	public C fromPrimitive(DataAdapterContext context, P primitive) {
-		return type.wrapToComplex(primitive, VersionControl.get().getDataProvider().createContext(context));
+		return type.wrapToComplex(primitive, VersionControl.get().getBukkitConversion().createContext(context));
 	}
 
 }

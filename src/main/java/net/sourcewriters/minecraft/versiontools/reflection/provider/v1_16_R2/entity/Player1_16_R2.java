@@ -1,7 +1,5 @@
 package net.sourcewriters.minecraft.versiontools.reflection.provider.v1_16_R2.entity;
 
-import static net.sourcewriters.minecraft.versiontools.utils.bukkit.KeyCache.KEYS;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -38,8 +36,9 @@ import net.minecraft.server.v1_16_R2.PacketPlayOutTitle;
 import net.minecraft.server.v1_16_R2.PacketPlayOutTitle.EnumTitleAction;
 import net.minecraft.server.v1_16_R2.PlayerConnection;
 import net.minecraft.server.v1_16_R2.WorldServer;
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsPlayer;
-import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_16_R2.data.PersistentDataAdapter1_16_R2;
+import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_16_R2.data.SyntaxContainer1_16_R2;
 import net.sourcewriters.minecraft.versiontools.reflection.reflect.ReflectionProvider;
 import net.sourcewriters.minecraft.versiontools.skin.Skin;
 import net.sourcewriters.minecraft.versiontools.utils.bukkit.MojangProfileServer;
@@ -50,11 +49,11 @@ import net.sourcewriters.minecraft.versiontools.utils.thread.PostAsync;
 public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements NmsPlayer {
 
 	private String realName;
-	private final PersistentDataAdapter1_16_R2 dataAdapter;
+	private final WrappedContainer<?> dataAdapter;
 
 	public Player1_16_R2(Player player) {
 		super(((CraftPlayer) player).getHandle());
-		dataAdapter = new PersistentDataAdapter1_16_R2(getBukkitPlayer().getPersistentDataContainer());
+		dataAdapter = new SyntaxContainer1_16_R2(getBukkitPlayer().getPersistentDataContainer());
 		update(false);
 	}
 
@@ -64,7 +63,7 @@ public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements 
 	}
 
 	@Override
-	public PersistentDataAdapter1_16_R2 getDataAdapter() {
+	public WrappedContainer<?> getDataAdapter() {
 		return dataAdapter;
 	}
 
@@ -72,7 +71,7 @@ public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements 
 	public void setSkin(Skin skin) {
 		if (skin == null || getSkin().equals(skin))
 			return;
-		dataAdapter.getHandle().set(KEYS.get("skin"), SkinDataType.INSTANCE, skin);
+		dataAdapter.set("skin", skin, SkinDataType.INSTANCE);
 	}
 
 	@Override
