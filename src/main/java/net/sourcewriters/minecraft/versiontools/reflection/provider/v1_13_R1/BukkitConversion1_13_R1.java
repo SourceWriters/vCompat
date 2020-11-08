@@ -5,6 +5,7 @@ import java.util.Set;
 import org.bukkit.craftbukkit.v1_13_R1.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 
+import com.syntaxphoenix.syntaxapi.data.DataAdapterContext;
 import com.syntaxphoenix.syntaxapi.nbt.*;
 
 import net.minecraft.server.v1_13_R1.ItemStack;
@@ -24,6 +25,8 @@ import net.minecraft.server.v1_13_R1.NBTTagLongArray;
 import net.minecraft.server.v1_13_R1.NBTTagShort;
 import net.minecraft.server.v1_13_R1.NBTTagString;
 import net.sourcewriters.minecraft.versiontools.reflection.BukkitConversion;
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;
+import net.sourcewriters.minecraft.versiontools.reflection.data.wrap.SimpleSyntaxContext;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsEntityType;
 
 public class BukkitConversion1_13_R1 extends BukkitConversion<VersionControl1_13_R1> {
@@ -54,19 +57,19 @@ public class BukkitConversion1_13_R1 extends BukkitConversion<VersionControl1_13
 	public NBTBase toMinecraftTag(NbtTag tag) {
 		switch (tag.getType()) {
 		case BYTE:
-			return NBTTagByte.a((byte) tag.getValue());
+			return new NBTTagByte((byte) tag.getValue());
 		case SHORT:
-			return NBTTagShort.a((short) tag.getValue());
+			return new NBTTagShort((short) tag.getValue());
 		case INT:
-			return NBTTagInt.a((int) tag.getValue());
+			return new NBTTagInt((int) tag.getValue());
 		case LONG:
-			return NBTTagLong.a((long) tag.getValue());
+			return new NBTTagLong((long) tag.getValue());
 		case FLOAT:
-			return NBTTagFloat.a((float) tag.getValue());
+			return new NBTTagFloat((float) tag.getValue());
 		case DOUBLE:
-			return NBTTagDouble.a((double) tag.getValue());
+			return new NBTTagDouble((double) tag.getValue());
 		case STRING:
-			return NBTTagString.a((String) tag.getValue());
+			return new NBTTagString((String) tag.getValue());
 		case BYTE_ARRAY:
 			return new NBTTagByteArray((byte[]) tag.getValue());
 		case INT_ARRAY:
@@ -78,7 +81,7 @@ public class BukkitConversion1_13_R1 extends BukkitConversion<VersionControl1_13
 		case COMPOUND:
 			return toMinecraftCompound((NbtCompound) tag);
 		case END:
-			return NBTTagEnd.b;
+			return new NBTTagEnd();
 		default:
 			return null;
 		}
@@ -92,25 +95,25 @@ public class BukkitConversion1_13_R1 extends BukkitConversion<VersionControl1_13
 		NbtType type = NbtType.getById(tag.getTypeId());
 		switch (type) {
 		case BYTE:
-			return new NbtByte(((NBTNumber) tag).asByte());
+			return new NbtByte(((NBTNumber) tag).g());
 		case SHORT:
-			return new NbtShort(((NBTNumber) tag).asShort());
+			return new NbtShort(((NBTNumber) tag).f());
 		case INT:
-			return new NbtInt(((NBTNumber) tag).asInt());
+			return new NbtInt(((NBTNumber) tag).e());
 		case LONG:
-			return new NbtLong(((NBTNumber) tag).asLong());
+			return new NbtLong(((NBTNumber) tag).d());
 		case FLOAT:
-			return new NbtFloat(((NBTNumber) tag).asFloat());
+			return new NbtFloat(((NBTNumber) tag).i());
 		case DOUBLE:
 			return new NbtDouble(((NBTNumber) tag).asDouble());
 		case STRING:
-			return new NbtString(((NBTTagString) tag).asString());
+			return new NbtString(((NBTTagString) tag).b_());
 		case BYTE_ARRAY:
-			return new NbtByteArray(((NBTTagByteArray) tag).getBytes());
+			return new NbtByteArray(((NBTTagByteArray) tag).c());
 		case INT_ARRAY:
-			return new NbtIntArray(((NBTTagIntArray) tag).getInts());
+			return new NbtIntArray(((NBTTagIntArray) tag).d());
 		case LONG_ARRAY:
-			return new NbtLongArray(((NBTTagLongArray) tag).getLongs());
+			return new NbtLongArray(((NBTTagLongArray) tag).d());
 		case LIST:
 			return fromMinecraftList(tag);
 		case COMPOUND:
@@ -178,6 +181,11 @@ public class BukkitConversion1_13_R1 extends BukkitConversion<VersionControl1_13
 	@Override
 	public NbtCompound itemToCompound(org.bukkit.inventory.ItemStack itemStack) {
 		return fromMinecraftCompound(CraftItemStack.asNMSCopy(itemStack).getOrCreateTag());
+	}
+
+	@Override
+	public WrappedContext<DataAdapterContext> createContext(DataAdapterContext context) {
+		return new SimpleSyntaxContext(context);
 	}
 
 }

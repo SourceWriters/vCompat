@@ -20,11 +20,9 @@ import net.sourcewriters.minecraft.versiontools.reflection.TextureProvider;
 
 public class TextureProvider1_13_R1 extends TextureProvider<VersionControl1_13_R1> {
 
-	private final AbstractReflect craftEntityStateRef = new Reflect(CraftBlockEntityState.class)
-		.searchField("tileEntity", "tileEntity");
+	private final AbstractReflect craftEntityStateRef = new Reflect(CraftBlockEntityState.class).searchField("tileEntity", "tileEntity");
 	private final AbstractReflect craftItemStackRef = new Reflect(CraftItemStack.class).searchField("handle", "handle");
-	private final AbstractReflect craftMetaSkullRef = new Reflect(
-		"org.bukkit.craftbukkit.v1_13_R1.inventory.CraftMetaSkull").searchField("profile", "profile");
+	private final AbstractReflect craftMetaSkullRef = new Reflect("org.bukkit.craftbukkit.v1_13_R1.inventory.CraftMetaSkull").searchField("profile", "profile");
 
 	protected TextureProvider1_13_R1(VersionControl1_13_R1 versionControl) {
 		super(versionControl);
@@ -36,19 +34,17 @@ public class TextureProvider1_13_R1 extends TextureProvider<VersionControl1_13_R
 			return null;
 		}
 		TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue("tileEntity", block);
-		return entitySkull.gameProfile;
+		return entitySkull.getGameProfile();
 	}
 
 	@Override
 	public GameProfile profileFromItem(org.bukkit.inventory.ItemStack itemStack) {
 		if (!(itemStack.getItemMeta() instanceof SkullMeta))
 			return null;
-		ItemStack stack = itemStack instanceof CraftItemStack
-			? (ItemStack) craftItemStackRef.getFieldValue("handle", itemStack)
+		ItemStack stack = itemStack instanceof CraftItemStack ? (ItemStack) craftItemStackRef.getFieldValue("handle", itemStack)
 			: CraftItemStack.asNMSCopy(itemStack);
 		NBTTagCompound tag = stack.getOrCreateTag();
-		return tag.hasKeyOfType("SkullOwner", 10) ? GameProfileSerializer.deserialize(tag.getCompound("SkullOwner"))
-			: null;
+		return tag.hasKeyOfType("SkullOwner", 10) ? GameProfileSerializer.deserialize(tag.getCompound("SkullOwner")) : null;
 	}
 
 	@Override
@@ -75,7 +71,7 @@ public class TextureProvider1_13_R1 extends TextureProvider<VersionControl1_13_R
 			return false;
 		}
 		TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue("tileEntity", block);
-		applyTexture(entitySkull.gameProfile, texture);
+		applyTexture(entitySkull.getGameProfile(), texture);
 		return true;
 	}
 

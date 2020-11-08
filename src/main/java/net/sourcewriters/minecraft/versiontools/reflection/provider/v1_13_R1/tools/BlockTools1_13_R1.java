@@ -23,7 +23,7 @@ public class BlockTools1_13_R1 extends BlockTools {
 			return;
 		}
 		TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue("tileEntity", block);
-		PropertyMap map = entitySkull.gameProfile.getProperties();
+		PropertyMap map = entitySkull.getGameProfile().getProperties();
 		map.removeAll("textures");
 		map.put("textures", new Property("textures", MinecraftConstants.TEXTURE_SIGNATURE, texture));
 	}
@@ -34,7 +34,7 @@ public class BlockTools1_13_R1 extends BlockTools {
 			return null;
 		}
 		TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue("tileEntity", block);
-		return entitySkull.gameProfile.getProperties().get("textures").iterator().next().getValue();
+		return entitySkull.getGameProfile().getProperties().get("textures").iterator().next().getValue();
 	}
 
 }
