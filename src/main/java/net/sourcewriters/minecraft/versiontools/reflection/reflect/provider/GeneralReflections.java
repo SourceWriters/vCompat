@@ -6,6 +6,10 @@ import net.sourcewriters.minecraft.versiontools.reflection.reflect.ReflectionPro
 import net.sourcewriters.minecraft.versiontools.reflection.reflect.Reflections;
 
 public class GeneralReflections extends Reflections {
+	
+	public static GeneralReflections INSTANCE = new GeneralReflections();
+	
+	private GeneralReflections() {}
 
 	@Override
 	public void setup(ReflectionProvider provider) {

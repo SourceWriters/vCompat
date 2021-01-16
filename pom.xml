@@ -95,10 +95,10 @@
 		</dependency>
 		
 		<!-- All Minecraft versions (add down here) -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot</artifactId>
-			<version>1.16.3-R0.1-SNAPSHOT</version>
+			<version>1.12.2-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
@@ -110,9 +110,9 @@
 					<artifactId>gson</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency> -->
+		</dependency>
 		
-		<dependency>
+		<!-- <dependency>
 			<groupId>bukkit</groupId>
 			<artifactId>spigot-1.16.4</artifactId>
 			<version>0.1</version>
@@ -167,7 +167,7 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/../Libraries/spigot-1.13.jar</systemPath>
 			<type>jar</type>
-		</dependency>
+		</dependency> -->
 		
 	</dependencies>
 
