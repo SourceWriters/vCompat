@@ -9,8 +9,7 @@ public final class EntityRegistry {
 
 	private final HashMap<EntityType, EntityBuilder<?>> builders = new HashMap<>();
 
-	private EntityRegistry() {
-	}
+	private EntityRegistry() {}
 
 	public EntityType[] getTypes() {
 		synchronized (builders) {

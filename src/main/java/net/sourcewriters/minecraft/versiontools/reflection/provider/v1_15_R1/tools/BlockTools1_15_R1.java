@@ -14,8 +14,7 @@ import net.sourcewriters.minecraft.versiontools.utils.constants.MinecraftConstan
 
 public class BlockTools1_15_R1 extends BlockTools {
 
-	private final AbstractReflect craftEntityStateRef = new Reflect(CraftSkull.class)
-		.searchField("tileEntity", "tileEntity");
+	private final AbstractReflect craftEntityStateRef = new Reflect(CraftSkull.class).searchField("tileEntity", "tileEntity");
 
 	@Override
 	public void setHeadTexture(Block block, String texture) {

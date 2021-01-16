@@ -68,9 +68,7 @@ public class Profile {
 
 			Request request = new Request(RequestType.POST);
 
-			request
-				.parameter("accessToken", authToken)
-				.parameter("clientToken", mojang.getProvider().getClientIdentifier().toString());
+			request.parameter("accessToken", authToken).parameter("clientToken", mojang.getProvider().getClientIdentifier().toString());
 
 			int code = request.execute(String.format(AUTH_SERVER, "validate"), StandardContentType.JSON).getCode();
 
@@ -95,13 +93,9 @@ public class Profile {
 
 			Request request = new Request(RequestType.POST);
 
-			request
-				.parameter("accessToken", authToken)
-				.parameter("clientToken", mojang.getProvider().getClientIdentifier().toString());
+			request.parameter("accessToken", authToken).parameter("clientToken", mojang.getProvider().getClientIdentifier().toString());
 
-			JsonObject response = request
-				.execute(String.format(AUTH_SERVER, "refresh"), StandardContentType.JSON)
-				.getResponseAsJson();
+			JsonObject response = request.execute(String.format(AUTH_SERVER, "refresh"), StandardContentType.JSON).getResponseAsJson();
 
 			authToken = null;
 
@@ -137,9 +131,7 @@ public class Profile {
 
 			request.parameter(object);
 
-			JsonObject response = request
-				.execute(String.format(AUTH_SERVER, "authenticate"), StandardContentType.JSON)
-				.getResponseAsJson();
+			JsonObject response = request.execute(String.format(AUTH_SERVER, "authenticate"), StandardContentType.JSON).getResponseAsJson();
 
 			authToken = null;
 

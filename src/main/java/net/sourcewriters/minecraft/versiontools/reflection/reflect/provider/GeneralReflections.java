@@ -24,7 +24,7 @@ public class GeneralReflections extends Reflections {
 		// Mojang
 
 		provider.createReflect("mjGameProfile", GameProfile.class).searchField("name", "name");
-		
+
 	}
 
 }

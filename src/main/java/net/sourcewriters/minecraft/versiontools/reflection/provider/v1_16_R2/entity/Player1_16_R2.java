@@ -159,24 +159,21 @@ public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements 
 	public void sendSubtitle(String text) {
 		if (handle.playerConnection.isDisconnected())
 			return;
-		handle.playerConnection
-			.sendPacket(new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, CraftChatMessage.fromStringOrNull(text)));
+		handle.playerConnection.sendPacket(new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, CraftChatMessage.fromStringOrNull(text)));
 	}
 
 	@Override
 	public void sendTitle(String text) {
 		if (handle.playerConnection.isDisconnected())
 			return;
-		handle.playerConnection
-			.sendPacket(new PacketPlayOutTitle(EnumTitleAction.TITLE, CraftChatMessage.fromStringOrNull(text)));
+		handle.playerConnection.sendPacket(new PacketPlayOutTitle(EnumTitleAction.TITLE, CraftChatMessage.fromStringOrNull(text)));
 	}
 
 	@Override
 	public void sendActionBar(String text) {
 		if (handle.playerConnection.isDisconnected())
 			return;
-		handle.playerConnection
-			.sendPacket(new PacketPlayOutTitle(EnumTitleAction.ACTIONBAR, CraftChatMessage.fromStringOrNull(text)));
+		handle.playerConnection.sendPacket(new PacketPlayOutTitle(EnumTitleAction.ACTIONBAR, CraftChatMessage.fromStringOrNull(text)));
 	}
 
 	@Override
@@ -213,15 +210,13 @@ public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements 
 
 		WorldServer world = (WorldServer) handle.world;
 
-		PacketPlayOutRespawn respawnPacket = new PacketPlayOutRespawn(world.getDimensionManager(),
-			world.getDimensionKey(), BiomeManager.a(world.getSeed()), handle.playerInteractManager.getGameMode(),
-			handle.playerInteractManager.c(), world.isDebugWorld(), world.isFlatWorld(), true);
-		PacketPlayOutPosition positionPacket = new PacketPlayOutPosition(handle.locX(), handle.locY(), handle.locZ(),
-			handle.yaw, handle.pitch, Collections.emptySet(), 0);
+		PacketPlayOutRespawn respawnPacket = new PacketPlayOutRespawn(world.getDimensionManager(), world.getDimensionKey(), BiomeManager.a(world.getSeed()),
+			handle.playerInteractManager.getGameMode(), handle.playerInteractManager.c(), world.isDebugWorld(), world.isFlatWorld(), true);
+		PacketPlayOutPosition positionPacket = new PacketPlayOutPosition(handle.locX(), handle.locY(), handle.locZ(), handle.yaw, handle.pitch,
+			Collections.emptySet(), 0);
 		PacketPlayOutHeldItemSlot itemPacket = new PacketPlayOutHeldItemSlot(handle.inventory.itemInHandIndex);
 		PacketPlayOutEntityStatus statusPacket = new PacketPlayOutEntityStatus(handle, (byte) 28);
-		PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(handle.getId(),
-			handle.getDataWatcher(), true);
+		PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(handle.getId(), handle.getDataWatcher(), true);
 
 		PlayerConnection connection = handle.playerConnection;
 		connection.sendPacket(remInfoPacket);

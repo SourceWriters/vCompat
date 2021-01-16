@@ -34,5 +34,4 @@ public abstract class BukkitColor {
 		}
 		return new String(chars);
 	}
-
 }

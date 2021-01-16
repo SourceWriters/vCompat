@@ -18,10 +18,8 @@ public class PlayerProvider1_13_R2 extends PlayerProvider<VersionControl1_13_R2>
 
 	protected PlayerProvider1_13_R2(VersionControl1_13_R2 versionControl) {
 		super(versionControl);
-		distributor = versionControl
-			.getDataProvider()
-			.createDistributor(new File(Bukkit.getWorlds().get(0).getWorldFolder(), "playerdata"), uuid -> "custom_" + uuid.toString(),
-				DataProvider.DEFAULT_RANDOM);
+		distributor = versionControl.getDataProvider().createDistributor(new File(Bukkit.getWorlds().get(0).getWorldFolder(), "playerdata"),
+			uuid -> "custom_" + uuid.toString(), DataProvider.DEFAULT_RANDOM);
 	}
 
 	@Override

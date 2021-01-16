@@ -66,11 +66,7 @@ public final class BukkitContainer1_16_R2 extends WrappedContainer implements Pe
 
 	@Override
 	public Set<NamespacedKey> getKeys() {
-		return Arrays
-			.stream(container.getKeys())
-			.map(SyntaxKey::new)
-			.map(BukkitKey1_16_R2::asBukkit)
-			.collect(Collectors.toSet());
+		return Arrays.stream(container.getKeys()).map(SyntaxKey::new).map(BukkitKey1_16_R2::asBukkit).collect(Collectors.toSet());
 	}
 
 	@Override

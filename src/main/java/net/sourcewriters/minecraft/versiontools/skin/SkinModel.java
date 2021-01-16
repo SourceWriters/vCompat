@@ -1,20 +1,21 @@
 package net.sourcewriters.minecraft.versiontools.skin;
 
 public enum SkinModel {
-	
-	SLIM, NORMAL;
-	
+
+	SLIM,
+	NORMAL;
+
 	public static SkinModel get(String name) {
-		if(name.equalsIgnoreCase("SLIM")) {
+		if (name.equalsIgnoreCase("SLIM")) {
 			return SkinModel.SLIM;
 		}
 		return SkinModel.NORMAL;
 	}
-	
+
 	@Override
 	public String toString() {
 		String name = name();
-		if(name.equals("NORMAL")) {
+		if (name.equals("NORMAL")) {
 			return "steve";
 		}
 		return name.toLowerCase();
@@ -22,7 +23,7 @@ public enum SkinModel {
 
 	public static SkinModel fromString(String name) {
 		name = name.toLowerCase();
-		if(name.equals("slim") || name.equals("alex")) {
+		if (name.equals("slim") || name.equals("alex")) {
 			return SkinModel.SLIM;
 		}
 		return SkinModel.NORMAL;

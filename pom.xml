@@ -20,7 +20,6 @@
 	</repositories>
 
 	<dependencies>
-
 		<!-- Mojang -->
 		<dependency>
 			<groupId>com.mojang</groupId>
@@ -165,7 +164,6 @@
 		
 	</dependencies>
 
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -197,6 +195,12 @@
 						</filter>
 					</filters>
 					<createDependencyReducedPom>false</createDependencyReducedPom>
+					<relocations>
+						<relocation>
+							<pattern>com.syntaxphoenix.syntaxapi</pattern>
+							<shadedPattern>net.sourcewriters.minecraft.versiontools.shaded.syntaxapi</shadedPattern>
+						</relocation>
+					</relocations>
 				</configuration>
 			</plugin>
 			<plugin>

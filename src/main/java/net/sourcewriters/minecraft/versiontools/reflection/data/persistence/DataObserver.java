@@ -19,7 +19,7 @@ public class DataObserver implements Runnable {
 	private long lastModified = 0L;
 	private boolean saving = false;
 	private Thread thread;
-	
+
 	private long wait = 700L;
 
 	protected DataObserver(PersistentContainer<?> container) {

@@ -8,8 +8,7 @@ import com.syntaxphoenix.syntaxapi.data.DataType;
 
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;
 
-public class SyntaxType1_16_R2<P0, P1, C0, C1> extends WrappedType1_16_R2<PersistentDataType<P1, C1>, P0, P1, C0, C1>
-	implements DataType<P0, C0> {
+public class SyntaxType1_16_R2<P0, P1, C0, C1> extends WrappedType1_16_R2<PersistentDataType<P1, C1>, P0, P1, C0, C1> implements DataType<P0, C0> {
 
 	private final PersistentDataType<P1, C1> type;
 
@@ -68,8 +67,7 @@ public class SyntaxType1_16_R2<P0, P1, C0, C1> extends WrappedType1_16_R2<Persis
 	public C0 wrapToComplex(P0 primitive, WrappedContext<?> context) {
 		if (!(context instanceof PersistentDataAdapterContext))
 			return null;
-		return toComplexWrapped(
-			type.fromPrimitive(toPrimitiveOriginal(primitive), (PersistentDataAdapterContext) context));
+		return toComplexWrapped(type.fromPrimitive(toPrimitiveOriginal(primitive), (PersistentDataAdapterContext) context));
 	}
 
 }

@@ -9,7 +9,7 @@ public class VersionControl1_16_R2 extends VersionControl {
 	public static VersionControl1_16_R2 init() {
 		return INSTANCE != null ? INSTANCE : (INSTANCE = new VersionControl1_16_R2());
 	}
-	
+
 	private final ToolProvider1_16_R2 toolProvider = new ToolProvider1_16_R2(this);
 	private final TextureProvider1_16_R2 textureProvider = new TextureProvider1_16_R2(this);
 	private final PacketHandler1_16_R2 packetHandler = new PacketHandler1_16_R2(this);

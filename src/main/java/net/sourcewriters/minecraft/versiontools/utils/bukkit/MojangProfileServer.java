@@ -28,9 +28,8 @@ public abstract class MojangProfileServer {
 	}
 
 	public static UUID fromShortenId(String uid) {
-		return UUID
-			.fromString(uid.substring(0, 8) + "-" + uid.substring(8, 12) + "-" + uid.substring(12, 16) + "-"
-				+ uid.substring(16, 20) + "-" + uid.substring(20, 32));
+		return UUID.fromString(
+			uid.substring(0, 8) + "-" + uid.substring(8, 12) + "-" + uid.substring(12, 16) + "-" + uid.substring(16, 20) + "-" + uid.substring(20, 32));
 	}
 
 	public static String shortUUID(UUID id) {
@@ -71,5 +70,4 @@ public abstract class MojangProfileServer {
 		}
 		return "";
 	}
-
 }

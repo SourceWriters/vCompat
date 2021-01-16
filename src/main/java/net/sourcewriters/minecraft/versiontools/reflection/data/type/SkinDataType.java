@@ -12,8 +12,7 @@ public final class SkinDataType implements WrapType<WrappedContainer, Skin> {
 
 	public static final SkinDataType INSTANCE = new SkinDataType();
 
-	private SkinDataType() {
-	}
+	private SkinDataType() {}
 
 	@Override
 	public Class<Skin> getComplexWrapped() {

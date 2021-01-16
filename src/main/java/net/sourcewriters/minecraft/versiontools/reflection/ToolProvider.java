@@ -8,9 +8,9 @@ public abstract class ToolProvider<V extends VersionControl> extends VersionHand
 	protected ToolProvider(V versionControl) {
 		super(versionControl);
 	}
-	
+
 	public abstract SkinTools getSkinTools();
 
 	public abstract ServerTools getServerTools();
-	
+
 }

@@ -7,8 +7,7 @@ import com.syntaxphoenix.syntaxapi.random.RandomNumberGenerator;
 
 public final class UUIDHelper {
 
-	private UUIDHelper() {
-	}
+	private UUIDHelper() {}
 
 	public static UUID generateUniqueId(RandomNumberGenerator generator) {
 		byte[] randomBytes = new byte[16];

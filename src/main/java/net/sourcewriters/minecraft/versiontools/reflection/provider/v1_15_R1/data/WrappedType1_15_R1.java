@@ -46,17 +46,11 @@ public abstract class WrappedType1_15_R1<H, P0, P1, C0, C1> implements WrapType<
 		case 1:
 			return (P0) new SyntaxContainer1_15_R1((PersistentDataContainer) primitive);
 		case 2:
-			return (P0) Arrays
-				.stream((PersistentDataContainer[]) primitive)
-				.map(SyntaxContainer1_15_R1::new)
-				.toArray(IDataContainer[]::new);
+			return (P0) Arrays.stream((PersistentDataContainer[]) primitive).map(SyntaxContainer1_15_R1::new).toArray(IDataContainer[]::new);
 		case 3:
 			return (P0) new BukkitContainer1_15_R1((IDataContainer) primitive);
 		case 4:
-			return (P0) Arrays
-				.stream((IDataContainer[]) primitive)
-				.map(BukkitContainer1_15_R1::new)
-				.toArray(PersistentDataContainer[]::new);
+			return (P0) Arrays.stream((IDataContainer[]) primitive).map(BukkitContainer1_15_R1::new).toArray(PersistentDataContainer[]::new);
 		default:
 			return (P0) primitive;
 		}
@@ -68,17 +62,11 @@ public abstract class WrappedType1_15_R1<H, P0, P1, C0, C1> implements WrapType<
 		case 1:
 			return (C0) new SyntaxContainer1_15_R1((PersistentDataContainer) complex);
 		case 2:
-			return (C0) Arrays
-				.stream((PersistentDataContainer[]) complex)
-				.map(SyntaxContainer1_15_R1::new)
-				.toArray(IDataContainer[]::new);
+			return (C0) Arrays.stream((PersistentDataContainer[]) complex).map(SyntaxContainer1_15_R1::new).toArray(IDataContainer[]::new);
 		case 3:
 			return (C0) new BukkitContainer1_15_R1((IDataContainer) complex);
 		case 4:
-			return (C0) Arrays
-				.stream((IDataContainer[]) complex)
-				.map(BukkitContainer1_15_R1::new)
-				.toArray(PersistentDataContainer[]::new);
+			return (C0) Arrays.stream((IDataContainer[]) complex).map(BukkitContainer1_15_R1::new).toArray(PersistentDataContainer[]::new);
 		default:
 			return (C0) complex;
 		}
@@ -90,17 +78,11 @@ public abstract class WrappedType1_15_R1<H, P0, P1, C0, C1> implements WrapType<
 		case 1:
 			return (P1) new BukkitContainer1_15_R1((IDataContainer) primitive);
 		case 2:
-			return (P1) Arrays
-				.stream((IDataContainer[]) primitive)
-				.map(BukkitContainer1_15_R1::new)
-				.toArray(PersistentDataContainer[]::new);
+			return (P1) Arrays.stream((IDataContainer[]) primitive).map(BukkitContainer1_15_R1::new).toArray(PersistentDataContainer[]::new);
 		case 3:
 			return (P1) new SyntaxContainer1_15_R1((PersistentDataContainer) primitive);
 		case 4:
-			return (P1) Arrays
-				.stream((PersistentDataContainer[]) primitive)
-				.map(SyntaxContainer1_15_R1::new)
-				.toArray(IDataContainer[]::new);
+			return (P1) Arrays.stream((PersistentDataContainer[]) primitive).map(SyntaxContainer1_15_R1::new).toArray(IDataContainer[]::new);
 		default:
 			return (P1) primitive;
 		}
@@ -112,17 +94,11 @@ public abstract class WrappedType1_15_R1<H, P0, P1, C0, C1> implements WrapType<
 		case 1:
 			return (C1) new BukkitContainer1_15_R1((IDataContainer) complex);
 		case 2:
-			return (C1) Arrays
-				.stream((IDataContainer[]) complex)
-				.map(BukkitContainer1_15_R1::new)
-				.toArray(PersistentDataContainer[]::new);
+			return (C1) Arrays.stream((IDataContainer[]) complex).map(BukkitContainer1_15_R1::new).toArray(PersistentDataContainer[]::new);
 		case 3:
 			return (C1) new SyntaxContainer1_15_R1((PersistentDataContainer) complex);
 		case 4:
-			return (C1) Arrays
-				.stream((PersistentDataContainer[]) complex)
-				.map(SyntaxContainer1_15_R1::new)
-				.toArray(IDataContainer[]::new);
+			return (C1) Arrays.stream((PersistentDataContainer[]) complex).map(SyntaxContainer1_15_R1::new).toArray(IDataContainer[]::new);
 		default:
 			return (C1) complex;
 		}
@@ -158,11 +134,11 @@ public abstract class WrappedType1_15_R1<H, P0, P1, C0, C1> implements WrapType<
 		}
 		return 0;
 	}
-	
+
 	public static <A, B> BukkitType1_15_R1<?, A, ?, B> wrap(DataType<A, B> type) {
 		return new BukkitType1_15_R1<>(type);
 	}
-	
+
 	public static <A, B> SyntaxType1_15_R1<?, A, ?, B> wrap(PersistentDataType<A, B> type) {
 		return new SyntaxType1_15_R1<>(type);
 	}

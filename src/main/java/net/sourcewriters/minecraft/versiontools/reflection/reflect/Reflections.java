@@ -18,7 +18,7 @@ public abstract class Reflections {
 		}
 		return value;
 	}
-	
+
 	public int priority() {
 		return 0;
 	}

@@ -137,10 +137,7 @@ public class Mojang {
 
 	public Profile getUseableProfile() {
 
-		Profile[] array = getProfiles()
-			.stream()
-			.filter(profile -> profile.isAuthenticated())
-			.toArray(size -> new Profile[size]);
+		Profile[] array = getProfiles().stream().filter(profile -> profile.isAuthenticated()).toArray(size -> new Profile[size]);
 
 		if (array.length != 0) {
 			for (Profile profile : array) {
@@ -189,9 +186,7 @@ public class Mojang {
 
 			request.parameter("url", skinRequest.getUrl()).parameter("model", skinRequest.getModel().toString());
 
-			int code = request
-				.execute(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), StandardContentType.URL_ENCODED)
-				.getCode();
+			int code = request.execute(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), StandardContentType.URL_ENCODED).getCode();
 
 			if (code != 204) {
 				return null;
@@ -212,9 +207,7 @@ public class Mojang {
 
 			Request request = new Request(RequestType.GET);
 
-			JsonObject object = request
-				.execute(URL_SKIN_PROFILE, StandardContentType.URL_ENCODED)
-				.getResponseAsJson();
+			JsonObject object = request.execute(URL_SKIN_PROFILE, StandardContentType.URL_ENCODED).getResponseAsJson();
 
 			if (!object.has("properties")) {
 				return null;

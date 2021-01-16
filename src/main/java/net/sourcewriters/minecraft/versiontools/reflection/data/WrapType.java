@@ -19,10 +19,8 @@ public interface WrapType<P, C> {
 	public static final SimpleWrapType<Float, Float> FLOAT = new SimpleWrapType<>(PrimitiveDataType.FLOAT);
 	public static final SimpleWrapType<Double, Double> DOUBLE = new SimpleWrapType<>(PrimitiveDataType.DOUBLE);
 
-	public static final SimpleWrapType<BigInteger, BigInteger> BIG_INTEGER = new SimpleWrapType<>(
-		PrimitiveDataType.BIG_INTEGER);
-	public static final SimpleWrapType<BigDecimal, BigDecimal> BIG_DECIMAL = new SimpleWrapType<>(
-		PrimitiveDataType.BIG_DECIMAL);
+	public static final SimpleWrapType<BigInteger, BigInteger> BIG_INTEGER = new SimpleWrapType<>(PrimitiveDataType.BIG_INTEGER);
+	public static final SimpleWrapType<BigDecimal, BigDecimal> BIG_DECIMAL = new SimpleWrapType<>(PrimitiveDataType.BIG_DECIMAL);
 
 	public static final SimpleWrapType<Boolean, Boolean> BOOLEAN = new SimpleWrapType<>(PrimitiveDataType.BOOLEAN);
 
@@ -31,7 +29,7 @@ public interface WrapType<P, C> {
 	public static final SimpleWrapType<int[], int[]> INT_ARRAY = new SimpleWrapType<>(PrimitiveDataType.INT_ARRAY);
 	public static final SimpleWrapType<byte[], byte[]> BYTE_ARRAY = new SimpleWrapType<>(PrimitiveDataType.BYTE_ARRAY);
 	public static final SimpleWrapType<long[], long[]> LONG_ARRAY = new SimpleWrapType<>(PrimitiveDataType.LONG_ARRAY);
-	
+
 	/*
 	 * Interface
 	 */

@@ -20,23 +20,23 @@ public abstract class BukkitConversion<V extends VersionControl> extends Version
 	public abstract EntityType toEntityType(NmsEntityType type);
 
 	public abstract NmsEntityType fromEntityType(EntityType type);
-	
+
 	public abstract Object toMinecraftTag(NbtTag tag);
-	
+
 	public abstract NbtTag fromMinecraftTag(Object tag);
-	
+
 	public abstract Object toMinecraftList(NbtList<?> list);
-	
+
 	public abstract NbtList<?> fromMinecraftList(Object list);
-	
+
 	public abstract Object toMinecraftCompound(NbtCompound compound);
-	
+
 	public abstract NbtCompound fromMinecraftCompound(Object compound);
-	
+
 	public abstract ItemStack itemFromCompound(NbtCompound compound);
-	
+
 	public abstract NbtCompound itemToCompound(ItemStack itemStack);
-	
+
 	public abstract WrappedContext<DataAdapterContext> createContext(DataAdapterContext context);
 
 }

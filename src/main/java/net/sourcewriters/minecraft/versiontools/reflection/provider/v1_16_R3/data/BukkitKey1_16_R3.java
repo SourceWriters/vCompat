@@ -41,9 +41,9 @@ public final class BukkitKey1_16_R3 extends WrappedKey<NamespacedKey> {
 	public String toString() {
 		return key.toString();
 	}
-	
+
 	public static NamespacedKey asBukkit(WrappedKey<?> key) {
-		if(key.getHandle() instanceof NamespacedKey) {
+		if (key.getHandle() instanceof NamespacedKey) {
 			return (NamespacedKey) key.getHandle();
 		}
 		return new BukkitKey1_16_R3(key.getName(), key.getKey()).getHandle();

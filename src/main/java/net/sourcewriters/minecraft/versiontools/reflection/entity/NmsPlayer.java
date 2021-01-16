@@ -44,7 +44,7 @@ public interface NmsPlayer extends NmsEntityLiving {
 	void fakeRespawn();
 
 	void respawn();
-	
+
 	void update();
 
 }

@@ -129,12 +129,7 @@ public abstract class Entity1_13_R2<E extends Entity> implements NmsEntity {
 			return;
 		Player[] players;
 		synchronized (visible) {
-			players = visible
-				.stream()
-				.map(Bukkit::getOfflinePlayer)
-				.filter(OfflinePlayer::isOnline)
-				.map(OfflinePlayer::getPlayer)
-				.toArray(Player[]::new);
+			players = visible.stream().map(Bukkit::getOfflinePlayer).filter(OfflinePlayer::isOnline).map(OfflinePlayer::getPlayer).toArray(Player[]::new);
 		}
 		hide(players);
 		show(players);
@@ -167,8 +162,7 @@ public abstract class Entity1_13_R2<E extends Entity> implements NmsEntity {
 		if (players.length == 0)
 			return;
 		PacketPlayOutSpawnEntity packet = new PacketPlayOutSpawnEntity(handle, IRegistry.ENTITY_TYPE.a(handle.P()));
-		PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(handle.getId(),
-			handle.getDataWatcher(), true);
+		PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(handle.getId(), handle.getDataWatcher(), true);
 		PlayerConnection connection;
 		for (Player player : players) {
 			if (isShown(player))
@@ -192,12 +186,7 @@ public abstract class Entity1_13_R2<E extends Entity> implements NmsEntity {
 	@Override
 	public Player[] getVisibleAsPlayer() {
 		synchronized (visible) {
-			return visible
-				.stream()
-				.map(Bukkit::getOfflinePlayer)
-				.filter(OfflinePlayer::isOnline)
-				.map(OfflinePlayer::getPlayer)
-				.toArray(Player[]::new);
+			return visible.stream().map(Bukkit::getOfflinePlayer).filter(OfflinePlayer::isOnline).map(OfflinePlayer::getPlayer).toArray(Player[]::new);
 		}
 	}
 

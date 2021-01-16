@@ -50,8 +50,7 @@ public abstract class WrappedContainer {
 	public abstract int size();
 
 	protected SyntaxKey wrappedKey(String key) {
-		return new SyntaxKey(
-				NamespacedKey.fromStringOrCompute(key, key0 -> Namespace.of(NAMESPACE_STRING).create(key0)));
+		return new SyntaxKey(NamespacedKey.fromStringOrCompute(key, key0 -> Namespace.of(NAMESPACE_STRING).create(key0)));
 	}
 
 	public <P, C> C getOrDefault(String key, WrapType<P, C> type, C value) {

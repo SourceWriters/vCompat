@@ -49,5 +49,4 @@ public final class KeyCache {
 	public NamespacedKey remove(String key) {
 		return keys.remove(key);
 	}
-
 }

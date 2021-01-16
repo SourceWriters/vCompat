@@ -178,32 +178,27 @@ public class Hologram extends CustomEntity {
 			synchronized (entities) {
 				entity = entities.get(index);
 			}
-			entity
-				.setLocation(new Location(null, location.getX(), location.getY() + (this.offset * (amount - index)),
-					location.getZ()));
+			entity.setLocation(new Location(null, location.getX(), location.getY() + (this.offset * (amount - index)), location.getZ()));
 		}
 	}
 
 	private void spawnEntity(String line) {
 
-		NmsArmorStand entity = (NmsArmorStand) VersionControl
-			.get()
-			.getEntityProvider()
-			.createEntity(location.getWorld(), NmsEntityType.ARMOR_STAND);
+		NmsArmorStand entity = (NmsArmorStand) VersionControl.get().getEntityProvider().createEntity(location.getWorld(), NmsEntityType.ARMOR_STAND);
 
 		entity.setCustomName(line);
 		entity.setCustomNameVisible(true);
 		entity.setInvisible(true);
 		entity.setSmall(true);
-		
+
 		NmsArmorStand entity0;
 		synchronized (entities) {
 			entities.add(entity);
-			if(entities.size() == 1)
+			if (entities.size() == 1)
 				return;
 			entity0 = entities.get(0);
 		}
-		
+
 		entity.show(entity0.getVisibleAsPlayer());
 
 	}

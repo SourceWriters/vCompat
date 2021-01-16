@@ -5,5 +5,5 @@ public abstract class PacketHandler<V extends VersionControl> extends VersionHan
 	protected PacketHandler(V versionControl) {
 		super(versionControl);
 	}
-	
+
 }

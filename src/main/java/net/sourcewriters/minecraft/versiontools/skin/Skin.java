@@ -10,7 +10,7 @@ import com.syntaxphoenix.syntaxapi.nbt.NbtCompound;
 import com.syntaxphoenix.syntaxapi.nbt.utils.NbtStorage;
 
 public class Skin implements Serializable, NbtStorage<NbtCompound> {
-	
+
 	public static final Skin NONE = new Skin();
 
 	/**

@@ -7,8 +7,7 @@ public final class ObjectType implements WrapType<Object, Object> {
 
 	public static final ObjectType INSTANCE = new ObjectType();
 
-	private ObjectType() {
-	}
+	private ObjectType() {}
 
 	@Override
 	public Class<Object> getPrimitiveWrapped() {

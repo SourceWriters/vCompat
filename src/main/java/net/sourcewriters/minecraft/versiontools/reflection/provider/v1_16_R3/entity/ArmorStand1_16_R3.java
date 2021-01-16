@@ -15,7 +15,7 @@ public class ArmorStand1_16_R3 extends EntityLiving1_16_R3<EntityArmorStand> imp
 	public void setSmall(boolean small) {
 		handle.setSmall(small);
 	}
-	
+
 	@Override
 	public boolean isSmall() {
 		return handle.isSmall();
