@@ -135,11 +135,11 @@ public abstract class WrappedType1_14_R1<H, P0, P1, C0, C1> implements WrapType<
 		return 0;
 	}
 
-	public static <A, B> BukkitType1_14_R1<?, A, ?, B> wrap(DataType<A, B> type) {
+	public static <A, B, C, D> BukkitType1_14_R1<C, A, D, B> wrap(DataType<A, B> type) {
 		return new BukkitType1_14_R1<>(type);
 	}
 
-	public static <A, B> SyntaxType1_14_R1<?, A, ?, B> wrap(PersistentDataType<A, B> type) {
+	public static <A, B, C, D> SyntaxType1_14_R1<C, A, D, B> wrap(PersistentDataType<A, B> type) {
 		return new SyntaxType1_14_R1<>(type);
 	}
 
