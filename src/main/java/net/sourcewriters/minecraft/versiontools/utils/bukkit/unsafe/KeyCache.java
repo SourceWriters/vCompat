@@ -1,4 +1,4 @@
-package net.sourcewriters.minecraft.versiontools.utils.bukkit;
+package net.sourcewriters.minecraft.versiontools.utils.bukkit.unsafe;
 
 import java.util.Collections;
 import java.util.HashMap;

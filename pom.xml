@@ -98,7 +98,7 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot</artifactId>
-			<version>1.12.2-R0.1-SNAPSHOT</version>
+			<version>1.11-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
@@ -166,6 +166,22 @@
 			<version>0.1</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/../Libraries/spigot-1.13.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.12.2</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/../Libraries/spigot-1.12.2.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.11</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/../Libraries/spigot-1.11.jar</systemPath>
 			<type>jar</type>
 		</dependency> -->
 		
