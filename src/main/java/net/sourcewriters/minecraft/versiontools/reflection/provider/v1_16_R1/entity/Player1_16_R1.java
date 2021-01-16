@@ -70,8 +70,9 @@ public class Player1_16_R1 extends EntityLiving1_16_R1<EntityPlayer> implements 
 
 	@Override
 	public void setSkin(Skin skin) {
-		if (skin == null || getSkin().equals(skin))
+		if (skin == null || getSkin().equals(skin)) {
 			return;
+		}
 		dataAdapter.set("skin", skin, SkinDataType.INSTANCE);
 	}
 
@@ -82,8 +83,9 @@ public class Player1_16_R1 extends EntityLiving1_16_R1<EntityPlayer> implements 
 
 	@Override
 	public void setName(String name) {
-		if (getName().equals(name))
+		if (getName().equals(name)) {
 			return;
+		}
 		if (name == null) {
 			dataAdapter.remove("name");
 			return;
@@ -134,8 +136,9 @@ public class Player1_16_R1 extends EntityLiving1_16_R1<EntityPlayer> implements 
 	}
 
 	private final void sendPlayerListInfo(String header, String footer) {
-		if (handle.playerConnection.isDisconnected())
+		if (handle.playerConnection.isDisconnected()) {
 			return;
+		}
 
 		IChatBaseComponent headerComponent = header.isEmpty() ? null : CraftChatMessage.fromStringOrNull(header, true);
 		IChatBaseComponent footerComponent = footer.isEmpty() ? null : CraftChatMessage.fromStringOrNull(footer, true);
@@ -150,36 +153,41 @@ public class Player1_16_R1 extends EntityLiving1_16_R1<EntityPlayer> implements 
 
 	@Override
 	public void setTitleTimes(int fadeIn, int stay, int fadeOut) {
-		if (handle.playerConnection.isDisconnected())
+		if (handle.playerConnection.isDisconnected()) {
 			return;
+		}
 		handle.playerConnection.sendPacket(new PacketPlayOutTitle(EnumTitleAction.TIMES, null, fadeIn, stay, fadeOut));
 	}
 
 	@Override
 	public void sendSubtitle(String text) {
-		if (handle.playerConnection.isDisconnected())
+		if (handle.playerConnection.isDisconnected()) {
 			return;
+		}
 		handle.playerConnection.sendPacket(new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, CraftChatMessage.fromStringOrNull(text)));
 	}
 
 	@Override
 	public void sendTitle(String text) {
-		if (handle.playerConnection.isDisconnected())
+		if (handle.playerConnection.isDisconnected()) {
 			return;
+		}
 		handle.playerConnection.sendPacket(new PacketPlayOutTitle(EnumTitleAction.TITLE, CraftChatMessage.fromStringOrNull(text)));
 	}
 
 	@Override
 	public void sendActionBar(String text) {
-		if (handle.playerConnection.isDisconnected())
+		if (handle.playerConnection.isDisconnected()) {
 			return;
+		}
 		handle.playerConnection.sendPacket(new PacketPlayOutTitle(EnumTitleAction.ACTIONBAR, CraftChatMessage.fromStringOrNull(text)));
 	}
 
 	@Override
 	public void fakeRespawn() {
-		if (handle.playerConnection.isDisconnected())
+		if (handle.playerConnection.isDisconnected()) {
 			return;
+		}
 		PacketPlayOutPlayerInfo remInfoPacket = new PacketPlayOutPlayerInfo(EnumPlayerInfoAction.REMOVE_PLAYER, handle);
 		PacketPlayOutPlayerInfo addInfoPacket = new PacketPlayOutPlayerInfo(EnumPlayerInfoAction.ADD_PLAYER, handle);
 
@@ -197,8 +205,9 @@ public class Player1_16_R1 extends EntityLiving1_16_R1<EntityPlayer> implements 
 		Player self = getBukkitPlayer();
 		Player[] players = Players.getOnlineWithout(getUniqueId());
 		for (Player player : players) {
-			if (!player.canSee(self))
+			if (!player.canSee(self)) {
 				continue;
+			}
 			PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
 			connection.sendPacket(remInfoPacket);
 			connection.sendPacket(addInfoPacket);
@@ -230,15 +239,17 @@ public class Player1_16_R1 extends EntityLiving1_16_R1<EntityPlayer> implements 
 		handle.updateAbilities();
 		handle.triggerHealthUpdate();
 		handle.updateInventory(handle.defaultContainer);
-		if (handle.activeContainer != handle.defaultContainer)
+		if (handle.activeContainer != handle.defaultContainer) {
 			handle.updateInventory(handle.activeContainer);
+		}
 		self.recalculatePermissions();
 	}
 
 	@Override
 	public void respawn() {
-		if (handle.playerConnection.isDisconnected())
+		if (handle.playerConnection.isDisconnected()) {
 			return;
+		}
 		handle.playerConnection.sendPacket(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
 	}
 

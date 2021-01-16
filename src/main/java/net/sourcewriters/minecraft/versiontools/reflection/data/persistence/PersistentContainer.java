@@ -136,8 +136,9 @@ public class PersistentContainer<K> extends NbtContainer {
 	}
 
 	protected void read(NbtCompound compound) {
-		if (observer.isAlive())
+		if (observer.isAlive()) {
 			return;
+		}
 		super.fromNbt(compound);
 	}
 

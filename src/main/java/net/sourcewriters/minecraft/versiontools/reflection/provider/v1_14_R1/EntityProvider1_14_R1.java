@@ -34,11 +34,13 @@ public class EntityProvider1_14_R1 extends EntityProvider<VersionControl1_14_R1>
 
 	@Override
 	public NmsEntity createEntity(org.bukkit.World world, NmsEntityType type) {
-		if (!(world instanceof CraftWorld))
+		if (!(world instanceof CraftWorld)) {
 			return null;
+		}
 		Function<World, NmsEntity> function;
-		if ((function = getConstructor(type)) == null)
+		if ((function = getConstructor(type)) == null) {
 			return null;
+		}
 		return function.apply(((CraftWorld) world).getHandle());
 	}
 

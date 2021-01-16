@@ -89,8 +89,9 @@ public class BukkitConversion1_14_R1 extends BukkitConversion<VersionControl1_14
 
 	@Override
 	public NbtTag fromMinecraftTag(Object raw) {
-		if (!(raw instanceof NBTBase))
+		if (!(raw instanceof NBTBase)) {
 			return null;
+		}
 		NBTBase tag = (NBTBase) raw;
 		NbtType type = NbtType.getById(tag.getTypeId());
 		switch (type) {
@@ -136,8 +137,9 @@ public class BukkitConversion1_14_R1 extends BukkitConversion<VersionControl1_14
 
 	@Override
 	public NbtList<NbtTag> fromMinecraftList(Object raw) {
-		if (!(raw instanceof NBTTagList))
+		if (!(raw instanceof NBTTagList)) {
 			return null;
+		}
 		NBTTagList list = (NBTTagList) raw;
 		NbtList<NbtTag> output = new NbtList<>(NbtType.getById(list.getTypeId()));
 		for (NBTBase base : list) {
@@ -149,8 +151,9 @@ public class BukkitConversion1_14_R1 extends BukkitConversion<VersionControl1_14
 	@Override
 	public NBTTagCompound toMinecraftCompound(NbtCompound compound) {
 		NBTTagCompound output = new NBTTagCompound();
-		if (compound.isEmpty())
+		if (compound.isEmpty()) {
 			return output;
+		}
 		Set<String> keys = compound.getKeys();
 		for (String key : keys) {
 			output.set(key, toMinecraftTag(compound.get(key)));
@@ -160,12 +163,14 @@ public class BukkitConversion1_14_R1 extends BukkitConversion<VersionControl1_14
 
 	@Override
 	public NbtCompound fromMinecraftCompound(Object raw) {
-		if (!(raw instanceof NBTTagCompound))
+		if (!(raw instanceof NBTTagCompound)) {
 			return null;
+		}
 		NBTTagCompound compound = (NBTTagCompound) raw;
 		NbtCompound output = new NbtCompound();
-		if (compound.isEmpty())
+		if (compound.isEmpty()) {
 			return output;
+		}
 		Set<String> keys = compound.getKeys();
 		for (String key : keys) {
 			output.set(key, fromMinecraftTag(compound.get(key)));

@@ -40,8 +40,9 @@ public class TextureProvider1_16_R2 extends TextureProvider<VersionControl1_16_R
 
 	@Override
 	public GameProfile profileFromItem(org.bukkit.inventory.ItemStack itemStack) {
-		if (!(itemStack.getItemMeta() instanceof SkullMeta))
+		if (!(itemStack.getItemMeta() instanceof SkullMeta)) {
 			return null;
+		}
 		SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
 		GameProfile profile = (GameProfile) craftMetaSkullRef.getFieldValue("profile", meta);
 		if (profile == null) {
@@ -79,8 +80,9 @@ public class TextureProvider1_16_R2 extends TextureProvider<VersionControl1_16_R
 	@Override
 	public boolean applyItem(org.bukkit.inventory.ItemStack itemStack, GameProfile profile) {
 		ItemMeta meta = itemStack.getItemMeta();
-		if (!(meta instanceof SkullMeta))
+		if (!(meta instanceof SkullMeta)) {
 			return false;
+		}
 		SkullMeta skullMeta = (SkullMeta) meta;
 		craftMetaSkullRef.setFieldValue(meta, "profile", profile);
 		itemStack.setItemMeta(skullMeta);

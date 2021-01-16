@@ -36,8 +36,9 @@ public class DataDistributor<K> {
 
 	public PersistentContainer<K> create() {
 		K key = randomFunction.get();
-		while (containers.containsKey(key))
+		while (containers.containsKey(key)) {
 			key = randomFunction.get();
+		}
 		PersistentContainer<K> container = new PersistentContainer<>(key, new File(parent, namingFunction.apply(key) + ".nbt"), dataProvider.getRegistry());
 		containers.put(key, container);
 		return container;
@@ -49,8 +50,9 @@ public class DataDistributor<K> {
 	}
 
 	public boolean delete(K key) {
-		if (!containers.containsKey(key))
+		if (!containers.containsKey(key)) {
 			return false;
+		}
 		PersistentContainer<K> container = containers.get(key);
 		File location = container.getLocation();
 		container.delete();

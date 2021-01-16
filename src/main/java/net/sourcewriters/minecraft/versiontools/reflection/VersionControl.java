@@ -11,11 +11,13 @@ public abstract class VersionControl {
 	public static Container<VersionControl> CURRENT = Container.of();
 
 	public static VersionControl get() {
-		if (CURRENT.isPresent())
+		if (CURRENT.isPresent()) {
 			return CURRENT.get();
+		}
 		Reflect reflect = new Reflect(CLASSPATH.replace("$version", Versions.getServerAsString().substring(1)));
-		if (reflect.getOwner() == null || !VersionControl.class.isAssignableFrom(reflect.getOwner()))
+		if (reflect.getOwner() == null || !VersionControl.class.isAssignableFrom(reflect.getOwner())) {
 			return null;
+		}
 		return CURRENT.replace((VersionControl) reflect.searchMethod("init", "init").run("init")).lock().get();
 	}
 

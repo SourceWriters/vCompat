@@ -18,8 +18,9 @@ public abstract class MojangProfileServer {
 
 	public static UUID getUniqueIdPlayed(String name) {
 		OfflinePlayer player = Bukkit.getOfflinePlayer(fromShortenId(getUniqueIdString(name)));
-		if (player.hasPlayedBefore())
+		if (player.hasPlayedBefore()) {
 			return player.getUniqueId();
+		}
 		return null;
 	}
 

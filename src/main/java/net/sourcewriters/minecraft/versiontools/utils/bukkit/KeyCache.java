@@ -39,8 +39,9 @@ public final class KeyCache {
 
 	@SuppressWarnings("deprecation")
 	public NamespacedKey get(String key) {
-		if (keys.containsKey(key))
+		if (keys.containsKey(key)) {
 			return keys.get(key);
+		}
 		NamespacedKey output = new NamespacedKey(namespace, key);
 		keys.put(key, output);
 		return output;

@@ -58,15 +58,17 @@ public class SyntaxType1_16_R1<P0, P1, C0, C1> extends WrappedType1_16_R1<Persis
 
 	@Override
 	public P0 wrapToPrimitive(C0 complex, WrappedContext<?> context) {
-		if (!(context instanceof PersistentDataAdapterContext))
+		if (!(context instanceof PersistentDataAdapterContext)) {
 			return null;
+		}
 		return toPrimitiveWrapped(type.toPrimitive(toComplexOriginal(complex), (PersistentDataAdapterContext) context));
 	}
 
 	@Override
 	public C0 wrapToComplex(P0 primitive, WrappedContext<?> context) {
-		if (!(context instanceof PersistentDataAdapterContext))
+		if (!(context instanceof PersistentDataAdapterContext)) {
 			return null;
+		}
 		return toComplexWrapped(type.fromPrimitive(toPrimitiveOriginal(primitive), (PersistentDataAdapterContext) context));
 	}
 

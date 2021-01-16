@@ -194,8 +194,9 @@ public class Hologram extends CustomEntity {
 		NmsArmorStand entity0;
 		synchronized (entities) {
 			entities.add(entity);
-			if (entities.size() == 1)
+			if (entities.size() == 1) {
 				return;
+			}
 			entity0 = entities.get(0);
 		}
 

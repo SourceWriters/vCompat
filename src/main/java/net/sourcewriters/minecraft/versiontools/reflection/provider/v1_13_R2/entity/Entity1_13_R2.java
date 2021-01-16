@@ -125,8 +125,9 @@ public abstract class Entity1_13_R2<E extends Entity> implements NmsEntity {
 	}
 
 	private void updateVisibility() {
-		if (visible.isEmpty())
+		if (visible.isEmpty()) {
 			return;
+		}
 		Player[] players;
 		synchronized (visible) {
 			players = visible.stream().map(Bukkit::getOfflinePlayer).filter(OfflinePlayer::isOnline).map(OfflinePlayer::getPlayer).toArray(Player[]::new);
@@ -144,12 +145,14 @@ public abstract class Entity1_13_R2<E extends Entity> implements NmsEntity {
 
 	@Override
 	public void hide(Player... players) {
-		if (players.length == 0)
+		if (players.length == 0) {
 			return;
+		}
 		PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(handle.getId());
 		for (Player player : players) {
-			if (!isShown(player))
+			if (!isShown(player)) {
 				continue;
+			}
 			((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
 			synchronized (visible) {
 				visible.remove(player.getUniqueId());
@@ -159,14 +162,16 @@ public abstract class Entity1_13_R2<E extends Entity> implements NmsEntity {
 
 	@Override
 	public void show(Player... players) {
-		if (players.length == 0)
+		if (players.length == 0) {
 			return;
+		}
 		PacketPlayOutSpawnEntity packet = new PacketPlayOutSpawnEntity(handle, IRegistry.ENTITY_TYPE.a(handle.P()));
 		PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(handle.getId(), handle.getDataWatcher(), true);
 		PlayerConnection connection;
 		for (Player player : players) {
-			if (isShown(player))
+			if (isShown(player)) {
 				continue;
+			}
 			connection = ((CraftPlayer) player).getHandle().playerConnection;
 			connection.sendPacket(packet);
 			connection.sendPacket(metadataPacket);

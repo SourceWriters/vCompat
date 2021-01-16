@@ -8,14 +8,16 @@ public abstract class PostAsync {
 	private static ExecutorService SERVICE = Executors.newCachedThreadPool();
 
 	public static void start() {
-		if (isAlive())
+		if (isAlive()) {
 			return;
+		}
 		SERVICE = Executors.newCachedThreadPool();
 	}
 
 	public static void shutdown() {
-		if (isDead())
+		if (isDead()) {
 			return;
+		}
 		SERVICE.shutdown();
 		SERVICE = null;
 	}
@@ -29,14 +31,16 @@ public abstract class PostAsync {
 	}
 
 	public static void post(Runnable runnable) {
-		if (isDead())
+		if (isDead()) {
 			return;
+		}
 		SERVICE.submit(runnable);
 	}
 
 	public static void forcePost(Runnable runnable) {
-		if (isDead())
+		if (isDead()) {
 			start();
+		}
 		post(runnable);
 	}
 
