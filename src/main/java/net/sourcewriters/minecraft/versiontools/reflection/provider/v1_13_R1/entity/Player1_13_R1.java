@@ -33,6 +33,7 @@ import net.minecraft.server.v1_13_R1.PacketPlayOutTitle;
 import net.minecraft.server.v1_13_R1.PacketPlayOutTitle.EnumTitleAction;
 import net.minecraft.server.v1_13_R1.PlayerConnection;
 import net.minecraft.server.v1_13_R1.WorldServer;
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.data.persistence.PersistentContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.data.type.SkinDataType;
@@ -85,12 +86,12 @@ public class Player1_13_R1 extends EntityLiving1_13_R1<EntityPlayer> implements 
 			getDataAdapter().remove("name");
 			return;
 		}
-		getDataAdapter().set("name", name, SkinDataType.STRING);
+		getDataAdapter().set("name", name, WrapType.STRING);
 	}
 
 	@Override
 	public String getName() {
-		return getDataAdapter().getOrDefault("name", SkinDataType.STRING, realName);
+		return getDataAdapter().getOrDefault("name", WrapType.STRING, realName);
 	}
 
 	@Override
@@ -105,7 +106,7 @@ public class Player1_13_R1 extends EntityLiving1_13_R1<EntityPlayer> implements 
 
 	@Override
 	public String getPlayerListHeader() {
-		return getDataAdapter().getOrDefault("header", SkinDataType.STRING, "");
+		return getDataAdapter().getOrDefault("header", WrapType.STRING, "");
 	}
 
 	@Override
@@ -115,7 +116,7 @@ public class Player1_13_R1 extends EntityLiving1_13_R1<EntityPlayer> implements 
 
 	@Override
 	public String getPlayerListFooter() {
-		return getDataAdapter().getOrDefault("footer", SkinDataType.STRING, "");
+		return getDataAdapter().getOrDefault("footer", WrapType.STRING, "");
 	}
 
 	@Override
@@ -125,8 +126,8 @@ public class Player1_13_R1 extends EntityLiving1_13_R1<EntityPlayer> implements 
 
 	@Override
 	public void setPlayerListHeaderAndFooter(String header, String footer) {
-		getDataAdapter().set("header", header, SkinDataType.STRING);
-		getDataAdapter().set("footer", footer, SkinDataType.STRING);
+		getDataAdapter().set("header", header, WrapType.STRING);
+		getDataAdapter().set("footer", footer, WrapType.STRING);
 		sendPlayerListInfo(header, footer);
 	}
 
