@@ -117,7 +117,7 @@
 			<artifactId>spigot-1.16.4</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.16.4.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.16.4.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -125,7 +125,7 @@
 			<artifactId>spigot-1.16.3</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.16.3.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.16.3.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -133,7 +133,7 @@
 			<artifactId>spigot-1.16.1</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.16.1.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.16.1.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -141,7 +141,7 @@
 			<artifactId>spigot-1.15.2</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.15.2.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.15.2.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -149,7 +149,7 @@
 			<artifactId>spigot-1.14.2</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.14.2.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.14.2.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -157,7 +157,7 @@
 			<artifactId>spigot-1.13.2</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.13.2.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.13.2.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -165,7 +165,7 @@
 			<artifactId>spigot-1.13</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.13.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.13.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -173,7 +173,7 @@
 			<artifactId>spigot-1.12.2</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.12.2.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.12.2.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -181,7 +181,7 @@
 			<artifactId>spigot-1.11</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.11.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.11.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -189,7 +189,7 @@
 			<artifactId>spigot-1.10.2</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.10.2.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.10.2.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -197,7 +197,7 @@
 			<artifactId>spigot-1.9.4</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.9.4.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.9.4.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -205,7 +205,7 @@
 			<artifactId>spigot-1.9</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.9.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.9.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -213,7 +213,7 @@
 			<artifactId>spigot-1.8.8</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.8.8.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.8.8.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -221,7 +221,7 @@
 			<artifactId>spigot-1.8.3</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.8.3.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.8.3.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -229,7 +229,7 @@
 			<artifactId>spigot-1.8</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot-1.8.jar</systemPath>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.8.jar</systemPath>
 			<type>jar</type>
 		</dependency>
 		
