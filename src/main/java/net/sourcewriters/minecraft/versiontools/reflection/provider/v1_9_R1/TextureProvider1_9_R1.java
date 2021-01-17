@@ -17,11 +17,13 @@ import net.minecraft.server.v1_9_R1.ItemStack;
 import net.minecraft.server.v1_9_R1.NBTTagCompound;
 import net.sourcewriters.minecraft.versiontools.reflection.TextureProvider;
 
+@SuppressWarnings("deprecation")
 public class TextureProvider1_9_R1 extends TextureProvider<VersionControl1_9_R1> {
 
 	private final AbstractReflect craftItemStackRef = new Reflect(CraftItemStack.class).searchField("handle", "handle");
 	private final AbstractReflect craftMetaSkullRef = new Reflect("org.bukkit.craftbukkit.v1_9_R1.inventory.CraftMetaSkull")
 		.searchField("serialized", "serializedProfile").searchField("profile", "profile");
+	private final Material skullMaterial = Material.valueOf("SKULL");
 
 	protected TextureProvider1_9_R1(VersionControl1_9_R1 versionControl) {
 		super(versionControl);
@@ -72,10 +74,9 @@ public class TextureProvider1_9_R1 extends TextureProvider<VersionControl1_9_R1>
 		return profile;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public org.bukkit.inventory.ItemStack getItem(GameProfile profile) {
-		org.bukkit.inventory.ItemStack craftStack = CraftItemStack.asCraftCopy(new MaterialData(Material.SKULL, (byte) 3).toItemStack(1));
+		org.bukkit.inventory.ItemStack craftStack = CraftItemStack.asCraftCopy(new MaterialData(skullMaterial, (byte) 3).toItemStack(1));
 		applyItem(craftStack, profile);
 		return craftStack;
 	}
