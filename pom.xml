@@ -4,9 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>net.sourcewriters.minecraft</groupId>
-	<artifactId>versiontools</artifactId>
+	<artifactId>vcompat</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
+	<name>vCompat</name>
 
 	<repositories>
 		<repository>
