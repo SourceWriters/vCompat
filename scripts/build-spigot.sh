@@ -3,7 +3,7 @@ mkdir -p $1/libraries/spigot
 echo "Downloading Spigot files..."
 versions=$1/scripts/data/versions.txt
 while read line; do
-  if [ -z "$line"]; then
+  if [ -z "$line" ]; then
     continue
   fi
   echo "Downloading Spigot $line"
