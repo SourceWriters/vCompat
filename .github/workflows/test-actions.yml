@@ -18,5 +18,5 @@ jobs:
 
       - name: Build Spigot dependencies
         run: |
-          chmod +x "${{ github.workspace }}/scripts/build-spigot.sh"
-          ${{ github.workspace }}/scripts/build-spigot.sh "${{ github.workspace }}"
+          chmod +rwx "${{ github.workspace }}/scripts/test-spigot.sh"
+          ${{ github.workspace }}/scripts/test-spigot.sh "${{ github.workspace }}"
