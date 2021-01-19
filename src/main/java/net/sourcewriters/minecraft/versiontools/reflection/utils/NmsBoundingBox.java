@@ -4,7 +4,6 @@ import static org.bukkit.util.NumberConversions.checkFinite;
 
 import java.util.Objects;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -293,7 +292,7 @@ public class NmsBoundingBox {
 
 	public NmsBoundingBox intersection(NmsBoundingBox other) {
 		Objects.requireNonNull(other, "Other bounding box is null!");
-		Validate.isTrue(overlaps(other), "The bounding boxes do not overlap!");
+		ValidationHelper.isTrue(overlaps(other), "The bounding boxes do not overlap!");
 		double newMinX = Math.max(getMinX(), other.getMinX());
 		double newMinY = Math.max(getMinY(), other.getMinY());
 		double newMinZ = Math.max(getMinZ(), other.getMinZ());
@@ -374,7 +373,7 @@ public class NmsBoundingBox {
 		start.checkFinite();
 		Objects.requireNonNull(direction, "Direction is null!");
 		direction.checkFinite();
-		Validate.isTrue(direction.lengthSquared() > 0.0D, "Direction's magnitude is 0!");
+		ValidationHelper.isTrue(direction.lengthSquared() > 0.0D, "Direction's magnitude is 0!");
 		if (maxDistance < 0.0D) {
 			return null;
 		} else {
