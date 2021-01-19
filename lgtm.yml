@@ -1,0 +1,10 @@
+extration:
+  java:
+    index:
+      maven:
+        version: 3.6.3
+      java_version: 8
+      build_command:
+        - ./scripts/build-spigot.sh
+        - ./scripts/lgtm-main.sh
+        - ./scripts/lgtm-test.sh
