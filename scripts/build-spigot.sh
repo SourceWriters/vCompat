@@ -12,6 +12,6 @@ while read line; do
     continue
   fi
   echo "Building Spigot " + $line
-  java -jar $1/spigotWork/BuildTools.jar --rev $line --outputDir ../libraries/spigot
+  java -jar $1/spigotWork/BuildTools.jar --rev $line --output-dir ../libraries/spigot
 done < $versions
 echo "Building complete!"
