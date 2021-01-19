@@ -21,7 +21,7 @@ jobs:
       - name: Build Spigot dependencies
         run: |
           chmod +x "${{ github.workspace }}/scripts/build-spigot.sh"
-          ${{ github.workspace }}/scripts/build-spigot.sh
+          ${{ github.workspace }}/scripts/build-spigot.sh "${{ github.workspace }}"
 
       - name: Building maven project
         run: mvn -B package
