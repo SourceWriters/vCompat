@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 echo "::info::Downloading Spigot BuildTools..."
-PATH=$1
-echo "::info::Path is set to $path"
-mkdir -p $PATH/libraries/spigot
-mkdir $PATH/spigotWork
-curl https://hub.spigotmc.org/jenkins/job/BuildTools/lastBuild/artifact/target/BuildTools.jar --output $PATH/spigotWork/BuildTools.jar
+echo "::info::Path is set to $1"
+mkdir -p $1/libraries/spigot
+mkdir $1/spigotWork
+curl https://hub.spigotmc.org/jenkins/job/BuildTools/lastBuild/artifact/target/BuildTools.jar --output $1/spigotWork/BuildTools.jar
 echo "::info::Successfully downloaded BuildTools"
 
 echo "::info::Building Spigot files..."
-versions=$PATH/data/versions.txt
+versions=$1/data/versions.txt
 while read line; do
   if [ -z "$line"]; then
     continue
