@@ -19,12 +19,14 @@ jobs:
           settings-path: ${{ github.workspace }}
 
       - name: Build Spigot dependencies
-        run: .${GITHUB_WORKSPACE}/.github/spigot/build-spigot.sh
+        run: |
+          chmod +x "${{ github.workspace }}/scripts/build-spigot.sh"
+          ${{ github.workspace }}/scripts/build-spigot.sh
 
       - name: Building maven project
         run: mvn -B package
 
       - name: Publish to GitHub Packages
-        run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+        run: mvn deploy -s ${{ github.workspace }}/settings.xml
         env:
           GITHUB_TOKEN: ${{ github.token }}
