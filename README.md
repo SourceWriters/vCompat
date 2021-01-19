@@ -23,7 +23,8 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![GPL-3.0 License][license-shield]][license-url]
+[![MIT License][license-shield]][license-url]
+[![Code quality: Java][lgtm-quality-shield]][lgtm-quality-url]
 
 
 
@@ -103,7 +104,7 @@ Please notice that you need to authenticate with GitHub Packages ([Maven](https:
   <depedency>
     <groupId>net.sourcewriters.minecraft</groupId>
     <artifactId>vcompat</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
   <dependency>
 <depedencies>
 ```
@@ -116,7 +117,7 @@ plugins {
 }
 
 dependencies {
-  implementation group: 'net.sourcewriters.minecraft', name: 'vcompat', version: '1.1.0'
+  implementation group: 'net.sourcewriters.minecraft', name: 'vcompat', version: '1.1.1'
 }
 ```
 
@@ -152,7 +153,7 @@ Contributions are what make the open source community such an amazing place to b
 <!-- LICENSE -->
 ## License
 
-Distributed under the GPL-3.0 License. See `LICENSE` for more information.
+Distributed under the MIT License. See `LICENSE` for more information.
 
 
 
@@ -177,3 +178,5 @@ Project Link: [https://github.com/SourceWriters/vCompat](https://github.com/Sour
 [issues-url]: https://github.com/SourceWriters/vCompat/issues
 [license-shield]: https://img.shields.io/github/license/SourceWriters/vCompat.svg?style=flat-square
 [license-url]: https://github.com/SourceWriters/vCompat/blob/master/LICENSE
+[lgtm-quality-shield]: https://img.shields.io/lgtm/grade/java/g/SourceWriters/vCompat.svg?style=flat-square
+[lgtm-quality-url]: https://lgtm.com/projects/g/SourceWriters/vCompat/context:java
