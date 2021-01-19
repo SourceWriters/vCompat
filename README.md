@@ -23,7 +23,7 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![GPL-3.0 License][license-shield]][license-url]
 
 
 
@@ -103,7 +103,7 @@ Please notice that you need to authenticate with GitHub Packages ([Maven](https:
   <depedency>
     <groupId>net.sourcewriters.minecraft</groupId>
     <artifactId>vcompat</artifactId>
-    <version>1.0</version>
+    <version>1.1.0</version>
   <dependency>
 <depedencies>
 ```
@@ -116,7 +116,7 @@ plugins {
 }
 
 dependencies {
-  implementation group: 'net.sourcewriters.minecraft', name: 'vcompat', version: '1.0'
+  implementation group: 'net.sourcewriters.minecraft', name: 'vcompat', version: '1.1.0'
 }
 ```
 
