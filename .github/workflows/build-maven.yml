@@ -19,7 +19,7 @@ jobs:
           settings-path: ${{ github.workspace }}
 
       - name: Build Spigot dependencies
-        run: ./scripts/build-spigot.sh
+        run: .${GITHUB_WORKSPACE}/../scripts/build-spigot.sh
 
       - name: Building maven project
         run: mvn -B package
