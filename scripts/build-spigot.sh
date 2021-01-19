@@ -6,7 +6,7 @@ while read line; do
   if [ -z "$line"]; then
     continue
   fi
-  echo "Downloading Spigot " + $line
-  curl "$2/spigot-$line.jar" --output "$1/libraries/spigot/spigot-$line.jar"
+  echo "Downloading Spigot $line"
+  curl "https://playuniverse.org/host/download/github/spigot-$line.jar" --output "$1/libraries/spigot/spigot-$line.jar"
 done < $versions
 echo "Download complete!"
