@@ -8,9 +8,9 @@ import net.sourcewriters.minecraft.versiontools.skin.Skin;
 
 public class SkinTools1_8_R2 extends SkinTools {
 
-	@Override
-	public Skin skinFromPlayer(Player player) {
-		return skinFromGameProfile(((CraftPlayer) player).getHandle().getProfile());
-	}
+    @Override
+    public Skin skinFromPlayer(Player player) {
+        return skinFromGameProfile(((CraftPlayer) player).getHandle().getProfile());
+    }
 
 }

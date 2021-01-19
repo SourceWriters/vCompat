@@ -6,66 +6,66 @@ import org.bukkit.Location;
 
 public abstract class CustomEntity {
 
-	private EntityManager hook;
+    private EntityManager hook;
 
-	protected final UUID uniqueId;
-	protected Location location;
-	protected boolean deleted = false;
+    protected final UUID uniqueId;
+    protected Location location;
+    protected boolean deleted = false;
 
-	public CustomEntity(UUID uniqueId) {
-		this.uniqueId = uniqueId;
-	}
+    public CustomEntity(UUID uniqueId) {
+        this.uniqueId = uniqueId;
+    }
 
-	/*
-	 * Hook / Unhook
-	 */
+    /*
+     * Hook / Unhook
+     */
 
-	protected final void hook(EntityManager manager) {
-		this.hook = manager;
-	}
+    protected final void hook(EntityManager manager) {
+        this.hook = manager;
+    }
 
-	public final boolean isSpawnable() {
-		return hook != null;
-	}
+    public final boolean isSpawnable() {
+        return hook != null;
+    }
 
-	public final void remove() {
-		kill();
-		hook.unhook(this);
-		hook = null;
-	}
+    public final void remove() {
+        kill();
+        hook.unhook(this);
+        hook = null;
+    }
 
-	/*
-	 * Getter
-	 */
+    /*
+     * Getter
+     */
 
-	public UUID getUniqueId() {
-		return uniqueId;
-	}
+    public UUID getUniqueId() {
+        return uniqueId;
+    }
 
-	public Location getLocation() {
-		return location;
-	}
+    public Location getLocation() {
+        return location;
+    }
 
-	/*
-	 * Handle
-	 */
+    /*
+     * Handle
+     */
 
-	public abstract boolean spawn();
+    public abstract boolean spawn();
 
-	public abstract boolean kill();
+    public abstract boolean kill();
 
-	public abstract boolean isAlive();
+    public abstract boolean isAlive();
 
-	public abstract EntityType getType();
+    public abstract EntityType getType();
 
-	public abstract org.bukkit.entity.EntityType getBukkitType();
+    public abstract org.bukkit.entity.EntityType getBukkitType();
 
-	public abstract void setGravity(boolean gravity);
+    public abstract void setGravity(boolean gravity);
 
-	public abstract void setInvisible(boolean invisible);
+    public abstract void setInvisible(boolean invisible);
 
-	public abstract void setInvulnerable(boolean invulnerable);
+    public abstract void setInvulnerable(boolean invulnerable);
 
-	public abstract void teleport(Location location);
+    public abstract void teleport(Location location);
 
 }

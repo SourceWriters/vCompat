@@ -14,26 +14,26 @@ import net.sourcewriters.minecraft.versiontools.utils.constants.MinecraftConstan
 
 public class BlockTools1_14_R1 extends BlockTools {
 
-	private final AbstractReflect craftEntityStateRef = new Reflect(CraftSkull.class).searchField("tileEntity", "tileEntity");
+    private final AbstractReflect craftEntityStateRef = new Reflect(CraftSkull.class).searchField("tileEntity", "tileEntity");
 
-	@Override
-	public void setHeadTexture(Block block, String texture) {
-		if (!(block instanceof CraftSkull)) {
-			return;
-		}
-		TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue("tileEntity", block);
-		PropertyMap map = entitySkull.gameProfile.getProperties();
-		map.removeAll("textures");
-		map.put("textures", new Property("textures", MinecraftConstants.TEXTURE_SIGNATURE, texture));
-	}
+    @Override
+    public void setHeadTexture(Block block, String texture) {
+        if (!(block instanceof CraftSkull)) {
+            return;
+        }
+        TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue("tileEntity", block);
+        PropertyMap map = entitySkull.gameProfile.getProperties();
+        map.removeAll("textures");
+        map.put("textures", new Property("textures", MinecraftConstants.TEXTURE_SIGNATURE, texture));
+    }
 
-	@Override
-	public String getHeadTexture(Block block) {
-		if (!(block instanceof CraftSkull)) {
-			return null;
-		}
-		TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue("tileEntity", block);
-		return entitySkull.gameProfile.getProperties().get("textures").iterator().next().getValue();
-	}
+    @Override
+    public String getHeadTexture(Block block) {
+        if (!(block instanceof CraftSkull)) {
+            return null;
+        }
+        TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue("tileEntity", block);
+        return entitySkull.gameProfile.getProperties().get("textures").iterator().next().getValue();
+    }
 
 }

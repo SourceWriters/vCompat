@@ -4,8 +4,8 @@ import net.sourcewriters.minecraft.versiontools.reflection.PacketHandler;
 
 public class PacketHandler1_10_R1 extends PacketHandler<VersionControl1_10_R1> {
 
-	protected PacketHandler1_10_R1(VersionControl1_10_R1 versionControl) {
-		super(versionControl);
-	}
+    protected PacketHandler1_10_R1(VersionControl1_10_R1 versionControl) {
+        super(versionControl);
+    }
 
 }

@@ -6,29 +6,29 @@ import net.sourcewriters.minecraft.versiontools.reflection.reflect.ReflectionPro
 import net.sourcewriters.minecraft.versiontools.reflection.reflect.Reflections;
 
 public class GeneralReflections extends Reflections {
-	
-	public static GeneralReflections INSTANCE = new GeneralReflections();
-	
-	private GeneralReflections() {}
 
-	@Override
-	public void setup(ReflectionProvider provider) {
+    public static GeneralReflections INSTANCE = new GeneralReflections();
 
-		//
-		//
-		// Needed classes to create Reflects
-		//
+    private GeneralReflections() {}
 
-		//
-		//
-		// Create Reflects
-		//
+    @Override
+    public void setup(ReflectionProvider provider) {
 
-		//
-		// Mojang
+        //
+        //
+        // Needed classes to create Reflects
+        //
 
-		provider.createReflect("mjGameProfile", GameProfile.class).searchField("name", "name");
+        //
+        //
+        // Create Reflects
+        //
 
-	}
+        //
+        // Mojang
+
+        provider.createReflect("mjGameProfile", GameProfile.class).searchField("name", "name");
+
+    }
 
 }
