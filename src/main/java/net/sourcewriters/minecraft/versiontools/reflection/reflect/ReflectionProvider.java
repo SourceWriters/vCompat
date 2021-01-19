@@ -17,8 +17,7 @@ public class ReflectionProvider {
 	public static final String CB_PATH_FORMAT = "org.bukkit.craftbukkit.%s.%s";
 	public static final String NMS_PATH_FORMAT = "net.minecraft.server.%s.%s";
 
-	public static final ReflectionProvider DEFAULT = new ReflectionProvider(
-		provider -> Reflections.globalSetup(provider));
+	public static final ReflectionProvider DEFAULT = new ReflectionProvider(provider -> Reflections.globalSetup(provider));
 
 	protected final ReflectCache cache;
 

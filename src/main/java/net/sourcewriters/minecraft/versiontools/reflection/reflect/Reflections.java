@@ -7,7 +7,7 @@ import net.sourcewriters.minecraft.versiontools.reflection.reflect.provider.*;
 public abstract class Reflections {
 
 	public static void globalSetup(ReflectionProvider provider) {
-		new GeneralReflections().setup(provider);
+		GeneralReflections.INSTANCE.setup(provider);
 	}
 
 	public abstract void setup(ReflectionProvider provider);
@@ -18,7 +18,7 @@ public abstract class Reflections {
 		}
 		return value;
 	}
-	
+
 	public int priority() {
 		return 0;
 	}

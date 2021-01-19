@@ -24,14 +24,11 @@ public abstract class Versions {
 
 	public static Version getMinecraft() {
 		return MINECRAFT_VERSION != null ? MINECRAFT_VERSION
-			: (MINECRAFT_VERSION = new DefaultVersion()
-				.getAnalyzer()
-				.analyze(Bukkit.getVersion().split(" ")[2].replace(")", "")));
+			: (MINECRAFT_VERSION = new DefaultVersion().getAnalyzer().analyze(Bukkit.getVersion().split(" ")[2].replace(")", "")));
 	}
 
 	public static String getMinecraftAsString() {
-		return MINECRAFT_VERSION_STRING != null ? MINECRAFT_VERSION_STRING
-			: (MINECRAFT_VERSION_STRING = getMinecraft().toString());
+		return MINECRAFT_VERSION_STRING != null ? MINECRAFT_VERSION_STRING : (MINECRAFT_VERSION_STRING = getMinecraft().toString());
 	}
 
 	public static String patchMinecraft(String input) {
@@ -44,8 +41,7 @@ public abstract class Versions {
 
 	public static ServerVersion getServer() {
 		return SERVER_VERSION != null ? SERVER_VERSION
-			: (SERVER_VERSION = ServerVersion.ANALYZER
-				.analyze(Bukkit.getServer().getClass().getPackage().getName().split("\\.", 4)[3]));
+			: (SERVER_VERSION = ServerVersion.ANALYZER.analyze(Bukkit.getServer().getClass().getPackage().getName().split("\\.", 4)[3]));
 	}
 
 	public static String getServerAsString() {

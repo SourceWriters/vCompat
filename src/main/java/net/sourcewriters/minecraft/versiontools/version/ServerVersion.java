@@ -74,8 +74,7 @@ public class ServerVersion extends Version {
 
 	@Override
 	public boolean isSimilar(Version version) {
-		return super.isSimilar(version)
-			&& ((version instanceof ServerVersion) && revision == ((ServerVersion) version).revision);
+		return super.isSimilar(version) && ((version instanceof ServerVersion) && revision == ((ServerVersion) version).revision);
 	}
 
 	@Override
@@ -142,7 +141,10 @@ public class ServerVersion extends Version {
 		public ServerVersion analyze(String formatted) {
 			ServerVersion version = new ServerVersion();
 			String[] parts = (formatted = formatted.replaceFirst("v", "")).contains("_") ? formatted.split("_")
-				: (formatted.contains(".") ? formatted.split("\\.") : new String[] { formatted });
+				: (formatted.contains(".") ? formatted.split("\\.")
+					: new String[] {
+							formatted
+					});
 			try {
 				if (parts.length == 1) {
 					version.setMajor(Strings.isNumeric(parts[0]) ? Integer.parseInt(parts[0]) : 0);

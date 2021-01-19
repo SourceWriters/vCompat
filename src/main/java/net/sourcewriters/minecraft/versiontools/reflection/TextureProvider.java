@@ -15,8 +15,6 @@ import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
 import com.syntaxphoenix.syntaxapi.random.Keys;
 
-import net.sourcewriters.minecraft.versiontools.utils.constants.MinecraftConstants;
-
 public abstract class TextureProvider<V extends VersionControl> extends VersionHandler<V> {
 
 	protected final Map<String, GameProfile> textures = Collections.synchronizedMap(new HashMap<>());
@@ -33,7 +31,7 @@ public abstract class TextureProvider<V extends VersionControl> extends VersionH
 	protected final void applyTexture(GameProfile profile, String texture) {
 		PropertyMap map = profile.getProperties();
 		map.removeAll("textures");
-		map.put("textures", new Property("textures", MinecraftConstants.TEXTURE_SIGNATURE, texture));
+		map.put("textures", new Property("textures", TEXTURE_SIGNATURE + texture));
 	}
 
 	public String textureFromProfile(GameProfile profile) {
@@ -88,16 +86,16 @@ public abstract class TextureProvider<V extends VersionControl> extends VersionH
 
 	public abstract ItemStack getItem(GameProfile profile);
 
-	public boolean applyItem(ItemStack itemStack, GameProfile profile) {
-		return applyItem(itemStack, textureFromProfile(profile));
+	public boolean applyItem(ItemStack itemStack, String texture) {
+		return applyItem(itemStack, getCacheProfile(texture));
 	}
 
-	public abstract boolean applyItem(ItemStack itemStack, String texture);
+	public abstract boolean applyItem(ItemStack itemStack, GameProfile profile);
 
-	public boolean applyBlock(Block block, GameProfile profile) {
-		return applyBlock(block, textureFromProfile(profile));
+	public boolean applyBlock(Block block, String texture) {
+		return applyBlock(block, getCacheProfile(texture));
 	}
 
-	public abstract boolean applyBlock(Block block, String texture);
+	public abstract boolean applyBlock(Block block, GameProfile profile);
 
 }

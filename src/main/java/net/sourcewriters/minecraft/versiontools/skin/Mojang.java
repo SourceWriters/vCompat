@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import com.google.gson.JsonObject;
-import com.syntaxphoenix.syntaxapi.net.http.ContentType;
 import com.syntaxphoenix.syntaxapi.net.http.Request;
 import com.syntaxphoenix.syntaxapi.net.http.RequestType;
+import com.syntaxphoenix.syntaxapi.net.http.StandardContentType;
 import com.syntaxphoenix.syntaxapi.utils.json.JsonTools;
 
 import net.sourcewriters.minecraft.versiontools.reflection.VersionControl;
@@ -137,10 +137,7 @@ public class Mojang {
 
 	public Profile getUseableProfile() {
 
-		Profile[] array = getProfiles()
-			.stream()
-			.filter(profile -> profile.isAuthenticated())
-			.toArray(size -> new Profile[size]);
+		Profile[] array = getProfiles().stream().filter(profile -> profile.isAuthenticated()).toArray(size -> new Profile[size]);
 
 		if (array.length != 0) {
 			for (Profile profile : array) {
@@ -189,9 +186,7 @@ public class Mojang {
 
 			request.parameter("url", skinRequest.getUrl()).parameter("model", skinRequest.getModel().toString());
 
-			int code = request
-				.execute(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), ContentType.X_WWW_FORM_URLENCODED)
-				.getCode();
+			int code = request.execute(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), StandardContentType.URL_ENCODED).getCode();
 
 			if (code != 204) {
 				return null;
@@ -212,9 +207,7 @@ public class Mojang {
 
 			Request request = new Request(RequestType.GET);
 
-			JsonObject object = request
-				.execute(URL_SKIN_PROFILE, ContentType.X_WWW_FORM_URLENCODED)
-				.getResponseAsJson();
+			JsonObject object = request.execute(URL_SKIN_PROFILE, StandardContentType.URL_ENCODED).getResponseAsJson();
 
 			if (!object.has("properties")) {
 				return null;

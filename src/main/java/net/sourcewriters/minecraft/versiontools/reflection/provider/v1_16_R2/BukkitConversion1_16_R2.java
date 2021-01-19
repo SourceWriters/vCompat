@@ -5,6 +5,7 @@ import java.util.Set;
 import org.bukkit.craftbukkit.v1_16_R2.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 
+import com.syntaxphoenix.syntaxapi.data.DataAdapterContext;
 import com.syntaxphoenix.syntaxapi.nbt.*;
 
 import net.minecraft.server.v1_16_R2.ItemStack;
@@ -24,7 +25,9 @@ import net.minecraft.server.v1_16_R2.NBTTagLongArray;
 import net.minecraft.server.v1_16_R2.NBTTagShort;
 import net.minecraft.server.v1_16_R2.NBTTagString;
 import net.sourcewriters.minecraft.versiontools.reflection.BukkitConversion;
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsEntityType;
+import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_16_R2.data.BukkitContext1_16_R2;
 
 public class BukkitConversion1_16_R2 extends BukkitConversion<VersionControl1_16_R2> {
 
@@ -86,8 +89,9 @@ public class BukkitConversion1_16_R2 extends BukkitConversion<VersionControl1_16
 
 	@Override
 	public NbtTag fromMinecraftTag(Object raw) {
-		if (!(raw instanceof NBTBase))
+		if (!(raw instanceof NBTBase)) {
 			return null;
+		}
 		NBTBase tag = (NBTBase) raw;
 		NbtType type = NbtType.getById(tag.getTypeId());
 		switch (type) {
@@ -133,8 +137,9 @@ public class BukkitConversion1_16_R2 extends BukkitConversion<VersionControl1_16
 
 	@Override
 	public NbtList<NbtTag> fromMinecraftList(Object raw) {
-		if (!(raw instanceof NBTTagList))
+		if (!(raw instanceof NBTTagList)) {
 			return null;
+		}
 		NBTTagList list = (NBTTagList) raw;
 		NbtList<NbtTag> output = new NbtList<>(NbtType.getById(list.getTypeId()));
 		for (NBTBase base : list) {
@@ -146,8 +151,9 @@ public class BukkitConversion1_16_R2 extends BukkitConversion<VersionControl1_16
 	@Override
 	public NBTTagCompound toMinecraftCompound(NbtCompound compound) {
 		NBTTagCompound output = new NBTTagCompound();
-		if (compound.isEmpty())
+		if (compound.isEmpty()) {
 			return output;
+		}
 		Set<String> keys = compound.getKeys();
 		for (String key : keys) {
 			output.set(key, toMinecraftTag(compound.get(key)));
@@ -157,12 +163,14 @@ public class BukkitConversion1_16_R2 extends BukkitConversion<VersionControl1_16
 
 	@Override
 	public NbtCompound fromMinecraftCompound(Object raw) {
-		if (!(raw instanceof NBTTagCompound))
+		if (!(raw instanceof NBTTagCompound)) {
 			return null;
+		}
 		NBTTagCompound compound = (NBTTagCompound) raw;
 		NbtCompound output = new NbtCompound();
-		if (compound.isEmpty())
+		if (compound.isEmpty()) {
 			return output;
+		}
 		Set<String> keys = compound.getKeys();
 		for (String key : keys) {
 			output.set(key, fromMinecraftTag(compound.get(key)));
@@ -178,6 +186,11 @@ public class BukkitConversion1_16_R2 extends BukkitConversion<VersionControl1_16
 	@Override
 	public NbtCompound itemToCompound(org.bukkit.inventory.ItemStack itemStack) {
 		return fromMinecraftCompound(CraftItemStack.asNMSCopy(itemStack).getOrCreateTag());
+	}
+
+	@Override
+	public WrappedContext<DataAdapterContext> createContext(DataAdapterContext context) {
+		return new BukkitContext1_16_R2(context);
 	}
 
 }

@@ -4,9 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>net.sourcewriters.minecraft</groupId>
-	<artifactId>versiontools</artifactId>
-	<version>0.1</version>
+	<artifactId>vcompat</artifactId>
+	<version>1.0</version>
 	<packaging>jar</packaging>
+	<name>vCompat</name>
 
 	<repositories>
 		<repository>
@@ -20,24 +21,6 @@
 	</repositories>
 
 	<dependencies>
-		<!-- Minecraft -->
-		<dependency>
-			<groupId>org.spigotmc</groupId>
-			<artifactId>spigot</artifactId>
-			<version>1.16.2-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.yaml</groupId>
-					<artifactId>snakeyaml</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.code.gson</groupId>
-					<artifactId>gson</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
 		<!-- Mojang -->
 		<dependency>
 			<groupId>com.mojang</groupId>
@@ -60,32 +43,42 @@
 		<dependency>
 			<groupId>com.syntaxphoenix.syntaxapi</groupId>
 			<artifactId>java</artifactId>
-			<version>2.0.5</version>
+			<version>2.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>data-nbtcontainer</artifactId>
+			<version>2.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>data-base</artifactId>
+			<version>2.0.6</version>
 		</dependency>
 		<dependency>
 			<groupId>com.syntaxphoenix.syntaxapi</groupId>
 			<artifactId>net</artifactId>
-			<version>2.0.4</version>
+			<version>2.0.6</version>
 		</dependency>
 		<dependency>
 			<groupId>com.syntaxphoenix.syntaxapi</groupId>
 			<artifactId>nbt</artifactId>
-			<version>2.0.3</version>
+			<version>2.0.4</version>
 		</dependency>
 		<dependency>
 			<groupId>com.syntaxphoenix.syntaxapi</groupId>
 			<artifactId>version</artifactId>
-			<version>2.0.2</version>
+			<version>2.0.4</version>
 		</dependency>
 		<dependency>
 			<groupId>com.syntaxphoenix.syntaxapi</groupId>
 			<artifactId>reflection</artifactId>
-			<version>2.0.2</version>
+			<version>2.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.syntaxphoenix.syntaxapi</groupId>
 			<artifactId>random</artifactId>
-			<version>2.0.2</version>
+			<version>2.0.3</version>
 		</dependency>
 
 		<!-- Test -->
@@ -101,8 +94,147 @@
 			<version>5.5.2</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- All Minecraft versions (add down here) -->
+		<!-- <dependency>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot</artifactId>
+			<version>1.8-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.yaml</groupId>
+					<artifactId>snakeyaml</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.code.gson</groupId>
+					<artifactId>gson</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency> -->
+		
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.16.4</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.16.4.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.16.3</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.16.3.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.16.1</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.16.1.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.15.2</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.15.2.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.14.2</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.14.2.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.13.2</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.13.2.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.13</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.13.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.12.2</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.12.2.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.11</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.11.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.10.2</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.10.2.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.9.4</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.9.4.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.9</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.9.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.8.8</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.8.8.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.8.3</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.8.3.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.8</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.8.jar</systemPath>
+			<type>jar</type>
+		</dependency>
+		
 	</dependencies>
-
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -146,6 +278,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
 				<configuration>
 					<source>8</source>
 					<target>8</target>

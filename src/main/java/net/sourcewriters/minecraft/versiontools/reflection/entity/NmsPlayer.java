@@ -1,15 +1,15 @@
 package net.sourcewriters.minecraft.versiontools.reflection.entity;
 
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataContainer;
 
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
 import net.sourcewriters.minecraft.versiontools.skin.Skin;
 
 public interface NmsPlayer extends NmsEntityLiving {
 
 	Player getBukkitPlayer();
 
-	PersistentDataContainer getDataContainer();
+	WrappedContainer getDataAdapter();
 
 	void setSkin(Skin skin);
 
@@ -44,7 +44,7 @@ public interface NmsPlayer extends NmsEntityLiving {
 	void fakeRespawn();
 
 	void respawn();
-	
+
 	void update();
 
 }

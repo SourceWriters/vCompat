@@ -20,8 +20,7 @@ public abstract class Tracker {
 	}
 
 	public static Optional<Plugin> getCallerPlugin() {
-		StackTraceElement[] elements = Arrays
-			.subArray(StackTraceElement[]::new, Thread.currentThread().getStackTrace(), 2);
+		StackTraceElement[] elements = Arrays.subArray(StackTraceElement[]::new, Thread.currentThread().getStackTrace(), 2);
 		for (StackTraceElement element : elements) {
 			Optional<Plugin> plugin = getPlugin(ClassCache.getOptionalClass(element.getClassName()));
 			if (plugin.isPresent()) {
@@ -36,9 +35,7 @@ public abstract class Tracker {
 			return Optional.empty();
 		}
 		Class<?> clazz = option.get();
-		return java.util.Arrays
-			.stream(Bukkit.getPluginManager().getPlugins())
-			.filter(plugin -> plugin.getClass().getClassLoader() == clazz.getClassLoader())
+		return java.util.Arrays.stream(Bukkit.getPluginManager().getPlugins()).filter(plugin -> plugin.getClass().getClassLoader() == clazz.getClassLoader())
 			.findFirst();
 	}
 

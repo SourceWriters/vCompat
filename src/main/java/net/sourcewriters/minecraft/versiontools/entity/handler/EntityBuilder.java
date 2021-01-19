@@ -21,7 +21,7 @@ public abstract class EntityBuilder<E extends CustomEntity> {
 	public final Reflect getReference() {
 		return reference;
 	}
-	
+
 	public abstract EntityType getType();
 
 	protected abstract E build(UUID uniqueId, Object... arguments);

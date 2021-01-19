@@ -36,8 +36,7 @@ public class FakeReflect extends Reflect {
 	 */
 
 	@Override
-	public void delete() {
-	}
+	public void delete() {}
 
 	/*
 	 * 
@@ -147,12 +146,10 @@ public class FakeReflect extends Reflect {
 	}
 
 	@Override
-	public void setFieldValue(String name, Object value) {
-	}
+	public void setFieldValue(String name, Object value) {}
 
 	@Override
-	public void setFieldValue(Object source, String name, Object value) {
-	}
+	public void setFieldValue(Object source, String name, Object value) {}
 
 	/*
 	 * 
@@ -197,8 +194,7 @@ public class FakeReflect extends Reflect {
 	 */
 
 	@Override
-	public FakeReflect searchMethod(Predicate<AbstractReflect> predicate, String name, String methodName,
-		Class<?>... arguments) {
+	public FakeReflect searchMethod(Predicate<AbstractReflect> predicate, String name, String methodName, Class<?>... arguments) {
 		return this;
 	}
 
