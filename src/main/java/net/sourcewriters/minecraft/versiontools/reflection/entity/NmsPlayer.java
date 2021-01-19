@@ -7,44 +7,44 @@ import net.sourcewriters.minecraft.versiontools.skin.Skin;
 
 public interface NmsPlayer extends NmsEntityLiving {
 
-	Player getBukkitPlayer();
+    Player getBukkitPlayer();
 
-	WrappedContainer getDataAdapter();
+    WrappedContainer getDataAdapter();
 
-	void setSkin(Skin skin);
+    void setSkin(Skin skin);
 
-	Skin getSkin();
+    Skin getSkin();
 
-	void setName(String name);
+    void setName(String name);
 
-	String getName();
+    String getName();
 
-	String getRealName();
+    String getRealName();
 
-	void setPlayerListHeader(String text);
+    void setPlayerListHeader(String text);
 
-	String getPlayerListHeader();
+    String getPlayerListHeader();
 
-	void setPlayerListFooter(String text);
+    void setPlayerListFooter(String text);
 
-	String getPlayerListFooter();
+    String getPlayerListFooter();
 
-	int getPing();
+    int getPing();
 
-	void setTitleTimes(int fadeIn, int stay, int fadeOut);
+    void setTitleTimes(int fadeIn, int stay, int fadeOut);
 
-	void setPlayerListHeaderAndFooter(String header, String footer);
+    void setPlayerListHeaderAndFooter(String header, String footer);
 
-	void sendSubtitle(String text);
+    void sendSubtitle(String text);
 
-	void sendTitle(String text);
+    void sendTitle(String text);
 
-	void sendActionBar(String text);
+    void sendActionBar(String text);
 
-	void fakeRespawn();
+    void fakeRespawn();
 
-	void respawn();
+    void respawn();
 
-	void update();
+    void update();
 
 }

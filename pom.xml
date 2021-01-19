@@ -21,11 +21,11 @@
 	</repositories>
 
 	<distributionManagement>
-   <repository>
-     <id>github</id>
-     <name>GitHub OWNER Apache Maven Packages</name>
-     <url>https://maven.pkg.github.com/SourceWriters/vCompat</url>
-   </repository>
+		<repository>
+			<id>github</id>
+			<name>GitHub OWNER Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/SourceWriters/vCompat</url>
+		</repository>
 	</distributionManagement>
 
 	<dependencies>
@@ -104,22 +104,11 @@
 		</dependency>
 
 		<!-- All Minecraft versions (add down here) -->
-		<!-- <dependency>
-			<groupId>org.spigotmc</groupId>
-			<artifactId>spigot</artifactId>
-			<version>1.8-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.yaml</groupId>
-					<artifactId>snakeyaml</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.code.gson</groupId>
-					<artifactId>gson</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.spigotmc</groupId> <artifactId>spigot</artifactId> 
+			<version>1.8-R0.1-SNAPSHOT</version> <scope>provided</scope> <exclusions> 
+			<exclusion> <groupId>org.yaml</groupId> <artifactId>snakeyaml</artifactId> 
+			</exclusion> <exclusion> <groupId>com.google.code.gson</groupId> <artifactId>gson</artifactId> 
+			</exclusion> </exclusions> </dependency> -->
 
 		<dependency>
 			<groupId>bukkit</groupId>

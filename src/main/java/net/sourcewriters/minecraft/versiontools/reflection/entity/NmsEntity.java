@@ -9,52 +9,52 @@ import net.sourcewriters.minecraft.versiontools.reflection.utils.NmsBoundingBox;
 
 public interface NmsEntity {
 
-	Object getHandle();
+    Object getHandle();
 
-	int getId();
+    int getId();
 
-	UUID getUniqueId();
+    UUID getUniqueId();
 
-	void setCustomName(String name);
+    void setCustomName(String name);
 
-	String getCustomName();
+    String getCustomName();
 
-	void setGravity(boolean gravity);
+    void setGravity(boolean gravity);
 
-	boolean hasGravity();
+    boolean hasGravity();
 
-	void setCustomNameVisible(boolean visible);
+    void setCustomNameVisible(boolean visible);
 
-	boolean isCustomNameVisible();
+    boolean isCustomNameVisible();
 
-	boolean isInteractable();
+    boolean isInteractable();
 
-	boolean isCollidable();
+    boolean isCollidable();
 
-	void setInvisible(boolean invisible);
+    void setInvisible(boolean invisible);
 
-	boolean isInvisible();
+    boolean isInvisible();
 
-	void setInvulnerable(boolean invulnerable);
+    void setInvulnerable(boolean invulnerable);
 
-	boolean isInvulnerable();
+    boolean isInvulnerable();
 
-	void setLocation(Location location);
+    void setLocation(Location location);
 
-	Location getLocation();
+    Location getLocation();
 
-	boolean isShown(Player player);
+    boolean isShown(Player player);
 
-	void hide(Player... players);
+    void hide(Player... players);
 
-	void show(Player... players);
+    void show(Player... players);
 
-	UUID[] getVisible();
+    UUID[] getVisible();
 
-	Player[] getVisibleAsPlayer();
+    Player[] getVisibleAsPlayer();
 
-	void kill();
-	
-	NmsBoundingBox getBoundingBox();
+    void kill();
+
+    NmsBoundingBox getBoundingBox();
 
 }

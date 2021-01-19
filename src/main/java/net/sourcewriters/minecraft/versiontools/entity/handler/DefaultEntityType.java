@@ -2,12 +2,12 @@ package net.sourcewriters.minecraft.versiontools.entity.handler;
 
 public enum DefaultEntityType implements EntityType {
 
-	HOLOGRAM,
-	NPC;
+    HOLOGRAM,
+    NPC;
 
-	@Override
-	public String getName() {
-		return name();
-	}
+    @Override
+    public String getName() {
+        return name();
+    }
 
 }
