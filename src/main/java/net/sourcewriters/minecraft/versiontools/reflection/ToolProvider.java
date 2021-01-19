@@ -1,5 +1,6 @@
 package net.sourcewriters.minecraft.versiontools.reflection;
 
+import net.sourcewriters.minecraft.versiontools.reflection.tools.BlockTools;
 import net.sourcewriters.minecraft.versiontools.reflection.tools.ServerTools;
 import net.sourcewriters.minecraft.versiontools.reflection.tools.SkinTools;
 
@@ -12,5 +13,7 @@ public abstract class ToolProvider<V extends VersionControl> extends VersionHand
 	public abstract SkinTools getSkinTools();
 
 	public abstract ServerTools getServerTools();
+	
+	public abstract BlockTools getBlockTools();
 
 }
