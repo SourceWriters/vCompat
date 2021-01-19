@@ -12,6 +12,7 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
+import net.minecraft.server.v1_8_R3.AxisAlignedBB;
 import net.minecraft.server.v1_8_R3.Entity;
 import net.minecraft.server.v1_8_R3.EntityTypes;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityDestroy;
@@ -20,6 +21,7 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntity;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
 import net.minecraft.server.v1_8_R3.Vec3D;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsEntity;
+import net.sourcewriters.minecraft.versiontools.reflection.utils.NmsBoundingBox;
 
 public abstract class Entity1_8_R3<E extends Entity> implements NmsEntity {
 
@@ -44,6 +46,12 @@ public abstract class Entity1_8_R3<E extends Entity> implements NmsEntity {
 	@Override
 	public UUID getUniqueId() {
 		return handle.getUniqueID();
+	}
+
+	@Override
+	public NmsBoundingBox getBoundingBox() {
+		AxisAlignedBB box = handle.getBoundingBox();
+		return new NmsBoundingBox(box.a, box.b, box.c, box.d, box.e, box.f);
 	}
 
 	@Override

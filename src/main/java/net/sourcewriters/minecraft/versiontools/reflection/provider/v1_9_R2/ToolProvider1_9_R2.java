@@ -2,10 +2,10 @@ package net.sourcewriters.minecraft.versiontools.reflection.provider.v1_9_R2;
 
 import net.sourcewriters.minecraft.versiontools.reflection.ToolProvider;
 import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_9_R2.tools.*;
-import net.sourcewriters.minecraft.versiontools.reflection.tools.BlockTools;
 
 public class ToolProvider1_9_R2 extends ToolProvider<VersionControl1_9_R2> {
 
+	private final BlockTools1_9_R2 blockTools = new BlockTools1_9_R2();
 	private final SkinTools1_9_R2 skinTools = new SkinTools1_9_R2();
 	private final ServerTools1_9_R2 serverTools = new ServerTools1_9_R2();
 
@@ -24,9 +24,8 @@ public class ToolProvider1_9_R2 extends ToolProvider<VersionControl1_9_R2> {
 	}
 	
 	@Override
-	public BlockTools getBlockTools() {
-		// TODO Auto-generated method stub
-		return null;
+	public BlockTools1_9_R2 getBlockTools() {
+		return blockTools;
 	}
 
 }
