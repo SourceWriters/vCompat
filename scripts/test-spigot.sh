@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo "::info::Downloading Spigot BuildTools..."
-PATH = $1
+PATH=$1
 echo "::info::Path is set to $path"
 mkdir -p $PATH/libraries/spigot
 mkdir $PATH/spigotWork
