@@ -19,7 +19,9 @@ import net.minecraft.server.v1_15_R1.PacketPlayOutEntityMetadata;
 import net.minecraft.server.v1_15_R1.PacketPlayOutSpawnEntity;
 import net.minecraft.server.v1_15_R1.PlayerConnection;
 import net.minecraft.server.v1_15_R1.Vec3D;
+import net.minecraft.server.v1_15_R1.AxisAlignedBB;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsEntity;
+import net.sourcewriters.minecraft.versiontools.reflection.utils.NmsBoundingBox;
 
 public abstract class Entity1_15_R1<E extends Entity> implements NmsEntity {
 
@@ -44,6 +46,12 @@ public abstract class Entity1_15_R1<E extends Entity> implements NmsEntity {
 	@Override
 	public UUID getUniqueId() {
 		return handle.getUniqueID();
+	}
+
+	@Override
+	public NmsBoundingBox getBoundingBox() {
+		AxisAlignedBB box = handle.getBoundingBox();
+		return new NmsBoundingBox(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ);
 	}
 
 	@Override

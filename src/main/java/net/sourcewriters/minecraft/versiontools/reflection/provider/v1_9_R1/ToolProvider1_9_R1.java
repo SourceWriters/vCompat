@@ -5,6 +5,7 @@ import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_9_R1.tool
 
 public class ToolProvider1_9_R1 extends ToolProvider<VersionControl1_9_R1> {
 
+	private final BlockTools1_9_R1 blockTools = new BlockTools1_9_R1();
 	private final SkinTools1_9_R1 skinTools = new SkinTools1_9_R1();
 	private final ServerTools1_9_R1 serverTools = new ServerTools1_9_R1();
 
@@ -20,6 +21,11 @@ public class ToolProvider1_9_R1 extends ToolProvider<VersionControl1_9_R1> {
 	@Override
 	public ServerTools1_9_R1 getServerTools() {
 		return serverTools;
+	}
+
+	@Override
+	public BlockTools1_9_R1 getBlockTools() {
+		return blockTools;
 	}
 
 }

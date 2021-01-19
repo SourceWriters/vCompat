@@ -5,6 +5,8 @@ import java.util.UUID;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import net.sourcewriters.minecraft.versiontools.reflection.utils.NmsBoundingBox;
+
 public interface NmsEntity {
 
 	Object getHandle();
@@ -52,5 +54,7 @@ public interface NmsEntity {
 	Player[] getVisibleAsPlayer();
 
 	void kill();
+	
+	NmsBoundingBox getBoundingBox();
 
 }
