@@ -8,14 +8,14 @@ import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsEntityType;
 
 public abstract class EntityProvider<V extends VersionControl> extends VersionHandler<V> {
 
-     protected EntityProvider(V versionControl) {
-          super(versionControl);
-     }
+    protected EntityProvider(V versionControl) {
+        super(versionControl);
+    }
 
-     public NmsEntity createEntity(World world, EntityType type) {
-          return createEntity(world, versionControl.getBukkitConversion().fromEntityType(type));
-     }
+    public NmsEntity createEntity(World world, EntityType type) {
+        return createEntity(world, versionControl.getBukkitConversion().fromEntityType(type));
+    }
 
-     public abstract NmsEntity createEntity(World world, NmsEntityType type);
+    public abstract NmsEntity createEntity(World world, NmsEntityType type);
 
 }

@@ -7,6 +7,6 @@ import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_16_R3.ent
 
 public abstract class EntityConstructors1_16_R3 {
 
-     public static final Function<World, ArmorStand1_16_R3> ARMOR_STAND = (world -> new ArmorStand1_16_R3(world));
+    public static final Function<World, ArmorStand1_16_R3> ARMOR_STAND = (world -> new ArmorStand1_16_R3(world));
 
 }

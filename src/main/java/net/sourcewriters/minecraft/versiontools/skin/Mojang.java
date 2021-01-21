@@ -18,241 +18,241 @@ import net.sourcewriters.minecraft.versiontools.reflection.VersionControl;
 
 public class Mojang {
 
-     public static final String URL_SKIN_PROFILE = "https://sessionserver.mojang.com/session/minecraft/profile/%s";
-     public static final String URL_SKIN_UPLOAD = "https://api.mojang.com/user/profile/%s/skin";
+    public static final String URL_SKIN_PROFILE = "https://sessionserver.mojang.com/session/minecraft/profile/%s";
+    public static final String URL_SKIN_UPLOAD = "https://api.mojang.com/user/profile/%s/skin";
 
-     public static final String AUTH_SERVER = "https://authserver.mojang.com/%s";
+    public static final String AUTH_SERVER = "https://authserver.mojang.com/%s";
 
-     private final ArrayList<Skin> skins = new ArrayList<>();
+    private final ArrayList<Skin> skins = new ArrayList<>();
 
-     private final MojangProvider provider;
+    private final MojangProvider provider;
 
-     /*
-     * 
-     */
+    /*
+    * 
+    */
 
-     public Mojang(MojangProvider provider) {
-          this.provider = provider;
-     }
+    public Mojang(MojangProvider provider) {
+        this.provider = provider;
+    }
 
-     /*
-     * 
-     */
+    /*
+    * 
+    */
 
-     public boolean request(Player player, String name) {
+    public boolean request(Player player, String name) {
 
-          Skin skin = getSkin(name.toLowerCase());
+        Skin skin = getSkin(name.toLowerCase());
 
-          if (skin == null) {
-               return false;
-          }
+        if (skin == null) {
+            return false;
+        }
 
-          return request(player, skin);
+        return request(player, skin);
 
-     }
+    }
 
-     public boolean request(Player player, String name, String uniqueId) {
+    public boolean request(Player player, String name, String uniqueId) {
 
-          Skin skin = getSkin((name = name.toLowerCase()));
+        Skin skin = getSkin((name = name.toLowerCase()));
 
-          if (skin == null) {
-               if ((skin = downloadSkinFromPlayer(name, uniqueId)) == null) {
-                    return false;
-               }
-          }
+        if (skin == null) {
+            if ((skin = downloadSkinFromPlayer(name, uniqueId)) == null) {
+                return false;
+            }
+        }
 
-          return request(player, skin);
+        return request(player, skin);
 
-     }
+    }
 
-     public boolean request(SkinRequest request) {
+    public boolean request(SkinRequest request) {
 
-          Skin skin = getSkin(request.getName());
+        Skin skin = getSkin(request.getName());
 
-          if (skin == null) {
-               if ((skin = downloadSkin(request)) == null) {
-                    return false;
-               }
-          }
+        if (skin == null) {
+            if ((skin = downloadSkin(request)) == null) {
+                return false;
+            }
+        }
 
-          return request(request.getRequester(), skin);
+        return request(request.getRequester(), skin);
 
-     }
+    }
 
-     /*
-     * 
-     */
+    /*
+    * 
+    */
 
-     public boolean request(Player player, Skin skin) {
+    public boolean request(Player player, Skin skin) {
 
-          if (player == null || skin == null) {
-               return false;
-          }
+        if (player == null || skin == null) {
+            return false;
+        }
 
-          provider.setSkinProperty(player, skin);
+        provider.setSkinProperty(player, skin);
 
-          if (player.isOnline()) {
-               VersionControl.get().getPlayerProvider().getPlayer(player).setSkin(skin);
-          }
+        if (player.isOnline()) {
+            VersionControl.get().getPlayerProvider().getPlayer(player).setSkin(skin);
+        }
 
-          return true;
+        return true;
 
-     }
+    }
 
-     /*
-     * 
-     */
+    /*
+    * 
+    */
 
-     public final MojangProvider getProvider() {
-          return provider;
-     }
+    public final MojangProvider getProvider() {
+        return provider;
+    }
 
-     public final List<Profile> getProfiles() {
-          return provider.getProfiles();
-     }
+    public final List<Profile> getProfiles() {
+        return provider.getProfiles();
+    }
 
-     public final ArrayList<Skin> getSkins() {
-          return skins;
-     }
+    public final ArrayList<Skin> getSkins() {
+        return skins;
+    }
 
-     /*
-     * 
-     */
+    /*
+    * 
+    */
 
-     public Skin getSkin(String name) {
-          Optional<Skin> option = getOptionalSkin(name);
-          if (option.isPresent()) {
-               return option.get();
-          }
-          return null;
-     }
+    public Skin getSkin(String name) {
+        Optional<Skin> option = getOptionalSkin(name);
+        if (option.isPresent()) {
+            return option.get();
+        }
+        return null;
+    }
 
-     public Optional<Skin> getOptionalSkin(String name) {
-          return skins.stream().filter(skin -> skin.getName().equals(name)).findAny();
-     }
+    public Optional<Skin> getOptionalSkin(String name) {
+        return skins.stream().filter(skin -> skin.getName().equals(name)).findAny();
+    }
 
-     /*
-     * 
-     */
+    /*
+    * 
+    */
 
-     public Profile getUseableProfile() {
+    public Profile getUseableProfile() {
 
-          Profile[] array = getProfiles().stream().filter(profile -> profile.isAuthenticated()).toArray(size -> new Profile[size]);
+        Profile[] array = getProfiles().stream().filter(profile -> profile.isAuthenticated()).toArray(size -> new Profile[size]);
 
-          if (array.length != 0) {
-               for (Profile profile : array) {
-                    if (profile.validate()) {
-                         return profile;
-                    }
-                    if (profile.refresh().validate()) {
-                         return profile;
-                    }
-               }
-          }
-
-          array = getProfiles().stream().filter(profile -> !profile.isAuthenticated()).toArray(size -> new Profile[size]);
-
-          if (array.length == 0) {
-               return null;
-          }
-
-          for (Profile profile : array) {
-               if (profile.authenticate().isAuthenticated()) {
+        if (array.length != 0) {
+            for (Profile profile : array) {
+                if (profile.validate()) {
                     return profile;
-               }
-          }
+                }
+                if (profile.refresh().validate()) {
+                    return profile;
+                }
+            }
+        }
 
-          return null;
+        array = getProfiles().stream().filter(profile -> !profile.isAuthenticated()).toArray(size -> new Profile[size]);
 
-     }
+        if (array.length == 0) {
+            return null;
+        }
 
-     /*
-     * 
-     */
+        for (Profile profile : array) {
+            if (profile.authenticate().isAuthenticated()) {
+                return profile;
+            }
+        }
 
-     private Skin downloadSkin(SkinRequest skinRequest) {
+        return null;
 
-          Profile profile = getUseableProfile();
+    }
 
-          if (profile == null) {
-               return null;
-          }
+    /*
+    * 
+    */
 
-          try {
+    private Skin downloadSkin(SkinRequest skinRequest) {
 
-               Request request = new Request(RequestType.POST);
+        Profile profile = getUseableProfile();
 
-               request.header("Authorization", "Bearer " + profile.getAuthToken());
+        if (profile == null) {
+            return null;
+        }
 
-               request.parameter("url", skinRequest.getUrl()).parameter("model", skinRequest.getModel().toString());
+        try {
 
-               int code = request.execute(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), StandardContentType.URL_ENCODED).getCode();
+            Request request = new Request(RequestType.POST);
 
-               if (code != 204) {
-                    return null;
-               }
+            request.header("Authorization", "Bearer " + profile.getAuthToken());
 
-               return downloadSkinFromPlayer(skinRequest.getName(), profile.getUniqueId());
+            request.parameter("url", skinRequest.getUrl()).parameter("model", skinRequest.getModel().toString());
 
-          } catch (IOException ignore) {
+            int code = request.execute(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), StandardContentType.URL_ENCODED).getCode();
 
-          }
+            if (code != 204) {
+                return null;
+            }
 
-          return null;
-     }
+            return downloadSkinFromPlayer(skinRequest.getName(), profile.getUniqueId());
 
-     public Skin downloadSkinFromPlayer(String name, String uniqueId) {
+        } catch (IOException ignore) {
 
-          try {
+        }
 
-               Request request = new Request(RequestType.GET);
+        return null;
+    }
 
-               JsonObject object = request.execute(URL_SKIN_PROFILE, StandardContentType.URL_ENCODED).getResponseAsJson();
+    public Skin downloadSkinFromPlayer(String name, String uniqueId) {
 
-               if (!object.has("properties")) {
-                    return null;
-               }
+        try {
 
-               JsonObject property = object.get("properties").getAsJsonArray().get(0).getAsJsonObject();
+            Request request = new Request(RequestType.GET);
 
-               String value = property.get("value").getAsString();
-               String signature = property.get("signature").getAsString();
-               String url = getSkinUrl(value);
+            JsonObject object = request.execute(URL_SKIN_PROFILE, StandardContentType.URL_ENCODED).getResponseAsJson();
 
-               if (url == null) {
-                    return null;
-               }
+            if (!object.has("properties")) {
+                return null;
+            }
 
-               return new Skin(name, value, signature, false);
+            JsonObject property = object.get("properties").getAsJsonArray().get(0).getAsJsonObject();
 
-          } catch (IOException ignore) {
-               return null;
-          }
+            String value = property.get("value").getAsString();
+            String signature = property.get("signature").getAsString();
+            String url = getSkinUrl(value);
 
-     }
+            if (url == null) {
+                return null;
+            }
 
-     /*
-     * 
-     */
+            return new Skin(name, value, signature, false);
 
-     public String getSkinUrl(String base64) {
+        } catch (IOException ignore) {
+            return null;
+        }
 
-          String decoded = Base64Coder.decodeString(base64);
+    }
 
-          JsonObject json = JsonTools.readJson(decoded);
+    /*
+    * 
+    */
 
-          if (!json.has("textures")) {
-               return null;
-          }
+    public String getSkinUrl(String base64) {
 
-          JsonObject textures = json.get("textures").getAsJsonObject();
+        String decoded = Base64Coder.decodeString(base64);
 
-          if (textures.entrySet().isEmpty()) {
-               return null;
-          }
+        JsonObject json = JsonTools.readJson(decoded);
 
-          return textures.get("SKIN").getAsJsonObject().get("url").getAsString();
+        if (!json.has("textures")) {
+            return null;
+        }
 
-     }
+        JsonObject textures = json.get("textures").getAsJsonObject();
+
+        if (textures.entrySet().isEmpty()) {
+            return null;
+        }
+
+        return textures.get("SKIN").getAsJsonObject().get("url").getAsString();
+
+    }
 
 }
