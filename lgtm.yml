@@ -8,3 +8,7 @@ extraction:
         - ./scripts/build-spigot.sh "$LGTM_SRC"
         - ./scripts/lgtm-main.sh
         - ./scripts/lgtm-test.sh
+path_classifiers:
+  test:
+    - "test/**"
+    - exclude: "main/**"
