@@ -10,5 +10,5 @@ extraction:
         - ./scripts/lgtm-test.sh
 path_classifiers:
   test:
-    - "test/**"
-    - exclude: "main/**"
+    - test
+    - exclude: main
