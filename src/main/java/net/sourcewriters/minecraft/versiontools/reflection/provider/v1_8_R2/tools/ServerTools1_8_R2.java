@@ -7,14 +7,14 @@ import net.sourcewriters.minecraft.versiontools.reflection.tools.ServerTools;
 
 public class ServerTools1_8_R2 extends ServerTools {
 
-    @Override
-    public void setMotd(String text) {
-        ((CraftServer) Bukkit.getServer()).getServer().setMotd(text);
-    }
+     @Override
+     public void setMotd(String text) {
+          ((CraftServer) Bukkit.getServer()).getServer().setMotd(text);
+     }
 
-    @Override
-    public String getMotd() {
-        return ((CraftServer) Bukkit.getServer()).getServer().getMotd();
-    }
+     @Override
+     public String getMotd() {
+          return ((CraftServer) Bukkit.getServer()).getServer().getMotd();
+     }
 
 }

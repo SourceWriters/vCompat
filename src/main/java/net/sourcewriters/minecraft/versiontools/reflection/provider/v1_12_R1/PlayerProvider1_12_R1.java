@@ -14,17 +14,18 @@ import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_12_R1.ent
 
 public class PlayerProvider1_12_R1 extends PlayerProvider<VersionControl1_12_R1> {
 
-    private final DataDistributor<UUID> distributor;
+     private final DataDistributor<UUID> distributor;
 
-    protected PlayerProvider1_12_R1(VersionControl1_12_R1 versionControl) {
-        super(versionControl);
-        distributor = versionControl.getDataProvider().createDistributor(new File(Bukkit.getWorlds().get(0).getWorldFolder(), "playerdata"),
-            uuid -> "custom_" + uuid.toString(), DataProvider.DEFAULT_RANDOM);
-    }
+     protected PlayerProvider1_12_R1(VersionControl1_12_R1 versionControl) {
+          super(versionControl);
+          distributor = versionControl.getDataProvider().createDistributor(
+               new File(Bukkit.getWorlds().get(0).getWorldFolder(), "playerdata"), uuid -> "custom_" + uuid.toString(),
+               DataProvider.DEFAULT_RANDOM);
+     }
 
-    @Override
-    protected NmsPlayer createPlayer(Player player) {
-        return new Player1_12_R1(player, distributor.get(player.getUniqueId()));
-    }
+     @Override
+     protected NmsPlayer createPlayer(Player player) {
+          return new Player1_12_R1(player, distributor.get(player.getUniqueId()));
+     }
 
 }

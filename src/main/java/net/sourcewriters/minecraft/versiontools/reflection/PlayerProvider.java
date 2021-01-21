@@ -12,29 +12,29 @@ import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsPlayer;
 
 public abstract class PlayerProvider<V extends VersionControl> extends VersionHandler<V> {
 
-    protected final Map<UUID, NmsPlayer> players = Collections.synchronizedMap(new HashMap<>());
+     protected final Map<UUID, NmsPlayer> players = Collections.synchronizedMap(new HashMap<>());
 
-    protected PlayerProvider(V versionControl) {
-        super(versionControl);
-    }
+     protected PlayerProvider(V versionControl) {
+          super(versionControl);
+     }
 
-    public NmsPlayer getPlayer(UUID uniqueId) {
-        Player player = Bukkit.getPlayer(uniqueId);
-        if (player == null) {
-            return players.get(uniqueId);
-        }
-        return getPlayer(player);
-    }
+     public NmsPlayer getPlayer(UUID uniqueId) {
+          Player player = Bukkit.getPlayer(uniqueId);
+          if (player == null) {
+               return players.get(uniqueId);
+          }
+          return getPlayer(player);
+     }
 
-    public NmsPlayer getPlayer(Player player) {
-        if (players.containsKey(player.getUniqueId())) {
-            return players.get(player.getUniqueId());
-        }
-        NmsPlayer nmsPlayer = createPlayer(player);
-        players.put(player.getUniqueId(), nmsPlayer);
-        return nmsPlayer;
-    }
+     public NmsPlayer getPlayer(Player player) {
+          if (players.containsKey(player.getUniqueId())) {
+               return players.get(player.getUniqueId());
+          }
+          NmsPlayer nmsPlayer = createPlayer(player);
+          players.put(player.getUniqueId(), nmsPlayer);
+          return nmsPlayer;
+     }
 
-    protected abstract NmsPlayer createPlayer(Player player);
+     protected abstract NmsPlayer createPlayer(Player player);
 
 }

@@ -9,30 +9,30 @@ import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;
 
 public final class SyntaxContext1_16_R1 extends WrappedContext<PersistentDataAdapterContext> implements PersistentDataAdapterContext {
 
-    private final PersistentDataAdapterContext context;
+     private final PersistentDataAdapterContext context;
 
-    public SyntaxContext1_16_R1(PersistentDataAdapterContext context) {
-        this.context = context;
-    }
+     public SyntaxContext1_16_R1(PersistentDataAdapterContext context) {
+          this.context = context;
+     }
 
-    @Override
-    public PersistentDataAdapterContext getHandle() {
-        return context;
-    }
+     @Override
+     public PersistentDataAdapterContext getHandle() {
+          return context;
+     }
 
-    @Override
-    public PersistentDataContainer newPersistentDataContainer() {
-        return context.newPersistentDataContainer();
-    }
+     @Override
+     public PersistentDataContainer newPersistentDataContainer() {
+          return context.newPersistentDataContainer();
+     }
 
-    @Override
-    public IDataContainer newDataContainer() {
-        return newContainer();
-    }
+     @Override
+     public IDataContainer newDataContainer() {
+          return newContainer();
+     }
 
-    @Override
-    public SyntaxContainer1_16_R1 newContainer() {
-        return new SyntaxContainer1_16_R1(context.newPersistentDataContainer());
-    }
+     @Override
+     public SyntaxContainer1_16_R1 newContainer() {
+          return new SyntaxContainer1_16_R1(context.newPersistentDataContainer());
+     }
 
 }

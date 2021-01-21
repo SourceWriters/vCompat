@@ -13,30 +13,30 @@ import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsEntityType;
 
 public abstract class BukkitConversion<V extends VersionControl> extends VersionHandler<V> {
 
-    protected BukkitConversion(V versionControl) {
-        super(versionControl);
-    }
+     protected BukkitConversion(V versionControl) {
+          super(versionControl);
+     }
 
-    public abstract EntityType toEntityType(NmsEntityType type);
+     public abstract EntityType toEntityType(NmsEntityType type);
 
-    public abstract NmsEntityType fromEntityType(EntityType type);
+     public abstract NmsEntityType fromEntityType(EntityType type);
 
-    public abstract Object toMinecraftTag(NbtTag tag);
+     public abstract Object toMinecraftTag(NbtTag tag);
 
-    public abstract NbtTag fromMinecraftTag(Object tag);
+     public abstract NbtTag fromMinecraftTag(Object tag);
 
-    public abstract Object toMinecraftList(NbtList<?> list);
+     public abstract Object toMinecraftList(NbtList<?> list);
 
-    public abstract NbtList<?> fromMinecraftList(Object list);
+     public abstract NbtList<?> fromMinecraftList(Object list);
 
-    public abstract Object toMinecraftCompound(NbtCompound compound);
+     public abstract Object toMinecraftCompound(NbtCompound compound);
 
-    public abstract NbtCompound fromMinecraftCompound(Object compound);
+     public abstract NbtCompound fromMinecraftCompound(Object compound);
 
-    public abstract ItemStack itemFromCompound(NbtCompound compound);
+     public abstract ItemStack itemFromCompound(NbtCompound compound);
 
-    public abstract NbtCompound itemToCompound(ItemStack itemStack);
+     public abstract NbtCompound itemToCompound(ItemStack itemStack);
 
-    public abstract WrappedContext<DataAdapterContext> createContext(DataAdapterContext context);
+     public abstract WrappedContext<DataAdapterContext> createContext(DataAdapterContext context);
 
 }

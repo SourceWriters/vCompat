@@ -8,27 +8,27 @@ import net.sourcewriters.minecraft.versiontools.reflection.reflect.Reflections;
 
 public class NmsReflection1_10_R1 extends Reflections {
 
-    public static NmsReflection1_10_R1 INSTANCE = new NmsReflection1_10_R1();
+     public static NmsReflection1_10_R1 INSTANCE = new NmsReflection1_10_R1();
 
-    private NmsReflection1_10_R1() {}
+     private NmsReflection1_10_R1() {}
 
-    @Override
-    public void setup(ReflectionProvider provider) {
+     @Override
+     public void setup(ReflectionProvider provider) {
 
-        //
-        //
-        // Create Reflects
-        //
+          //
+          //
+          // Create Reflects
+          //
 
-        //
-        // Minecraft
+          //
+          // Minecraft
 
-        provider.createReflect("nmsPacketPlayOutPlayerListHeaderFooter", PacketPlayOutPlayerListHeaderFooter.class)
-            .searchField("header", "a").searchField("header", "b");
+          provider.createReflect("nmsPacketPlayOutPlayerListHeaderFooter", PacketPlayOutPlayerListHeaderFooter.class)
+               .searchField("header", "a").searchField("header", "b");
 
-        provider.createReflect("nmsNBTTagEnd", NBTTagEnd.class);
-        provider.createReflect("nmsNBTTagList", NBTTagList.class).searchField("value", "list");
+          provider.createReflect("nmsNBTTagEnd", NBTTagEnd.class);
+          provider.createReflect("nmsNBTTagList", NBTTagList.class).searchField("value", "list");
 
-    }
+     }
 
 }
