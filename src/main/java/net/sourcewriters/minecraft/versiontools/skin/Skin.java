@@ -146,9 +146,18 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
     public boolean equals(Object obj) {
         if (obj instanceof Skin) {
             Skin skin = (Skin) obj;
-            return skin.name.equals(name) && skin.value.equals(value) && skin.signature.equals(signature);
+            return skin.name.equals(name) && isSimilar(skin);
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return (signature.hashCode() << 16) + value.hashCode();
+    }
+
+    public boolean isSimilar(Skin skin) {
+        return skin != null && skin.value.equals(value) && skin.signature.equals(signature);
     }
 
     /*

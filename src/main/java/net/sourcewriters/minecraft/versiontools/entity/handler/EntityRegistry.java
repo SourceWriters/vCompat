@@ -44,8 +44,11 @@ public final class EntityRegistry {
     }
 
     public boolean register(EntityBuilder<?> builder) {
+        if (builder == null) {
+            return false;
+        }
         synchronized (builders) {
-            if (builder != null && builders.containsKey(builder.getType())) {
+            if (builders.containsKey(builder.getType())) {
                 return false;
             }
             builders.put(builder.getType(), builder);

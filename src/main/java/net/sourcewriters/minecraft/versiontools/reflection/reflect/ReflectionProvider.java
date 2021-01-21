@@ -45,7 +45,9 @@ public class ReflectionProvider {
         this.version = Versions.getServer();
         this.cbPath = String.format(CB_PATH_FORMAT, Versions.getServerAsString(), "%s");
         this.nmsPath = String.format(NMS_PATH_FORMAT, Versions.getServerAsString(), "%s");
-        setup.accept(this);
+        if (setup != null) {
+            setup.accept(this);
+        }
     }
 
     public ServerVersion getVersion() {

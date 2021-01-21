@@ -158,7 +158,7 @@ public abstract class Entity1_11_R1<E extends Entity> implements NmsEntity {
         }
         PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(handle.getId());
         for (Player player : players) {
-            if (!isShown(player)) {
+            if (!isShown(player) && !(player instanceof CraftPlayer)) {
                 continue;
             }
             ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
