@@ -10,30 +10,30 @@ import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;
 
 public final class BukkitContext1_16_R3 extends WrappedContext<DataAdapterContext> implements PersistentDataAdapterContext {
 
-    private final DataAdapterContext context;
+     private final DataAdapterContext context;
 
-    public BukkitContext1_16_R3(DataAdapterContext context) {
-        this.context = context;
-    }
+     public BukkitContext1_16_R3(DataAdapterContext context) {
+          this.context = context;
+     }
 
-    @Override
-    public DataAdapterContext getHandle() {
-        return context;
-    }
+     @Override
+     public DataAdapterContext getHandle() {
+          return context;
+     }
 
-    @Override
-    public PersistentDataContainer newPersistentDataContainer() {
-        return newContainer();
-    }
+     @Override
+     public PersistentDataContainer newPersistentDataContainer() {
+          return newContainer();
+     }
 
-    @Override
-    public IDataContainer newDataContainer() {
-        return context.newDataContainer();
-    }
+     @Override
+     public IDataContainer newDataContainer() {
+          return context.newDataContainer();
+     }
 
-    @Override
-    public BukkitContainer1_16_R3 newContainer() {
-        return new BukkitContainer1_16_R3(context.newDataContainer());
-    }
+     @Override
+     public BukkitContainer1_16_R3 newContainer() {
+          return new BukkitContainer1_16_R3(context.newDataContainer());
+     }
 
 }

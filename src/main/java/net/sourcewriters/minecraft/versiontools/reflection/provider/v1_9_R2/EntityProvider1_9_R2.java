@@ -13,35 +13,35 @@ import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_9_R2.util
 
 public class EntityProvider1_9_R2 extends EntityProvider<VersionControl1_9_R2> {
 
-    private final EnumMap<NmsEntityType, Function<World, NmsEntity>> entityMap = new EnumMap<>(NmsEntityType.class);
+     private final EnumMap<NmsEntityType, Function<World, NmsEntity>> entityMap = new EnumMap<>(NmsEntityType.class);
 
-    protected EntityProvider1_9_R2(VersionControl1_9_R2 versionControl) {
-        super(versionControl);
-    }
+     protected EntityProvider1_9_R2(VersionControl1_9_R2 versionControl) {
+          super(versionControl);
+     }
 
-    @SuppressWarnings("unchecked")
-    private final Function<World, NmsEntity> searchConstructor(NmsEntityType type) {
-        try {
-            return (Function<World, NmsEntity>) EntityConstructors1_9_R2.class.getField(type.name()).get(null);
-        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException ignore) {
-            return null;
-        }
-    }
+     @SuppressWarnings("unchecked")
+     private final Function<World, NmsEntity> searchConstructor(NmsEntityType type) {
+          try {
+               return (Function<World, NmsEntity>) EntityConstructors1_9_R2.class.getField(type.name()).get(null);
+          } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException ignore) {
+               return null;
+          }
+     }
 
-    private final Function<World, NmsEntity> getConstructor(NmsEntityType type) {
-        return entityMap.computeIfAbsent(type, (key -> searchConstructor(key)));
-    }
+     private final Function<World, NmsEntity> getConstructor(NmsEntityType type) {
+          return entityMap.computeIfAbsent(type, (key -> searchConstructor(key)));
+     }
 
-    @Override
-    public NmsEntity createEntity(org.bukkit.World world, NmsEntityType type) {
-        if (!(world instanceof CraftWorld)) {
-            return null;
-        }
-        Function<World, NmsEntity> function;
-        if ((function = getConstructor(type)) == null) {
-            return null;
-        }
-        return function.apply(((CraftWorld) world).getHandle());
-    }
+     @Override
+     public NmsEntity createEntity(org.bukkit.World world, NmsEntityType type) {
+          if (!(world instanceof CraftWorld)) {
+               return null;
+          }
+          Function<World, NmsEntity> function;
+          if ((function = getConstructor(type)) == null) {
+               return null;
+          }
+          return function.apply(((CraftWorld) world).getHandle());
+     }
 
 }

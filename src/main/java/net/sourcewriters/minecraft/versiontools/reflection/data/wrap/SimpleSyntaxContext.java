@@ -8,25 +8,25 @@ import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;
 
 public class SimpleSyntaxContext extends WrappedContext<DataAdapterContext> {
 
-    private final DataAdapterContext context;
+     private final DataAdapterContext context;
 
-    public SimpleSyntaxContext(DataAdapterContext context) {
-        this.context = context;
-    }
+     public SimpleSyntaxContext(DataAdapterContext context) {
+          this.context = context;
+     }
 
-    @Override
-    public DataAdapterContext getHandle() {
-        return context;
-    }
+     @Override
+     public DataAdapterContext getHandle() {
+          return context;
+     }
 
-    @Override
-    public IDataContainer newDataContainer() {
-        return context.newDataContainer();
-    }
+     @Override
+     public IDataContainer newDataContainer() {
+          return context.newDataContainer();
+     }
 
-    @Override
-    public WrappedContainer newContainer() {
-        return new SimpleSyntaxContainer<>(context.newDataContainer());
-    }
+     @Override
+     public WrappedContainer newContainer() {
+          return new SimpleSyntaxContainer<>(context.newDataContainer());
+     }
 
 }

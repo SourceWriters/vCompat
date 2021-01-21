@@ -4,8 +4,8 @@ import com.syntaxphoenix.syntaxapi.data.DataAdapterContext;
 
 public abstract class WrappedContext<H> implements DataAdapterContext {
 
-    public abstract H getHandle();
+     public abstract H getHandle();
 
-    public abstract WrappedContainer newContainer();
+     public abstract WrappedContainer newContainer();
 
 }
