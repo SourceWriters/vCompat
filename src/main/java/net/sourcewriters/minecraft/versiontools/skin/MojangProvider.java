@@ -7,10 +7,10 @@ import org.bukkit.entity.Player;
 
 public interface MojangProvider {
 
-     UUID getClientIdentifier();
+    UUID getClientIdentifier();
 
-     void setSkinProperty(Player player, Skin skin);
+    void setSkinProperty(Player player, Skin skin);
 
-     List<Profile> getProfiles();
+    List<Profile> getProfiles();
 
 }

@@ -5,13 +5,13 @@ import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsEntityLivin
 
 public abstract class EntityLiving1_8_R3<E extends EntityLiving> extends Entity1_8_R3<E> implements NmsEntityLiving {
 
-     public EntityLiving1_8_R3(E handle) {
-          super(handle);
-     }
+    public EntityLiving1_8_R3(E handle) {
+        super(handle);
+    }
 
-     @Override
-     public void setCollidable(boolean collidable) {
+    @Override
+    public void setCollidable(boolean collidable) {
 
-     }
+    }
 
 }

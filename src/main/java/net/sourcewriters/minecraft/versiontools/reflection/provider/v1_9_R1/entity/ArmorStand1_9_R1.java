@@ -6,28 +6,28 @@ import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsArmorStand;
 
 public class ArmorStand1_9_R1 extends EntityLiving1_9_R1<EntityArmorStand> implements NmsArmorStand {
 
-     public ArmorStand1_9_R1(World world) {
-          super(new EntityArmorStand(world));
-     }
+    public ArmorStand1_9_R1(World world) {
+        super(new EntityArmorStand(world));
+    }
 
-     @Override
-     public boolean hasGravity() {
-          return handle.hasGravity();
-     }
+    @Override
+    public boolean hasGravity() {
+        return handle.hasGravity();
+    }
 
-     @Override
-     public void setGravity(boolean gravity) {
-          handle.setGravity(gravity);
-     }
+    @Override
+    public void setGravity(boolean gravity) {
+        handle.setGravity(gravity);
+    }
 
-     @Override
-     public void setSmall(boolean small) {
-          handle.setSmall(small);
-     }
+    @Override
+    public void setSmall(boolean small) {
+        handle.setSmall(small);
+    }
 
-     @Override
-     public boolean isSmall() {
-          return handle.isSmall();
-     }
+    @Override
+    public boolean isSmall() {
+        return handle.isSmall();
+    }
 
 }
