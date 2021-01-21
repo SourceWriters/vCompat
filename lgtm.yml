@@ -1,14 +1,24 @@
+path_classifiers:
+  test:
+    - exclude: /
+    - test
+    - testsuites
+    - "**/*.test"
+    - exclude: test/util
+  generated:
+    - exclude: "main"
+  library:
+    - exclude: "main"
+  template:
+    - exclude: "main"
 extraction:
   java:
     index:
-      maven:
-        version: 3.6.3
-      java_version: 8
       build_command:
         - ./scripts/build-spigot.sh "$LGTM_SRC"
-        - ./scripts/lgtm-main.sh
-        - ./scripts/lgtm-test.sh
-path_classifiers:
-  test:
-    - test
-    - exclude: main
+        - ./scripts/lgtm-compile.sh
+      java_version: 8
+      maven:
+        settings_file: /opt/share/settings.xml
+        version: 3.6.3
+      xml_mode: default
