@@ -5,7 +5,7 @@
 
 	<groupId>net.sourcewriters.minecraft</groupId>
 	<artifactId>vcompat</artifactId>
-	<version>1.1.1</version>
+	<version>1.1.2</version>
 	<packaging>jar</packaging>
 	<name>vCompat</name>
 
@@ -67,6 +67,11 @@
 			<groupId>com.syntaxphoenix.syntaxapi</groupId>
 			<artifactId>net</artifactId>
 			<version>2.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>command</artifactId>
+			<version>2.0.5</version>
 		</dependency>
 		<dependency>
 			<groupId>com.syntaxphoenix.syntaxapi</groupId>
@@ -264,12 +269,6 @@
 						</filter>
 					</filters>
 					<createDependencyReducedPom>false</createDependencyReducedPom>
-					<relocations>
-						<relocation>
-							<pattern>com.syntaxphoenix.syntaxapi</pattern>
-							<shadedPattern>net.sourcewriters.minecraft.versiontools.shaded.syntaxapi</shadedPattern>
-						</relocation>
-					</relocations>
 				</configuration>
 			</plugin>
 			<plugin>
