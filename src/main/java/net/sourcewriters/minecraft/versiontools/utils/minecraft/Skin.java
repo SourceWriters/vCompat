@@ -1,4 +1,4 @@
-package net.sourcewriters.minecraft.versiontools.skin;
+package net.sourcewriters.minecraft.versiontools.utils.minecraft;
 
 import java.io.Serializable;
 
@@ -180,6 +180,11 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
         compound.set("signature", signature);
         compound.set("model", model.name());
         return compound;
+    }
+    
+    @Override
+    public String toString() {
+        return asNbt().toMSONString();
     }
 
 }

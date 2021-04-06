@@ -2,13 +2,15 @@ package net.sourcewriters.minecraft.versiontools.utils.bukkit;
 
 import java.util.regex.Pattern;
 
-public abstract class BukkitColor {
+public final class BukkitColor {
+
+    private BukkitColor() {}
 
     public static final char COLOR_CHAR = '\u00A7';
     public static final char REPLACEMENT_CHAR = '\u0026';
     public static final String ALL_CODES = "0123456789AaBbCcDdEeFfKkLlMmNnOoRrXx";
     public static final Pattern STRIP_COLOR_PATTERN = Pattern.compile("(?i)" + String.valueOf('§') + "[0-9A-FK-ORX]");
-
+    
     public static String strip(String text) {
         return text == null ? null : STRIP_COLOR_PATTERN.matcher(text).replaceAll("");
     }

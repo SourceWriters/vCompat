@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
+import net.sourcewriters.minecraft.versiontools.utils.minecraft.Skin;
+
 public interface MojangProvider {
 
     UUID getClientIdentifier();

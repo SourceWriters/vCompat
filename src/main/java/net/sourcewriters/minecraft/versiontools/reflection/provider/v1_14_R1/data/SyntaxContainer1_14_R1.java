@@ -5,7 +5,6 @@ import java.util.Set;
 
 import org.bukkit.craftbukkit.v1_14_R1.persistence.CraftPersistentDataContainer;
 import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 import com.syntaxphoenix.syntaxapi.data.DataAdapterContext;
 import com.syntaxphoenix.syntaxapi.data.DataType;
@@ -16,12 +15,9 @@ import com.syntaxphoenix.syntaxapi.utils.key.NamespacedKey;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedKey;
-import net.sourcewriters.minecraft.versiontools.reflection.data.type.ObjectType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.wrap.SyntaxKey;
 
 public final class SyntaxContainer1_14_R1 extends WrappedContainer implements IDataContainer {
-
-    public static final PersistentDataType<Object, Object> OBJECT_TYPE = new SimpleBukkitType1_14_R1<>(ObjectType.INSTANCE);
 
     private final PersistentDataContainer container;
 
@@ -45,7 +41,7 @@ public final class SyntaxContainer1_14_R1 extends WrappedContainer implements ID
 
     @Override
     public boolean has(IKey key) {
-        return has(new SyntaxKey(key));
+        throw new UnsupportedOperationException("Can't be used with PersistentDataContainer of Bukkit");
     }
 
     @Override
@@ -70,12 +66,12 @@ public final class SyntaxContainer1_14_R1 extends WrappedContainer implements ID
 
     @Override
     public Object get(String key) {
-        return get(NamespacedKey.fromString(key));
+        throw new UnsupportedOperationException("Can't be used with PersistentDataContainer of Bukkit");
     }
 
     @Override
     public Object get(IKey key) {
-        return get(new SyntaxKey(key));
+        throw new UnsupportedOperationException("Can't be used with PersistentDataContainer of Bukkit");
     }
 
     @Override
@@ -127,12 +123,12 @@ public final class SyntaxContainer1_14_R1 extends WrappedContainer implements ID
 
     @Override
     public boolean has(String key) {
-        return has(wrappedKey(key));
+        throw new UnsupportedOperationException("Can't be used with PersistentDataContainer of Bukkit");
     }
 
     @Override
     public boolean has(WrappedKey<?> key) {
-        return container.has(BukkitKey1_14_R1.asBukkit(key), OBJECT_TYPE);
+        throw new UnsupportedOperationException("Can't be used with PersistentDataContainer of Bukkit");
     }
 
     @Override
@@ -147,7 +143,7 @@ public final class SyntaxContainer1_14_R1 extends WrappedContainer implements ID
 
     @Override
     public Object get(WrappedKey<?> key) {
-        return container.get(BukkitKey1_14_R1.asBukkit(key), OBJECT_TYPE);
+        throw new UnsupportedOperationException("Can't be used with PersistentDataContainer of Bukkit");
     }
 
     @Override
@@ -172,9 +168,8 @@ public final class SyntaxContainer1_14_R1 extends WrappedContainer implements ID
 
     @Override
     public boolean remove(WrappedKey<?> key) {
-        Object value = get(key);
         container.remove(BukkitKey1_14_R1.asBukkit(key));
-        return value != null && get(key) == null;
+        return true; // Will always return true as we don't know if it contained it
     }
 
     @Override

@@ -3,7 +3,7 @@ package net.sourcewriters.minecraft.versiontools.reflection.entity;
 import org.bukkit.entity.Player;
 
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
-import net.sourcewriters.minecraft.versiontools.skin.Skin;
+import net.sourcewriters.minecraft.versiontools.utils.minecraft.Skin;
 
 public interface NmsPlayer extends NmsEntityLiving {
 
@@ -14,6 +14,8 @@ public interface NmsPlayer extends NmsEntityLiving {
     void setSkin(Skin skin);
 
     Skin getSkin();
+    
+    Skin getRealSkin();
 
     void setName(String name);
 

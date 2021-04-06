@@ -28,7 +28,11 @@ public abstract class PlayerProvider<V extends VersionControl> extends VersionHa
 
     public NmsPlayer getPlayer(Player player) {
         if (players.containsKey(player.getUniqueId())) {
-            return players.get(player.getUniqueId());
+            NmsPlayer nmsPlayer = players.get(player.getUniqueId());
+            if (nmsPlayer.getBukkitPlayer() != player) {
+                players.put(player.getUniqueId(), nmsPlayer = createPlayer(player));
+            }
+            return nmsPlayer;
         }
         NmsPlayer nmsPlayer = createPlayer(player);
         players.put(player.getUniqueId(), nmsPlayer);

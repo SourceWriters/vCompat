@@ -1,4 +1,4 @@
-package net.sourcewriters.minecraft.versiontools.skin;
+package net.sourcewriters.minecraft.versiontools.utils.minecraft;
 
 public enum SkinModel {
 

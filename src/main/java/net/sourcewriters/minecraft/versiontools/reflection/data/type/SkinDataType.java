@@ -6,7 +6,7 @@ import com.syntaxphoenix.syntaxapi.data.PrimitiveDataType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;
-import net.sourcewriters.minecraft.versiontools.skin.Skin;
+import net.sourcewriters.minecraft.versiontools.utils.minecraft.Skin;
 
 public final class SkinDataType implements WrapType<WrappedContainer, Skin> {
 

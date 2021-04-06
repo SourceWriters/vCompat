@@ -42,14 +42,16 @@ import net.sourcewriters.minecraft.versiontools.reflection.data.type.SkinDataTyp
 import net.sourcewriters.minecraft.versiontools.reflection.data.wrap.SimpleSyntaxContainer;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsPlayer;
 import net.sourcewriters.minecraft.versiontools.reflection.reflect.ReflectionProvider;
-import net.sourcewriters.minecraft.versiontools.skin.Skin;
-import net.sourcewriters.minecraft.versiontools.utils.bukkit.MojangProfileServer;
 import net.sourcewriters.minecraft.versiontools.utils.bukkit.Players;
+import net.sourcewriters.minecraft.versiontools.utils.minecraft.MojangProfileServer;
+import net.sourcewriters.minecraft.versiontools.utils.minecraft.Skin;
 import net.sourcewriters.minecraft.versiontools.utils.thread.PostAsync;
 
 public class Player1_9_R1 extends EntityLiving1_9_R1<EntityPlayer> implements NmsPlayer {
 
     private String realName;
+    private Skin realSkin;
+    
     private final WrappedContainer dataAdapter;
 
     public Player1_9_R1(Player player, PersistentContainer<?> container) {
@@ -78,9 +80,13 @@ public class Player1_9_R1 extends EntityLiving1_9_R1<EntityPlayer> implements Nm
 
     @Override
     public Skin getSkin() {
-        return getDataAdapter().getOrDefault("skin", SkinDataType.INSTANCE, Skin.NONE);
+        return dataAdapter.getOrDefault("skin", SkinDataType.INSTANCE, realSkin);
     }
-
+    
+    @Override
+    public Skin getRealSkin() {
+        return realSkin;
+    }
     @Override
     public void setName(String name) {
         if (getName().equals(name)) {
@@ -261,7 +267,10 @@ public class Player1_9_R1 extends EntityLiving1_9_R1<EntityPlayer> implements Nm
     }
 
     private final void update(boolean flag) {
-        PostAsync.forcePost(() -> realName = MojangProfileServer.getName(getUniqueId()));
+        PostAsync.forcePost(() -> {
+            realName = MojangProfileServer.getName(getUniqueId());
+            realSkin = MojangProfileServer.getSkin(realName, getUniqueId());
+        });
         if (flag) {
             GameProfile profile = handle.getProfile();
 

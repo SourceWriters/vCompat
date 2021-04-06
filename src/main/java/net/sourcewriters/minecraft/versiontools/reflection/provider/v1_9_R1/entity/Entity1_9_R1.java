@@ -204,6 +204,7 @@ public abstract class Entity1_9_R1<E extends Entity> implements NmsEntity {
 
     @Override
     public void kill() {
+        hide(getVisibleAsPlayer());
         handle.die();
     }
 

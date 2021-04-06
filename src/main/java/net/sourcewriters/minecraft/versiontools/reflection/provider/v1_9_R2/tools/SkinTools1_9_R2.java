@@ -4,7 +4,7 @@ import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import net.sourcewriters.minecraft.versiontools.reflection.tools.SkinTools;
-import net.sourcewriters.minecraft.versiontools.skin.Skin;
+import net.sourcewriters.minecraft.versiontools.utils.minecraft.Skin;
 
 public class SkinTools1_9_R2 extends SkinTools {
 

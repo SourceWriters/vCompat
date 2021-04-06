@@ -6,7 +6,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
 
-import net.sourcewriters.minecraft.versiontools.skin.Skin;
+import net.sourcewriters.minecraft.versiontools.utils.minecraft.Skin;
 
 public abstract class SkinTools {
 

@@ -2,6 +2,8 @@ package net.sourcewriters.minecraft.versiontools.skin;
 
 import org.bukkit.entity.Player;
 
+import net.sourcewriters.minecraft.versiontools.utils.minecraft.SkinModel;
+
 public class SkinRequest {
 
     public SkinRequest(String name, String url, SkinModel model, Player requester) {
