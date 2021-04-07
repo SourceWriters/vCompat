@@ -104,7 +104,7 @@ Please notice that you need to authenticate with GitHub Packages ([Maven](https:
   <depedency>
     <groupId>net.sourcewriters.minecraft</groupId>
     <artifactId>vcompat</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.4</version>
   <dependency>
 <depedencies>
 ```
@@ -117,7 +117,7 @@ plugins {
 }
 
 dependencies {
-  implementation group: 'net.sourcewriters.minecraft', name: 'vcompat', version: '1.1.1'
+  implementation group: 'net.sourcewriters.minecraft', name: 'vcompat', version: '1.1.4'
 }
 ```
 
