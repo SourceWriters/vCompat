@@ -51,7 +51,7 @@ public class Player1_16_R3 extends EntityLiving1_16_R3<EntityPlayer> implements 
 
     private String realName;
     private Skin realSkin;
-    
+
     private final WrappedContainer dataAdapter;
 
     public Player1_16_R3(Player player) {
@@ -82,7 +82,7 @@ public class Player1_16_R3 extends EntityLiving1_16_R3<EntityPlayer> implements 
     public Skin getSkin() {
         return dataAdapter.getOrDefault("skin", SkinDataType.INSTANCE, realSkin);
     }
-    
+
     @Override
     public Skin getRealSkin() {
         return realSkin;

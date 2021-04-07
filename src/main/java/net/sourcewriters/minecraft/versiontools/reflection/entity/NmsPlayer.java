@@ -14,7 +14,7 @@ public interface NmsPlayer extends NmsEntityLiving {
     void setSkin(Skin skin);
 
     Skin getSkin();
-    
+
     Skin getRealSkin();
 
     void setName(String name);

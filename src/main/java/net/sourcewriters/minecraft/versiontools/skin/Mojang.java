@@ -61,13 +61,13 @@ public class Mojang {
 
     public boolean request(SkinRequest request) {
         Skin skin = getSkin(request.getName());
-        
+
         if (skin == null) {
             if ((skin = downloadSkin(request)) == null) {
                 return false;
             }
         }
-        
+
         return request(request.getRequester(), skin);
     }
 
@@ -79,9 +79,9 @@ public class Mojang {
         if (player == null || skin == null) {
             return false;
         }
-        
+
         provider.setSkinProperty(player, skin);
-        
+
         if (player.isOnline()) {
             VersionControl.get().getPlayerProvider().getPlayer(player).setSkin(skin);
         }
@@ -136,7 +136,7 @@ public class Mojang {
                 }
             }
         }
-        
+
         array = getProfiles().stream().filter(profile -> !profile.isAuthenticated()).toArray(size -> new Profile[size]);
         if (array.length == 0) {
             return null;

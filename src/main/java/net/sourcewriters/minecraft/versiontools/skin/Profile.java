@@ -4,7 +4,9 @@ import static net.sourcewriters.minecraft.versiontools.skin.Mojang.AUTH_SERVER;
 
 import java.io.IOException;
 
-import com.google.gson.JsonObject;
+import com.syntaxphoenix.syntaxapi.json.JsonObject;
+import com.syntaxphoenix.syntaxapi.json.JsonValue;
+import com.syntaxphoenix.syntaxapi.json.ValueType;
 import com.syntaxphoenix.syntaxapi.net.http.Request;
 import com.syntaxphoenix.syntaxapi.net.http.RequestType;
 import com.syntaxphoenix.syntaxapi.net.http.StandardContentType;
@@ -95,7 +97,12 @@ public class Profile {
 
             request.parameter("accessToken", authToken).parameter("clientToken", mojang.getProvider().getClientIdentifier().toString());
 
-            JsonObject response = request.execute(String.format(AUTH_SERVER, "refresh"), StandardContentType.JSON).getResponseAsJson();
+            JsonValue<?> responseRaw = request.execute(String.format(AUTH_SERVER, "refresh"), StandardContentType.JSON).getResponseAsJson();
+
+            if (!responseRaw.hasType(ValueType.OBJECT)) {
+                return this;
+            }
+            JsonObject response = (JsonObject) responseRaw;
 
             authToken = null;
 
@@ -103,7 +110,7 @@ public class Profile {
                 return this;
             }
 
-            authToken = response.get("accessToken").getAsString();
+            authToken = response.get("accessToken").getValue().toString();
 
             return this;
 
@@ -121,17 +128,23 @@ public class Profile {
 
             JsonObject object = new JsonObject();
             JsonObject agent = new JsonObject();
-            agent.addProperty("name", "Minecraft");
-            agent.addProperty("version", 1);
-            object.add("agent", agent);
+            agent.set("name", "Minecraft");
+            agent.set("version", 1);
+            object.set("agent", agent);
 
-            object.addProperty("username", username);
-            object.addProperty("password", password);
-            object.addProperty("clientToken", mojang.getProvider().getClientIdentifier().toString());
+            object.set("username", username);
+            object.set("password", password);
+            object.set("clientToken", mojang.getProvider().getClientIdentifier().toString());
 
             request.parameter(object);
 
-            JsonObject response = request.execute(String.format(AUTH_SERVER, "authenticate"), StandardContentType.JSON).getResponseAsJson();
+            JsonValue<?> responseRaw = request.execute(String.format(AUTH_SERVER, "authenticate"), StandardContentType.JSON)
+                .getResponseAsJson();
+
+            if (!responseRaw.hasType(ValueType.OBJECT)) {
+                return this;
+            }
+            JsonObject response = (JsonObject) responseRaw;
 
             authToken = null;
 
@@ -139,12 +152,12 @@ public class Profile {
                 return this;
             }
 
-            JsonObject profile = response.get("selectedProfile").getAsJsonObject();
+            JsonObject profile = (JsonObject) response.get("selectedProfile");
 
-            uuid = profile.get("id").getAsString();
-            name = profile.get("name").getAsString();
+            uuid = profile.get("id").getValue().toString();
+            name = profile.get("name").getValue().toString();
 
-            authToken = response.get("accessToken").getAsString();
+            authToken = response.get("accessToken").getValue().toString();
 
             return this;
 

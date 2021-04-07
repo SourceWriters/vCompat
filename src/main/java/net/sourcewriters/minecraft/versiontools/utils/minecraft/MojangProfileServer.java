@@ -8,14 +8,18 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.syntaxphoenix.syntaxapi.json.JsonArray;
+import com.syntaxphoenix.syntaxapi.json.JsonObject;
+import com.syntaxphoenix.syntaxapi.json.JsonValue;
+import com.syntaxphoenix.syntaxapi.json.io.JsonParser;
+import com.syntaxphoenix.syntaxapi.json.value.JsonNull;
 import com.syntaxphoenix.syntaxapi.utils.java.Streams;
-import com.syntaxphoenix.syntaxapi.utils.json.JsonTools;
 
 public final class MojangProfileServer {
 
     private MojangProfileServer() {}
+
+    private static final JsonParser PARSER = new JsonParser();
 
     public static final String UUID_URL = "https://api.mojang.com/users/profiles/minecraft/%s";
     public static final String PROFILE_URL = "https://sessionserver.mojang.com/session/minecraft/profile/%s?unsigned=false";
@@ -46,8 +50,8 @@ public final class MojangProfileServer {
             URL url = new URL(String.format(UUID_URL, name));
             String jsonString = Streams.toString(url.openStream());
             if (!jsonString.isEmpty()) {
-                JsonObject object = new JsonParser().parse(jsonString).getAsJsonObject();
-                String uuid = object.get("id").getAsString();
+                JsonObject object = (JsonObject) fromString(jsonString);
+                String uuid = object.get("id").getValue().toString();
                 return uuid;
             }
         } catch (IOException e) {
@@ -65,8 +69,8 @@ public final class MojangProfileServer {
             URL url = new URL(String.format(PROFILE_URL, uniqueId));
             String jsonString = Streams.toString(url.openStream());
             if (!jsonString.isEmpty()) {
-                JsonObject object = new JsonParser().parse(jsonString).getAsJsonObject();
-                String name = object.get("name").getAsString();
+                JsonObject object = (JsonObject) fromString(jsonString);
+                String name = object.get("name").getValue().toString();
                 return name;
             }
         } catch (IOException e) {
@@ -98,11 +102,10 @@ public final class MojangProfileServer {
             if (jsonString.isEmpty()) {
                 return null;
             }
-            JsonObject object = new JsonParser().parse(jsonString).getAsJsonObject().get("properties").getAsJsonArray().get(0)
-                .getAsJsonObject();
+            JsonObject object = (JsonObject) ((JsonArray) ((JsonObject) fromString(jsonString)).get("properties")).get(0);
 
-            String value = object.get("value").getAsString();
-            String signature = object.get("signature").getAsString();
+            String value = object.get("value").getValue().toString();
+            String signature = object.get("signature").getValue().toString();
             String skinUrl = getSkinUrl(value);
             if (skinUrl == null) {
                 return null;
@@ -115,14 +118,23 @@ public final class MojangProfileServer {
 
     private static String getSkinUrl(String base64) {
         String decoded = Base64Coder.decodeString(base64);
-        JsonObject json = JsonTools.readJson(decoded);
-        if (!json.has("textures")) {
+        JsonObject object = (JsonObject) fromString(decoded);
+        if (!object.has("textures")) {
             return null;
         }
-        JsonObject textures = json.get("textures").getAsJsonObject();
-        if (textures.entrySet().isEmpty()) {
+        JsonObject textures = (JsonObject) object.get("textures");
+        if (textures.isEmpty()) {
             return null;
         }
-        return textures.get("SKIN").getAsJsonObject().get("url").getAsString();
+        return ((JsonObject) textures.get("SKIN")).get("url").getValue().toString();
     }
+
+    private static JsonValue<?> fromString(String value) {
+        try {
+            return PARSER.fromString(value);
+        } catch (IOException exp) {
+            return JsonNull.get();
+        }
+    }
+
 }

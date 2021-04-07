@@ -50,7 +50,7 @@ public class Player1_8_R2 extends EntityLiving1_8_R2<EntityPlayer> implements Nm
 
     private String realName;
     private Skin realSkin;
-    
+
     private final WrappedContainer dataAdapter;
 
     public Player1_8_R2(Player player, PersistentContainer<?> container) {
@@ -81,7 +81,7 @@ public class Player1_8_R2 extends EntityLiving1_8_R2<EntityPlayer> implements Nm
     public Skin getSkin() {
         return dataAdapter.getOrDefault("skin", SkinDataType.INSTANCE, realSkin);
     }
-    
+
     @Override
     public Skin getRealSkin() {
         return realSkin;

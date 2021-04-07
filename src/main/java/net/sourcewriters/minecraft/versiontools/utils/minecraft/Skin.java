@@ -1,17 +1,20 @@
 package net.sourcewriters.minecraft.versiontools.utils.minecraft;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.syntaxphoenix.syntaxapi.json.JsonObject;
+import com.syntaxphoenix.syntaxapi.json.ValueType;
+import com.syntaxphoenix.syntaxapi.json.io.JsonParser;
 import com.syntaxphoenix.syntaxapi.nbt.NbtCompound;
 import com.syntaxphoenix.syntaxapi.nbt.utils.NbtStorage;
 
 public class Skin implements Serializable, NbtStorage<NbtCompound> {
 
     public static final Skin NONE = new Skin();
+    private static final JsonParser PARSER = new JsonParser();
 
     /**
     * 
@@ -91,8 +94,8 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
     public String getURL() {
         JsonObject textures = getTextures();
 
-        if (textures.entrySet().size() != 0) {
-            return textures.get("SKIN").getAsJsonObject().get("url").getAsString();
+        if (textures.isEmpty()) {
+            return ((JsonObject) textures.get("SKIN")).get("url").getValue().toString();
         }
 
         return null;
@@ -102,29 +105,25 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
      * @return UUID string of real skin owner
      */
     public String getOwnerUUID() {
-        String decoded = Base64Coder.decodeString(value);
-        JsonObject json = new JsonParser().parse(decoded).getAsJsonObject();
-        return json.get("profileId").getAsString();
+        return (String) fromString(Base64Coder.decodeString(value)).get("profileId").getValue();
     }
 
     /**
      * @return Name of real skin owner
      */
     public String getOwnerName() {
-        String decoded = Base64Coder.decodeString(value);
-        JsonObject json = new JsonParser().parse(decoded).getAsJsonObject();
-        return json.get("profileName").getAsString();
+        return (String) fromString(Base64Coder.decodeString(value)).get("profileName").getValue();
     }
 
     private SkinModel parseModel() {
         JsonObject textures = getTextures();
 
-        if (textures.entrySet().size() != 0) {
-            JsonObject skinObj = textures.get("SKIN").getAsJsonObject();
-            if (skinObj.has("metadata")) {
-                JsonObject metadata = skinObj.get("metadata").getAsJsonObject();
-                if (metadata.has("model")) {
-                    return SkinModel.SLIM;
+        if (!textures.isEmpty()) {
+            JsonObject skinObj = (JsonObject) textures.get("SKIN");
+            if (skinObj.has("metadata", ValueType.OBJECT)) {
+                JsonObject metadata = (JsonObject) skinObj.get("metadata");
+                if (metadata.has("model", ValueType.STRING)) {
+                    return SkinModel.fromString((String) metadata.get("model").getValue());
                 }
             }
         }
@@ -133,9 +132,15 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
     }
 
     private JsonObject getTextures() {
-        String decoded = Base64Coder.decodeString(value);
-        JsonObject json = new JsonParser().parse(decoded).getAsJsonObject();
-        return json.get("textures").getAsJsonObject();
+        return (JsonObject) fromString(Base64Coder.decodeString(value)).get("textures");
+    }
+
+    private JsonObject fromString(String value) {
+        try {
+            return (JsonObject) PARSER.fromString(value);
+        } catch (IOException | ClassCastException exp) {
+            return new JsonObject();
+        }
     }
 
     /*
@@ -181,7 +186,7 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
         compound.set("model", model.name());
         return compound;
     }
-    
+
     @Override
     public String toString() {
         return asNbt().toMSONString();

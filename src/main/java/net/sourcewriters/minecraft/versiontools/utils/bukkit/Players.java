@@ -11,7 +11,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 public abstract class Players {
-    
+
     private Players() {}
 
     public static final IntFunction<OfflinePlayer[]> OFFLINE_FUNCTION = size -> new OfflinePlayer[size];
