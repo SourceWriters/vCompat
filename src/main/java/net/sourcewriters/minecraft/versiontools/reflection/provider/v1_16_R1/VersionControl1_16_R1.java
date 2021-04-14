@@ -1,6 +1,7 @@
 package net.sourcewriters.minecraft.versiontools.reflection.provider.v1_16_R1;
 
 import net.sourcewriters.minecraft.versiontools.reflection.VersionControl;
+import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_16_R1.data.hook.BukkitContainerAdapterHook1_16_R1;
 
 public class VersionControl1_16_R1 extends VersionControl {
 
@@ -18,7 +19,7 @@ public class VersionControl1_16_R1 extends VersionControl {
     private final BukkitConversion1_16_R1 bukkitConversion = new BukkitConversion1_16_R1(this);
 
     private VersionControl1_16_R1() {
-
+        BukkitContainerAdapterHook1_16_R1.hookEntity();
     }
 
     @Override
@@ -49,6 +50,12 @@ public class VersionControl1_16_R1 extends VersionControl {
     @Override
     public BukkitConversion1_16_R1 getBukkitConversion() {
         return bukkitConversion;
+    }
+    
+    @Override
+    public void shutdown() {
+        dataProvider.getDefaultDistributor().shutdown();
+        BukkitContainerAdapterHook1_16_R1.unhookAll();
     }
 
 }

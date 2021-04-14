@@ -1,16 +1,14 @@
 package net.sourcewriters.minecraft.versiontools.reflection.provider.v1_15_R1.data;
 
-import java.util.Collections;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import org.bukkit.craftbukkit.v1_15_R1.persistence.CraftPersistentDataContainer;
 import org.bukkit.persistence.PersistentDataContainer;
 
 import com.syntaxphoenix.syntaxapi.data.DataAdapterContext;
 import com.syntaxphoenix.syntaxapi.data.DataType;
 import com.syntaxphoenix.syntaxapi.data.IDataContainer;
 import com.syntaxphoenix.syntaxapi.utils.key.IKey;
-import com.syntaxphoenix.syntaxapi.utils.key.NamespacedKey;
 
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
@@ -46,7 +44,7 @@ public final class SyntaxContainer1_15_R1 extends WrappedContainer implements ID
 
     @Override
     public boolean has(String key, DataType<?, ?> type) {
-        return has(NamespacedKey.fromString(key), type);
+        return has(syntaxKey(key), type);
     }
 
     @Override
@@ -56,7 +54,7 @@ public final class SyntaxContainer1_15_R1 extends WrappedContainer implements ID
 
     @Override
     public <C> C get(String key, DataType<?, C> type) {
-        return get(NamespacedKey.fromString(key), type);
+        return get(syntaxKey(key), type);
     }
 
     @Override
@@ -96,15 +94,12 @@ public final class SyntaxContainer1_15_R1 extends WrappedContainer implements ID
 
     @Override
     public IKey[] getKeys() {
-        return getKeyspaces().stream().map(string -> NamespacedKey.fromString(string)).toArray(IKey[]::new);
+        return container.getKeys().stream().map(BukkitKey1_15_R1::new).map(WrappedKey::getNamespacedKey).toArray(IKey[]::new);
     }
 
     @Override
     public Set<String> getKeyspaces() {
-        if (container instanceof CraftPersistentDataContainer) {
-            return ((CraftPersistentDataContainer) container).getRaw().keySet();
-        }
-        return Collections.emptySet();
+        return container.getKeys().stream().map(org.bukkit.NamespacedKey::toString).collect(Collectors.toSet());
     }
 
     @Override
