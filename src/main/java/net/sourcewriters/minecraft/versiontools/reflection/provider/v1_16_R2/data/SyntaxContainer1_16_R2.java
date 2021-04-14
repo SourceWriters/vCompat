@@ -9,7 +9,6 @@ import com.syntaxphoenix.syntaxapi.data.DataAdapterContext;
 import com.syntaxphoenix.syntaxapi.data.DataType;
 import com.syntaxphoenix.syntaxapi.data.IDataContainer;
 import com.syntaxphoenix.syntaxapi.utils.key.IKey;
-import com.syntaxphoenix.syntaxapi.utils.key.NamespacedKey;
 
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContainer;
@@ -45,7 +44,7 @@ public final class SyntaxContainer1_16_R2 extends WrappedContainer implements ID
 
     @Override
     public boolean has(String key, DataType<?, ?> type) {
-        return has(NamespacedKey.fromString(key), type);
+        return has(syntaxKey(key), type);
     }
 
     @Override
@@ -55,7 +54,7 @@ public final class SyntaxContainer1_16_R2 extends WrappedContainer implements ID
 
     @Override
     public <C> C get(String key, DataType<?, C> type) {
-        return get(NamespacedKey.fromString(key), type);
+        return get(syntaxKey(key), type);
     }
 
     @Override

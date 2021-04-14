@@ -72,7 +72,7 @@ public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements 
 
     @Override
     public void setSkin(Skin skin) {
-        if (skin == null || getSkin().equals(skin)) {
+        if (skin == null) {
             return;
         }
         dataAdapter.set("skin", skin, SkinDataType.INSTANCE);

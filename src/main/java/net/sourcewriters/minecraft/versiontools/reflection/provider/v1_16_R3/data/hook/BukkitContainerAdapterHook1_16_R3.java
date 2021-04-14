@@ -26,9 +26,9 @@ import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_16_R3.dat
     "rawtypes",
     "unchecked"
 })
-public final class BukkitContainerAdapterHook {
+public final class BukkitContainerAdapterHook1_16_R3 {
 
-    private static final BukkitContainerAdapterHook HOOK = new BukkitContainerAdapterHook();
+    private static final BukkitContainerAdapterHook1_16_R3 HOOK = new BukkitContainerAdapterHook1_16_R3();
 
     private final AbstractReflect registryRef = new Reflect(CraftPersistentDataTypeRegistry.class)
         .searchMethod("create", "createAdapter", Class.class, Class.class, Function.class, Function.class)
@@ -36,7 +36,7 @@ public final class BukkitContainerAdapterHook {
         .searchField("function", "CREATE_ADAPTER");
     private final AbstractReflect entityRef = new Reflect(CraftEntity.class).searchField("registry", "DATA_TYPE_REGISTRY");
 
-    private BukkitContainerAdapterHook() {}
+    private BukkitContainerAdapterHook1_16_R3() {}
 
     private final HashMap<CraftPersistentDataTypeRegistry, Function> map = new HashMap<>();
 
