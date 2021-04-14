@@ -27,7 +27,11 @@ public final class SyntaxKey extends WrappedKey<NamespacedKey> {
     }
 
     public SyntaxKey(IKey key) {
-        this.key = NamespacedKey.fromStringOrCompute(key.toString(), key0 -> Namespace.of(NAMESPACE_STRING).create(key0));
+        if (key instanceof NamespacedKey) {
+            this.key = (NamespacedKey) key;
+        } else {
+            this.key = NamespacedKey.fromStringOrCompute(key.asString(), key0 -> Namespace.of(NAMESPACE_STRING).create(key0));
+        }
     }
 
     @Override
@@ -57,7 +61,7 @@ public final class SyntaxKey extends WrappedKey<NamespacedKey> {
 
     @Override
     public String toString() {
-        return key.toString();
+        return key.asString();
     }
 
 }

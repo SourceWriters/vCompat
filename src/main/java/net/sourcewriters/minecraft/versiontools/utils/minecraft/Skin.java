@@ -31,11 +31,7 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
     }
 
     public Skin(String name, String value, String signature) {
-        this.name = name;
-        this.editable = false;
-        this.value = value;
-        this.signature = signature;
-        setModel(parseModel());
+        this(name, value, signature, false);
     }
 
     public Skin(String name, String value, String signature, boolean editable) {
@@ -43,7 +39,7 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
         this.editable = editable;
         this.value = value;
         this.signature = signature;
-        setModel(parseModel());
+        this.model = parseModel(value);
     }
 
     public boolean isEditable() {
@@ -59,11 +55,11 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
     }
 
     public void setValue(String value) {
-        if (!isEditable()) {
+        if (!isEditable() || value == null) {
             return;
         }
         this.value = value;
-        setModel(parseModel());
+        setModel(parseModel(value));
     }
 
     public String getSignature() {
@@ -71,7 +67,7 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
     }
 
     public void setSignature(String signature) {
-        if (!isEditable()) {
+        if (!isEditable() || signature == null) {
             return;
         }
         this.signature = signature;
@@ -82,7 +78,7 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
     }
 
     public void setModel(SkinModel model) {
-        if (!isEditable()) {
+        if (!isEditable() || model == null) {
             return;
         }
         this.model = model;
@@ -92,7 +88,7 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
      * @return Decoded skin url string, or null if skin value empty
      */
     public String getURL() {
-        JsonObject textures = getTextures();
+        JsonObject textures = getTextures(value);
 
         if (textures.isEmpty()) {
             return ((JsonObject) textures.get("SKIN")).get("url").getValue().toString();
@@ -115,8 +111,8 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
         return (String) fromString(Base64Coder.decodeString(value)).get("profileName").getValue();
     }
 
-    private SkinModel parseModel() {
-        JsonObject textures = getTextures();
+    private SkinModel parseModel(String value) {
+        JsonObject textures = getTextures(value);
 
         if (!textures.isEmpty()) {
             JsonObject skinObj = (JsonObject) textures.get("SKIN");
@@ -131,7 +127,7 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
         return SkinModel.NORMAL;
     }
 
-    private JsonObject getTextures() {
+    private JsonObject getTextures(String value) {
         return (JsonObject) fromString(Base64Coder.decodeString(value)).get("textures");
     }
 
@@ -151,7 +147,7 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
     public boolean equals(Object obj) {
         if (obj instanceof Skin) {
             Skin skin = (Skin) obj;
-            return skin.name.equals(name) && isSimilar(skin);
+            return isSimilar(skin) && skin.name.equals(name);
         }
         return false;
     }

@@ -38,5 +38,7 @@ public abstract class VersionControl {
     public abstract PacketHandler<?> getPacketHandler();
 
     public abstract BukkitConversion<?> getBukkitConversion();
+    
+    public void shutdown() {}
 
 }

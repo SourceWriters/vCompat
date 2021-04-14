@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.syntaxphoenix.syntaxapi.data.IDataContainer;
+import com.syntaxphoenix.syntaxapi.utils.key.IKey;
 import com.syntaxphoenix.syntaxapi.utils.key.Namespace;
 import com.syntaxphoenix.syntaxapi.utils.key.NamespacedKey;
 
@@ -48,9 +49,13 @@ public abstract class WrappedContainer {
     public abstract boolean isEmpty();
 
     public abstract int size();
+    
+    protected IKey syntaxKey(String key) {
+        return NamespacedKey.fromStringOrCompute(key, key0 -> Namespace.of(NAMESPACE_STRING).create(key0));
+    }
 
     protected SyntaxKey wrappedKey(String key) {
-        return new SyntaxKey(NamespacedKey.fromStringOrCompute(key, key0 -> Namespace.of(NAMESPACE_STRING).create(key0)));
+        return new SyntaxKey(syntaxKey(key));
     }
 
     public <P, C> C getOrDefault(String key, WrapType<P, C> type, C value) {

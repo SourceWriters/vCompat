@@ -6,6 +6,7 @@ import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 
 import com.syntaxphoenix.syntaxapi.data.DataAdapterContext;
+import com.syntaxphoenix.syntaxapi.data.DataType;
 import com.syntaxphoenix.syntaxapi.nbt.NbtByte;
 import com.syntaxphoenix.syntaxapi.nbt.NbtByteArray;
 import com.syntaxphoenix.syntaxapi.nbt.NbtCompound;
@@ -39,9 +40,11 @@ import net.minecraft.server.v1_16_R3.NBTTagLongArray;
 import net.minecraft.server.v1_16_R3.NBTTagShort;
 import net.minecraft.server.v1_16_R3.NBTTagString;
 import net.sourcewriters.minecraft.versiontools.reflection.BukkitConversion;
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsEntityType;
 import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_16_R3.data.BukkitContext1_16_R3;
+import net.sourcewriters.minecraft.versiontools.reflection.provider.v1_16_R3.data.BukkitType1_16_R3;
 
 public class BukkitConversion1_16_R3 extends BukkitConversion<VersionControl1_16_R3> {
 
@@ -205,6 +208,11 @@ public class BukkitConversion1_16_R3 extends BukkitConversion<VersionControl1_16
     @Override
     public WrappedContext<DataAdapterContext> createContext(DataAdapterContext context) {
         return new BukkitContext1_16_R3(context);
+    }
+
+    @Override
+    public <P, C> WrapType<P, C> wrap(DataType<P, C> dataType) {
+        return new BukkitType1_16_R3<>(dataType);
     }
 
 }

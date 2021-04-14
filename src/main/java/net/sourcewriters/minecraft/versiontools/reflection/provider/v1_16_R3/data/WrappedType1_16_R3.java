@@ -81,7 +81,7 @@ public abstract class WrappedType1_16_R3<H, P0, P1, C0, C1> implements WrapType<
             return (P1) new BukkitContainer1_16_R3((IDataContainer) primitive);
         case 2:
             return (P1) Arrays.stream((IDataContainer[]) primitive).map(BukkitContainer1_16_R3::new)
-                .toArray(PersistentDataContainer[]::new);
+                .toArray(BukkitContainer1_16_R3[]::new);
         case 3:
             return (P1) new SyntaxContainer1_16_R3((PersistentDataContainer) primitive);
         case 4:
@@ -111,29 +111,29 @@ public abstract class WrappedType1_16_R3<H, P0, P1, C0, C1> implements WrapType<
     protected static Class<?> internalWrap(Class<?> clazz, int state) {
         switch (state) {
         case 1:
-            return IDataContainer.class;
+            return SyntaxContainer1_16_R3.class;
         case 2:
-            return IDataContainer[].class;
+            return SyntaxContainer1_16_R3[].class;
         case 3:
-            return PersistentDataContainer.class;
+            return BukkitContainer1_16_R3.class;
         case 4:
-            return PersistentDataContainer[].class;
+            return BukkitContainer1_16_R3[].class;
         default:
             return clazz;
         }
     }
 
     protected static int internalState(Class<?> clazz) {
-        if (clazz.equals(PersistentDataContainer.class)) {
+        if (clazz.isAssignableFrom(PersistentDataContainer.class)) {
             return 1;
         }
-        if (clazz.equals(PersistentDataContainer[].class)) {
+        if (clazz.isAssignableFrom(PersistentDataContainer[].class)) {
             return 2;
         }
-        if (clazz.equals(IDataContainer.class)) {
+        if (clazz.isAssignableFrom(IDataContainer.class)) {
             return 3;
         }
-        if (clazz.equals(IDataContainer[].class)) {
+        if (clazz.isAssignableFrom(IDataContainer[].class)) {
             return 4;
         }
         return 0;

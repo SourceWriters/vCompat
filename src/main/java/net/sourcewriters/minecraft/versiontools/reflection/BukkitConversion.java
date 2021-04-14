@@ -4,10 +4,12 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 import com.syntaxphoenix.syntaxapi.data.DataAdapterContext;
+import com.syntaxphoenix.syntaxapi.data.DataType;
 import com.syntaxphoenix.syntaxapi.nbt.NbtCompound;
 import com.syntaxphoenix.syntaxapi.nbt.NbtList;
 import com.syntaxphoenix.syntaxapi.nbt.NbtTag;
 
+import net.sourcewriters.minecraft.versiontools.reflection.data.WrapType;
 import net.sourcewriters.minecraft.versiontools.reflection.data.WrappedContext;
 import net.sourcewriters.minecraft.versiontools.reflection.entity.NmsEntityType;
 
@@ -38,5 +40,7 @@ public abstract class BukkitConversion<V extends VersionControl> extends Version
     public abstract NbtCompound itemToCompound(ItemStack itemStack);
 
     public abstract WrappedContext<DataAdapterContext> createContext(DataAdapterContext context);
+    
+    public abstract <P, C> WrapType<P, C> wrap(DataType<P, C> dataType);
 
 }
