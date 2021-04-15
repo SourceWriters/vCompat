@@ -87,8 +87,8 @@
 
 ### Built With
 
-* [Spigot]()
-* [SyntaxApi]()
+* [Spigot](https://hub.spigotmc.org/stash/projects/SPIGOT/repos/spigot/browse)
+* [SyntaxApi](https://github.com/SyntaxPhoenix/syntaxapi)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -104,7 +104,8 @@ Please notice that you need to authenticate with GitHub Packages ([Maven](https:
   <depedency>
     <groupId>net.sourcewriters.minecraft</groupId>
     <artifactId>vcompat</artifactId>
-    <version>1.1.4</version>
+    <version>2.0.1</version>
+	<scope>provided</scope>
   <dependency>
 <depedencies>
 ```
@@ -117,9 +118,12 @@ plugins {
 }
 
 dependencies {
-  implementation group: 'net.sourcewriters.minecraft', name: 'vcompat', version: '1.1.4'
+  compileOnly group: 'net.sourcewriters.minecraft', name: 'vcompat', version: '2.0.1'
 }
 ```
+
+Please use the [vCompat Updater](https://github.com/SourceWriters/vCompatUpdater) to use vCompat in your projects!
+An example implementation can be found [here](https://github.com/SourceWriters/vCompatExample)
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -153,7 +157,7 @@ Contributions are what make the open source community such an amazing place to b
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the GPLv3 License. See `LICENSE` for more information.
 
 
 
