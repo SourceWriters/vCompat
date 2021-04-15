@@ -7,7 +7,7 @@ import net.sourcewriters.minecraft.vcompat.version.Versions;
 
 public abstract class VersionControl {
 
-    public static final String CLASSPATH = "net.sourcewriters.minecraft.versiontools.reflection.provider.v$version.VersionControl$version";
+    public static final String CLASSPATH = "net.sourcewriters.minecraft.vcompat.reflection.provider.v$version.VersionControl$version";
     public static Container<VersionControl> CURRENT = Container.of();
 
     public static VersionControl get() {
