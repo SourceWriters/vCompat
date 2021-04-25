@@ -1,11 +1,11 @@
-package net.sourcewriters.minecraft.vcompat.logging;
+package net.sourcewriters.minecraft.vcompat.utils.logging;
 
 import com.syntaxphoenix.syntaxapi.logging.color.ColorTools;
 import com.syntaxphoenix.syntaxapi.logging.color.LogTypeColor;
-import org.bukkit.ChatColor;
-import org.fusesource.jansi.Ansi;
 
-import java.awt.*;
+import java.awt.Color;
+
+import org.bukkit.ChatColor;
 
 public class BukkitLogType extends LogTypeColor {
 
@@ -49,7 +49,7 @@ public class BukkitLogType extends LogTypeColor {
 
     @Override
     public String asColorString() {
-        return "\033[38;2;" + asColor().getRed() + ";" + asColor().getGreen() + ";" + asColor().getBlue() + "m";
+        return LoggingColors.toAnsi(asColor());
     }
 
 }

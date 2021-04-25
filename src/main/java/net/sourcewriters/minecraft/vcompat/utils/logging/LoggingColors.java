@@ -1,16 +1,20 @@
-package net.sourcewriters.minecraft.vcompat.logging;
+package net.sourcewriters.minecraft.vcompat.utils.logging;
 
 import org.bukkit.ChatColor;
 import org.fusesource.jansi.Ansi;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.EnumMap;
 import java.util.Map;
 
 public class LoggingColors {
 
+    public static final String ANSI_FORMAT = "\033[38;2;%s;%s;%sm";
+
     private static final Map<ChatColor, String> REPLACEMENTS = new EnumMap<>(ChatColor.class);
     private static final Map<ChatColor, Color> CHAT_COLOR_TO_COLOR = new EnumMap<>(ChatColor.class);
+
+    private LoggingColors() {}
 
     static {
         REPLACEMENTS.put(ChatColor.BLACK, Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.BLACK).boldOff().toString());
@@ -52,6 +56,14 @@ public class LoggingColors {
         CHAT_COLOR_TO_COLOR.put(ChatColor.LIGHT_PURPLE, new Color(16733695));
         CHAT_COLOR_TO_COLOR.put(ChatColor.YELLOW, new Color(16777045));
         CHAT_COLOR_TO_COLOR.put(ChatColor.WHITE, new Color(16777215));
+    }
+
+    public static String toAnsi(int red, int green, int blue) {
+        return String.format(ANSI_FORMAT, red, green, blue);
+    }
+
+    public static String toAnsi(Color color) {
+        return toAnsi(color.getRed(), color.getGreen(), color.getBlue());
     }
 
     public static String format(String raw, boolean supportAnsi) {
