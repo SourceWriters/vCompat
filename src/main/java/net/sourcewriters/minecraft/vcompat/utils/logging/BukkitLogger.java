@@ -251,12 +251,11 @@ public class BukkitLogger implements ILogger {
         String ansi;
         if (custom != null) {
             boolean color = (ansi = type.asColorString(false)).length() != 0;
-            custom.accept(true,
-                format.replace("%type%", ansi).replace("%message%", (colorMessage ? ansi : "") + LoggingColors.format(message, color))
-                    + (color ? ANSI_RESET : ""));
+            custom.accept(true, format.replace("%type%", ansi + type.getName() + (color ? ANSI_RESET : "")).replace("%message%",
+                (colorMessage ? ansi : "") + LoggingColors.format(message, color)) + (color ? ANSI_RESET : ""));
         }
-        return sendStream(format.replace("%type%", ansi = type.asColorString(true)).replace("%message%",
-            (colorMessage ? ansi : "") + LoggingColors.format(message, true)) + ANSI_RESET);
+        return sendStream(format.replace("%type%", (ansi = type.asColorString(true)) + type.getName().toUpperCase() + ANSI_RESET)
+            .replace("%message%", (colorMessage ? ansi : "") + LoggingColors.format(message, true)) + ANSI_RESET);
     }
 
     private BukkitLogger sendUncolored(LogType type, String format, String message) throws IOException {
