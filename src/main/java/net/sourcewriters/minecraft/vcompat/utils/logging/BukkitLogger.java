@@ -12,6 +12,7 @@ import com.syntaxphoenix.syntaxapi.utils.java.tools.Container;
 
 import net.sourcewriters.minecraft.vcompat.reflection.VersionControl;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.Main;
 import org.bukkit.craftbukkit.libs.jline.console.ConsoleReader;
@@ -21,7 +22,10 @@ import org.fusesource.jansi.Ansi;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.function.BiConsumer;
 
 public class BukkitLogger implements ILogger {
@@ -37,6 +41,8 @@ public class BukkitLogger implements ILogger {
 
     private final boolean ansiSupported, jLine;
 
+    private final List<String> queue = Collections.synchronizedList(new ArrayList<>());
+
     private final HashSet<String> colorMessage = new HashSet<>();
     private final LogTypeMap typeMap = new LogTypeMap();
     private final Writer writer;
@@ -50,11 +56,8 @@ public class BukkitLogger implements ILogger {
     private String format = "[%date%/%time%] [Server thread/%plugin% | %type%]: %message%";
 
     public BukkitLogger(Plugin plugin) {
-        this(plugin.getName());
-    }
-
-    public BukkitLogger(String plugin) {
-        this.plugin = plugin;
+        Bukkit.getScheduler().runTaskTimer(plugin, this::streamDequeue, 0, 12);
+        this.plugin = plugin.getName();
         this.reader = getReader();
         this.writer = reader.getOutput();
         this.colored = this.ansiSupported = reader.getTerminal().isAnsiSupported();
@@ -254,7 +257,7 @@ public class BukkitLogger implements ILogger {
             custom.accept(true, format.replace("%type%", ansi + type.getName() + (color ? ANSI_RESET : "")).replace("%message%",
                 (colorMessage ? ansi : "") + LoggingColors.format(message, color)) + (color ? ANSI_RESET : ""));
         }
-        return sendStream(format.replace("%type%", (ansi = type.asColorString(true)) + type.getName().toUpperCase() + ANSI_RESET)
+        return queueStream(format.replace("%type%", (ansi = type.asColorString(true)) + type.getName().toUpperCase() + ANSI_RESET)
             .replace("%message%", (colorMessage ? ansi : "") + LoggingColors.format(message, true)) + ANSI_RESET);
     }
 
@@ -263,11 +266,38 @@ public class BukkitLogger implements ILogger {
         if (custom != null) {
             custom.accept(true, message);
         }
+        return queueStream(message);
+    }
+
+    private BukkitLogger queueStream(String message) throws IOException {
+        message += System.getProperty("line.separator");
+        if (Bukkit.isPrimaryThread()) {
+            return sendStreamDequeue(message);
+        }
+        queue.add(message);
+        return this;
+    }
+
+    private void streamDequeue() {
+        if (!queue.isEmpty()) {
+            String[] messages = queue.toArray(new String[queue.size()]);
+            queue.clear();
+            for (String message : messages) {
+                try {
+                    sendStream(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private BukkitLogger sendStreamDequeue(String message) throws IOException {
+        streamDequeue();
         return sendStream(message);
     }
 
     private BukkitLogger sendStream(String message) throws IOException {
-        message += System.getProperty("line.separator");
         if (jLine) {
             reader.flush();
             writer.write("\b\b" + message);

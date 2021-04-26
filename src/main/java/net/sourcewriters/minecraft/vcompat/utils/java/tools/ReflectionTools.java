@@ -1,9 +1,11 @@
-package net.sourcewriters.minecraft.vcompat.utils.java;
+package net.sourcewriters.minecraft.vcompat.utils.java.tools;
 
 import java.lang.reflect.Array;
 
-public abstract class ReflectionTools {
+public final class ReflectionTools {
 
+    private ReflectionTools() {}
+    
     public static Class<?> subclass(Class<?> clazz, String name) {
         for (Class<?> search : clazz.getClasses()) {
             if (search.getSimpleName().split("\\.")[0].equals(name)) {

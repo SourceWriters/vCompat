@@ -1,10 +1,12 @@
-package net.sourcewriters.minecraft.vcompat.utils.java;
+package net.sourcewriters.minecraft.vcompat.utils.java.tools;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ArrayTools {
+public final class ArrayTools {
 
+    private ArrayTools() {}
+    
     public static List<String> toLowercaseList(String... values) {
         ArrayList<String> list = new ArrayList<>();
         for (String value : values) {

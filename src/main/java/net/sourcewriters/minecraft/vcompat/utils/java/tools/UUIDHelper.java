@@ -1,4 +1,4 @@
-package net.sourcewriters.minecraft.vcompat.utils.java;
+package net.sourcewriters.minecraft.vcompat.utils.java.tools;
 
 import java.security.SecureRandom;
 import java.util.UUID;
