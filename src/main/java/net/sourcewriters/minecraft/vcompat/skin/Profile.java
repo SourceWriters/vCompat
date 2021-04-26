@@ -13,8 +13,8 @@ import com.syntaxphoenix.syntaxapi.net.http.StandardContentType;
 
 public class Profile {
 
-    private final Mojang mojang;
-
+    private final MojangProvider provider;
+    
     private String username;
     private String password;
 
@@ -23,8 +23,8 @@ public class Profile {
 
     private String authToken;
 
-    public Profile(Mojang mojang, String user, String pass) {
-        this.mojang = mojang;
+    public Profile(MojangProvider provider, String user, String pass) {
+        this.provider = provider;
         this.username = user;
         this.password = pass;
     }
@@ -70,7 +70,7 @@ public class Profile {
 
             Request request = new Request(RequestType.POST);
 
-            request.parameter("accessToken", authToken).parameter("clientToken", mojang.getProvider().getClientIdentifier().toString());
+            request.parameter("accessToken", authToken).parameter("clientToken", provider.getClientIdentifier().toString());
 
             int code = request.execute(String.format(AUTH_SERVER, "validate"), StandardContentType.JSON).getCode();
 
@@ -95,7 +95,7 @@ public class Profile {
 
             Request request = new Request(RequestType.POST);
 
-            request.parameter("accessToken", authToken).parameter("clientToken", mojang.getProvider().getClientIdentifier().toString());
+            request.parameter("accessToken", authToken).parameter("clientToken", provider.getClientIdentifier().toString());
 
             JsonValue<?> responseRaw = request.execute(String.format(AUTH_SERVER, "refresh"), StandardContentType.JSON).getResponseAsJson();
 
@@ -134,7 +134,7 @@ public class Profile {
 
             object.set("username", username);
             object.set("password", password);
-            object.set("clientToken", mojang.getProvider().getClientIdentifier().toString());
+            object.set("clientToken", provider.getClientIdentifier().toString());
 
             request.parameter(object);
 

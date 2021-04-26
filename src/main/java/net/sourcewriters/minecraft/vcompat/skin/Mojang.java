@@ -103,6 +103,13 @@ public class Mojang {
     * 
     */
 
+    public boolean setSkin(Skin skin) {
+        if (getOptionalSkin(skin.getName()).isPresent()) {
+            return false;
+        }
+        return skins.add(skin);
+    }
+
     public Skin getSkin(String name) {
         Optional<Skin> option = getOptionalSkin(name);
         if (option.isPresent()) {

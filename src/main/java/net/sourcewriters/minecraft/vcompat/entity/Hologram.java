@@ -146,6 +146,19 @@ public class Hologram extends CustomEntity {
         return this;
     }
 
+    public boolean isShown(Player player) {
+        int size = 0;
+        synchronized (entities) {
+            size = entities.size();
+        }
+        if (size == 0) {
+            return false;
+        }
+        synchronized (entities) {
+            return entities.get(0).isShown(player);
+        }
+    }
+
     private void updateText(int amount) {
         int entityAmount;
         synchronized (entities) {
