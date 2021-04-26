@@ -41,6 +41,10 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
         this.signature = signature;
         this.model = parseModel(value);
     }
+    
+    public boolean isValid() {
+        return name != null && value != null && signature != null && model != null;
+    }
 
     public boolean isEditable() {
         return editable;
@@ -167,6 +171,9 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
 
     @Override
     public void fromNbt(NbtCompound nbt) {
+        if (!editable) {
+            return;
+        }
         name = nbt.getString("name");
         value = nbt.getString("value");
         signature = nbt.getString("signature");
@@ -186,6 +193,10 @@ public class Skin implements Serializable, NbtStorage<NbtCompound> {
     @Override
     public String toString() {
         return asNbt().toMSONString();
+    }
+
+    public static Skin load(NbtCompound compound) {
+        return new Skin(compound.getString("name"), compound.getString("value"), compound.getString("signature"));
     }
 
 }

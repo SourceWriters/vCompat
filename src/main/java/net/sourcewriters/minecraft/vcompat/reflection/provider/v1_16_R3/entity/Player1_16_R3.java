@@ -75,12 +75,12 @@ public class Player1_16_R3 extends EntityLiving1_16_R3<EntityPlayer> implements 
         if (skin == null) {
             return;
         }
-        dataAdapter.set("skin", skin, SkinDataType.INSTANCE);
+        dataAdapter.set("skin", skin, SkinDataType.WRAPPED_INSTANCE);
     }
 
     @Override
     public Skin getSkin() {
-        return dataAdapter.getOrDefault("skin", SkinDataType.INSTANCE, realSkin);
+        return dataAdapter.getOrDefault("skin", SkinDataType.WRAPPED_INSTANCE, realSkin);
     }
 
     @Override

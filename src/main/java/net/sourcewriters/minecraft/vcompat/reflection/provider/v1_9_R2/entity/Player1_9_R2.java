@@ -75,12 +75,12 @@ public class Player1_9_R2 extends EntityLiving1_9_R2<EntityPlayer> implements Nm
         if (skin == null || getSkin().equals(skin)) {
             return;
         }
-        getDataAdapter().set("skin", skin, SkinDataType.INSTANCE);
+        getDataAdapter().set("skin", skin, SkinDataType.WRAPPED_INSTANCE);
     }
 
     @Override
     public Skin getSkin() {
-        return dataAdapter.getOrDefault("skin", SkinDataType.INSTANCE, realSkin);
+        return dataAdapter.getOrDefault("skin", SkinDataType.WRAPPED_INSTANCE, realSkin);
     }
 
     @Override

@@ -8,5 +8,9 @@ public interface MojangProvider {
     UUID getClientIdentifier();
 
     List<Profile> getProfiles();
+    
+    Profile create(String username, String password);
+    
+    void clear();
 
 }

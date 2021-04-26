@@ -11,7 +11,8 @@ import net.sourcewriters.minecraft.vcompat.utils.minecraft.Skin;
 
 public final class SkinDataType implements DataType<IDataContainer, Skin> {
 
-    public static final WrapType<?, Skin> INSTANCE = VersionControl.get().getBukkitConversion().wrap(new SkinDataType());
+    public static final DataType<IDataContainer, Skin> INSTANCE = new SkinDataType();
+    public static final WrapType<?, Skin> WRAPPED_INSTANCE = VersionControl.get().getBukkitConversion().wrap(INSTANCE);
 
     private SkinDataType() {}
 
