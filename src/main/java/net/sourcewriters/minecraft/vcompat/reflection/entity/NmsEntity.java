@@ -42,6 +42,8 @@ public interface NmsEntity {
     void setLocation(Location location);
 
     Location getLocation();
+    
+    void updateVisibility();
 
     boolean isShown(Player player);
 

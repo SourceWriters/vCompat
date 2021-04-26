@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import net.sourcewriters.minecraft.vcompat.reflection.data.persistence.PersistentContainer;
 import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsPlayer;
 
 public abstract class PlayerProvider<V extends VersionControl> extends VersionHandler<V> {
@@ -30,6 +31,10 @@ public abstract class PlayerProvider<V extends VersionControl> extends VersionHa
         if (players.containsKey(player.getUniqueId())) {
             NmsPlayer nmsPlayer = players.get(player.getUniqueId());
             if (nmsPlayer.getBukkitPlayer() != player) {
+                Object container = nmsPlayer.getDataAdapter().getHandle();
+                if (container instanceof PersistentContainer) {
+                    ((PersistentContainer<?>) container).delete();
+                }
                 players.put(player.getUniqueId(), nmsPlayer = createPlayer(player));
             }
             return nmsPlayer;

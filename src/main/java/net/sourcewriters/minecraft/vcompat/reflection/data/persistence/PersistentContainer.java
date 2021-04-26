@@ -142,11 +142,11 @@ public class PersistentContainer<K> extends NbtContainer {
         super.fromNbt(compound);
     }
 
-    protected void shutdown() {
+    public void shutdown() {
         observer.shutdown();
     }
 
-    protected void delete() {
+    public void delete() {
         lock.writeLock().lock();
         observer.save();
         super.getRoot().clear();

@@ -116,6 +116,22 @@ public class Hologram extends CustomEntity {
      * Entity handle
      */
 
+    @Override
+    public Hologram updateVisibility() {
+        int amount;
+        synchronized (entities) {
+            amount = entities.size();
+        }
+        for (int index = 0; index < amount; index++) {
+            NmsArmorStand entity;
+            synchronized (entities) {
+                entity = entities.get(index);
+            }
+            entity.updateVisibility();
+        }
+        return this;
+    }
+
     public Hologram show(Player... players) {
         int amount;
         synchronized (entities) {

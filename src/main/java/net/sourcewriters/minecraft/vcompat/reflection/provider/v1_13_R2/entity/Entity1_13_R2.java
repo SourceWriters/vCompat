@@ -58,6 +58,7 @@ public abstract class Entity1_13_R2<E extends Entity> implements NmsEntity {
     @Override
     public void setCustomName(String name) {
         handle.setCustomName(CraftChatMessage.fromStringOrNull(name));
+        updateVisibility();
     }
 
     @Override
@@ -132,7 +133,8 @@ public abstract class Entity1_13_R2<E extends Entity> implements NmsEntity {
         return new Location(handle.getWorld().getWorld(), vector.x, vector.y, vector.z);
     }
 
-    private void updateVisibility() {
+    @Override
+    public void updateVisibility() {
         if (visible.isEmpty()) {
             return;
         }

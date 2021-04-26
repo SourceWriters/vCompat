@@ -57,6 +57,7 @@ public abstract class Entity1_8_R1<E extends Entity> implements NmsEntity {
     @Override
     public void setCustomName(String name) {
         handle.setCustomName(name);
+        updateVisibility();
     }
 
     @Override
@@ -129,7 +130,8 @@ public abstract class Entity1_8_R1<E extends Entity> implements NmsEntity {
         return new Location(handle.getWorld().getWorld(), vector.a, vector.b, vector.c);
     }
 
-    private void updateVisibility() {
+    @Override
+    public void updateVisibility() {
         if (visible.isEmpty()) {
             return;
         }

@@ -3,6 +3,7 @@ package net.sourcewriters.minecraft.vcompat.entity.handler;
 import java.util.UUID;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 public abstract class CustomEntity {
 
@@ -67,5 +68,13 @@ public abstract class CustomEntity {
     public abstract void setInvulnerable(boolean invulnerable);
 
     public abstract void teleport(Location location);
+    
+    public abstract CustomEntity updateVisibility();
+    
+    public abstract CustomEntity show(Player... players);
+
+    public abstract CustomEntity hide(Player... players);
+
+    public abstract boolean isShown(Player player);
 
 }
