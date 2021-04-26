@@ -236,31 +236,31 @@ public class BukkitLogger implements ILogger {
     }
 
     public BukkitLogger log(LogType type, String message) {
-        message = format.replace("%date%", Times.getDate(".").substring(0, 5)).replace("%time%", Times.getTime(":"))
+        String format = this.format.replace("%date%", Times.getDate(".").substring(0, 5)).replace("%time%", Times.getTime(":"))
             .replace("%thread%", getThreadName()).replace("%plugin%", plugin);
         try {
-            return colored ? sendColored(type, message) : sendUncolored(type, message);
+            return colored ? sendColored(type, format, message) : sendUncolored(type, format, message);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return this;
     }
 
-    private BukkitLogger sendColored(LogType type, String message) throws IOException {
+    private BukkitLogger sendColored(LogType type, String format, String message) throws IOException {
         boolean colorMessage = this.colorMessage.contains(type.getId());
         String ansi;
         if (custom != null) {
             boolean color = (ansi = type.asColorString(false)).length() != 0;
             custom.accept(true,
-                message.replace("%type%", ansi).replace("%message%", (colorMessage ? ansi : "") + LoggingColors.format(message, color))
+                format.replace("%type%", ansi).replace("%message%", (colorMessage ? ansi : "") + LoggingColors.format(message, color))
                     + (color ? ANSI_RESET : ""));
         }
-        return sendStream(message.replace("%type%", ansi = type.asColorString(true)).replace("%message%",
+        return sendStream(format.replace("%type%", ansi = type.asColorString(true)).replace("%message%",
             (colorMessage ? ansi : "") + LoggingColors.format(message, true)) + ANSI_RESET);
     }
 
-    private BukkitLogger sendUncolored(LogType type, String message) throws IOException {
-        message = message.replace("%type%", type.getName().toUpperCase()).replace("%message%", LoggingColors.format(message, false));
+    private BukkitLogger sendUncolored(LogType type, String format, String message) throws IOException {
+        message = format.replace("%type%", type.getName().toUpperCase()).replace("%message%", LoggingColors.format(message, false));
         if (custom != null) {
             custom.accept(true, message);
         }
