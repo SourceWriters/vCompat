@@ -7,14 +7,14 @@ import java.io.IOException;
 import com.syntaxphoenix.syntaxapi.json.JsonObject;
 import com.syntaxphoenix.syntaxapi.json.JsonValue;
 import com.syntaxphoenix.syntaxapi.json.ValueType;
-import com.syntaxphoenix.syntaxapi.net.http.Request;
 import com.syntaxphoenix.syntaxapi.net.http.RequestType;
-import com.syntaxphoenix.syntaxapi.net.http.StandardContentType;
+
+import net.sourcewriters.minecraft.vcompat.utils.java.net.EasyRequest;
 
 public class Profile {
 
     private final MojangProvider provider;
-    
+
     private String username;
     private String password;
 
@@ -68,11 +68,11 @@ public class Profile {
 
         try {
 
-            Request request = new Request(RequestType.POST);
+            EasyRequest request = new EasyRequest(RequestType.POST);
 
-            request.parameter("accessToken", authToken).parameter("clientToken", provider.getClientIdentifier().toString());
+            request.data("accessToken", authToken).data("clientToken", provider.getClientIdentifier().toString());
 
-            int code = request.execute(String.format(AUTH_SERVER, "validate"), StandardContentType.JSON).getCode();
+            int code = request.run(String.format(AUTH_SERVER, "validate")).getCode();
 
             return code == 204 || code == 200;
         } catch (IOException ignore) {
@@ -88,11 +88,11 @@ public class Profile {
 
         try {
 
-            Request request = new Request(RequestType.POST);
+            EasyRequest request = new EasyRequest(RequestType.POST);
 
-            request.parameter("accessToken", authToken).parameter("clientToken", provider.getClientIdentifier().toString());
+            request.data("accessToken", authToken).data("clientToken", provider.getClientIdentifier().toString());
 
-            JsonValue<?> responseRaw = request.execute(String.format(AUTH_SERVER, "refresh"), StandardContentType.JSON).getResponseAsJson();
+            JsonValue<?> responseRaw = request.run(String.format(AUTH_SERVER, "refresh")).getDataAsJson();
 
             if (!responseRaw.hasType(ValueType.OBJECT)) {
                 return this;
@@ -119,7 +119,7 @@ public class Profile {
 
         try {
 
-            Request request = new Request(RequestType.POST);
+            EasyRequest request = new EasyRequest(RequestType.POST);
 
             JsonObject object = new JsonObject();
             JsonObject agent = new JsonObject();
@@ -131,10 +131,9 @@ public class Profile {
             object.set("password", password);
             object.set("clientToken", provider.getClientIdentifier().toString());
 
-            request.parameter(object);
+            request.data(object);
 
-            JsonValue<?> responseRaw = request.execute(String.format(AUTH_SERVER, "authenticate"), StandardContentType.JSON)
-                .getResponseAsJson();
+            JsonValue<?> responseRaw = request.run(String.format(AUTH_SERVER, "authenticate")).getDataAsJson();
 
             if (!responseRaw.hasType(ValueType.OBJECT)) {
                 return this;

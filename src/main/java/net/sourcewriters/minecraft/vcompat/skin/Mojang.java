@@ -14,14 +14,14 @@ import org.bukkit.entity.Player;
 
 import com.syntaxphoenix.syntaxapi.logging.ILogger;
 import com.syntaxphoenix.syntaxapi.logging.LogTypeId;
-import com.syntaxphoenix.syntaxapi.net.http.Request;
 import com.syntaxphoenix.syntaxapi.net.http.RequestType;
 import com.syntaxphoenix.syntaxapi.net.http.ResponseCode;
-import com.syntaxphoenix.syntaxapi.net.http.StandardContentType;
 
 import net.sourcewriters.minecraft.vcompat.reflection.PlayerProvider;
 import net.sourcewriters.minecraft.vcompat.reflection.VersionControl;
 import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsPlayer;
+import net.sourcewriters.minecraft.vcompat.utils.java.net.EasyRequest;
+import net.sourcewriters.minecraft.vcompat.utils.java.net.content.EasyUrlEncodedContent;
 import net.sourcewriters.minecraft.vcompat.utils.minecraft.MojangProfileServer;
 import net.sourcewriters.minecraft.vcompat.utils.minecraft.Skin;
 import net.sourcewriters.minecraft.vcompat.utils.minecraft.SkinModel;
@@ -131,7 +131,7 @@ public class Mojang {
     }
 
     public Skin getSkinFrom(URL url, SkinModel model) {
-        return getSkinFrom(url, model, 15);
+        return getSkinFrom(url, model, 15000);
     }
 
     public Skin getSkinFrom(URL url, SkinModel model, int timeout) {
@@ -152,11 +152,11 @@ public class Mojang {
                 logger.log(LogTypeId.ERROR, "Can't connect to url!");
                 return null;
             }
-            Request request = new Request(RequestType.POST);
+            EasyRequest request = new EasyRequest(RequestType.POST);
             request.header("Authorization", "Bearer " + profile.getAuthToken());
-            request.parameter("url", url.toString()).parameter("model", model.toString());
-            int code = request.execute(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), StandardContentType.URL_ENCODED).getCode();
-            if (code != ResponseCode.OK && code != ResponseCode.NO_CONTENT) {
+            request.data("url", url.toString()).data("model", model.toString());
+            int code = request.run(String.format(URL_SKIN_UPLOAD, profile.getUniqueId())).getCode();
+            if (code != ResponseCode.NO_CONTENT) {
                 return null;
             }
             return apply(MojangProfileServer.getSkinShorten(profile.getUniqueId()));
@@ -185,7 +185,7 @@ public class Mojang {
     }
 
     public Skin getSkinFrom(String name, URL url, SkinModel model) {
-        return getSkinFrom(name, url, model, 15);
+        return getSkinFrom(name, url, model, 15000);
     }
 
     public Skin getSkinFrom(String name, URL url, SkinModel model, int timeout) {
@@ -206,10 +206,10 @@ public class Mojang {
                 logger.log(LogTypeId.ERROR, "Can't connect to url!");
                 return null;
             }
-            Request request = new Request(RequestType.POST);
+            EasyRequest request = new EasyRequest(RequestType.POST);
             request.header("Authorization", "Bearer " + profile.getAuthToken());
-            request.parameter("url", url.toString()).parameter("model", model.toString());
-            int code = request.execute(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), StandardContentType.URL_ENCODED).getCode();
+            request.data("url", url.toString()).data("model", model.toString());
+            int code = request.run(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), EasyUrlEncodedContent.URL_ENCODED).getCode();
             if (code != ResponseCode.OK && code != ResponseCode.NO_CONTENT) {
                 return null;
             }
