@@ -38,10 +38,21 @@ public class Mojang {
 
     private final PlayerProvider<?> playerProvider = VersionControl.get().getPlayerProvider();
 
+    private boolean debug = false;
+
     public Mojang(ILogger logger, MojangProvider provider, SkinStore store) {
         this.logger = logger;
         this.provider = provider;
         this.store = store;
+    }
+
+    public boolean debug() {
+        return debug;
+    }
+
+    public Mojang debug(boolean state) {
+        this.debug = state;
+        return this;
     }
 
     /*
@@ -138,6 +149,9 @@ public class Mojang {
     public Skin getSkinFrom(URL url, SkinModel model, int timeout) {
         Profile profile = getUseableProfile();
         if (profile == null || url == null || model == null) {
+            if (debug) {
+                logger.log(LogTypeId.DEBUG, "Smth is null (" + (profile == null) + "/" + (url == null) + "/" + (model == null) + ") o.0");
+            }
             return null;
         }
         try {
@@ -161,6 +175,10 @@ public class Mojang {
             request.data("url", url.toString()).data("model", model.toString());
             EasyResponse response = request.run(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()));
             if (response.getCode() != ResponseCode.NO_CONTENT) {
+                if (debug) {
+                    logger.log(LogTypeId.DEBUG, "Code: " + response.getCode() + " / Length: " + response.getData().length);
+                    logger.log(LogTypeId.DEBUG, response.getDataAsJson().toPrettyString().split("\n"));
+                }
                 return null;
             }
             return apply(MojangProfileServer.getSkinShorten(profile.getUniqueId()));
@@ -195,6 +213,9 @@ public class Mojang {
     public Skin getSkinFrom(String name, URL url, SkinModel model, int timeout) {
         Profile profile = getUseableProfile();
         if (profile == null || name != null || url == null || model == null) {
+            if (debug) {
+                logger.log(LogTypeId.DEBUG, "Smth is null (" + (profile == null) + "/" + (url == null) + "/" + (model == null) + ") o.0");
+            }
             return null;
         }
         try {
@@ -218,6 +239,10 @@ public class Mojang {
             request.data("url", url.toString()).data("model", model.toString());
             EasyResponse response = request.run(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), EasyUrlEncodedContent.URL_ENCODED);
             if (response.getCode() != ResponseCode.NO_CONTENT) {
+                if (debug) {
+                    logger.log(LogTypeId.DEBUG, "Code: " + response.getCode() + " / Length: " + response.getData().length);
+                    logger.log(LogTypeId.DEBUG, response.getDataAsJson().toPrettyString().split("\n"));
+                }
                 return null;
             }
             return apply(MojangProfileServer.getSkinShorten(name, profile.getUniqueId()));

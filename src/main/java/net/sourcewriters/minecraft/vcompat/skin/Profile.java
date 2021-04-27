@@ -23,10 +23,21 @@ public class Profile {
 
     private String authToken;
 
+    private boolean debug = false;
+
     public Profile(MojangProvider provider, String user, String pass) {
         this.provider = provider;
         this.username = user;
         this.password = pass;
+    }
+
+    public boolean debug() {
+        return debug;
+    }
+
+    public Profile debug(boolean state) {
+        this.debug = state;
+        return this;
     }
 
     /*
@@ -110,6 +121,9 @@ public class Profile {
             object.set("clientToken", provider.getClientIdentifier().toString());
             request.data(object);
             JsonValue<?> responseRaw = request.run(String.format(AUTH_SERVER, "authenticate")).getDataAsJson();
+            if (debug) {
+                System.out.println(responseRaw.toPrettyString());
+            }
             if (!responseRaw.hasType(ValueType.OBJECT)) {
                 return this;
             }
