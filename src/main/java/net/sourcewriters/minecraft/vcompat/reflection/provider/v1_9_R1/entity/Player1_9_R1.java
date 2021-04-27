@@ -276,13 +276,20 @@ public class Player1_9_R1 extends EntityLiving1_9_R1<EntityPlayer> implements Nm
             GameProfile profile = handle.getProfile();
 
             Skin skin = getSkin();
-            PropertyMap properties = profile.getProperties();
-            properties.removeAll("textures");
-            properties.put("textures", new Property("textures", skin.getValue(), skin.getSignature()));
+            if (skin != null) {
+                PropertyMap properties = profile.getProperties();
+                properties.removeAll("textures");
+                properties.put("textures", new Property("textures", skin.getValue(), skin.getSignature()));
+            }
 
-            ReflectionProvider.DEFAULT.getReflect("mjGameProfile").setFieldValue(profile, "name", getName());
+            String name = getName();
+            if (name != null) {
+                ReflectionProvider.DEFAULT.getReflect("mjGameProfile").setFieldValue(profile, "name", name);
+            }
 
-            fakeRespawn();
+            if (!(name == null && skin == null)) {
+                fakeRespawn();
+            }
         }
     }
 
