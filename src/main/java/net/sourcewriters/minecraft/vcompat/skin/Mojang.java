@@ -173,7 +173,7 @@ public class Mojang {
             EasyRequest request = new EasyRequest(RequestType.POST);
             request.header("Authorization", "Bearer " + profile.getAuthToken());
             request.data("url", url.toString()).data("model", model.toString());
-            EasyResponse response = request.run(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()));
+            EasyResponse response = request.run(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), EasyUrlEncodedContent.URL_ENCODED);
             if (response.getCode() != ResponseCode.NO_CONTENT) {
                 if (debug) {
                     logger.log(LogTypeId.DEBUG, "Code: " + response.getCode() + " / Length: " + response.getData().length);
