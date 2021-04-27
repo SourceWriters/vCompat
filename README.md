@@ -105,7 +105,7 @@ Please notice that you need to authenticate with GitHub Packages ([Maven](https:
     <groupId>net.sourcewriters.minecraft</groupId>
     <artifactId>vcompat</artifactId>
     <version>2.1.3</version>
-	<scope>provided</scope>
+    <scope>provided</scope>
   <dependency>
 <depedencies>
 ```
