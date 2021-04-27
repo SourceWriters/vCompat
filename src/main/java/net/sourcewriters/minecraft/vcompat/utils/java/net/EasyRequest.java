@@ -34,6 +34,8 @@ public class EasyRequest {
     private int readTimeout = 20000;
     private int connectTimeout = 30000;
 
+    private String agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36";
+
     public EasyRequest(RequestType requestType) {
         this.requestType = Objects.requireNonNull(requestType, "RequestType is needed to cast an Http request");
     }
@@ -66,6 +68,15 @@ public class EasyRequest {
     public EasyRequest setConnectTimeout(long connectTimeout, TimeUnit unit) {
         this.connectTimeout = (connectTimeout = unit.toMillis(Math.abs(connectTimeout))) > Integer.MAX_VALUE ? Integer.MAX_VALUE
             : (int) connectTimeout;
+        return this;
+    }
+
+    public String getAgent() {
+        return agent;
+    }
+
+    public EasyRequest setAgent(String agent) {
+        this.agent = Objects.requireNonNull(agent, "UserAgent cant be null!");
         return this;
     }
 
@@ -170,6 +181,7 @@ public class EasyRequest {
         for (Entry<String, ArrayList<String>> header : headers.entrySet()) {
             connection.setRequestProperty(header.getKey(), String.join("; ", header.getValue()));
         }
+        connection.setRequestProperty("User-Agent", agent);
         if (requestType.hasOutput()) {
             connection.setRequestProperty("Content-Type", content.type());
             connection.setFixedLengthStreamingMode(output ? data.length : 0);

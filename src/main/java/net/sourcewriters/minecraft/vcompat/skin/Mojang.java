@@ -21,6 +21,7 @@ import net.sourcewriters.minecraft.vcompat.reflection.PlayerProvider;
 import net.sourcewriters.minecraft.vcompat.reflection.VersionControl;
 import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsPlayer;
 import net.sourcewriters.minecraft.vcompat.utils.java.net.EasyRequest;
+import net.sourcewriters.minecraft.vcompat.utils.java.net.EasyResponse;
 import net.sourcewriters.minecraft.vcompat.utils.java.net.content.EasyUrlEncodedContent;
 import net.sourcewriters.minecraft.vcompat.utils.minecraft.MojangProfileServer;
 import net.sourcewriters.minecraft.vcompat.utils.minecraft.Skin;
@@ -145,9 +146,12 @@ public class Mojang {
                 logger.log(LogTypeId.ERROR, "Url has to be http or https!");
                 return null;
             }
-            connection.setConnectTimeout(timeout);
+            HttpURLConnection http = (HttpURLConnection) connection;
+            http.setConnectTimeout(timeout);
+            http.setReadTimeout(timeout / 2);
             try {
-                connection.connect();
+                http.connect();
+                http.disconnect();
             } catch (SocketTimeoutException exception) {
                 logger.log(LogTypeId.ERROR, "Can't connect to url!");
                 return null;
@@ -155,8 +159,8 @@ public class Mojang {
             EasyRequest request = new EasyRequest(RequestType.POST);
             request.header("Authorization", "Bearer " + profile.getAuthToken());
             request.data("url", url.toString()).data("model", model.toString());
-            int code = request.run(String.format(URL_SKIN_UPLOAD, profile.getUniqueId())).getCode();
-            if (code != ResponseCode.NO_CONTENT) {
+            EasyResponse response = request.run(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()));
+            if (response.getCode() != ResponseCode.NO_CONTENT) {
                 return null;
             }
             return apply(MojangProfileServer.getSkinShorten(profile.getUniqueId()));
@@ -199,9 +203,12 @@ public class Mojang {
                 logger.log(LogTypeId.ERROR, "Url has to be http or https!");
                 return null;
             }
-            connection.setConnectTimeout(timeout);
+            HttpURLConnection http = (HttpURLConnection) connection;
+            http.setConnectTimeout(timeout);
+            http.setReadTimeout(timeout / 2);
             try {
-                connection.connect();
+                http.connect();
+                http.disconnect();
             } catch (SocketTimeoutException exception) {
                 logger.log(LogTypeId.ERROR, "Can't connect to url!");
                 return null;
@@ -209,8 +216,8 @@ public class Mojang {
             EasyRequest request = new EasyRequest(RequestType.POST);
             request.header("Authorization", "Bearer " + profile.getAuthToken());
             request.data("url", url.toString()).data("model", model.toString());
-            int code = request.run(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), EasyUrlEncodedContent.URL_ENCODED).getCode();
-            if (code != ResponseCode.OK && code != ResponseCode.NO_CONTENT) {
+            EasyResponse response = request.run(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), EasyUrlEncodedContent.URL_ENCODED);
+            if (response.getCode() != ResponseCode.NO_CONTENT) {
                 return null;
             }
             return apply(MojangProfileServer.getSkinShorten(name, profile.getUniqueId()));
