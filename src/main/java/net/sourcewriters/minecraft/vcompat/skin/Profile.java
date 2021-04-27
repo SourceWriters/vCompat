@@ -74,12 +74,7 @@ public class Profile {
 
             int code = request.execute(String.format(AUTH_SERVER, "validate"), StandardContentType.JSON).getCode();
 
-            if (code == 204) {
-                return true;
-            } else {
-                return false;
-            }
-
+            return code == 204 || code == 200;
         } catch (IOException ignore) {
             return false;
         }
@@ -148,7 +143,7 @@ public class Profile {
 
             authToken = null;
 
-            if (!object.has("selectedProfile")) {
+            if (!response.has("selectedProfile")) {
                 return this;
             }
 
