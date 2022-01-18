@@ -101,12 +101,26 @@
 		</dependency>
 		<dependency>
 			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.18.1</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.18.1.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
+			<artifactId>spigot-1.17.1</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libraries/spigot/spigot-1.17.1.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>bukkit</groupId>
 			<artifactId>spigot-1.16.4</artifactId>
 			<version>0.1</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/libraries/spigot/spigot-1.16.4.jar</systemPath>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>bukkit</groupId>
 			<artifactId>spigot-1.16.3</artifactId>
 			<version>0.1</version>
@@ -203,7 +217,7 @@
 			<version>0.1</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/libraries/spigot/spigot-1.8.jar</systemPath>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 	<repositories>
 		<repository>
