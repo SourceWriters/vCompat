@@ -10,7 +10,7 @@ public class SkinTools1_18_R1 extends SkinTools {
 
     @Override
     public Skin skinFromPlayer(Player player) {
-        return skinFromGameProfile(((CraftPlayer) player).getHandle().getProfile());
+        return skinFromGameProfile(((CraftPlayer) player).getHandle().fp());
     }
 
 }

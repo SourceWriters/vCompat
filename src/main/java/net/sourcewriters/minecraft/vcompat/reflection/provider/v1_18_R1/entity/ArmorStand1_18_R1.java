@@ -13,12 +13,12 @@ public class ArmorStand1_18_R1 extends EntityLiving1_18_R1<EntityArmorStand> imp
 
     @Override
     public void setSmall(boolean small) {
-        handle.setSmall(small);
+        handle.a(small);
     }
 
     @Override
     public boolean isSmall() {
-        return handle.isSmall();
+        return handle.n();
     }
 
 }

@@ -110,28 +110,28 @@ public class BukkitConversion1_18_R1 extends BukkitConversion<VersionControl1_18
             return null;
         }
         NBTBase tag = (NBTBase) raw;
-        NbtType type = NbtType.getById(tag.getTypeId());
+        NbtType type = NbtType.getById(tag.a());
         switch (type) {
         case BYTE:
-            return new NbtByte(((NBTNumber) tag).asByte());
+            return new NbtByte(((NBTNumber) tag).h());
         case SHORT:
-            return new NbtShort(((NBTNumber) tag).asShort());
+            return new NbtShort(((NBTNumber) tag).g());
         case INT:
-            return new NbtInt(((NBTNumber) tag).asInt());
+            return new NbtInt(((NBTNumber) tag).f());
         case LONG:
-            return new NbtLong(((NBTNumber) tag).asLong());
+            return new NbtLong(((NBTNumber) tag).e());
         case FLOAT:
-            return new NbtFloat(((NBTNumber) tag).asFloat());
+            return new NbtFloat(((NBTNumber) tag).j());
         case DOUBLE:
-            return new NbtDouble(((NBTNumber) tag).asDouble());
+            return new NbtDouble(((NBTNumber) tag).i());
         case STRING:
-            return new NbtString(((NBTTagString) tag).asString());
+            return new NbtString(((NBTTagString) tag).e_());
         case BYTE_ARRAY:
-            return new NbtByteArray(((NBTTagByteArray) tag).getBytes());
+            return new NbtByteArray(((NBTTagByteArray) tag).d());
         case INT_ARRAY:
-            return new NbtIntArray(((NBTTagIntArray) tag).getInts());
+            return new NbtIntArray(((NBTTagIntArray) tag).f());
         case LONG_ARRAY:
-            return new NbtLongArray(((NBTTagLongArray) tag).getLongs());
+            return new NbtLongArray(((NBTTagLongArray) tag).f());
         case LIST:
             return fromMinecraftList(tag);
         case COMPOUND:
@@ -158,7 +158,7 @@ public class BukkitConversion1_18_R1 extends BukkitConversion<VersionControl1_18
             return null;
         }
         NBTTagList list = (NBTTagList) raw;
-        NbtList<NbtTag> output = new NbtList<>(NbtType.getById(list.getTypeId()));
+        NbtList<NbtTag> output = new NbtList<>(NbtType.getById(list.e()));
         for (NBTBase base : list) {
             output.add(fromMinecraftTag(base));
         }
@@ -173,7 +173,7 @@ public class BukkitConversion1_18_R1 extends BukkitConversion<VersionControl1_18
         }
         Set<String> keys = compound.getKeys();
         for (String key : keys) {
-            output.set(key, toMinecraftTag(compound.get(key)));
+            output.a(key, toMinecraftTag(compound.get(key)));
         }
         return output;
     }
@@ -185,12 +185,12 @@ public class BukkitConversion1_18_R1 extends BukkitConversion<VersionControl1_18
         }
         NBTTagCompound compound = (NBTTagCompound) raw;
         NbtCompound output = new NbtCompound();
-        if (compound.isEmpty()) {
+        if (compound.f()) {
             return output;
         }
-        Set<String> keys = compound.getKeys();
+        Set<String> keys = compound.d();
         for (String key : keys) {
-            output.set(key, fromMinecraftTag(compound.get(key)));
+            output.set(key, fromMinecraftTag(compound.c(key)));
         }
         return output;
     }
@@ -202,7 +202,7 @@ public class BukkitConversion1_18_R1 extends BukkitConversion<VersionControl1_18
 
     @Override
     public NbtCompound itemToCompound(org.bukkit.inventory.ItemStack itemStack) {
-        return fromMinecraftCompound(CraftItemStack.asNMSCopy(itemStack).save(new NBTTagCompound()));
+        return fromMinecraftCompound(CraftItemStack.asNMSCopy(itemStack).b(new NBTTagCompound()));
     }
 
     @Override

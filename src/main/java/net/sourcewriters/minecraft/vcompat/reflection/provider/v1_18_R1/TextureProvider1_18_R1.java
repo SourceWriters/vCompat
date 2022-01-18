@@ -55,17 +55,17 @@ public class TextureProvider1_18_R1 extends TextureProvider<VersionControl1_18_R
                 if (stack == null) {
                     stack = CraftItemStack.asNMSCopy(itemStack);
                 }
-                NBTTagCompound stackTag = stack.getOrCreateTag();
-                if (stackTag.hasKeyOfType("SkullOwner", 10)) {
-                    compound = stackTag.getCompound("SkullOwner");
-                } else if (stackTag.hasKeyOfType("SkullProfile", 10)) {
-                    compound = stackTag.getCompound("SkullProfile");
+                NBTTagCompound stackTag = stack.t();
+                if (stackTag.b("SkullOwner", 10)) {
+                    compound = stackTag.p("SkullOwner");
+                } else if (stackTag.b("SkullProfile", 10)) {
+                    compound = stackTag.p("SkullProfile");
                 }
             }
             if (compound == null) {
                 return null;
             }
-            profile = GameProfileSerializer.deserialize(compound);
+            profile = GameProfileSerializer.a(compound);
         }
         return profile;
     }
@@ -95,7 +95,7 @@ public class TextureProvider1_18_R1 extends TextureProvider<VersionControl1_18_R
             return false;
         }
         TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue("tileEntity", block);
-        entitySkull.setGameProfile(profile);
+        entitySkull.a(profile);
         return true;
     }
 

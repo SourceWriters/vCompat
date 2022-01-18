@@ -154,7 +154,7 @@ public class Player1_18_R1 extends EntityLiving1_18_R1<EntityPlayer> implements 
         IChatBaseComponent headerComponent = header.isEmpty() ? null : CraftChatMessage.fromStringOrNull(header, true);
         IChatBaseComponent footerComponent = footer.isEmpty() ? null : CraftChatMessage.fromStringOrNull(footer, true);
 
-        handle.b.sendPacket(new PacketPlayOutPlayerListHeaderFooter(headerComponent, footerComponent));
+        handle.b.a(new PacketPlayOutPlayerListHeaderFooter(headerComponent, footerComponent));
     }
 
     @Override
@@ -162,7 +162,7 @@ public class Player1_18_R1 extends EntityLiving1_18_R1<EntityPlayer> implements 
         if (handle.b.isDisconnected()) {
             return;
         }
-        handle.b.sendPacket(new ClientboundSetTitlesAnimationPacket(fadeIn, stay, fadeOut));
+        handle.b.a(new ClientboundSetTitlesAnimationPacket(fadeIn, stay, fadeOut));
     }
 
     @Override
@@ -170,7 +170,7 @@ public class Player1_18_R1 extends EntityLiving1_18_R1<EntityPlayer> implements 
         if (handle.b.isDisconnected()) {
             return;
         }
-        handle.b.sendPacket(new ClientboundSetSubtitleTextPacket(CraftChatMessage.fromStringOrNull(text)));
+        handle.b.a(new ClientboundSetSubtitleTextPacket(CraftChatMessage.fromStringOrNull(text)));
     }
 
     @Override
@@ -178,7 +178,7 @@ public class Player1_18_R1 extends EntityLiving1_18_R1<EntityPlayer> implements 
         if (handle.b.isDisconnected()) {
             return;
         }
-        handle.b.sendPacket(new ClientboundSetTitleTextPacket(CraftChatMessage.fromStringOrNull(text)));
+        handle.b.a(new ClientboundSetTitleTextPacket(CraftChatMessage.fromStringOrNull(text)));
     }
 
     @Override
@@ -186,7 +186,7 @@ public class Player1_18_R1 extends EntityLiving1_18_R1<EntityPlayer> implements 
         if (handle.b.isDisconnected()) {
             return;
         }
-        handle.b.sendPacket(new PacketPlayOutChat(CraftChatMessage.fromStringOrNull(text), ChatMessageType.c, SystemUtils.b));
+        handle.b.a(new PacketPlayOutChat(CraftChatMessage.fromStringOrNull(text), ChatMessageType.c, SystemUtils.b));
     }
 
     @Override
@@ -197,16 +197,16 @@ public class Player1_18_R1 extends EntityLiving1_18_R1<EntityPlayer> implements 
         PacketPlayOutPlayerInfo remInfoPacket = new PacketPlayOutPlayerInfo(EnumPlayerInfoAction.e, handle);
         PacketPlayOutPlayerInfo addInfoPacket = new PacketPlayOutPlayerInfo(EnumPlayerInfoAction.a, handle);
 
-        PacketPlayOutEntityDestroy destroyPacket = new PacketPlayOutEntityDestroy(handle.getId());
+        PacketPlayOutEntityDestroy destroyPacket = new PacketPlayOutEntityDestroy(handle.ae());
         PacketPlayOutNamedEntitySpawn spawnPacket = new PacketPlayOutNamedEntitySpawn(handle);
         PacketPlayOutEntityHeadRotation rotationPacket = new PacketPlayOutEntityHeadRotation(handle,
-            (byte) MathHelper.d(handle.getHeadRotation() * 256F / 360F));
+            (byte) MathHelper.d(handle.ce() * 256F / 360F));
 
         ArrayList<Pair<EnumItemSlot, ItemStack>> list = new ArrayList<>();
         for (EnumItemSlot slot : EnumItemSlot.values()) {
-            list.add(Pair.of(slot, handle.getEquipment(slot)));
+            list.add(Pair.of(slot, handle.b(slot)));
         }
-        PacketPlayOutEntityEquipment equipmentPacket = new PacketPlayOutEntityEquipment(handle.getId(), list);
+        PacketPlayOutEntityEquipment equipmentPacket = new PacketPlayOutEntityEquipment(handle.ae(), list);
 
         Player self = getBukkitPlayer();
         Player[] players = Players.getOnlineWithout(getUniqueId());
@@ -215,39 +215,39 @@ public class Player1_18_R1 extends EntityLiving1_18_R1<EntityPlayer> implements 
                 continue;
             }
             PlayerConnection connection = ((CraftPlayer) player).getHandle().b;
-            connection.sendPacket(remInfoPacket);
-            connection.sendPacket(addInfoPacket);
-            connection.sendPacket(destroyPacket);
-            connection.sendPacket(spawnPacket);
-            connection.sendPacket(rotationPacket);
-            connection.sendPacket(equipmentPacket);
+            connection.a(remInfoPacket);
+            connection.a(addInfoPacket);
+            connection.a(destroyPacket);
+            connection.a(spawnPacket);
+            connection.a(rotationPacket);
+            connection.a(equipmentPacket);
         }
 
         WorldServer world = (WorldServer) handle.t;
 
-        PacketPlayOutRespawn respawnPacket = new PacketPlayOutRespawn(world.getDimensionManager(), world.getDimensionKey(),
-            BiomeManager.a(world.getSeed()), handle.d.getGameMode(), handle.d.c(),
-            world.isDebugWorld(), world.isFlatWorld(), true);
-        PacketPlayOutPosition positionPacket = new PacketPlayOutPosition(handle.locX(), handle.locY(), handle.locZ(), handle.getHeadRotation(),
-            handle.getXRot(), Collections.emptySet(), 0, false);
-        PacketPlayOutHeldItemSlot itemPacket = new PacketPlayOutHeldItemSlot(handle.getInventory().k);
+        PacketPlayOutRespawn respawnPacket = new PacketPlayOutRespawn(world.q_(), world.aa(),
+            BiomeManager.a(world.E()), handle.d.b(), handle.d.c(),
+            world.ad(), world.D(), true);
+        PacketPlayOutPosition positionPacket = new PacketPlayOutPosition(handle.dc(), handle.de(), handle.di(), handle.ce(),
+            handle.dn(), Collections.emptySet(), 0, false);
+        PacketPlayOutHeldItemSlot itemPacket = new PacketPlayOutHeldItemSlot(handle.fq().k);
         PacketPlayOutEntityStatus statusPacket = new PacketPlayOutEntityStatus(handle, (byte) 28);
-        PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(handle.getId(), handle.getDataWatcher(), true);
+        PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(handle.ae(), handle.ai(), true);
 
         PlayerConnection connection = handle.b;
-        connection.sendPacket(remInfoPacket);
-        connection.sendPacket(addInfoPacket);
-        connection.sendPacket(respawnPacket);
-        connection.sendPacket(positionPacket);
-        connection.sendPacket(itemPacket);
-        connection.sendPacket(statusPacket);
-        connection.sendPacket(metadataPacket);
+        connection.a(remInfoPacket);
+        connection.a(addInfoPacket);
+        connection.a(respawnPacket);
+        connection.a(positionPacket);
+        connection.a(itemPacket);
+        connection.a(statusPacket);
+        connection.a(metadataPacket);
 
-        handle.updateAbilities();
-        handle.triggerHealthUpdate();
-        handle.bU.updateInventory();
-        if (handle.bV != handle.bU) {
-            handle.bV.updateInventory();
+        handle.w();
+        handle.u();
+        handle.bV.b();
+        if (handle.bW != handle.bV) {
+            handle.bW.b();
         }
         self.recalculatePermissions();
     }
@@ -257,7 +257,7 @@ public class Player1_18_R1 extends EntityLiving1_18_R1<EntityPlayer> implements 
         if (handle.b.isDisconnected()) {
             return;
         }
-        handle.b.sendPacket(new PacketPlayInClientCommand(EnumClientCommand.a));
+        handle.b.a(new PacketPlayInClientCommand(EnumClientCommand.a));
     }
 
     @Override
@@ -271,7 +271,7 @@ public class Player1_18_R1 extends EntityLiving1_18_R1<EntityPlayer> implements 
             realSkin = MojangProfileServer.getSkin(realName, getUniqueId());
         });
         if (flag) {
-            GameProfile profile = handle.getProfile();
+            GameProfile profile = handle.fp();
 
             Skin skin = getSkin();
             if (skin != null) {

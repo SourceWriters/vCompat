@@ -40,85 +40,85 @@ public abstract class Entity1_18_R1<E extends Entity> implements NmsEntity {
 
     @Override
     public int getId() {
-        return handle.getId();
+        return handle.ae();
     }
 
     @Override
     public UUID getUniqueId() {
-        return handle.getUniqueID();
+        return handle.cm();
     }
 
     @Override
     public NmsBoundingBox getBoundingBox() {
-        AxisAlignedBB box = handle.getBoundingBox();
+        AxisAlignedBB box = handle.cw();
         return new NmsBoundingBox(box.a, box.b, box.c, box.d, box.e, box.f);
     }
 
     @Override
     public void setCustomName(String name) {
-        handle.setCustomName(CraftChatMessage.fromStringOrNull(name));
+        handle.a(CraftChatMessage.fromStringOrNull(name));
         updateVisibility();
     }
 
     @Override
     public String getCustomName() {
-        return CraftChatMessage.fromComponent(handle.getCustomName());
+        return CraftChatMessage.fromComponent(handle.Z());
     }
 
     @Override
     public void setGravity(boolean gravity) {
-        handle.setNoGravity(!gravity);
+        handle.e(!gravity);
     }
 
     @Override
     public boolean hasGravity() {
-        return !handle.isNoGravity();
+        return !handle.aM();
     }
 
     @Override
     public void setCustomNameVisible(boolean visible) {
-        handle.setCustomNameVisible(visible);
+        handle.n(visible);
     }
 
     @Override
     public boolean isCustomNameVisible() {
-        return handle.getCustomNameVisible();
+        return handle.cr();
     }
 
     @Override
     public void setInvisible(boolean invisible) {
-        handle.setInvisible(invisible);
+        handle.j(invisible);
     }
 
     @Override
     public boolean isInvisible() {
-        return handle.isInvisible();
+        return handle.bU();
     }
 
     @Override
     public boolean isInteractable() {
-        return handle.isInteractable();
+        return handle.cf();
     }
 
     @Override
     public boolean isCollidable() {
-        return handle.isCollidable();
+        return handle.bn();
     }
 
     @Override
     public void setInvulnerable(boolean invulnerable) {
-        handle.setInvulnerable(invulnerable);
+        handle.m(invulnerable);
     }
 
     @Override
     public boolean isInvulnerable() {
-        return handle.isInvulnerable();
+        return handle.cg();
     }
 
     @Override
     public void setLocation(Location location) {
-        handle.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
-        if (location.getWorld() == null || handle.getWorld().getWorld() == location.getWorld()) {
+        handle.a(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+        if (location.getWorld() == null || handle.W().getWorld() == location.getWorld()) {
             updateVisibility();
             return;
         }
@@ -128,8 +128,8 @@ public abstract class Entity1_18_R1<E extends Entity> implements NmsEntity {
 
     @Override
     public Location getLocation() {
-        Vec3D vector = handle.getPositionVector();
-        return new Location(handle.getWorld().getWorld(), vector.b, vector.c, vector.d);
+        Vec3D vector = handle.cV();
+        return new Location(handle.W().getWorld(), vector.b, vector.c, vector.d);
     }
 
     @Override
@@ -158,12 +158,12 @@ public abstract class Entity1_18_R1<E extends Entity> implements NmsEntity {
         if (players.length == 0) {
             return;
         }
-        PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(handle.getId());
+        PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(handle.ae());
         for (Player player : players) {
             if (!isShown(player)) {
                 continue;
             }
-            ((CraftPlayer) player).getHandle().b.sendPacket(packet);
+            ((CraftPlayer) player).getHandle().b.a(packet);
             synchronized (visible) {
                 visible.remove(player.getUniqueId());
             }
@@ -176,15 +176,15 @@ public abstract class Entity1_18_R1<E extends Entity> implements NmsEntity {
             return;
         }
         PacketPlayOutSpawnEntity packet = new PacketPlayOutSpawnEntity(handle);
-        PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(handle.getId(), handle.getDataWatcher(), true);
+        PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(handle.ae(), handle.ai(), true);
         PlayerConnection connection;
         for (Player player : players) {
             if (isShown(player)) {
                 continue;
             }
             connection = ((CraftPlayer) player).getHandle().b;
-            connection.sendPacket(packet);
-            connection.sendPacket(metadataPacket);
+            connection.a(packet);
+            connection.a(metadataPacket);
             synchronized (visible) {
                 visible.add(player.getUniqueId());
             }
@@ -209,7 +209,7 @@ public abstract class Entity1_18_R1<E extends Entity> implements NmsEntity {
     @Override
     public void kill() {
         hide(getVisibleAsPlayer());
-        handle.die();
+        handle.ag();
     }
 
 }
