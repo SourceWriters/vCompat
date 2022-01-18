@@ -11,10 +11,10 @@ import com.syntaxphoenix.syntaxapi.utils.java.Times;
 import com.syntaxphoenix.syntaxapi.utils.java.tools.Container;
 
 import net.sourcewriters.minecraft.vcompat.reflection.VersionControl;
+import net.sourcewriters.minecraft.vcompat.reflection.wrapper.ConsoleReaderWrapper;
 
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.Main;
-import org.bukkit.craftbukkit.libs.jline.console.ConsoleReader;
 import org.bukkit.plugin.Plugin;
 import org.fusesource.jansi.Ansi;
 
@@ -28,19 +28,18 @@ public class BukkitLogger implements ILogger {
 
     private static final String ANSI_RESET = Ansi.ansi().reset().toString();
 
-    private static final Container<ConsoleReader> READER = Container.of();
+    private static final Container<ConsoleReaderWrapper> READER = Container.of();
 
-    private static ConsoleReader getReader() {
+    private static ConsoleReaderWrapper getReader() {
         return READER.isPresent() ? READER.get()
             : READER.replace(VersionControl.get().getToolProvider().getServerTools().getConsole()).get();
     }
-
     private final boolean ansiSupported, jLine;
 
     private final HashSet<String> colorMessage = new HashSet<>();
     private final LogTypeMap typeMap = new LogTypeMap();
     private final Writer writer;
-    private final ConsoleReader reader;
+    private final ConsoleReaderWrapper reader;
     private final String plugin;
 
     private BiConsumer<Boolean, String> custom;
@@ -57,7 +56,7 @@ public class BukkitLogger implements ILogger {
         this.plugin = plugin;
         this.reader = getReader();
         this.writer = reader.getOutput();
-        this.colored = this.ansiSupported = reader.getTerminal().isAnsiSupported();
+        this.colored = this.ansiSupported = reader.isAnsiSupported();
         this.jLine = Main.useJline;
         setDefaults();
     }

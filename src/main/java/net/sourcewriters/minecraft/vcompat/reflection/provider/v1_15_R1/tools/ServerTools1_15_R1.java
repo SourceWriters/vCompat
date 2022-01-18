@@ -1,9 +1,9 @@
 package net.sourcewriters.minecraft.vcompat.reflection.provider.v1_15_R1.tools;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.libs.jline.console.ConsoleReader;
 import org.bukkit.craftbukkit.v1_15_R1.CraftServer;
 
+import net.sourcewriters.minecraft.vcompat.reflection.provider.v1_15_R1.wrapper.ConsoleReaderWrapper1_15_R1;
 import net.sourcewriters.minecraft.vcompat.reflection.tools.ServerTools;
 
 public class ServerTools1_15_R1 extends ServerTools {
@@ -20,8 +20,8 @@ public class ServerTools1_15_R1 extends ServerTools {
     
     @SuppressWarnings("resource")
     @Override
-    public ConsoleReader getConsole() {
-        return ((CraftServer) Bukkit.getServer()).getServer().reader;
+    public ConsoleReaderWrapper1_15_R1 getConsole() {
+        return ConsoleReaderWrapper1_15_R1.INSTANCE;
     }
 
 }
