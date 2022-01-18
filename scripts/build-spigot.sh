@@ -7,6 +7,6 @@ while read line; do
     continue
   fi
   echo "Downloading Spigot $line"
-  curl "http://test.playuniverse.org/host/download/github/spigot-$line.jar" --output "$1/libraries/spigot/spigot-$line.jar"
+  curl "http://test.playuniverse.org/host/download/github/spigot-" + $line + ".jar" --output "$1/libraries/spigot/spigot-$line.jar"
 done < $versions
 echo "Download complete!"
