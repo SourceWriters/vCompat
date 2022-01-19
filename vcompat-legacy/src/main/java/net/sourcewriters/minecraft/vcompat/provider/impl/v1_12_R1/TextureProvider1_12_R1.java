@@ -10,21 +10,21 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
 
 import com.mojang.authlib.GameProfile;
-import com.syntaxphoenix.syntaxapi.reflection.AbstractReflect;
-import com.syntaxphoenix.syntaxapi.reflection.Reflect;
+
+import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 
 import net.minecraft.server.v1_12_R1.GameProfileSerializer;
 import net.minecraft.server.v1_12_R1.ItemStack;
 import net.minecraft.server.v1_12_R1.NBTTagCompound;
 import net.minecraft.server.v1_12_R1.TileEntitySkull;
-import net.sourcewriters.minecraft.vcompat.reflection.TextureProvider;
+import net.sourcewriters.minecraft.vcompat.provider.TextureProvider;
 
 @SuppressWarnings("deprecation")
 public class TextureProvider1_12_R1 extends TextureProvider<VersionControl1_12_R1> {
 
-    private final AbstractReflect craftEntityStateRef = new Reflect(CraftBlockEntityState.class).searchField("tileEntity", "tileEntity");
-    private final AbstractReflect craftItemStackRef = new Reflect(CraftItemStack.class).searchField("handle", "handle");
-    private final AbstractReflect craftMetaSkullRef = new Reflect("org.bukkit.craftbukkit.v1_12_R1.inventory.CraftMetaSkull")
+    private final ClassLookup craftEntityStateRef = ClassLookup.of(CraftBlockEntityState.class).searchField("tileEntity", "tileEntity");
+    private final ClassLookup craftItemStackRef = ClassLookup.of(CraftItemStack.class).searchField("handle", "handle");
+    private final ClassLookup craftMetaSkullRef = ClassLookup.of("org.bukkit.craftbukkit.v1_12_R1.inventory.CraftMetaSkull")
         .searchField("serialized", "serializedProfile").searchField("profile", "profile");
     private final Material skullMaterial = Material.valueOf("SKULL");
 
@@ -37,7 +37,7 @@ public class TextureProvider1_12_R1 extends TextureProvider<VersionControl1_12_R
         if (!(block instanceof CraftSkull)) {
             return null;
         }
-        TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue("tileEntity", block);
+        TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue(block, "tileEntity");
         return entitySkull.getGameProfile();
     }
 
@@ -47,13 +47,13 @@ public class TextureProvider1_12_R1 extends TextureProvider<VersionControl1_12_R
             return null;
         }
         SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
-        GameProfile profile = (GameProfile) craftMetaSkullRef.getFieldValue("profile", meta);
+        GameProfile profile = (GameProfile) craftMetaSkullRef.getFieldValue(meta, "profile");
         if (profile == null) {
-            NBTTagCompound compound = (NBTTagCompound) craftMetaSkullRef.getFieldValue("serialized", meta);
+            NBTTagCompound compound = (NBTTagCompound) craftMetaSkullRef.getFieldValue(meta, "serialized");
             if (compound == null) {
                 ItemStack stack = null;
                 if (itemStack instanceof CraftItemStack) {
-                    stack = (ItemStack) craftItemStackRef.getFieldValue("handle", itemStack);
+                    stack = (ItemStack) craftItemStackRef.getFieldValue(itemStack, "handle");
                 }
                 if (stack == null) {
                     stack = CraftItemStack.asNMSCopy(itemStack);
@@ -100,7 +100,7 @@ public class TextureProvider1_12_R1 extends TextureProvider<VersionControl1_12_R
         if (!(block instanceof CraftSkull)) {
             return false;
         }
-        TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue("tileEntity", block);
+        TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue(block, "tileEntity");
         entitySkull.setGameProfile(profile);
         return true;
     }

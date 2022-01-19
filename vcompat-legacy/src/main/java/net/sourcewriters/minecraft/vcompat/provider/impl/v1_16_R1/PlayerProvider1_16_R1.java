@@ -3,8 +3,8 @@ package net.sourcewriters.minecraft.vcompat.provider.impl.v1_16_R1;
 import org.bukkit.entity.Player;
 
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_16_R1.entity.Player1_16_R1;
-import net.sourcewriters.minecraft.vcompat.reflection.PlayerProvider;
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsPlayer;
+import net.sourcewriters.minecraft.vcompat.provider.PlayerProvider;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsPlayer;
 
 public class PlayerProvider1_16_R1 extends PlayerProvider<VersionControl1_16_R1> {
 

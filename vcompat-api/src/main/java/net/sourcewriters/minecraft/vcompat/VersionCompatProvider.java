@@ -3,6 +3,7 @@ package net.sourcewriters.minecraft.vcompat;
 import com.syntaxphoenix.syntaxapi.utils.java.tools.Container;
 
 import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
+import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookupProvider;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 
 public abstract class VersionCompatProvider {
@@ -19,11 +20,17 @@ public abstract class VersionCompatProvider {
         }
         return PROVIDER.replace((VersionCompatProvider) object).lock().get();
     }
+    
+    protected final ClassLookupProvider lookupProvider = new ClassLookupProvider();
 
     /*
      * Impl
      */
 
     public abstract VersionControl getControl();
+    
+    public final ClassLookupProvider getLookupProvider() {
+        return lookupProvider;
+    }
 
 }

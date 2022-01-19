@@ -3,7 +3,7 @@ package net.sourcewriters.minecraft.vcompat.provider.impl.v1_15_R1.data;
 import org.bukkit.persistence.PersistentDataAdapterContext;
 import org.bukkit.persistence.PersistentDataType;
 
-import net.sourcewriters.minecraft.vcompat.reflection.data.WrapType;
+import net.sourcewriters.minecraft.vcompat.provider.data.WrapType;
 
 public class SimpleBukkitType1_15_R1<P, C> implements PersistentDataType<P, C> {
 

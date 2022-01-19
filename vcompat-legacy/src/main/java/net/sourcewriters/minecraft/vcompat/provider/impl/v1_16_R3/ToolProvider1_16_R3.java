@@ -3,7 +3,7 @@ package net.sourcewriters.minecraft.vcompat.provider.impl.v1_16_R3;
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_16_R3.tools.BlockTools1_16_R3;
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_16_R3.tools.ServerTools1_16_R3;
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_16_R3.tools.SkinTools1_16_R3;
-import net.sourcewriters.minecraft.vcompat.reflection.ToolProvider;
+import net.sourcewriters.minecraft.vcompat.provider.ToolProvider;
 
 public class ToolProvider1_16_R3 extends ToolProvider<VersionControl1_16_R3> {
 

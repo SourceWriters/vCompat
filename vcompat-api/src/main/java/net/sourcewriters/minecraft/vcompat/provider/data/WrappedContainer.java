@@ -16,7 +16,7 @@ public abstract class WrappedContainer {
 
     public abstract Object getHandle();
 
-    public abstract WrappedContext<?> getContext();
+    public abstract WrappedContext<?> getWrapContext();
 
     public abstract IDataContainer getAsSyntaxContainer();
 

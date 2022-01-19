@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_8_R3.wrapper.ConsoleReaderWrapper1_8_R3;
-import net.sourcewriters.minecraft.vcompat.reflection.tools.ServerTools;
+import net.sourcewriters.minecraft.vcompat.provider.tools.ServerTools;
 
 public class ServerTools1_8_R3 extends ServerTools {
 

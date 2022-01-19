@@ -3,9 +3,9 @@ package net.sourcewriters.minecraft.vcompat.provider.impl.v1_15_R1.data;
 import org.bukkit.persistence.PersistentDataAdapterContext;
 import org.bukkit.persistence.PersistentDataContainer;
 
-import com.syntaxphoenix.syntaxapi.data.IDataContainer;
+import net.sourcewriters.minecraft.vcompat.data.api.IDataContainer;
 
-import net.sourcewriters.minecraft.vcompat.reflection.data.WrappedContext;
+import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContext;
 
 public final class SyntaxContext1_15_R1 extends WrappedContext<PersistentDataAdapterContext> implements PersistentDataAdapterContext {
 
@@ -26,12 +26,12 @@ public final class SyntaxContext1_15_R1 extends WrappedContext<PersistentDataAda
     }
 
     @Override
-    public IDataContainer newDataContainer() {
+    public IDataContainer newContainer() {
         return newContainer();
     }
 
     @Override
-    public SyntaxContainer1_15_R1 newContainer() {
+    public SyntaxContainer1_15_R1 newWrapContainer() {
         return new SyntaxContainer1_15_R1(context.newPersistentDataContainer());
     }
 

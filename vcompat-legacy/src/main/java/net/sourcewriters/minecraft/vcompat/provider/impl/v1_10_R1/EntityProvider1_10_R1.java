@@ -7,9 +7,9 @@ import org.bukkit.craftbukkit.v1_10_R1.CraftWorld;
 
 import net.minecraft.server.v1_10_R1.World;
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_10_R1.utils.EntityConstructors1_10_R1;
-import net.sourcewriters.minecraft.vcompat.reflection.EntityProvider;
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsEntity;
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsEntityType;
+import net.sourcewriters.minecraft.vcompat.provider.EntityProvider;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsEntity;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsEntityType;
 
 public class EntityProvider1_10_R1 extends EntityProvider<VersionControl1_10_R1> {
 

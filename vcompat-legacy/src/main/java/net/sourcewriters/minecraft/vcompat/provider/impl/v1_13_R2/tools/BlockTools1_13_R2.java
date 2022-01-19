@@ -5,23 +5,23 @@ import org.bukkit.craftbukkit.v1_13_R2.block.CraftSkull;
 
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
-import com.syntaxphoenix.syntaxapi.reflection.AbstractReflect;
-import com.syntaxphoenix.syntaxapi.reflection.Reflect;
+
+import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 
 import net.minecraft.server.v1_13_R2.TileEntitySkull;
-import net.sourcewriters.minecraft.vcompat.reflection.tools.BlockTools;
-import net.sourcewriters.minecraft.vcompat.utils.constants.MinecraftConstants;
+import net.sourcewriters.minecraft.vcompat.provider.tools.BlockTools;
+import net.sourcewriters.minecraft.vcompat.util.constants.MinecraftConstants;
 
 public class BlockTools1_13_R2 extends BlockTools {
 
-    private final AbstractReflect craftEntityStateRef = new Reflect(CraftSkull.class).searchField("tileEntity", "tileEntity");
+    private final ClassLookup craftEntityStateRef = ClassLookup.of(CraftSkull.class).searchField("tileEntity", "tileEntity");
 
     @Override
     public void setHeadTexture(Block block, String texture) {
         if (!(block instanceof CraftSkull)) {
             return;
         }
-        TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue("tileEntity", block);
+        TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue(block, "tileEntity");
         PropertyMap map = entitySkull.getGameProfile().getProperties();
         map.removeAll("textures");
         map.put("textures", new Property("textures", MinecraftConstants.TEXTURE_SIGNATURE, texture));
@@ -32,7 +32,7 @@ public class BlockTools1_13_R2 extends BlockTools {
         if (!(block instanceof CraftSkull)) {
             return null;
         }
-        TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue("tileEntity", block);
+        TileEntitySkull entitySkull = (TileEntitySkull) craftEntityStateRef.getFieldValue(block, "tileEntity");
         return entitySkull.getGameProfile().getProperties().get("textures").iterator().next().getValue();
     }
 

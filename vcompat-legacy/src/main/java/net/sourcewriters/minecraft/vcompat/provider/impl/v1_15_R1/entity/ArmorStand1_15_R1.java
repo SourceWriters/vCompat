@@ -3,7 +3,7 @@ package net.sourcewriters.minecraft.vcompat.provider.impl.v1_15_R1.entity;
 import net.minecraft.server.v1_15_R1.EntityArmorStand;
 import net.minecraft.server.v1_15_R1.EntityTypes;
 import net.minecraft.server.v1_15_R1.World;
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsArmorStand;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsArmorStand;
 
 public class ArmorStand1_15_R1 extends EntityLiving1_15_R1<EntityArmorStand> implements NmsArmorStand {
 

@@ -10,12 +10,12 @@ import org.bukkit.persistence.PersistentDataAdapterContext;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import com.syntaxphoenix.syntaxapi.data.IDataContainer;
+import net.sourcewriters.minecraft.vcompat.data.api.IDataContainer;
 
-import net.sourcewriters.minecraft.vcompat.reflection.data.WrapType;
-import net.sourcewriters.minecraft.vcompat.reflection.data.WrappedContainer;
-import net.sourcewriters.minecraft.vcompat.reflection.data.WrappedKey;
-import net.sourcewriters.minecraft.vcompat.reflection.data.wrap.SyntaxKey;
+import net.sourcewriters.minecraft.vcompat.provider.data.WrapType;
+import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContainer;
+import net.sourcewriters.minecraft.vcompat.provider.data.WrappedKey;
+import net.sourcewriters.minecraft.vcompat.provider.data.wrap.SyntaxKey;
 
 public final class BukkitContainer1_16_R2 extends WrappedContainer implements PersistentDataContainer {
 
@@ -71,7 +71,7 @@ public final class BukkitContainer1_16_R2 extends WrappedContainer implements Pe
 
     @Override
     public PersistentDataAdapterContext getAdapterContext() {
-        return getContext();
+        return getWrapContext();
     }
 
     /*
@@ -79,7 +79,7 @@ public final class BukkitContainer1_16_R2 extends WrappedContainer implements Pe
     */
 
     @Override
-    public BukkitContext1_16_R2 getContext() {
+    public BukkitContext1_16_R2 getWrapContext() {
         return new BukkitContext1_16_R2(container.getAdapterContext());
     }
 

@@ -1,7 +1,7 @@
 package net.sourcewriters.minecraft.vcompat.provider.impl.v1_16_R1;
 
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_16_R1.data.hook.BukkitContainerAdapterHook1_16_R1;
-import net.sourcewriters.minecraft.vcompat.reflection.VersionControl;
+import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
 
 public class VersionControl1_16_R1 extends VersionControl {
 

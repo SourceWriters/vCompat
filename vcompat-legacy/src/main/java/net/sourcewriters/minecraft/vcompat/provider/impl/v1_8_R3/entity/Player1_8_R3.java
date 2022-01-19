@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
-import com.syntaxphoenix.syntaxapi.reflection.Reflect;
+import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
@@ -32,17 +32,17 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutPosition;
 import net.minecraft.server.v1_8_R3.PacketPlayOutRespawn;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle.EnumTitleAction;
-import net.sourcewriters.minecraft.vcompat.reflection.data.WrapType;
-import net.sourcewriters.minecraft.vcompat.reflection.data.WrappedContainer;
-import net.sourcewriters.minecraft.vcompat.reflection.data.persistence.PersistentContainer;
-import net.sourcewriters.minecraft.vcompat.reflection.data.type.SkinDataType;
-import net.sourcewriters.minecraft.vcompat.reflection.data.wrap.SimpleSyntaxContainer;
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsPlayer;
-import net.sourcewriters.minecraft.vcompat.reflection.reflect.ReflectionProvider;
-import net.sourcewriters.minecraft.vcompat.utils.bukkit.Players;
-import net.sourcewriters.minecraft.vcompat.utils.minecraft.MojangProfileServer;
-import net.sourcewriters.minecraft.vcompat.utils.minecraft.Skin;
-import net.sourcewriters.minecraft.vcompat.utils.thread.PostAsync;
+import net.sourcewriters.minecraft.vcompat.provider.data.WrapType;
+import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContainer;
+import net.sourcewriters.minecraft.vcompat.provider.data.persistence.PersistentContainer;
+import net.sourcewriters.minecraft.vcompat.provider.data.type.SkinDataType;
+import net.sourcewriters.minecraft.vcompat.provider.data.wrap.SimpleSyntaxContainer;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsPlayer;
+import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookupProvider;
+import net.sourcewriters.minecraft.vcompat.util.bukkit.Players;
+import net.sourcewriters.minecraft.vcompat.util.minecraft.MojangProfileServer;
+import net.sourcewriters.minecraft.vcompat.util.minecraft.Skin;
+import net.sourcewriters.minecraft.vcompat.util.thread.PostAsync;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
 import net.minecraft.server.v1_8_R3.WorldServer;
 
@@ -151,7 +151,7 @@ public class Player1_8_R3 extends EntityLiving1_8_R3<EntityPlayer> implements Nm
 
         PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter();
 
-        Reflect reflect = ReflectionProvider.DEFAULT.getReflect("nmsPacketPlayOutPlayerListHeaderFooter");
+        ClassLookup reflect = VersionCompatProvider.get().getLookupProvider().getLookup("nmsPacketPlayOutPlayerListHeaderFooter");
         reflect.setFieldValue(packet, "header", headerComponent);
         reflect.setFieldValue(packet, "footer", footerComponent);
 
@@ -283,7 +283,7 @@ public class Player1_8_R3 extends EntityLiving1_8_R3<EntityPlayer> implements Nm
 
             String name = getName();
             if (name != null) {
-                ReflectionProvider.DEFAULT.getReflect("mjGameProfile").setFieldValue(profile, "name", name);
+                VersionCompatProvider.get().getLookupProvider().getLookup("mjGameProfile").setFieldValue(profile, "name", name);
             }
 
             if (!(name == null && skin == null)) {

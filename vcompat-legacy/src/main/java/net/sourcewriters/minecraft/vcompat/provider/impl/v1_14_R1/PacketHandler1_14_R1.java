@@ -1,6 +1,6 @@
 package net.sourcewriters.minecraft.vcompat.provider.impl.v1_14_R1;
 
-import net.sourcewriters.minecraft.vcompat.reflection.PacketHandler;
+import net.sourcewriters.minecraft.vcompat.provider.PacketHandler;
 
 public class PacketHandler1_14_R1 extends PacketHandler<VersionControl1_14_R1> {
 

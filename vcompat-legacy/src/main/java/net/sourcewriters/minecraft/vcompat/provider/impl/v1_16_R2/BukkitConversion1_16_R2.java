@@ -5,23 +5,23 @@ import java.util.Set;
 import org.bukkit.craftbukkit.v1_16_R2.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 
-import com.syntaxphoenix.syntaxapi.data.DataAdapterContext;
-import com.syntaxphoenix.syntaxapi.data.DataType;
-import com.syntaxphoenix.syntaxapi.nbt.NbtByte;
-import com.syntaxphoenix.syntaxapi.nbt.NbtByteArray;
-import com.syntaxphoenix.syntaxapi.nbt.NbtCompound;
-import com.syntaxphoenix.syntaxapi.nbt.NbtDouble;
-import com.syntaxphoenix.syntaxapi.nbt.NbtEnd;
-import com.syntaxphoenix.syntaxapi.nbt.NbtFloat;
-import com.syntaxphoenix.syntaxapi.nbt.NbtInt;
-import com.syntaxphoenix.syntaxapi.nbt.NbtIntArray;
-import com.syntaxphoenix.syntaxapi.nbt.NbtList;
-import com.syntaxphoenix.syntaxapi.nbt.NbtLong;
-import com.syntaxphoenix.syntaxapi.nbt.NbtLongArray;
-import com.syntaxphoenix.syntaxapi.nbt.NbtShort;
-import com.syntaxphoenix.syntaxapi.nbt.NbtString;
-import com.syntaxphoenix.syntaxapi.nbt.NbtTag;
-import com.syntaxphoenix.syntaxapi.nbt.NbtType;
+import net.sourcewriters.minecraft.vcompat.data.api.IDataAdapterContext;
+import net.sourcewriters.minecraft.vcompat.data.api.IDataType;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtByte;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtByteArray;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtCompound;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtDouble;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtEnd;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtFloat;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtInt;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtIntArray;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtList;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtLong;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtLongArray;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtShort;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtString;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtTag;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtType;
 
 import net.minecraft.server.v1_16_R2.ItemStack;
 import net.minecraft.server.v1_16_R2.NBTBase;
@@ -41,10 +41,10 @@ import net.minecraft.server.v1_16_R2.NBTTagShort;
 import net.minecraft.server.v1_16_R2.NBTTagString;
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_16_R2.data.BukkitContext1_16_R2;
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_16_R2.data.BukkitType1_16_R2;
-import net.sourcewriters.minecraft.vcompat.reflection.BukkitConversion;
-import net.sourcewriters.minecraft.vcompat.reflection.data.WrapType;
-import net.sourcewriters.minecraft.vcompat.reflection.data.WrappedContext;
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsEntityType;
+import net.sourcewriters.minecraft.vcompat.provider.BukkitConversion;
+import net.sourcewriters.minecraft.vcompat.provider.data.WrapType;
+import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContext;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsEntityType;
 
 public class BukkitConversion1_16_R2 extends BukkitConversion<VersionControl1_16_R2> {
 
@@ -206,12 +206,12 @@ public class BukkitConversion1_16_R2 extends BukkitConversion<VersionControl1_16
     }
 
     @Override
-    public WrappedContext<DataAdapterContext> createContext(DataAdapterContext context) {
+    public WrappedContext<IDataAdapterContext> createContext(IDataAdapterContext context) {
         return new BukkitContext1_16_R2(context);
     }
 
     @Override
-    public <P, C> WrapType<P, C> wrap(DataType<P, C> dataType) {
+    public <P, C> WrapType<P, C> wrap(IDataType<P, C> dataType) {
         return new BukkitType1_16_R2<>(dataType);
     }
 

@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_15_R1.CraftServer;
 import org.bukkit.craftbukkit.libs.jline.console.ConsoleReader;
 
-import net.sourcewriters.minecraft.vcompat.reflection.wrapper.ConsoleReaderWrapper;
+import net.sourcewriters.minecraft.vcompat.provider.wrapper.ConsoleReaderWrapper;
 
 public final class ConsoleReaderWrapper1_15_R1 extends ConsoleReaderWrapper {
 

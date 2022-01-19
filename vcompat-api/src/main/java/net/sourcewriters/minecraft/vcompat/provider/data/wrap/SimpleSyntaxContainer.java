@@ -30,7 +30,7 @@ public final class SimpleSyntaxContainer<E extends IDataContainer> extends Wrapp
     */
 
     @Override
-    public SimpleSyntaxContext getContext() {
+    public SimpleSyntaxContext getWrapContext() {
         return new SimpleSyntaxContext(container.getContext());
     }
 

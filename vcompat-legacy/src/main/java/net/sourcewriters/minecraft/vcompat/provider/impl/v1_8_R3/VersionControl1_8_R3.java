@@ -1,8 +1,8 @@
 package net.sourcewriters.minecraft.vcompat.provider.impl.v1_8_R3;
 
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_8_R3.reflection.NmsReflection1_8_R3;
-import net.sourcewriters.minecraft.vcompat.reflection.VersionControl;
-import net.sourcewriters.minecraft.vcompat.reflection.reflect.ReflectionProvider;
+import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
+import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookupProvider;
 
 public class VersionControl1_8_R3 extends VersionControl {
 
@@ -20,7 +20,7 @@ public class VersionControl1_8_R3 extends VersionControl {
     private final BukkitConversion1_8_R3 bukkitConversion = new BukkitConversion1_8_R3(this);
 
     private VersionControl1_8_R3() {
-        NmsReflection1_8_R3.INSTANCE.setup(ReflectionProvider.DEFAULT);
+        NmsReflection1_8_R3.INSTANCE.setup(VersionCompatProvider.get().getLookupProvider());
     }
 
     @Override

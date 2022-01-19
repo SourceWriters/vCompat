@@ -7,10 +7,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_11_R1.entity.Player1_11_R1;
-import net.sourcewriters.minecraft.vcompat.reflection.DataProvider;
-import net.sourcewriters.minecraft.vcompat.reflection.PlayerProvider;
-import net.sourcewriters.minecraft.vcompat.reflection.data.persistence.DataDistributor;
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsPlayer;
+import net.sourcewriters.minecraft.vcompat.provider.DataProvider;
+import net.sourcewriters.minecraft.vcompat.provider.PlayerProvider;
+import net.sourcewriters.minecraft.vcompat.provider.data.persistence.DataDistributor;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsPlayer;
 
 public class PlayerProvider1_11_R1 extends PlayerProvider<VersionControl1_11_R1> {
 

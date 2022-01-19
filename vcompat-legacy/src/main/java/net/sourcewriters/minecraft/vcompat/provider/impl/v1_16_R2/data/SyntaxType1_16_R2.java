@@ -3,13 +3,13 @@ package net.sourcewriters.minecraft.vcompat.provider.impl.v1_16_R2.data;
 import org.bukkit.persistence.PersistentDataAdapterContext;
 import org.bukkit.persistence.PersistentDataType;
 
-import com.syntaxphoenix.syntaxapi.data.DataAdapterContext;
-import com.syntaxphoenix.syntaxapi.data.DataType;
+import net.sourcewriters.minecraft.vcompat.data.api.IDataAdapterContext;
+import net.sourcewriters.minecraft.vcompat.data.api.IDataType;
 
-import net.sourcewriters.minecraft.vcompat.reflection.data.WrappedContext;
+import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContext;
 
 public class SyntaxType1_16_R2<P0, P1, C0, C1> extends WrappedType1_16_R2<PersistentDataType<P1, C1>, P0, P1, C0, C1>
-    implements DataType<P0, C0> {
+    implements IDataType<P0, C0> {
 
     private final PersistentDataType<P1, C1> type;
 
@@ -48,12 +48,12 @@ public class SyntaxType1_16_R2<P0, P1, C0, C1> extends WrappedType1_16_R2<Persis
     }
 
     @Override
-    public P0 toPrimitive(DataAdapterContext context, C0 complex) {
+    public P0 toPrimitive(IDataAdapterContext context, C0 complex) {
         return wrapToPrimitive(complex, new BukkitContext1_16_R2(context));
     }
 
     @Override
-    public C0 fromPrimitive(DataAdapterContext context, P0 primitive) {
+    public C0 fromPrimitive(IDataAdapterContext context, P0 primitive) {
         return wrapToComplex(primitive, new BukkitContext1_16_R2(context));
     }
 

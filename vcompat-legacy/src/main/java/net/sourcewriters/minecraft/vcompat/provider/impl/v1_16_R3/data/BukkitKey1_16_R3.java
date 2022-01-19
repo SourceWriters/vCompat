@@ -3,7 +3,7 @@ package net.sourcewriters.minecraft.vcompat.provider.impl.v1_16_R3.data;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.Plugin;
 
-import net.sourcewriters.minecraft.vcompat.reflection.data.WrappedKey;
+import net.sourcewriters.minecraft.vcompat.provider.data.WrappedKey;
 
 public final class BukkitKey1_16_R3 extends WrappedKey<NamespacedKey> {
 

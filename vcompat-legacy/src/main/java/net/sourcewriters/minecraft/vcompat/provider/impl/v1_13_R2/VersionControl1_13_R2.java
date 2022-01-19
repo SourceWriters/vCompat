@@ -1,6 +1,6 @@
 package net.sourcewriters.minecraft.vcompat.provider.impl.v1_13_R2;
 
-import net.sourcewriters.minecraft.vcompat.reflection.VersionControl;
+import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
 
 public class VersionControl1_13_R2 extends VersionControl {
 
@@ -12,7 +12,6 @@ public class VersionControl1_13_R2 extends VersionControl {
 
     private final ToolProvider1_13_R2 toolProvider = new ToolProvider1_13_R2(this);
     private final TextureProvider1_13_R2 textureProvider = new TextureProvider1_13_R2(this);
-    private final PacketHandler1_13_R2 packetHandler = new PacketHandler1_13_R2(this);
     private final EntityProvider1_13_R2 entityProvider = new EntityProvider1_13_R2(this);
     private final PlayerProvider1_13_R2 playerProvider = new PlayerProvider1_13_R2(this);
     private final BukkitConversion1_13_R2 bukkitConversion = new BukkitConversion1_13_R2(this);
@@ -39,11 +38,6 @@ public class VersionControl1_13_R2 extends VersionControl {
     @Override
     public TextureProvider1_13_R2 getTextureProvider() {
         return textureProvider;
-    }
-
-    @Override
-    public PacketHandler1_13_R2 getPacketHandler() {
-        return packetHandler;
     }
 
     @Override

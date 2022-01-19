@@ -35,15 +35,16 @@ import net.minecraft.server.v1_16_R2.PacketPlayOutRespawn;
 import net.minecraft.server.v1_16_R2.PacketPlayOutTitle;
 import net.minecraft.server.v1_16_R2.PacketPlayOutTitle.EnumTitleAction;
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_16_R2.data.SyntaxContainer1_16_R2;
-import net.sourcewriters.minecraft.vcompat.reflection.data.WrapType;
-import net.sourcewriters.minecraft.vcompat.reflection.data.WrappedContainer;
-import net.sourcewriters.minecraft.vcompat.reflection.data.type.SkinDataType;
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsPlayer;
-import net.sourcewriters.minecraft.vcompat.reflection.reflect.ReflectionProvider;
-import net.sourcewriters.minecraft.vcompat.utils.bukkit.Players;
-import net.sourcewriters.minecraft.vcompat.utils.minecraft.MojangProfileServer;
-import net.sourcewriters.minecraft.vcompat.utils.minecraft.Skin;
-import net.sourcewriters.minecraft.vcompat.utils.thread.PostAsync;
+import net.sourcewriters.minecraft.vcompat.VersionCompatProvider;
+import net.sourcewriters.minecraft.vcompat.provider.data.WrapType;
+import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContainer;
+import net.sourcewriters.minecraft.vcompat.provider.data.type.SkinDataType;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsPlayer;
+import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookupProvider;
+import net.sourcewriters.minecraft.vcompat.util.bukkit.Players;
+import net.sourcewriters.minecraft.vcompat.util.minecraft.MojangProfileServer;
+import net.sourcewriters.minecraft.vcompat.util.minecraft.Skin;
+import net.sourcewriters.minecraft.vcompat.util.thread.PostAsync;
 import net.minecraft.server.v1_16_R2.PlayerConnection;
 import net.minecraft.server.v1_16_R2.WorldServer;
 
@@ -283,7 +284,7 @@ public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements 
 
             String name = getName();
             if (name != null) {
-                ReflectionProvider.DEFAULT.getReflect("mjGameProfile").setFieldValue(profile, "name", name);
+                VersionCompatProvider.get().getLookupProvider().getLookup("mjGameProfile").setFieldValue(profile, "name", name);
             }
 
             if (!(name == null && skin == null)) {

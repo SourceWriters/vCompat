@@ -20,8 +20,8 @@ import net.minecraft.server.v1_16_R2.PacketPlayOutEntityMetadata;
 import net.minecraft.server.v1_16_R2.PacketPlayOutSpawnEntity;
 import net.minecraft.server.v1_16_R2.PlayerConnection;
 import net.minecraft.server.v1_16_R2.Vec3D;
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsEntity;
-import net.sourcewriters.minecraft.vcompat.reflection.utils.NmsBoundingBox;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsEntity;
+import net.sourcewriters.minecraft.vcompat.provider.utils.NmsBoundingBox;
 
 public abstract class Entity1_16_R2<E extends Entity> implements NmsEntity {
 

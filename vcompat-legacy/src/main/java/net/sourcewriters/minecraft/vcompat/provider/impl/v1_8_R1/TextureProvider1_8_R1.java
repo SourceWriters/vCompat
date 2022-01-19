@@ -9,22 +9,22 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
 
 import com.mojang.authlib.GameProfile;
-import com.syntaxphoenix.syntaxapi.reflection.AbstractReflect;
-import com.syntaxphoenix.syntaxapi.reflection.Reflect;
+
+import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 
 import net.minecraft.server.v1_8_R1.GameProfileSerializer;
 import net.minecraft.server.v1_8_R1.ItemStack;
 import net.minecraft.server.v1_8_R1.NBTTagCompound;
 import net.minecraft.server.v1_8_R1.TileEntitySkull;
-import net.sourcewriters.minecraft.vcompat.reflection.TextureProvider;
+import net.sourcewriters.minecraft.vcompat.provider.TextureProvider;
 
 @SuppressWarnings("deprecation")
 public class TextureProvider1_8_R1 extends TextureProvider<VersionControl1_8_R1> {
 
-    private final AbstractReflect craftItemStackRef = new Reflect(CraftItemStack.class).searchField("handle", "handle");
-    private final AbstractReflect craftMetaSkullRef = new Reflect("org.bukkit.craftbukkit.v1_8_R1.inventory.CraftMetaSkull")
+    private final ClassLookup craftItemStackRef = ClassLookup.of(CraftItemStack.class).searchField("handle", "handle");
+    private final ClassLookup craftMetaSkullRef = ClassLookup.of("org.bukkit.craftbukkit.v1_8_R1.inventory.CraftMetaSkull")
         .searchField("serialized", "serializedProfile").searchField("profile", "profile");
-    private final AbstractReflect craftSkullRef = new Reflect(CraftSkull.class).searchField("tileEntity", "skull");
+    private final ClassLookup craftSkullRef = ClassLookup.of(CraftSkull.class).searchField("tileEntity", "skull");
     private final Material skullMaterial = Material.valueOf("SKULL");
 
     protected TextureProvider1_8_R1(VersionControl1_8_R1 versionControl) {
@@ -36,7 +36,7 @@ public class TextureProvider1_8_R1 extends TextureProvider<VersionControl1_8_R1>
         if (!(block instanceof CraftSkull)) {
             return null;
         }
-        return ((TileEntitySkull) craftSkullRef.getFieldValue("tileEntity", block)).getGameProfile();
+        return ((TileEntitySkull) craftSkullRef.getFieldValue(block, "tileEntity")).getGameProfile();
     }
 
     @Override
@@ -45,13 +45,13 @@ public class TextureProvider1_8_R1 extends TextureProvider<VersionControl1_8_R1>
             return null;
         }
         SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
-        GameProfile profile = (GameProfile) craftMetaSkullRef.getFieldValue("profile", meta);
+        GameProfile profile = (GameProfile) craftMetaSkullRef.getFieldValue(meta, "profile");
         if (profile == null) {
-            NBTTagCompound compound = (NBTTagCompound) craftMetaSkullRef.getFieldValue("serialized", meta);
+            NBTTagCompound compound = (NBTTagCompound) craftMetaSkullRef.getFieldValue(meta, "serialized");
             if (compound == null) {
                 ItemStack stack = null;
                 if (itemStack instanceof CraftItemStack) {
-                    stack = (ItemStack) craftItemStackRef.getFieldValue("handle", itemStack);
+                    stack = (ItemStack) craftItemStackRef.getFieldValue(itemStack, "handle");
                 }
                 if (stack == null) {
                     stack = CraftItemStack.asNMSCopy(itemStack);
@@ -100,7 +100,7 @@ public class TextureProvider1_8_R1 extends TextureProvider<VersionControl1_8_R1>
         if (!(block instanceof CraftSkull)) {
             return false;
         }
-        ((TileEntitySkull) craftSkullRef.getFieldValue("tileEntity", block)).setGameProfile(profile);
+        ((TileEntitySkull) craftSkullRef.getFieldValue(block, "tileEntity")).setGameProfile(profile);
         return true;
     }
 

@@ -10,17 +10,17 @@ import org.bukkit.craftbukkit.v1_15_R1.persistence.CraftPersistentDataContainer;
 import org.bukkit.craftbukkit.v1_15_R1.persistence.CraftPersistentDataTypeRegistry;
 import org.bukkit.persistence.PersistentDataContainer;
 
-import com.syntaxphoenix.syntaxapi.data.IDataContainer;
-import com.syntaxphoenix.syntaxapi.data.container.nbt.NbtContainer;
-import com.syntaxphoenix.syntaxapi.nbt.NbtCompound;
-import com.syntaxphoenix.syntaxapi.reflection.AbstractReflect;
-import com.syntaxphoenix.syntaxapi.reflection.Reflect;
+import net.sourcewriters.minecraft.vcompat.data.api.IDataContainer;
+import net.sourcewriters.minecraft.vcompat.data.nbt.NbtContainer;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtCompound;
+
+import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 
 import net.minecraft.server.v1_15_R1.NBTTagCompound;
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_15_R1.data.BukkitContainer1_15_R1;
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_15_R1.data.SyntaxContainer1_15_R1;
-import net.sourcewriters.minecraft.vcompat.reflection.VersionControl;
-import net.sourcewriters.minecraft.vcompat.reflection.data.WrappedContainer;
+import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
+import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContainer;
 
 @SuppressWarnings({
     "rawtypes",
@@ -30,11 +30,11 @@ public final class BukkitContainerAdapterHook1_15_R1 {
 
     private static final BukkitContainerAdapterHook1_15_R1 HOOK = new BukkitContainerAdapterHook1_15_R1();
 
-    private final AbstractReflect registryRef = new Reflect(CraftPersistentDataTypeRegistry.class)
+    private final ClassLookup registryRef = ClassLookup.of(CraftPersistentDataTypeRegistry.class)
         .searchMethod("create", "createAdapter", Class.class, Class.class, Function.class, Function.class)
         .searchField("adapters", "adapters")
         .searchField("function", "CREATE_ADAPTER");
-    private final AbstractReflect entityRef = new Reflect(CraftEntity.class).searchField("registry", "DATA_TYPE_REGISTRY");
+    private final ClassLookup entityRef = ClassLookup.of(CraftEntity.class).searchField("registry", "DATA_TYPE_REGISTRY");
 
     private BukkitContainerAdapterHook1_15_R1() {}
 
@@ -46,7 +46,7 @@ public final class BukkitContainerAdapterHook1_15_R1 {
 
     private void uninjectAll() {
         for (CraftPersistentDataTypeRegistry registry : map.keySet()) {
-            Map adapters = (Map) registryRef.getFieldValue("adapters", registry);
+            Map adapters = (Map) registryRef.getFieldValue(registry, "adapters");
             adapters.remove(BukkitContainer1_15_R1.class);
             adapters.remove(SyntaxContainer1_15_R1.class);
             registryRef.setFieldValue(registry, "function", map.get(registry));
@@ -58,8 +58,8 @@ public final class BukkitContainerAdapterHook1_15_R1 {
         if (map.containsKey(registry)) {
             return;
         }
-        map.put(registry, (Function) registryRef.getFieldValue("function", registry));
-        Function function = clazz -> createAdapter(registry, registryRef.getMethod("create").getReturnType(), (Class) clazz);
+        map.put(registry, (Function) registryRef.getFieldValue(registry, "function"));
+        Function function = clazz -> createAdapter(registry, registryRef.getMethod("create").type().returnType(), (Class) clazz);
         registryRef.setFieldValue(registry, "function", function);
     }
 
@@ -89,7 +89,7 @@ public final class BukkitContainerAdapterHook1_15_R1 {
         }
         if (handle instanceof IDataContainer) {
             if (handle instanceof NbtContainer) {
-                return (NBTTagCompound) VersionControl.get().getBukkitConversion().toMinecraftCompound(((NbtContainer) handle).asNbt());
+                return (NBTTagCompound) VersionCompatProvider.get().getControl().getBukkitConversion().toMinecraftCompound(((NbtContainer) handle).asNbt());
             }
             throw new IllegalArgumentException(
                 "Expected 'CraftPersistentDataContainer' got '" + handle.getClass().getSimpleName() + " instead'!");
@@ -98,7 +98,7 @@ public final class BukkitContainerAdapterHook1_15_R1 {
     }
 
     private BukkitContainer1_15_R1 fromPrimitiveSyntax(NBTTagCompound data) {
-        VersionControl control = VersionControl.get();
+        VersionControl control = VersionCompatProvider.get().getControl();
         NbtContainer container = new NbtContainer(control.getDataProvider().getRegistry());
         NbtCompound compound = control.getBukkitConversion().fromMinecraftCompound(data);
         container.fromNbt(compound);
