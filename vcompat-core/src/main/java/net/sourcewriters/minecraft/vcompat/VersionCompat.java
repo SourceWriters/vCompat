@@ -6,6 +6,8 @@ import net.sourcewriters.minecraft.vcompat.version.Versions;
 
 final class VersionCompat extends VersionCompatProvider {
 
+    public static final String CLASSPATH = "%s.provider.impl.v%s.VersionControl%s";
+
     private final VersionControl control;
 
     public VersionCompat() {
@@ -15,7 +17,8 @@ final class VersionCompat extends VersionCompatProvider {
 
     private final VersionControl initControl() {
         Object object = ClassLookup
-            .of(VersionCompat.class.getPackageName() + ".provider.impl.v" + Versions.getServerAsString() + ".VersionControlImpl").init();
+            .of(String.format(CLASSPATH, VersionCompat.class.getPackageName(), Versions.getServerAsString(), Versions.getServerAsString()))
+            .init();
         if (object == null || !(object instanceof VersionControl)) {
             throw new IllegalStateException("Can't initialize VersionControl");
         }

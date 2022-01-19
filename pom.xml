@@ -69,5 +69,6 @@
 	<modules>
 		<module>vcompat-api</module>
 		<module>vcompat-core</module>
+		<module>vcompat-legacy</module>
 	</modules>
 </project>
