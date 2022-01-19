@@ -10,3 +10,4 @@
 */test/
 */dependency-reduced-pom.xml
 *.class
+*.jar
