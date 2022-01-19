@@ -7,9 +7,9 @@ import java.io.IOException;
 import com.syntaxphoenix.syntaxapi.json.JsonObject;
 import com.syntaxphoenix.syntaxapi.json.JsonValue;
 import com.syntaxphoenix.syntaxapi.json.ValueType;
-import com.syntaxphoenix.syntaxapi.net.http.RequestType;
 
-import net.sourcewriters.minecraft.vcompat.utils.java.net.EasyRequest;
+import net.sourcewriters.minecraft.vcompat.util.java.net.EasyRequest;
+import net.sourcewriters.minecraft.vcompat.util.java.net.EasyRequestType;
 
 public class Profile {
 
@@ -77,7 +77,7 @@ public class Profile {
             return false;
         }
         try {
-            EasyRequest request = new EasyRequest(RequestType.POST).data("accessToken", authToken).data("clientToken",
+            EasyRequest request = new EasyRequest(EasyRequestType.POST).data("accessToken", authToken).data("clientToken",
                 provider.getClientIdentifier().toString());
             return request.run(String.format(AUTH_SERVER, "validate")).getCode() == 204;
         } catch (IOException ignore) {
@@ -90,7 +90,7 @@ public class Profile {
             return this;
         }
         try {
-            EasyRequest request = new EasyRequest(RequestType.POST).data("accessToken", authToken).data("clientToken",
+            EasyRequest request = new EasyRequest(EasyRequestType.POST).data("accessToken", authToken).data("clientToken",
                 provider.getClientIdentifier().toString());
             JsonValue<?> responseRaw = request.run(String.format(AUTH_SERVER, "refresh")).getDataAsJson();
             if (!responseRaw.hasType(ValueType.OBJECT)) {
@@ -110,7 +110,7 @@ public class Profile {
 
     public Profile authenticate() {
         try {
-            EasyRequest request = new EasyRequest(RequestType.POST);
+            EasyRequest request = new EasyRequest(EasyRequestType.POST);
             JsonObject object = new JsonObject();
             JsonObject agent = new JsonObject();
             agent.set("name", "Minecraft");

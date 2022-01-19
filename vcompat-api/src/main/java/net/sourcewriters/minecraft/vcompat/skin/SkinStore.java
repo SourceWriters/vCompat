@@ -7,7 +7,7 @@ import com.syntaxphoenix.syntaxapi.nbt.NbtList;
 import com.syntaxphoenix.syntaxapi.nbt.NbtType;
 import com.syntaxphoenix.syntaxapi.nbt.utils.NbtStorage;
 
-import net.sourcewriters.minecraft.vcompat.utils.minecraft.Skin;
+import net.sourcewriters.minecraft.vcompat.util.minecraft.Skin;
 
 public abstract class SkinStore implements NbtStorage<NbtList<NbtCompound>> {
 

@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import net.sourcewriters.minecraft.vcompat.listener.PlayerListener;
 import net.sourcewriters.minecraft.vcompat.listener.handler.IPlayerHandler;
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsPlayer;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsPlayer;
 
 public class EntityManager implements IPlayerHandler {
 

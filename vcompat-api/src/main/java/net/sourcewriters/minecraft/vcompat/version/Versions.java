@@ -8,7 +8,7 @@ import org.bukkit.Bukkit;
 import com.syntaxphoenix.syntaxapi.version.DefaultVersion;
 import com.syntaxphoenix.syntaxapi.version.Version;
 
-import net.sourcewriters.minecraft.vcompat.utils.java.function.TriPredicate;
+import net.sourcewriters.minecraft.vcompat.util.java.function.TriPredicate;
 
 public abstract class Versions {
 

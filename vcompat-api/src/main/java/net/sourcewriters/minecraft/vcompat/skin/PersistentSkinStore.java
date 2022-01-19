@@ -5,9 +5,9 @@ import java.util.Optional;
 
 import com.syntaxphoenix.syntaxapi.utils.key.IKey;
 
-import net.sourcewriters.minecraft.vcompat.reflection.data.persistence.PersistentContainer;
-import net.sourcewriters.minecraft.vcompat.reflection.data.type.SkinDataType;
-import net.sourcewriters.minecraft.vcompat.utils.minecraft.Skin;
+import net.sourcewriters.minecraft.vcompat.provider.data.persistence.PersistentContainer;
+import net.sourcewriters.minecraft.vcompat.provider.data.type.SkinDataType;
+import net.sourcewriters.minecraft.vcompat.util.minecraft.Skin;
 
 public class PersistentSkinStore<E> extends SkinStore {
 

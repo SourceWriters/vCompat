@@ -14,9 +14,9 @@ import net.sourcewriters.minecraft.vcompat.entity.handler.CustomEntity;
 import net.sourcewriters.minecraft.vcompat.entity.handler.DefaultEntityType;
 import net.sourcewriters.minecraft.vcompat.entity.handler.EntityBuilder;
 import net.sourcewriters.minecraft.vcompat.entity.handler.EntityType;
-import net.sourcewriters.minecraft.vcompat.reflection.EntityProvider;
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsArmorStand;
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsEntityType;
+import net.sourcewriters.minecraft.vcompat.provider.EntityProvider;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsArmorStand;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsEntityType;
 
 public class Hologram extends CustomEntity {
 

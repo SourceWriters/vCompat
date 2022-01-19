@@ -18,8 +18,8 @@ import org.bukkit.plugin.Plugin;
 
 import net.sourcewriters.minecraft.vcompat.VersionCompatProvider;
 import net.sourcewriters.minecraft.vcompat.listener.handler.IPlayerHandler;
-import net.sourcewriters.minecraft.vcompat.reflection.PlayerProvider;
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsPlayer;
+import net.sourcewriters.minecraft.vcompat.provider.PlayerProvider;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsPlayer;
 
 public final class PlayerListener implements Listener {
 

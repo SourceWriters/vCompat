@@ -1,6 +1,6 @@
 package net.sourcewriters.minecraft.vcompat.listener.handler;
 
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsPlayer;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsPlayer;
 
 public interface IPlayerHandler {
 

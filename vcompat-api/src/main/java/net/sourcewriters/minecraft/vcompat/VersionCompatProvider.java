@@ -2,7 +2,7 @@ package net.sourcewriters.minecraft.vcompat;
 
 import com.syntaxphoenix.syntaxapi.utils.java.tools.Container;
 
-import net.sourcewriters.minecraft.vcompat.reflection.VersionControl;
+import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
 
 public abstract class VersionCompatProvider {
     
@@ -12,9 +12,9 @@ public abstract class VersionCompatProvider {
         return PROVIDER.get();
     }
     
-    public static boolean isAvailable() {
-        return PROVIDER.isPresent();
-    }
+    /*
+     * Impl
+     */
     
     public abstract VersionControl getControl();
 

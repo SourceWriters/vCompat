@@ -3,7 +3,7 @@ package net.sourcewriters.minecraft.vcompat.skin;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import net.sourcewriters.minecraft.vcompat.utils.minecraft.Skin;
+import net.sourcewriters.minecraft.vcompat.util.minecraft.Skin;
 
 public class DefaultSkinStore extends SkinStore {
 

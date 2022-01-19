@@ -14,18 +14,18 @@ import org.bukkit.entity.Player;
 
 import com.syntaxphoenix.syntaxapi.logging.ILogger;
 import com.syntaxphoenix.syntaxapi.logging.LogTypeId;
-import com.syntaxphoenix.syntaxapi.net.http.RequestType;
-import com.syntaxphoenix.syntaxapi.net.http.ResponseCode;
 
 import net.sourcewriters.minecraft.vcompat.VersionCompatProvider;
-import net.sourcewriters.minecraft.vcompat.reflection.PlayerProvider;
-import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsPlayer;
-import net.sourcewriters.minecraft.vcompat.utils.java.net.EasyRequest;
-import net.sourcewriters.minecraft.vcompat.utils.java.net.EasyResponse;
-import net.sourcewriters.minecraft.vcompat.utils.java.net.content.EasyUrlEncodedContent;
-import net.sourcewriters.minecraft.vcompat.utils.minecraft.MojangProfileServer;
-import net.sourcewriters.minecraft.vcompat.utils.minecraft.Skin;
-import net.sourcewriters.minecraft.vcompat.utils.minecraft.SkinModel;
+import net.sourcewriters.minecraft.vcompat.provider.PlayerProvider;
+import net.sourcewriters.minecraft.vcompat.provider.entity.NmsPlayer;
+import net.sourcewriters.minecraft.vcompat.util.java.net.EasyRequest;
+import net.sourcewriters.minecraft.vcompat.util.java.net.EasyRequestType;
+import net.sourcewriters.minecraft.vcompat.util.java.net.EasyResponse;
+import net.sourcewriters.minecraft.vcompat.util.java.net.EasyResponseCode;
+import net.sourcewriters.minecraft.vcompat.util.java.net.content.EasyUrlEncodedContent;
+import net.sourcewriters.minecraft.vcompat.util.minecraft.MojangProfileServer;
+import net.sourcewriters.minecraft.vcompat.util.minecraft.Skin;
+import net.sourcewriters.minecraft.vcompat.util.minecraft.SkinModel;
 
 public class Mojang {
 
@@ -170,11 +170,11 @@ public class Mojang {
                 logger.log(LogTypeId.ERROR, "Can't connect to url!");
                 return null;
             }
-            EasyRequest request = new EasyRequest(RequestType.POST);
+            EasyRequest request = new EasyRequest(EasyRequestType.POST);
             request.header("Authorization", "Bearer " + profile.getAuthToken());
             request.data("url", url.toString()).data("model", model.toString());
             EasyResponse response = request.run(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), EasyUrlEncodedContent.URL_ENCODED);
-            if (response.getCode() != ResponseCode.NO_CONTENT) {
+            if (response.getCode() != EasyResponseCode.NO_CONTENT) {
                 if (debug) {
                     logger.log(LogTypeId.DEBUG, "Code: " + response.getCode() + " / Length: " + response.getData().length);
                     logger.log(LogTypeId.DEBUG, response.getDataAsJson().toPrettyString().split("\n"));
@@ -234,11 +234,11 @@ public class Mojang {
                 logger.log(LogTypeId.ERROR, "Can't connect to url!");
                 return null;
             }
-            EasyRequest request = new EasyRequest(RequestType.POST);
+            EasyRequest request = new EasyRequest(EasyRequestType.POST);
             request.header("Authorization", "Bearer " + profile.getAuthToken());
             request.data("url", url.toString()).data("model", model.toString());
             EasyResponse response = request.run(String.format(URL_SKIN_UPLOAD, profile.getUniqueId()), EasyUrlEncodedContent.URL_ENCODED);
-            if (response.getCode() != ResponseCode.NO_CONTENT) {
+            if (response.getCode() != EasyResponseCode.NO_CONTENT) {
                 if (debug) {
                     logger.log(LogTypeId.DEBUG, "Code: " + response.getCode() + " / Length: " + response.getData().length);
                     logger.log(LogTypeId.DEBUG, response.getDataAsJson().toPrettyString().split("\n"));
