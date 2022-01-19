@@ -1,26 +1,29 @@
-<?xml version="1.0"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sourcewriters.minecraft</groupId>
-	<artifactId>vcompat</artifactId>
+	<artifactId>vcompat-parent</artifactId>
 	<version>3.0.0</version>
-	<name>vCompat</name>
-	<distributionManagement>
-		<repository>
-			<id>github</id>
-			<name>GitHub OWNER Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/SourceWriters/vCompat</url>
-		</repository>
-	</distributionManagement>
+	<packaging>pom</packaging>
+
 	<properties>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<maven.compiler.source>1.8</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>spigot</id>
+			<url>https://hub.spigotmc.org/nexus/content/repositories/public/</url>
+		</repository>
+		<repository>
+			<id>minecraft-libraries</id>
+			<url>https://libraries.minecraft.net</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
+		<!-- Minecraft -->
 		<dependency>
 			<groupId>com.mojang</groupId>
 			<artifactId>authlib</artifactId>
@@ -37,6 +40,14 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot-api</artifactId>
+			<version>1.18.1-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Syntax Api -->
 		<dependency>
 			<groupId>com.syntaxphoenix.syntaxapi</groupId>
 			<artifactId>java</artifactId>
@@ -87,163 +98,8 @@
 			<artifactId>random</artifactId>
 			<version>2.0.8</version>
 		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.5.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.5.2</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.spigotmc</groupId>
-			<artifactId>spigot-api</artifactId>
-			<version>1.18.1-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-		
-        <dependency>
-            <groupId>jline</groupId>
-            <artifactId>jline</artifactId>
-            <version>2.12.1</version>
-            <scope>provided</scope>
-        </dependency>
-		
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.18.1</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.18.1.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.17.1</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.17.1.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.16.4</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.16.4.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.16.3</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.16.3.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.16.1</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.16.1.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.15.2</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.15.2.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.14.2</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.14.2.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.13.2</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.13.2.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.13</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.13.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.12.2</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.12.2.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.11</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.11.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.10.2</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.10.2.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.9.4</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.9.4.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.9</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.9.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.8.8</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.8.8.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.8.3</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.8.3.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>bukkit</groupId>
-			<artifactId>spigot-1.8</artifactId>
-			<version>0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/spigot/spigot-1.8.jar</systemPath>
-		</dependency>
 	</dependencies>
-	<repositories>
-		<repository>
-			<id>spigot</id>
-			<url>https://hub.spigotmc.org/nexus/content/repositories/public/</url>
-		</repository>
-		<repository>
-			<id>minecraft-libraries</id>
-			<url>https://libraries.minecraft.net</url>
-		</repository>
-	</repositories>
+
 	<build>
 		<resources>
 			<resource>
@@ -274,7 +130,6 @@
 							</excludes>
 						</filter>
 					</filters>
-					<createDependencyReducedPom>true</createDependencyReducedPom>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -287,4 +142,8 @@
 			</plugin>
 		</plugins>
 	</build>
+	<modules>
+		<module>vcompat-api</module>
+		<module>vcompat-core</module>
+	</modules>
 </project>
