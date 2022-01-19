@@ -18,15 +18,20 @@ jobs:
           server-id: github
           settings-path: ${{ github.workspace }}
 
-      - name: Build Spigot dependencies
+      - name: Download Server dependencies
         run: |
-          chmod +x "${{ github.workspace }}/scripts/build-spigot.sh"
-          ${{ github.workspace }}/scripts/build-spigot.sh "${{ github.workspace }}"
+          chmod +x "${{ github.workspace }}/scripts/download-spigot.sh"
+          ${{ github.workspace }}/scripts/download-spigot.sh "${{ github.workspace }}"
+
+      - name: Download Mapping dependencies
+        run: |
+          chmod +x "${{ github.workspace }}/scripts/download-mapping.sh"
+          ${{ github.workspace }}/scripts/download-mapping.sh "${{ github.workspace }}"
 
       - name: Building maven project
-        run: mvn -B package
+        run: mvn -B package -P build-remote
 
       - name: Publish to GitHub Packages
-        run: mvn deploy -s ${{ github.workspace }}/settings.xml
+        run: mvn deploy -P build-remote -s ${{ github.workspace }}/settings.xml
         env:
           GITHUB_TOKEN: ${{ github.token }}
