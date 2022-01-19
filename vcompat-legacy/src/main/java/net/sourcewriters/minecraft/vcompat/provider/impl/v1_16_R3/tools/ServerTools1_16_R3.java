@@ -18,7 +18,6 @@ public class ServerTools1_16_R3 extends ServerTools {
         return ((CraftServer) Bukkit.getServer()).getServer().getMotd();
     }
     
-    @SuppressWarnings("resource")
     @Override
     public ConsoleReaderWrapper1_16_R3 getConsole() {
         return ConsoleReaderWrapper1_16_R3.INSTANCE;

@@ -40,7 +40,6 @@ import net.sourcewriters.minecraft.vcompat.provider.data.WrapType;
 import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContainer;
 import net.sourcewriters.minecraft.vcompat.provider.data.type.SkinDataType;
 import net.sourcewriters.minecraft.vcompat.provider.entity.NmsPlayer;
-import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookupProvider;
 import net.sourcewriters.minecraft.vcompat.util.bukkit.Players;
 import net.sourcewriters.minecraft.vcompat.util.minecraft.MojangProfileServer;
 import net.sourcewriters.minecraft.vcompat.util.minecraft.Skin;

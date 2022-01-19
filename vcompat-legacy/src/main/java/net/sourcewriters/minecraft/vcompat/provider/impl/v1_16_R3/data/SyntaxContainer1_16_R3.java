@@ -5,7 +5,9 @@ import java.util.stream.Collectors;
 
 import org.bukkit.persistence.PersistentDataContainer;
 
+import net.sourcewriters.minecraft.vcompat.VersionCompatProvider;
 import net.sourcewriters.minecraft.vcompat.data.api.IDataAdapterContext;
+import net.sourcewriters.minecraft.vcompat.data.api.IDataAdapterRegistry;
 import net.sourcewriters.minecraft.vcompat.data.api.IDataType;
 import net.sourcewriters.minecraft.vcompat.data.api.IDataContainer;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.utils.key.IKey;
@@ -31,6 +33,11 @@ public final class SyntaxContainer1_16_R3 extends WrappedContainer implements ID
     @Override
     public IDataContainer getAsSyntaxContainer() {
         return new SyntaxContainer1_16_R3(container);
+    }
+    
+    @Override
+    public IDataAdapterRegistry<?> getRegistry() {
+        return VersionCompatProvider.get().getControl().getDataProvider().getRegistry();
     }
 
     /*

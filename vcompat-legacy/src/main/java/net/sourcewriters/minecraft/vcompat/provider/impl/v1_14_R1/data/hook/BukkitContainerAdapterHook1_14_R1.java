@@ -10,6 +10,7 @@ import org.bukkit.craftbukkit.v1_14_R1.persistence.CraftPersistentDataContainer;
 import org.bukkit.craftbukkit.v1_14_R1.persistence.CraftPersistentDataTypeRegistry;
 import org.bukkit.persistence.PersistentDataContainer;
 
+import net.sourcewriters.minecraft.vcompat.VersionCompatProvider;
 import net.sourcewriters.minecraft.vcompat.data.api.IDataContainer;
 import net.sourcewriters.minecraft.vcompat.data.nbt.NbtContainer;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtCompound;

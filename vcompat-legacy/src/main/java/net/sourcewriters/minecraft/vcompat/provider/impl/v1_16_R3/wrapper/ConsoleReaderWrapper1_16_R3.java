@@ -5,6 +5,7 @@ import java.io.Writer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_16_R3.CraftServer;
+import org.bukkit.craftbukkit.Main;
 import org.bukkit.craftbukkit.libs.jline.console.ConsoleReader;
 
 import net.sourcewriters.minecraft.vcompat.provider.wrapper.ConsoleReaderWrapper;
@@ -38,6 +39,11 @@ public final class ConsoleReaderWrapper1_16_R3 extends ConsoleReaderWrapper {
     @Override
     public void drawLine() throws IOException {
         reader.drawLine();
+    }
+
+    @Override
+    public boolean isJLineSupported() {
+        return Main.useJline;
     }
 
 }

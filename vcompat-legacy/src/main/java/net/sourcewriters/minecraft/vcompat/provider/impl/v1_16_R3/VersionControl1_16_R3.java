@@ -13,7 +13,6 @@ public class VersionControl1_16_R3 extends VersionControl {
 
     private final ToolProvider1_16_R3 toolProvider = new ToolProvider1_16_R3(this);
     private final TextureProvider1_16_R3 textureProvider = new TextureProvider1_16_R3(this);
-    private final PacketHandler1_16_R3 packetHandler = new PacketHandler1_16_R3(this);
     private final EntityProvider1_16_R3 entityProvider = new EntityProvider1_16_R3(this);
     private final PlayerProvider1_16_R3 playerProvider = new PlayerProvider1_16_R3(this);
     private final BukkitConversion1_16_R3 bukkitConversion = new BukkitConversion1_16_R3(this);
@@ -40,11 +39,6 @@ public class VersionControl1_16_R3 extends VersionControl {
     @Override
     public TextureProvider1_16_R3 getTextureProvider() {
         return textureProvider;
-    }
-
-    @Override
-    public PacketHandler1_16_R3 getPacketHandler() {
-        return packetHandler;
     }
 
     @Override

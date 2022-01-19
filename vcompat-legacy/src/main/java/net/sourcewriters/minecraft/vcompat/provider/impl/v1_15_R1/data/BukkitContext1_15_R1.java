@@ -23,17 +23,17 @@ public final class BukkitContext1_15_R1 extends WrappedContext<IDataAdapterConte
 
     @Override
     public PersistentDataContainer newPersistentDataContainer() {
-        return newContainer();
+        return newWrapContainer();
     }
 
     @Override
     public IDataContainer newContainer() {
-        return context.newDataContainer();
+        return context.newContainer();
     }
 
     @Override
     public BukkitContainer1_15_R1 newWrapContainer() {
-        return new BukkitContainer1_15_R1(context.newDataContainer());
+        return new BukkitContainer1_15_R1(context.newContainer());
     }
 
 }

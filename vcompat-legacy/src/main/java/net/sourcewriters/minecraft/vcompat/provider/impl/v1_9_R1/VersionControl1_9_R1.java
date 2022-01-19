@@ -1,8 +1,8 @@
 package net.sourcewriters.minecraft.vcompat.provider.impl.v1_9_R1;
 
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_9_R1.reflection.NmsReflection1_9_R1;
+import net.sourcewriters.minecraft.vcompat.VersionCompatProvider;
 import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
-import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookupProvider;
 
 public class VersionControl1_9_R1 extends VersionControl {
 
@@ -14,7 +14,6 @@ public class VersionControl1_9_R1 extends VersionControl {
 
     private final ToolProvider1_9_R1 toolProvider = new ToolProvider1_9_R1(this);
     private final TextureProvider1_9_R1 textureProvider = new TextureProvider1_9_R1(this);
-    private final PacketHandler1_9_R1 packetHandler = new PacketHandler1_9_R1(this);
     private final EntityProvider1_9_R1 entityProvider = new EntityProvider1_9_R1(this);
     private final PlayerProvider1_9_R1 playerProvider = new PlayerProvider1_9_R1(this);
     private final BukkitConversion1_9_R1 bukkitConversion = new BukkitConversion1_9_R1(this);
@@ -41,11 +40,6 @@ public class VersionControl1_9_R1 extends VersionControl {
     @Override
     public TextureProvider1_9_R1 getTextureProvider() {
         return textureProvider;
-    }
-
-    @Override
-    public PacketHandler1_9_R1 getPacketHandler() {
-        return packetHandler;
     }
 
     @Override

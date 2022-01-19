@@ -79,7 +79,7 @@ public final class BukkitContainer1_14_R1 extends WrappedContainer implements Pe
 
     @Override
     public BukkitContext1_14_R1 getWrapContext() {
-        return new BukkitContext1_14_R1(container.getAdapterContext());
+        return new BukkitContext1_14_R1(container.getContext());
     }
 
     @Override

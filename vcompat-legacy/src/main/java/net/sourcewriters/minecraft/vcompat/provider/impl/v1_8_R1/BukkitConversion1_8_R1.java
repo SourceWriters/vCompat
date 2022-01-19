@@ -6,6 +6,7 @@ import java.util.Set;
 import org.bukkit.craftbukkit.v1_8_R1.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 
+import net.sourcewriters.minecraft.vcompat.VersionCompatProvider;
 import net.sourcewriters.minecraft.vcompat.data.api.IDataAdapterContext;
 import net.sourcewriters.minecraft.vcompat.data.api.IDataType;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtByte;
@@ -44,7 +45,6 @@ import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContext;
 import net.sourcewriters.minecraft.vcompat.provider.data.wrap.SimpleSyntaxContext;
 import net.sourcewriters.minecraft.vcompat.provider.data.wrap.SimpleWrapType;
 import net.sourcewriters.minecraft.vcompat.provider.entity.NmsEntityType;
-import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookupProvider;
 
 public class BukkitConversion1_8_R1 extends BukkitConversion<VersionControl1_8_R1> {
 
