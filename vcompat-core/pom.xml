@@ -7,7 +7,15 @@
 		<artifactId>vcompat-parent</artifactId>
 		<version>3.0.0</version>
 	</parent>
-	<artifactId>vcompat-core</artifactId>
+	<artifactId>vcompat</artifactId>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/SourceWriters/vCompat</url>
+        </repository>
+    </distributionManagement>
 
 	<dependencies>
     
