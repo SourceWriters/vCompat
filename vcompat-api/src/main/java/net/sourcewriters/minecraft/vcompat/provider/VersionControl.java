@@ -2,8 +2,6 @@ package net.sourcewriters.minecraft.vcompat.provider;
 
 public abstract class VersionControl {
 
-    public static final String CLASSPATH = "net.sourcewriters.minecraft.vcompat.reflection.provider.v$version.VersionControl$version";
-
     protected final DataProvider dataProvider = new DataProvider(this);
 
     public DataProvider getDataProvider() {
