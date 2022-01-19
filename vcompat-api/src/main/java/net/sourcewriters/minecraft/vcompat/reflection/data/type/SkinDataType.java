@@ -5,14 +5,14 @@ import com.syntaxphoenix.syntaxapi.data.DataType;
 import com.syntaxphoenix.syntaxapi.data.IDataContainer;
 import com.syntaxphoenix.syntaxapi.data.PrimitiveDataType;
 
-import net.sourcewriters.minecraft.vcompat.reflection.VersionControl;
+import net.sourcewriters.minecraft.vcompat.VersionCompatProvider;
 import net.sourcewriters.minecraft.vcompat.reflection.data.WrapType;
 import net.sourcewriters.minecraft.vcompat.utils.minecraft.Skin;
 
 public final class SkinDataType implements DataType<IDataContainer, Skin> {
 
     public static final DataType<IDataContainer, Skin> INSTANCE = new SkinDataType();
-    public static final WrapType<?, Skin> WRAPPED_INSTANCE = VersionControl.get().getBukkitConversion().wrap(INSTANCE);
+    public static final WrapType<?, Skin> WRAPPED_INSTANCE = VersionCompatProvider.get().getControl().getBukkitConversion().wrap(INSTANCE);
 
     private SkinDataType() {}
 

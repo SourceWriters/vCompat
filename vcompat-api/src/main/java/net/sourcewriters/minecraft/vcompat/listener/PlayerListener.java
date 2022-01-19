@@ -16,9 +16,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 
+import net.sourcewriters.minecraft.vcompat.VersionCompatProvider;
 import net.sourcewriters.minecraft.vcompat.listener.handler.IPlayerHandler;
 import net.sourcewriters.minecraft.vcompat.reflection.PlayerProvider;
-import net.sourcewriters.minecraft.vcompat.reflection.VersionControl;
 import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsPlayer;
 
 public final class PlayerListener implements Listener {
@@ -37,7 +37,7 @@ public final class PlayerListener implements Listener {
         INSTANCE.unregister(handler);
     }
 
-    private final PlayerProvider<?> provider = VersionControl.get().getPlayerProvider();
+    private final PlayerProvider<?> provider = VersionCompatProvider.get().getControl().getPlayerProvider();
 
     private final List<IPlayerHandler> handlers = Collections.synchronizedList(new ArrayList<>());
     private final Set<UUID> set = Collections.synchronizedSet(new HashSet<>());

@@ -10,7 +10,7 @@ import com.syntaxphoenix.syntaxapi.utils.java.Exceptions;
 import com.syntaxphoenix.syntaxapi.utils.java.Times;
 import com.syntaxphoenix.syntaxapi.utils.java.tools.Container;
 
-import net.sourcewriters.minecraft.vcompat.reflection.VersionControl;
+import net.sourcewriters.minecraft.vcompat.VersionCompatProvider;
 import net.sourcewriters.minecraft.vcompat.reflection.wrapper.ConsoleReaderWrapper;
 
 import org.bukkit.ChatColor;
@@ -31,7 +31,7 @@ public class BukkitLogger implements ILogger {
 
     private static ConsoleReaderWrapper getReader() {
         return READER.isPresent() ? READER.get()
-            : READER.replace(VersionControl.get().getToolProvider().getServerTools().getConsole()).get();
+            : READER.replace(VersionCompatProvider.get().getControl().getToolProvider().getServerTools().getConsole()).get();
     }
     private final boolean ansiSupported, jLine;
 

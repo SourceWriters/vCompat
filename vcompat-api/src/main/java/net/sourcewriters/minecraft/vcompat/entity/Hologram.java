@@ -9,17 +9,20 @@ import java.util.UUID;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import net.sourcewriters.minecraft.vcompat.VersionCompatProvider;
 import net.sourcewriters.minecraft.vcompat.entity.handler.CustomEntity;
 import net.sourcewriters.minecraft.vcompat.entity.handler.DefaultEntityType;
 import net.sourcewriters.minecraft.vcompat.entity.handler.EntityBuilder;
 import net.sourcewriters.minecraft.vcompat.entity.handler.EntityType;
-import net.sourcewriters.minecraft.vcompat.reflection.VersionControl;
+import net.sourcewriters.minecraft.vcompat.reflection.EntityProvider;
 import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsArmorStand;
 import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsEntityType;
 
 public class Hologram extends CustomEntity {
 
     public static final EntityBuilder<Hologram> BUILDER = new HologramBuilder();
+    
+    private final EntityProvider<?> entityProvider = VersionCompatProvider.get().getControl().getEntityProvider();
 
     private final ArrayList<NmsArmorStand> entities = new ArrayList<>();
     private final ArrayList<String> lines = new ArrayList<>();
@@ -213,7 +216,7 @@ public class Hologram extends CustomEntity {
 
     private void spawnEntity(String line) {
 
-        NmsArmorStand entity = (NmsArmorStand) VersionControl.get().getEntityProvider().createEntity(location.getWorld(),
+        NmsArmorStand entity = (NmsArmorStand) entityProvider.createEntity(location.getWorld(),
             NmsEntityType.ARMOR_STAND);
 
         entity.setCustomName(line);

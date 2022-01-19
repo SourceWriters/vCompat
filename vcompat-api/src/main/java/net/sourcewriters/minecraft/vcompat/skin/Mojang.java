@@ -17,8 +17,8 @@ import com.syntaxphoenix.syntaxapi.logging.LogTypeId;
 import com.syntaxphoenix.syntaxapi.net.http.RequestType;
 import com.syntaxphoenix.syntaxapi.net.http.ResponseCode;
 
+import net.sourcewriters.minecraft.vcompat.VersionCompatProvider;
 import net.sourcewriters.minecraft.vcompat.reflection.PlayerProvider;
-import net.sourcewriters.minecraft.vcompat.reflection.VersionControl;
 import net.sourcewriters.minecraft.vcompat.reflection.entity.NmsPlayer;
 import net.sourcewriters.minecraft.vcompat.utils.java.net.EasyRequest;
 import net.sourcewriters.minecraft.vcompat.utils.java.net.EasyResponse;
@@ -36,7 +36,7 @@ public class Mojang {
     private final SkinStore store;
     private final ILogger logger;
 
-    private final PlayerProvider<?> playerProvider = VersionControl.get().getPlayerProvider();
+    private final PlayerProvider<?> playerProvider = VersionCompatProvider.get().getControl().getPlayerProvider();
 
     private boolean debug = false;
 
