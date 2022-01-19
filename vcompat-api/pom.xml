@@ -16,5 +16,57 @@
 			<version>2.12.1</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- Syntax Api -->
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>java</artifactId>
+			<version>2.0.11</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>data-nbtcontainer</artifactId>
+			<version>2.0.11</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>data-base</artifactId>
+			<version>2.0.11</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>net</artifactId>
+			<version>2.0.12</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>command</artifactId>
+			<version>2.0.10</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>nbt</artifactId>
+			<version>2.0.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>version</artifactId>
+			<version>2.0.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>reflection</artifactId>
+			<version>2.0.8</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>key</artifactId>
+			<version>2.0.8</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>random</artifactId>
+			<version>2.0.8</version>
+		</dependency>
 	</dependencies>
 </project>
