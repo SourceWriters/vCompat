@@ -62,6 +62,12 @@
 							</excludes>
 						</filter>
 					</filters>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.syntaxphoenix.syntaxapi</pattern>
+                            <shadedPattern>net.sourcewriters.minecraft.vcompat.shaded.syntaxapi</shadedPattern>
+                        </relocation>
+                    </relocations>
 				</configuration>
 			</plugin>
 		</plugins>
