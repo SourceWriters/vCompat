@@ -8,7 +8,7 @@
     <artifactId>vcompat-1_18_R1</artifactId>
 
     <properties>
-        <spigot.libPath>${project.basedir}\..\libraries\spigot</spigot.libPath>
+        <spigot.libPath>${project.basedir}/../libraries/spigot</spigot.libPath>
     </properties>
 
     <repositories>
@@ -34,7 +34,7 @@
             <artifactId>remapped</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.18.1.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.18.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>it.unimi.dsi</groupId>

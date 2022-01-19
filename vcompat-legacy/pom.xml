@@ -8,7 +8,7 @@
     <artifactId>vcompat-legacy</artifactId>
 
     <properties>
-        <spigot.libPath>${project.basedir}\..\libraries\spigot</spigot.libPath>
+        <spigot.libPath>${project.basedir}/../libraries/spigot</spigot.libPath>
     </properties>
 
     <dependencies>
@@ -26,105 +26,105 @@
             <artifactId>spigot-1.16.4</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.16.4.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.16.4.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>bukkit</groupId>
             <artifactId>spigot-1.16.3</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.16.3.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.16.3.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>bukkit</groupId>
             <artifactId>spigot-1.16.1</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.16.1.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.16.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>bukkit</groupId>
             <artifactId>spigot-1.15.2</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.15.2.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.15.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>bukkit</groupId>
             <artifactId>spigot-1.14.2</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.14.2.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.14.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>bukkit</groupId>
             <artifactId>spigot-1.13.2</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.13.2.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.13.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>bukkit</groupId>
             <artifactId>spigot-1.13</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.13.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.13.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>bukkit</groupId>
             <artifactId>spigot-1.12.2</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.12.2.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.12.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>bukkit</groupId>
             <artifactId>spigot-1.11</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.11.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.11.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>bukkit</groupId>
             <artifactId>spigot-1.10.2</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.10.2.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.10.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>bukkit</groupId>
             <artifactId>spigot-1.9.4</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.9.4.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.9.4.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>bukkit</groupId>
             <artifactId>spigot-1.9</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.9.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.9.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>bukkit</groupId>
             <artifactId>spigot-1.8.8</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.8.8.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.8.8.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>bukkit</groupId>
             <artifactId>spigot-1.8.3</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.8.3.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.8.3.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>bukkit</groupId>
             <artifactId>spigot-1.8</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>${spigot.libPath}\spigot-1.8.jar</systemPath>
+            <systemPath>${spigot.libPath}/spigot-1.8.jar</systemPath>
         </dependency>
     </dependencies>
 </project>
