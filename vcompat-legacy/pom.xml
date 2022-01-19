@@ -19,7 +19,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Spigot -->
+        <!-- Minecraft -->
 
         <dependency>
             <groupId>bukkit</groupId>
