@@ -43,7 +43,7 @@ public final class ReflectionTools {
 
     public static Class<?> getClass(String classPath) {
         try {
-            return Class.forName(classPath);
+            return Class.forName(classPath, true, null);
         } catch (ClassNotFoundException ignored) {
             return null;
         }
