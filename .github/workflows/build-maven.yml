@@ -34,9 +34,9 @@ jobs:
           ${{ github.workspace }}/scripts/install-mapping.sh "${{ github.workspace }}"
 
       - name: Building maven project
-        run: mvn -B package -P build-remote
+        run: mvn -B package
 
       - name: Publish to GitHub Packages
-        run: mvn deploy -P build-remote -s ${{ github.workspace }}/settings.xml
+        run: mvn deploy -s ${{ github.workspace }}/settings.xml
         env:
           GITHUB_TOKEN: ${{ github.token }}
