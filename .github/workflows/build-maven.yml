@@ -28,6 +28,11 @@ jobs:
           chmod +x "${{ github.workspace }}/scripts/download-mapping.sh"
           ${{ github.workspace }}/scripts/download-mapping.sh "${{ github.workspace }}"
 
+      - name: Install Mapping dependencies
+        run: |
+          chmod +x "${{ github.workspace }}/scripts/install-mapping.sh"
+          ${{ github.workspace }}/scripts/install-mapping.sh "${{ github.workspace }}"
+
       - name: Building maven project
         run: mvn -B package -P build-remote
 
