@@ -4,9 +4,9 @@ import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 import net.sourcewriters.minecraft.vcompat.version.Versions;
 
-final class VersionCompat extends VersionCompatProvider {
-
-    public static final String CLASSPATH = "%s.provider.impl.v%s.VersionControl%s";
+public final class VersionCompat extends VersionCompatProvider {
+    
+    private static final String VERSION_PATH = String.format("%s.provider.impl.%s.VersionControl%s", VersionCompat.class.getPackageName(), Versions.getServerAsString(), Versions.getServerAsString().substring(1));
 
     private final VersionControl control;
 
@@ -16,9 +16,7 @@ final class VersionCompat extends VersionCompatProvider {
     }
 
     private final VersionControl initControl() {
-        Object object = ClassLookup
-            .of(String.format(CLASSPATH, VersionCompat.class.getPackageName(), Versions.getServerAsString(), Versions.getServerAsString()))
-            .init();
+        Object object = ClassLookup.of(VERSION_PATH).searchMethod("init", "init").run("init");
         if (object == null || !(object instanceof VersionControl)) {
             throw new IllegalStateException("Can't initialize VersionControl");
         }
