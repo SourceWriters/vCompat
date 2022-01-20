@@ -10,3 +10,4 @@
 */test/
 */dependency-reduced-pom.xml
 *.class
+/.apt_generated_tests/
