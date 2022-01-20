@@ -1,12 +1,12 @@
 package net.sourcewriters.minecraft.vcompat;
 
 import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
+import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 import net.sourcewriters.minecraft.vcompat.version.Versions;
-import net.sourcewriters.minecraft.vcompat.util.java.tools.ReflectionTools;
 
 public final class VersionCompat extends VersionCompatProvider {
     
-    private static final String VERSION_PATH = String.format("%s.provider.impl.v%s.VersionControl%s", VersionCompat.class.getPackageName(), Versions.getServerAsString(), Versions.getServerAsString());
+    private static final String VERSION_PATH = String.format("%s.provider.impl.%s.VersionControl%s", VersionCompat.class.getPackageName(), Versions.getServerAsString(), Versions.getServerAsString().substring(1));
 
     private final VersionControl control;
 
@@ -16,7 +16,7 @@ public final class VersionCompat extends VersionCompatProvider {
     }
 
     private final VersionControl initControl() {
-        Object object = ReflectionTools.createInstance(ReflectionTools.getClass(VERSION_PATH));
+        Object object = ClassLookup.of(VERSION_PATH).searchMethod("init", "init").run("init");
         if (object == null || !(object instanceof VersionControl)) {
             throw new IllegalStateException("Can't initialize VersionControl");
         }
