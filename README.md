@@ -24,7 +24,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![Code quality: Java][lgtm-quality-shield]][lgtm-quality-url]
 
 
 
@@ -88,7 +87,7 @@
 ### Built With
 
 * [Spigot](https://hub.spigotmc.org/stash/projects/SPIGOT/repos/spigot/browse)
-* [SyntaxApi](https://github.com/SyntaxPhoenix/syntaxapi)
+* [SyntaxApi](https://github.com/SyntaxPhoenix/SyntaxApi)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -104,7 +103,7 @@ Please notice that you need to authenticate with GitHub Packages ([Maven](https:
   <depedency>
     <groupId>net.sourcewriters.minecraft</groupId>
     <artifactId>vcompat</artifactId>
-    <version>2.1.8</version>
+    <version>3.0.0</version>
     <scope>provided</scope>
   <dependency>
 <depedencies>
@@ -118,7 +117,7 @@ plugins {
 }
 
 dependencies {
-  compileOnly group: 'net.sourcewriters.minecraft', name: 'vcompat', version: '2.1.8'
+  compileOnly group: 'net.sourcewriters.minecraft', name: 'vcompat', version: '3.0.0'
 }
 ```
 
@@ -182,5 +181,3 @@ Project Link: [https://github.com/SourceWriters/vCompat](https://github.com/Sour
 [issues-url]: https://github.com/SourceWriters/vCompat/issues
 [license-shield]: https://img.shields.io/github/license/SourceWriters/vCompat.svg?style=flat-square
 [license-url]: https://github.com/SourceWriters/vCompat/blob/master/LICENSE
-[lgtm-quality-shield]: https://img.shields.io/lgtm/grade/java/g/SourceWriters/vCompat.svg?style=flat-square
-[lgtm-quality-url]: https://lgtm.com/projects/g/SourceWriters/vCompat/context:java
