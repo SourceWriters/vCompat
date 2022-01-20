@@ -11,7 +11,7 @@ import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 import net.sourcewriters.minecraft.vcompat.provider.tools.BlockTools;
 import net.sourcewriters.minecraft.vcompat.util.constants.MinecraftConstants;
 
-public class BlockTools1_17_R1 extends BlockTools {
+public class BlockTools1_18_R1 extends BlockTools {
 
     private final ClassLookup craftEntityStateRef = ClassLookup.of(CraftSkull.class).searchField("tileEntity", "tileEntity");
 

@@ -23,13 +23,13 @@ import net.minecraft.world.phys.Vec3;
 import net.sourcewriters.minecraft.vcompat.provider.entity.NmsEntity;
 import net.sourcewriters.minecraft.vcompat.provider.utils.NmsBoundingBox;
 
-public abstract class Entity1_17_R1<E extends Entity> implements NmsEntity {
+public abstract class Entity1_18_R1<E extends Entity> implements NmsEntity {
 
     protected final E handle;
 
     protected final List<UUID> visible = Collections.synchronizedList(new ArrayList<>());
 
-    public Entity1_17_R1(E handle) {
+    public Entity1_18_R1(E handle) {
         this.handle = handle;
     }
 

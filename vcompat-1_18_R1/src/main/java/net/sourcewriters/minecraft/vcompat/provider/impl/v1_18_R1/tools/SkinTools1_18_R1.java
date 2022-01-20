@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import net.sourcewriters.minecraft.vcompat.provider.tools.SkinTools;
 import net.sourcewriters.minecraft.vcompat.util.minecraft.Skin;
 
-public class SkinTools1_17_R1 extends SkinTools {
+public class SkinTools1_18_R1 extends SkinTools {
 
     @Override
     public Skin skinFromPlayer(Player player) {

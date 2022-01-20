@@ -24,8 +24,8 @@ import net.sourcewriters.minecraft.vcompat.provider.BukkitConversion;
 import net.sourcewriters.minecraft.vcompat.provider.data.WrapType;
 import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContext;
 import net.sourcewriters.minecraft.vcompat.provider.entity.NmsEntityType;
-import net.sourcewriters.minecraft.vcompat.provider.impl.v1_18_R1.data.BukkitContext1_17_R1;
-import net.sourcewriters.minecraft.vcompat.provider.impl.v1_18_R1.data.BukkitType1_17_R1;
+import net.sourcewriters.minecraft.vcompat.provider.impl.v1_18_R1.data.BukkitContext1_18_R1;
+import net.sourcewriters.minecraft.vcompat.provider.impl.v1_18_R1.data.BukkitType1_18_R1;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtByte;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtByteArray;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtCompound;
@@ -42,9 +42,9 @@ import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtString;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtTag;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtType;
 
-public class BukkitConversion1_17_R1 extends BukkitConversion<VersionControl1_17_R1> {
+public class BukkitConversion1_18_R1 extends BukkitConversion<VersionControl1_18_R1> {
 
-    protected BukkitConversion1_17_R1(VersionControl1_17_R1 versionControl) {
+    protected BukkitConversion1_18_R1(VersionControl1_18_R1 versionControl) {
         super(versionControl);
     }
 
@@ -198,12 +198,12 @@ public class BukkitConversion1_17_R1 extends BukkitConversion<VersionControl1_17
 
     @Override
     public WrappedContext<IDataAdapterContext> createContext(IDataAdapterContext context) {
-        return new BukkitContext1_17_R1(context);
+        return new BukkitContext1_18_R1(context);
     }
 
     @Override
     public <P, C> WrapType<P, C> wrap(IDataType<P, C> dataType) {
-        return new BukkitType1_17_R1<>(dataType);
+        return new BukkitType1_18_R1<>(dataType);
     }
 
 }

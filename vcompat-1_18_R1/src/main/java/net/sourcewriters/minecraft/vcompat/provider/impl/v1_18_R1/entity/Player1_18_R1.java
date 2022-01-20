@@ -41,22 +41,22 @@ import net.sourcewriters.minecraft.vcompat.provider.data.WrapType;
 import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContainer;
 import net.sourcewriters.minecraft.vcompat.provider.data.type.SkinDataType;
 import net.sourcewriters.minecraft.vcompat.provider.entity.NmsPlayer;
-import net.sourcewriters.minecraft.vcompat.provider.impl.v1_18_R1.data.SyntaxContainer1_17_R1;
+import net.sourcewriters.minecraft.vcompat.provider.impl.v1_18_R1.data.SyntaxContainer1_18_R1;
 import net.sourcewriters.minecraft.vcompat.util.bukkit.Players;
 import net.sourcewriters.minecraft.vcompat.util.minecraft.MojangProfileServer;
 import net.sourcewriters.minecraft.vcompat.util.minecraft.Skin;
 import net.sourcewriters.minecraft.vcompat.util.thread.PostAsync;
 
-public class Player1_17_R1 extends EntityLiving1_17_R1<ServerPlayer> implements NmsPlayer {
+public class Player1_18_R1 extends EntityLiving1_18_R1<ServerPlayer> implements NmsPlayer {
 
     private String realName;
     private Skin realSkin;
 
     private final WrappedContainer dataAdapter;
 
-    public Player1_17_R1(Player player) {
+    public Player1_18_R1(Player player) {
         super(((CraftPlayer) player).getHandle());
-        dataAdapter = new SyntaxContainer1_17_R1(getBukkitPlayer().getPersistentDataContainer());
+        dataAdapter = new SyntaxContainer1_18_R1(getBukkitPlayer().getPersistentDataContainer());
         update(false);
     }
 

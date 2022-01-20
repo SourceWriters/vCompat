@@ -16,11 +16,11 @@ import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContainer;
 import net.sourcewriters.minecraft.vcompat.provider.data.WrappedKey;
 import net.sourcewriters.minecraft.vcompat.provider.data.wrap.SyntaxKey;
 
-public final class BukkitContainer1_17_R1 extends WrappedContainer implements PersistentDataContainer {
+public final class BukkitContainer1_18_R1 extends WrappedContainer implements PersistentDataContainer {
 
     private final IDataContainer container;
 
-    public BukkitContainer1_17_R1(IDataContainer container) {
+    public BukkitContainer1_18_R1(IDataContainer container) {
         this.container = container;
     }
 
@@ -40,12 +40,12 @@ public final class BukkitContainer1_17_R1 extends WrappedContainer implements Pe
 
     @Override
     public <T, Z> boolean has(NamespacedKey key, PersistentDataType<T, Z> type) {
-        return has(new BukkitKey1_17_R1(key), WrappedType1_17_R1.wrap(type));
+        return has(new BukkitKey1_18_R1(key), WrappedType1_18_R1.wrap(type));
     }
 
     @Override
     public <T, Z> Z get(NamespacedKey key, PersistentDataType<T, Z> type) {
-        return get(new BukkitKey1_17_R1(key), WrappedType1_17_R1.wrap(type));
+        return get(new BukkitKey1_18_R1(key), WrappedType1_18_R1.wrap(type));
     }
 
     @Override
@@ -55,17 +55,17 @@ public final class BukkitContainer1_17_R1 extends WrappedContainer implements Pe
 
     @Override
     public <T, Z> void set(NamespacedKey key, PersistentDataType<T, Z> type, Z value) {
-        set(new BukkitKey1_17_R1(key), value, WrappedType1_17_R1.wrap(type));
+        set(new BukkitKey1_18_R1(key), value, WrappedType1_18_R1.wrap(type));
     }
 
     @Override
     public void remove(NamespacedKey key) {
-        remove(new BukkitKey1_17_R1(key));
+        remove(new BukkitKey1_18_R1(key));
     }
 
     @Override
     public Set<NamespacedKey> getKeys() {
-        return Arrays.stream(container.getKeys()).map(SyntaxKey::new).map(BukkitKey1_17_R1::asBukkit).collect(Collectors.toSet());
+        return Arrays.stream(container.getKeys()).map(SyntaxKey::new).map(BukkitKey1_18_R1::asBukkit).collect(Collectors.toSet());
     }
 
     @Override
@@ -78,8 +78,8 @@ public final class BukkitContainer1_17_R1 extends WrappedContainer implements Pe
     */
 
     @Override
-    public BukkitContext1_17_R1 getWrapContext() {
-        return new BukkitContext1_17_R1(container.getContext());
+    public BukkitContext1_18_R1 getWrapContext() {
+        return new BukkitContext1_18_R1(container.getContext());
     }
 
     @Override

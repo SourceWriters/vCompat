@@ -16,8 +16,8 @@ import net.sourcewriters.minecraft.vcompat.data.api.IDataContainer;
 import net.sourcewriters.minecraft.vcompat.data.nbt.NbtContainer;
 import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
 import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContainer;
-import net.sourcewriters.minecraft.vcompat.provider.impl.v1_18_R1.data.BukkitContainer1_17_R1;
-import net.sourcewriters.minecraft.vcompat.provider.impl.v1_18_R1.data.SyntaxContainer1_17_R1;
+import net.sourcewriters.minecraft.vcompat.provider.impl.v1_18_R1.data.BukkitContainer1_18_R1;
+import net.sourcewriters.minecraft.vcompat.provider.impl.v1_18_R1.data.SyntaxContainer1_18_R1;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtCompound;
 
@@ -25,9 +25,9 @@ import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtCompound;
     "rawtypes",
     "unchecked"
 })
-public final class BukkitContainerAdapterHook1_17_R1 {
+public final class BukkitContainerAdapterHook1_18_R1 {
 
-    private static final BukkitContainerAdapterHook1_17_R1 HOOK = new BukkitContainerAdapterHook1_17_R1();
+    private static final BukkitContainerAdapterHook1_18_R1 HOOK = new BukkitContainerAdapterHook1_18_R1();
 
     private final ClassLookup registryRef = ClassLookup.of(CraftPersistentDataTypeRegistry.class)
         .searchMethod("create", "createAdapter", Class.class, Class.class, Function.class, Function.class)
@@ -35,7 +35,7 @@ public final class BukkitContainerAdapterHook1_17_R1 {
         .searchField("function", "CREATE_ADAPTER");
     private final ClassLookup entityRef = ClassLookup.of(CraftEntity.class).searchField("registry", "DATA_TYPE_REGISTRY");
 
-    private BukkitContainerAdapterHook1_17_R1() {}
+    private BukkitContainerAdapterHook1_18_R1() {}
 
     private final HashMap<CraftPersistentDataTypeRegistry, Function> map = new HashMap<>();
 
@@ -46,8 +46,8 @@ public final class BukkitContainerAdapterHook1_17_R1 {
     private void uninjectAll() {
         for (CraftPersistentDataTypeRegistry registry : map.keySet()) {
             Map adapters = (Map) registryRef.getFieldValue(registry, "adapters");
-            adapters.remove(BukkitContainer1_17_R1.class);
-            adapters.remove(SyntaxContainer1_17_R1.class);
+            adapters.remove(BukkitContainer1_18_R1.class);
+            adapters.remove(SyntaxContainer1_18_R1.class);
             registryRef.setFieldValue(registry, "function", map.get(registry));
         }
         map.clear();
@@ -63,11 +63,11 @@ public final class BukkitContainerAdapterHook1_17_R1 {
     }
 
     private <E> E createAdapter(CraftPersistentDataTypeRegistry registry, Class<E> adapterType, Class type) {
-        if (Objects.equals(BukkitContainer1_17_R1.class, type)) {
-            return (E) buildAdapter(registry, BukkitContainer1_17_R1.class, tag -> fromPrimitiveSyntax(tag));
+        if (Objects.equals(BukkitContainer1_18_R1.class, type)) {
+            return (E) buildAdapter(registry, BukkitContainer1_18_R1.class, tag -> fromPrimitiveSyntax(tag));
         }
-        if (Objects.equals(SyntaxContainer1_17_R1.class, type)) {
-            return (E) buildAdapter(registry, SyntaxContainer1_17_R1.class, tag -> fromPrimitiveBukkit(registry, tag));
+        if (Objects.equals(SyntaxContainer1_18_R1.class, type)) {
+            return (E) buildAdapter(registry, SyntaxContainer1_18_R1.class, tag -> fromPrimitiveBukkit(registry, tag));
         }
         return (E) map.get(registry).apply(type);
     }
@@ -96,18 +96,18 @@ public final class BukkitContainerAdapterHook1_17_R1 {
         throw new IllegalArgumentException("Unknown WrappedContainer implementation!");
     }
 
-    private BukkitContainer1_17_R1 fromPrimitiveSyntax(CompoundTag data) {
+    private BukkitContainer1_18_R1 fromPrimitiveSyntax(CompoundTag data) {
         VersionControl control = VersionCompatProvider.get().getControl();
         NbtContainer container = new NbtContainer(control.getDataProvider().getRegistry());
         NbtCompound compound = control.getBukkitConversion().fromMinecraftCompound(data);
         container.fromNbt(compound);
-        return new BukkitContainer1_17_R1(container);
+        return new BukkitContainer1_18_R1(container);
     }
 
-    private SyntaxContainer1_17_R1 fromPrimitiveBukkit(CraftPersistentDataTypeRegistry registry, CompoundTag data) {
+    private SyntaxContainer1_18_R1 fromPrimitiveBukkit(CraftPersistentDataTypeRegistry registry, CompoundTag data) {
         CraftPersistentDataContainer container = new CraftPersistentDataContainer(registry);
         container.putAll(data);
-        return new SyntaxContainer1_17_R1(container);
+        return new SyntaxContainer1_18_R1(container);
     }
 
     private WrappedContainer findFinalContainer(WrappedContainer container) {

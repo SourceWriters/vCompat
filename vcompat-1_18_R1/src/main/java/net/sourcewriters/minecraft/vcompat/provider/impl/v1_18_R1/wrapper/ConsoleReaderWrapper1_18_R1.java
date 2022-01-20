@@ -12,14 +12,14 @@ import org.bukkit.craftbukkit.v1_18_R1.CraftServer;
 
 import jline.console.ConsoleReader;
 
-public final class ConsoleReaderWrapper1_17_R1 extends ConsoleReaderWrapper {
+public final class ConsoleReaderWrapper1_18_R1 extends ConsoleReaderWrapper {
 
-    public static final ConsoleReaderWrapper1_17_R1 INSTANCE = new ConsoleReaderWrapper1_17_R1();
+    public static final ConsoleReaderWrapper1_18_R1 INSTANCE = new ConsoleReaderWrapper1_18_R1();
     
     private final ConsoleReader reader;
     
     @SuppressWarnings("resource")
-    private ConsoleReaderWrapper1_17_R1() {
+    private ConsoleReaderWrapper1_18_R1() {
         this.reader = ((CraftServer) Bukkit.getServer()).getServer().reader;
     }
 

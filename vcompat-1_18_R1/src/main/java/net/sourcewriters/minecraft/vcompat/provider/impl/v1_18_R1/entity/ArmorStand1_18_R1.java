@@ -5,9 +5,9 @@ import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.level.Level;
 import net.sourcewriters.minecraft.vcompat.provider.entity.NmsArmorStand;
 
-public class ArmorStand1_17_R1 extends EntityLiving1_17_R1<ArmorStand> implements NmsArmorStand {
+public class ArmorStand1_18_R1 extends EntityLiving1_18_R1<ArmorStand> implements NmsArmorStand {
 
-    public ArmorStand1_17_R1(Level world) {
+    public ArmorStand1_18_R1(Level world) {
         super(new ArmorStand(EntityType.ARMOR_STAND, world));
     }
 

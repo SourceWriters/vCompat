@@ -17,14 +17,14 @@ import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.sourcewriters.minecraft.vcompat.provider.TextureProvider;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 
-public class TextureProvider1_17_R1 extends TextureProvider<VersionControl1_17_R1> {
+public class TextureProvider1_18_R1 extends TextureProvider<VersionControl1_18_R1> {
 
     private final ClassLookup craftEntityStateRef = ClassLookup.of(CraftBlockEntityState.class).searchField("tileEntity", "tileEntity");
     private final ClassLookup craftItemStackRef = ClassLookup.of(CraftItemStack.class).searchField("handle", "handle");
     private final ClassLookup craftMetaSkullRef = ClassLookup.of("org.bukkit.craftbukkit.v1_17_R1.inventory.CraftMetaSkull")
         .searchField("serialized", "serializedProfile").searchField("profile", "profile");
 
-    protected TextureProvider1_17_R1(VersionControl1_17_R1 versionControl) {
+    protected TextureProvider1_18_R1(VersionControl1_18_R1 versionControl) {
         super(versionControl);
     }
 

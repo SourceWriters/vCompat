@@ -6,12 +6,12 @@ import org.bukkit.persistence.PersistentDataType;
 import net.sourcewriters.minecraft.vcompat.data.api.IDataType;
 import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContext;
 
-public class BukkitType1_17_R1<P0, P1, C0, C1> extends WrappedType1_17_R1<IDataType<P1, C1>, P0, P1, C0, C1>
+public class BukkitType1_18_R1<P0, P1, C0, C1> extends WrappedType1_18_R1<IDataType<P1, C1>, P0, P1, C0, C1>
     implements PersistentDataType<P0, C0> {
 
     private final IDataType<P1, C1> type;
 
-    public BukkitType1_17_R1(IDataType<P1, C1> type) {
+    public BukkitType1_18_R1(IDataType<P1, C1> type) {
         super(type.getPrimitive(), type.getComplex());
         this.type = type;
     }
@@ -47,12 +47,12 @@ public class BukkitType1_17_R1<P0, P1, C0, C1> extends WrappedType1_17_R1<IDataT
 
     @Override
     public P0 toPrimitive(C0 complex, PersistentDataAdapterContext context) {
-        return wrapToPrimitive(complex, new SyntaxContext1_17_R1(context));
+        return wrapToPrimitive(complex, new SyntaxContext1_18_R1(context));
     }
 
     @Override
     public C0 fromPrimitive(P0 primitive, PersistentDataAdapterContext context) {
-        return wrapToComplex(primitive, new SyntaxContext1_17_R1(context));
+        return wrapToComplex(primitive, new SyntaxContext1_18_R1(context));
     }
 
     @Override
