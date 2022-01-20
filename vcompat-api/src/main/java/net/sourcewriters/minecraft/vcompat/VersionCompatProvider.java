@@ -4,7 +4,7 @@ import com.syntaxphoenix.syntaxapi.utils.java.tools.Container;
 
 import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookupProvider;
-import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
+import net.sourcewriters.minecraft.vcompat.util.java.tools.ReflectionTools;
 
 public abstract class VersionCompatProvider {
 
@@ -14,7 +14,7 @@ public abstract class VersionCompatProvider {
         if (PROVIDER.isPresent()) {
             return PROVIDER.get();
         }
-        Object object = ClassLookup.of(VersionCompatProvider.class.getPackageName() + ".VersionCompat").init();
+        Object object = ReflectionTools.createInstance(ReflectionTools.getClass(VersionCompatProvider.class.getPackageName() + ".VersionCompat"));
         if (object == null || !(object instanceof VersionCompatProvider)) {
             throw new IllegalStateException("Can't initialize VersionCompatProvider!");
         }

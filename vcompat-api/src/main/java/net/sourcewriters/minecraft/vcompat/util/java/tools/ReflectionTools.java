@@ -49,6 +49,14 @@ public final class ReflectionTools {
         }
     }
 
+    public static Object createInstance(Class<?> clazz) {
+        try {
+            return clazz.getConstructor().newInstance();
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
     public static Object getValue(Field field, Object source) {
         if (field != null) {
             boolean access = field.canAccess(source);
