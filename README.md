@@ -121,9 +121,6 @@ dependencies {
 }
 ```
 
-Please use the [vCompat Updater](https://github.com/SourceWriters/vCompatUpdater) to use vCompat in your projects!
-An example implementation can be found [here](https://github.com/SourceWriters/vCompatExample)
-
 <!-- USAGE EXAMPLES -->
 ## Usage
 
