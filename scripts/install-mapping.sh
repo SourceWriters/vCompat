@@ -8,12 +8,12 @@ while read line; do
     continue
   fi
   echo "Install Server Mappings (.jar / remapped) $line"
-  mvn install:install-file -Dfile=$1/libraries/spigot/spigot-$line.jar -DgroupId=org.spigotmc -DartifactId=spigot -Dversion=$line-R0.1-SNAPSHOT -Dclassifier=remapped-mojang
+  mvn install:install-file -Dfile=$1/libraries/spigot/spigot-$line.jar -Dpackaging=jar -DgroupId=org.spigotmc -DartifactId=spigot -Dversion=$line-R0.1-SNAPSHOT -Dclassifier=remapped-mojang
   echo "Install Server Mappings (.jar / obfuscated) $line"
-  mvn install:install-file -Dfile=$1/libraries/spigot/spigot-$line-obf.jar -DgroupId=org.spigotmc -DartifactId=spigot -Dversion=$line-R0.1-SNAPSHOT -Dclassifier=remapped-obf
+  mvn install:install-file -Dfile=$1/libraries/spigot/spigot-$line-obf.jar -Dpackaging=jar -DgroupId=org.spigotmc -DartifactId=spigot -Dversion=$line-R0.1-SNAPSHOT -Dclassifier=remapped-obf
   echo "Install Server Mappings (.txt) $line"
-  mvn install:install-file -Dfile=$1/libraries/mapping/mapping-$line.txt -DgroupId=org.spigotmc -DartifactId=minecraft-server -Dversion=$line-R0.1-SNAPSHOT -Dclassifier=maps-mojang
+  mvn install:install-file -Dfile=$1/libraries/mapping/mapping-$line.txt -Dpackaging=txt -DgroupId=org.spigotmc -DartifactId=minecraft-server -Dversion=$line-R0.1-SNAPSHOT -Dclassifier=maps-mojang
   echo "Install Server Mappings (.csrg) $line"
-  mvn install:install-file -Dfile=$1/libraries/mapping/mapping-$line.csrg -DgroupId=org.spigotmc -DartifactId=minecraft-server -Dversion=$line-R0.1-SNAPSHOT -Dclassifier=maps-spigot
+  mvn install:install-file -Dfile=$1/libraries/mapping/mapping-$line.csrg -Dpackaging=csrg -DgroupId=org.spigotmc -DartifactId=minecraft-server -Dversion=$line-R0.1-SNAPSHOT -Dclassifier=maps-spigot
 done < $versions
 echo "Installation complete!"
