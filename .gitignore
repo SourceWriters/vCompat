@@ -8,7 +8,10 @@
 */.project
 */.gitlab-ci.yml
 */test/
-/libraries/spigot/
 */dependency-reduced-pom.xml
 *.class
 *.jar
+/libraries/spigot/
+/.settings/
+/.project
+/.classpath
