@@ -19,8 +19,7 @@ public class DataProvider extends VersionHandler<VersionControl> {
     public static final Supplier<UUID> DEFAULT_RANDOM = UUID::randomUUID;
 
     protected final NbtAdapterRegistry registry = new NbtAdapterRegistry();
-    protected final DataDistributor<UUID> defaultDistributor = createDistributor(
-        new File(Bukkit.getWorlds().get(0).getWorldFolder(), "pluginData"));
+    private DataDistributor<UUID> defaultDistributor;
 
     protected DataProvider(VersionControl versionControl) {
         super(versionControl);
@@ -35,10 +34,13 @@ public class DataProvider extends VersionHandler<VersionControl> {
     }
 
     public WrappedContainer createPersistentContainer() {
-        return new SimpleSyntaxContainer<>(defaultDistributor.create());
+        return new SimpleSyntaxContainer<>(getDefaultDistributor().create());
     }
 
     public DataDistributor<UUID> getDefaultDistributor() {
+        if (defaultDistributor == null) {
+            return defaultDistributor = createDistributor(new File(Bukkit.getWorlds().get(0).getWorldFolder(), "pluginData"));
+        }
         return defaultDistributor;
     }
 
