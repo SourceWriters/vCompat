@@ -14,7 +14,7 @@ import net.sourcewriters.minecraft.vcompat.VersionCompatProvider;
 import net.sourcewriters.minecraft.vcompat.data.api.IDataContainer;
 import net.sourcewriters.minecraft.vcompat.data.nbt.NbtContainer;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtCompound;
-
+import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookupProvider;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 
 import net.minecraft.server.v1_16_R2.NBTTagCompound;
@@ -31,13 +31,16 @@ public final class BukkitContainerAdapterHook1_16_R2 {
 
     private static final BukkitContainerAdapterHook1_16_R2 HOOK = new BukkitContainerAdapterHook1_16_R2();
 
-    private final ClassLookup registryRef = ClassLookup.of(CraftPersistentDataTypeRegistry.class)
-        .searchMethod("create", "createAdapter", Class.class, Class.class, Function.class, Function.class)
-        .searchField("adapters", "adapters")
-        .searchField("function", "CREATE_ADAPTER");
-    private final ClassLookup entityRef = ClassLookup.of(CraftEntity.class).searchField("registry", "DATA_TYPE_REGISTRY");
+    private final ClassLookup registryRef;
+    private final ClassLookup entityRef;
 
-    private BukkitContainerAdapterHook1_16_R2() {}
+    private BukkitContainerAdapterHook1_16_R2() {
+        ClassLookupProvider provider = VersionCompatProvider.get().getLookupProvider();
+        registryRef = provider.createLookup("CraftPersistentDataTypeRegistry", CraftPersistentDataTypeRegistry.class)
+            .searchMethod("create", "createAdapter", Class.class, Class.class, Function.class, Function.class)
+            .searchField("adapters", "adapters").searchField("function", "CREATE_ADAPTER");
+        entityRef = provider.createLookup("CraftEntity", CraftEntity.class).searchField("registry", "DATA_TYPE_REGISTRY");
+    }
 
     private final HashMap<CraftPersistentDataTypeRegistry, Function> map = new HashMap<>();
 
@@ -60,7 +63,7 @@ public final class BukkitContainerAdapterHook1_16_R2 {
             return;
         }
         map.put(registry, (Function) registryRef.getFieldValue(registry, "function"));
-        Function function = clazz -> createAdapter(registry, registryRef.getMethod("create").type().returnType(), (Class) clazz);
+        Function function = clazz -> createAdapter(registry, registryRef.getMethod("create").getReturnType(), (Class) clazz);
         registryRef.setFieldValue(registry, "function", function);
     }
 

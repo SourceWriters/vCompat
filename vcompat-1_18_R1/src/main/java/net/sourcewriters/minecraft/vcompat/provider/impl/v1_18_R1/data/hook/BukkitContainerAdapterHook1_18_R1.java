@@ -18,6 +18,7 @@ import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
 import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContainer;
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_18_R1.data.BukkitContainer1_18_R1;
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_18_R1.data.SyntaxContainer1_18_R1;
+import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookupProvider;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtCompound;
 
@@ -29,13 +30,16 @@ public final class BukkitContainerAdapterHook1_18_R1 {
 
     private static final BukkitContainerAdapterHook1_18_R1 HOOK = new BukkitContainerAdapterHook1_18_R1();
 
-    private final ClassLookup registryRef = ClassLookup.of(CraftPersistentDataTypeRegistry.class)
-        .searchMethod("create", "createAdapter", Class.class, Class.class, Function.class, Function.class)
-        .searchField("adapters", "adapters")
-        .searchField("function", "CREATE_ADAPTER");
-    private final ClassLookup entityRef = ClassLookup.of(CraftEntity.class).searchField("registry", "DATA_TYPE_REGISTRY");
+    private final ClassLookup registryRef;
+    private final ClassLookup entityRef;
 
-    private BukkitContainerAdapterHook1_18_R1() {}
+    private BukkitContainerAdapterHook1_18_R1() {
+        ClassLookupProvider provider = VersionCompatProvider.get().getLookupProvider();
+        registryRef = provider.createLookup("CraftPersistentDataTypeRegistry", CraftPersistentDataTypeRegistry.class)
+            .searchMethod("create", "createAdapter", Class.class, Class.class, Function.class, Function.class)
+            .searchField("adapters", "adapters").searchField("function", "CREATE_ADAPTER");
+        entityRef = provider.createLookup("CraftEntity", CraftEntity.class).searchField("registry", "DATA_TYPE_REGISTRY");
+    }
 
     private final HashMap<CraftPersistentDataTypeRegistry, Function> map = new HashMap<>();
 
@@ -58,7 +62,7 @@ public final class BukkitContainerAdapterHook1_18_R1 {
             return;
         }
         map.put(registry, (Function) registryRef.getFieldValue(registry, "function"));
-        Function function = clazz -> createAdapter(registry, registryRef.getMethod("create").type().returnType(), (Class) clazz);
+        Function function = clazz -> createAdapter(registry, registryRef.getMethod("create").getReturnType(), (Class) clazz);
         registryRef.setFieldValue(registry, "function", function);
     }
 
@@ -73,8 +77,7 @@ public final class BukkitContainerAdapterHook1_18_R1 {
     }
 
     private <C extends WrappedContainer> Object buildAdapter(Object handle, Class<C> type, Function<CompoundTag, C> function) {
-        return registryRef.run(handle, "create", type, CompoundTag.class, (Function<C, CompoundTag>) input -> toPrimitive(input),
-            function);
+        return registryRef.run(handle, "create", type, CompoundTag.class, (Function<C, CompoundTag>) input -> toPrimitive(input), function);
     }
 
     private CompoundTag toPrimitive(WrappedContainer input) {
@@ -88,7 +91,8 @@ public final class BukkitContainerAdapterHook1_18_R1 {
         }
         if (handle instanceof IDataContainer) {
             if (handle instanceof NbtContainer) {
-                return (CompoundTag) VersionCompatProvider.get().getControl().getBukkitConversion().toMinecraftCompound(((NbtContainer) handle).asNbt());
+                return (CompoundTag) VersionCompatProvider.get().getControl().getBukkitConversion()
+                    .toMinecraftCompound(((NbtContainer) handle).asNbt());
             }
             throw new IllegalArgumentException(
                 "Expected 'CraftPersistentDataContainer' got '" + handle.getClass().getSimpleName() + " instead'!");

@@ -2,6 +2,7 @@ package net.sourcewriters.minecraft.vcompat.provider.impl.v1_10_R1;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.v1_10_R1.block.CraftSkull;
 import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -10,6 +11,7 @@ import org.bukkit.material.MaterialData;
 
 import com.mojang.authlib.GameProfile;
 
+import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookupProvider;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 
 import net.minecraft.server.v1_10_R1.GameProfileSerializer;
@@ -20,21 +22,25 @@ import net.sourcewriters.minecraft.vcompat.provider.TextureProvider;
 @SuppressWarnings("deprecation")
 public class TextureProvider1_10_R1 extends TextureProvider<VersionControl1_10_R1> {
 
-    private final ClassLookup craftItemStackRef = ClassLookup.of(CraftItemStack.class).searchField("handle", "handle");
-    private final ClassLookup craftMetaSkullRef = ClassLookup.of("org.bukkit.craftbukkit.v1_10_R1.inventory.CraftMetaSkull")
-        .searchField("serialized", "serializedProfile").searchField("profile", "profile");
+    private final ClassLookup craftItemStackRef;
+    private final ClassLookup craftMetaSkullRef;
     private final Material skullMaterial = Material.valueOf("SKULL");
 
     protected TextureProvider1_10_R1(VersionControl1_10_R1 versionControl) {
         super(versionControl);
+        ClassLookupProvider provider = versionControl.getLookupProvider();
+        craftItemStackRef = provider.createLookup("CraftItemStack", CraftItemStack.class).searchField("handle", "handle");
+        craftMetaSkullRef = provider.createCBLookup("CraftMetaSkull", "inventory.CraftMetaSkull")
+            .searchField("serialized", "serializedProfile").searchField("profile", "profile");
     }
 
     @Override
     public GameProfile profileFromBlock(Block block) {
-        if (!(block instanceof CraftSkull)) {
+        BlockState state = block.getState();
+        if (!(state instanceof CraftSkull)) {
             return null;
         }
-        return ((CraftSkull) block).getTileEntity().getGameProfile();
+        return ((CraftSkull) state).getTileEntity().getGameProfile();
     }
 
     @Override
@@ -95,10 +101,11 @@ public class TextureProvider1_10_R1 extends TextureProvider<VersionControl1_10_R
 
     @Override
     public boolean applyBlock(Block block, GameProfile profile) {
-        if (!(block instanceof CraftSkull)) {
+        BlockState state = block.getState();
+        if (!(state instanceof CraftSkull)) {
             return false;
         }
-        ((CraftSkull) block).getTileEntity().setGameProfile(profile);
+        ((CraftSkull) state).getTileEntity().setGameProfile(profile);
         return true;
     }
 
