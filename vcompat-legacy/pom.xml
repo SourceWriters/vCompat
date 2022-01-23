@@ -3,7 +3,7 @@
     <parent>
         <groupId>net.sourcewriters.minecraft</groupId>
         <artifactId>vcompat-parent</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
     </parent>
     <artifactId>vcompat-legacy</artifactId>
 
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>net.sourcewriters.minecraft</groupId>
             <artifactId>vcompat-api</artifactId>
-            <version>3.0.0</version>
+            <version>${project.parent.version}</version>
             <scope>provided</scope>
         </dependency>
 
