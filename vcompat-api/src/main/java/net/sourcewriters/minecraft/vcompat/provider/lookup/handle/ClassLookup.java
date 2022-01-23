@@ -1,36 +1,24 @@
 package net.sourcewriters.minecraft.vcompat.provider.lookup.handle;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodHandles.Lookup;
-import java.lang.invoke.VarHandle;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.function.Predicate;
 
 import com.syntaxphoenix.syntaxapi.utils.java.Arrays;
-import com.syntaxphoenix.syntaxapi.utils.java.Exceptions;
 
-import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.field.IFieldHandle;
-import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.field.SafeFieldHandle;
-import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.field.UnsafeDeclaredFieldHandle;
-import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.field.UnsafeStaticFieldHandle;
+import net.sourcewriters.minecraft.vcompat.provider.lookup.JavaAccessor;
 import net.sourcewriters.minecraft.vcompat.util.java.tools.ReflectionTools;
 
 public class ClassLookup {
-    
-    public static final Lookup LOOKUP = MethodHandles.lookup();
 
     private Class<?> owner;
-    private Lookup privateLookup;
 
-    private final HashMap<String, MethodHandle> constructors = new HashMap<>();
-    private final HashMap<String, MethodHandle> methods = new HashMap<>();
-    private final HashMap<String, IFieldHandle<?>> fields = new HashMap<>();
+    private final HashMap<String, Constructor<?>> constructors = new HashMap<>();
+    private final HashMap<String, Method> methods = new HashMap<>();
+    private final HashMap<String, Field> fields = new HashMap<>();
 
     protected ClassLookup(final String classPath) throws IllegalAccessException {
         this(ReflectionTools.getClass(classPath));
@@ -38,7 +26,6 @@ public class ClassLookup {
 
     protected ClassLookup(final Class<?> owner) throws IllegalAccessException {
         this.owner = owner;
-        this.privateLookup = owner != null ? MethodHandles.privateLookupIn(owner, LOOKUP) : null;
     }
 
     /*
@@ -47,10 +34,6 @@ public class ClassLookup {
 
     public Class<?> getOwner() {
         return owner;
-    }
-
-    public Lookup getPrivateLockup() {
-        return privateLookup;
     }
 
     /*
@@ -62,7 +45,6 @@ public class ClassLookup {
         methods.clear();
         fields.clear();
         owner = null;
-        privateLookup = null;
     }
 
     public boolean isValid() {
@@ -73,15 +55,15 @@ public class ClassLookup {
      * 
      */
 
-    public Collection<MethodHandle> getConstructors() {
+    public Collection<Constructor<?>> getConstructors() {
         return constructors.values();
     }
 
-    public Collection<MethodHandle> getMethods() {
+    public Collection<Method> getMethods() {
         return methods.values();
     }
 
-    public Collection<IFieldHandle<?>> getFields() {
+    public Collection<Field> getFields() {
         return fields.values();
     }
 
@@ -89,15 +71,15 @@ public class ClassLookup {
      * 
      */
 
-    public MethodHandle getConstructor(final String name) {
+    public Constructor<?> getConstructor(final String name) {
         return isValid() ? constructors.get(name) : null;
     }
 
-    public MethodHandle getMethod(final String name) {
+    public Method getMethod(final String name) {
         return isValid() ? methods.get(name) : null;
     }
 
-    public IFieldHandle<?> getField(final String name) {
+    public Field getField(final String name) {
         return isValid() ? fields.get(name) : null;
     }
 
@@ -125,35 +107,19 @@ public class ClassLookup {
         if (!isValid()) {
             return null;
         }
-        final MethodHandle handle = constructors.computeIfAbsent("$base#empty", ignore -> {
-            try {
-                return LOOKUP.unreflectConstructor(owner.getConstructor());
-            } catch (IllegalAccessException | NoSuchMethodException | SecurityException e) {
-                return null;
-            }
-        });
-        if (handle == null) {
+        final Constructor<?> constructor = constructors.computeIfAbsent("$base#empty", ignore -> JavaAccessor.getConstructor(owner));
+        if (constructor == null) {
             constructors.remove("$base#empty");
             return null;
         }
-        try {
-            return handle.invoke();
-        } catch (final Throwable e) {
-            e.printStackTrace();
-        }
-        return null;
+        return JavaAccessor.init(constructor);
     }
 
     public Object init(final String name, final Object... args) {
         if (!isValid() || !constructors.containsKey(name)) {
             return null;
         }
-        try {
-            return constructors.get(name).invokeWithArguments(args);
-        } catch (final Throwable e) {
-            e.printStackTrace();
-        }
-        return null;
+        return JavaAccessor.init(constructors.get(name), args);
     }
 
     /*
@@ -174,24 +140,14 @@ public class ClassLookup {
         if (!isValid() || !methods.containsKey(name)) {
             return null;
         }
-        try {
-            return methods.get(name).invokeWithArguments(args);
-        } catch (final Throwable e) {
-            e.printStackTrace();
-        }
-        return null;
+        return JavaAccessor.invokeStatic(methods.get(name), args);
     }
 
     public Object run(final Object source, final String name, final Object... args) {
         if (!isValid() || !methods.containsKey(name)) {
             return null;
         }
-        try {
-            return methods.get(name).invokeWithArguments(mergeBack(args, source));
-        } catch (final Throwable e) {
-            e.printStackTrace();
-        }
-        return null;
+        return JavaAccessor.invoke(source, methods.get(name), args);
     }
 
     /*
@@ -199,25 +155,31 @@ public class ClassLookup {
      */
 
     public Object getFieldValue(final String name) {
-        return isValid() && fields.containsKey(name) ? fields.get(name).getValue() : null;
+        if (!isValid() || !fields.containsKey(name)) {
+            return null;
+        }
+        return JavaAccessor.getStaticValue(fields.get(name));
     }
 
     public Object getFieldValue(final Object source, final String name) {
-        return isValid() && fields.containsKey(name) ? fields.get(name).getValue(source) : null;
+        if (!isValid() || !fields.containsKey(name)) {
+            return null;
+        }
+        return JavaAccessor.getObjectValue(source, fields.get(name));
     }
 
     public void setFieldValue(final String name, final Object value) {
         if (!isValid() || !fields.containsKey(name)) {
             return;
         }
-        fields.get(name).setValue(value);
+        JavaAccessor.setStaticValue(fields.get(name), value);
     }
 
     public void setFieldValue(final Object source, final String name, final Object value) {
         if (!isValid() || !fields.containsKey(name)) {
             return;
         }
-        fields.get(name).setValue(source, value);
+        JavaAccessor.setObjectValue(source, fields.get(name), value);
     }
 
     /*
@@ -229,30 +191,20 @@ public class ClassLookup {
     }
 
     public ClassLookup searchConstructor(final String name, final Class<?>... arguments) {
-        if (hasConstructor(name)) {
+        if (!isValid() || hasConstructor(name)) {
             return this;
         }
-        Constructor<?> constructor = null;
-        try {
-            constructor = owner.getDeclaredConstructor(arguments);
-        } catch (NoSuchMethodException | SecurityException e) {
-        }
-        if (constructor == null) {
-            try {
-                constructor = owner.getConstructor(arguments);
-            } catch (NoSuchMethodException | SecurityException e) {
-            }
-        }
+        Constructor<?> constructor = JavaAccessor.getConstructor(owner, arguments);
         if (constructor != null) {
-            try {
-                constructors.put(name, unreflect(constructor));
-            } catch (final IllegalAccessException e) {
-            }
+            constructors.put(name, constructor);
         }
         return this;
     }
 
     public ClassLookup searchConstructorsByArguments(String base, final Class<?>... arguments) {
+        if (!isValid()) {
+            return this;
+        }
         final Constructor<?>[] constructors = Arrays.merge(Constructor<?>[]::new, owner.getDeclaredConstructors(), owner.getConstructors());
         if (constructors.length == 0) {
             return this;
@@ -264,12 +216,9 @@ public class ClassLookup {
             if (args.length != arguments.length) {
                 continue;
             }
-            try {
-                if (ReflectionTools.hasSameArguments(arguments, args)) {
-                    this.constructors.put(base + current, unreflect(constructor));
-                    current++;
-                }
-            } catch (final IllegalAccessException e) {
+            if (ReflectionTools.hasSameArguments(arguments, args)) {
+                this.constructors.put(base + current, constructor);
+                current++;
             }
         }
         return this;
@@ -285,31 +234,20 @@ public class ClassLookup {
     }
 
     public ClassLookup searchMethod(final String name, final String methodName, final Class<?>... arguments) {
-        if (hasMethod(name)) {
+        if (!isValid() || hasMethod(name)) {
             return this;
         }
-        Method method = null;
-        try {
-            method = owner.getDeclaredMethod(methodName, arguments);
-        } catch (NoSuchMethodException | SecurityException e) {
-        }
-        if (method == null) {
-            try {
-                method = owner.getMethod(methodName, arguments);
-            } catch (NoSuchMethodException | SecurityException e) {
-            }
-        }
+        Method method = JavaAccessor.getMethod(owner, methodName, arguments);
         if (method != null) {
-            try {
-                methods.put(name, unreflect(method));
-            } catch (IllegalAccessException | SecurityException e) {
-                System.out.println(Exceptions.stackTraceToString(e));
-            }
+            methods.put(name, method);
         }
         return this;
     }
 
     public ClassLookup searchMethodsByArguments(String base, final Class<?>... arguments) {
+        if (!isValid()) {
+            return this;
+        }
         final Method[] methods = Arrays.merge(Method[]::new, owner.getDeclaredMethods(), owner.getMethods());
         if (methods.length == 0) {
             return this;
@@ -321,12 +259,9 @@ public class ClassLookup {
             if (args.length != arguments.length) {
                 continue;
             }
-            try {
-                if (ReflectionTools.hasSameArguments(arguments, args)) {
-                    this.methods.put(base + current, unreflect(method));
-                    current++;
-                }
-            } catch (IllegalAccessException | SecurityException e) {
+            if (ReflectionTools.hasSameArguments(arguments, args)) {
+                this.methods.put(base + current, method);
+                current++;
             }
         }
         return this;
@@ -336,48 +271,17 @@ public class ClassLookup {
      * 
      */
 
-    public ClassLookup searchField(final Predicate<ClassLookup> predicate, final String name, final String fieldName, final Class<?> type) {
-        return predicate.test(this) ? searchField(name, fieldName, type) : this;
+    public ClassLookup searchField(final Predicate<ClassLookup> predicate, final String name, final String fieldName) {
+        return predicate.test(this) ? searchField(name, fieldName) : this;
     }
 
     public ClassLookup searchField(final String name, final String fieldName) {
-        if (hasMethod(name)) {
+        if (!isValid() || hasField(name)) {
             return this;
         }
-        Field field = null;
-        try {
-            field = owner.getDeclaredField(fieldName);
-        } catch (NoSuchFieldException | SecurityException e) {
-        }
-        if (field == null) {
-            try {
-                field = owner.getField(fieldName);
-            } catch (NoSuchFieldException | SecurityException e) {
-            }
-        }
+        Field field = JavaAccessor.getField(owner, fieldName);
         if (field != null) {
-            storeField(name, field);
-        }
-        return this;
-    }
-
-    public ClassLookup searchField(final String name, final String fieldName, final Class<?> type) {
-        if (hasField(name)) {
-            return this;
-        }
-        VarHandle handle = null;
-        try {
-            handle = privateLookup.findVarHandle(owner, fieldName, type);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-        }
-        if (handle == null) {
-            try {
-                handle = privateLookup.findStaticVarHandle(owner, fieldName, type);
-            } catch (SecurityException | NoSuchFieldException | IllegalAccessException e) {
-            }
-        }
-        if (handle != null) {
-            fields.put(name, new SafeFieldHandle(handle));
+            fields.put(name, field);
         }
         return this;
     }
@@ -387,104 +291,11 @@ public class ClassLookup {
      */
 
     public boolean putField(final String name, final Field field) {
-        return putField(name, field, false);
-    }
-
-    public boolean putField(final String name, final Field field, final boolean forceSafe) {
-        if (field == null || name == null || field.getDeclaringClass() != owner || fields.containsKey(name)) {
+        if (!isValid() || field == null || name == null || field.getDeclaringClass() != owner || fields.containsKey(name)) {
             return false;
         }
-        storeField(name, field, forceSafe);
+        fields.put(name, field);
         return true;
-    }
-
-    /*
-     * 
-     */
-
-    private void storeField(final String name, final Field field) {
-        storeField(name, field, false);
-    }
-
-    private void storeField(final String name, final Field field, final boolean forceSafe) {
-        if (forceSafe || !Modifier.isFinal(field.getModifiers())) {
-            try {
-                fields.put(name, new SafeFieldHandle(unreflect(field)));
-                return;
-            } catch (IllegalAccessException | SecurityException e) {
-                if (forceSafe) {
-                    return;
-                }
-            }
-        }
-        if (!Modifier.isStatic(field.getModifiers())) {
-            fields.put(name, new UnsafeDeclaredFieldHandle(field));
-            return;
-        }
-        fields.put(name, new UnsafeStaticFieldHandle(field));
-    }
-
-    private VarHandle unreflect(final Field field) throws IllegalAccessException, SecurityException {
-        if (Modifier.isStatic(field.getModifiers())) {
-            final boolean access = field.canAccess(null);
-            if (!access) {
-                field.setAccessible(true);
-            }
-            final VarHandle out = LOOKUP.unreflectVarHandle(field);
-            if (!access) {
-                field.setAccessible(false);
-            }
-            return out;
-        }
-        if (field.trySetAccessible()) {
-            final VarHandle out = LOOKUP.unreflectVarHandle(field);
-            field.setAccessible(false);
-            return out;
-        }
-        return LOOKUP.unreflectVarHandle(field);
-    }
-
-    private MethodHandle unreflect(final Method method) throws IllegalAccessException, SecurityException {
-        if (Modifier.isStatic(method.getModifiers())) {
-            final boolean access = method.canAccess(null);
-            if (!access) {
-                method.setAccessible(true);
-            }
-            final MethodHandle out = LOOKUP.unreflect(method);
-            if (!access) {
-                method.setAccessible(false);
-            }
-            return out;
-        }
-        if (method.trySetAccessible()) {
-            final MethodHandle out = LOOKUP.unreflect(method);
-            method.setAccessible(false);
-            return out;
-        }
-        return LOOKUP.unreflect(method);
-    }
-
-    private MethodHandle unreflect(final Constructor<?> constructor) throws IllegalAccessException {
-        final boolean access = constructor.canAccess(null);
-        if (!access) {
-            constructor.setAccessible(true);
-        }
-        final MethodHandle out = LOOKUP.unreflectConstructor(constructor);
-        if (!access) {
-            constructor.setAccessible(false);
-        }
-        return out;
-    }
-
-    /*
-     * 
-     */
-
-    public static Object[] mergeBack(final Object[] array1, final Object... array2) {
-        final Object[] output = new Object[array1.length + array2.length];
-        System.arraycopy(array2, 0, output, 0, array2.length);
-        System.arraycopy(array1, 0, output, array2.length, array1.length);
-        return output;
     }
 
     /*

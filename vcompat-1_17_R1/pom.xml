@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>net.sourcewriters.minecraft</groupId>
 		<artifactId>vcompat-parent</artifactId>
-		<version>3.0.1</version>
+        <version>3.0.2</version>
 	</parent>
 	<artifactId>vcompat-1_17_R1</artifactId>
 
