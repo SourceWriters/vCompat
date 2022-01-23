@@ -2,17 +2,32 @@ package net.sourcewriters.minecraft.vcompat;
 
 import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.utils.java.tools.Container;
 import net.sourcewriters.minecraft.vcompat.version.Versions;
 
 public final class VersionCompat extends VersionCompatProvider {
-    
-    private static final String VERSION_PATH = String.format("%s.provider.impl.%s.VersionControl%s", VersionCompat.class.getPackageName(), Versions.getServerAsString(), Versions.getServerAsString().substring(1));
 
-    private final VersionControl control;
+    private static final String VERSION_PATH = String.format("%s.provider.impl.%s.VersionControl%s", VersionCompat.class.getPackageName(),
+        Versions.getServerAsString(), Versions.getServerAsString().substring(1));
 
-    public VersionCompat() {
-        this.control = initControl();
-        Runtime.getRuntime().addShutdownHook(new Thread(control::shutdown));
+    private final Container<VersionControl> control = Container.of();
+    private boolean init = false;
+
+    @Override
+    protected final void init() throws Exception {
+        if (init) {
+            return;
+        }
+        init = true;
+        control.replace(initControl()).lock();
+    }
+
+    @Override
+    protected final void shutdown() {
+        if(!init) {
+            return;
+        }
+        control.ifPresent(VersionControl::shutdown);
     }
 
     private final VersionControl initControl() {
@@ -25,7 +40,7 @@ public final class VersionCompat extends VersionCompatProvider {
 
     @Override
     public final VersionControl getControl() {
-        return control;
+        return control.get();
     }
 
 }
