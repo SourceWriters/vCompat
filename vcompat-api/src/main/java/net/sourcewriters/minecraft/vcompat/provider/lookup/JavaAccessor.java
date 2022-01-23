@@ -57,7 +57,7 @@ public final class JavaAccessor {
         }
         try {
             if (arguments.length == 0) {
-                return lookup.unreflectConstructor(constructor).invoke();
+                return lookup().unreflectConstructor(constructor).invokeWithArguments();
             }
             return lookup().unreflectConstructor(constructor).invokeWithArguments(arguments);
         } catch (Throwable e) {
