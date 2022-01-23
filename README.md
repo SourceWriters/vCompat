@@ -65,10 +65,11 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#installation-with-maven">Installation with Maven</a></li>
+        <li><a href="#installation-with-gradle">Installation with Gradle</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#plugins-that-use-vcompat">Plugins that use vCompat</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -121,14 +122,19 @@ dependencies {
 }
 ```
 
-<!-- USAGE EXAMPLES -->
-## Usage
+Please use the [vCompatUpdater](https://github.com/SourceWriters/vCompatUpdater) to install vCompat for your plugin.
+Shading vCompat is not a good idea which is why we created that updater.
+To see how you can implement it for v2 / v3 of vCompat look at our [vCompatExample](https://github.com/SourceWriters/vCompatExample)
+or at one of the plugins mentioned in [Plugins that use vCompat](#plugins-that-use-vcompat).
 
-_Comming soon_
+<!-- PLUGINS THAT USE VCOMPAT -->
+## Plugins that use vCompat
 
-_For more examples, please refer to the [Documentation](https://confluence.syntaxphoenix.com/display/VCOMPAT)_
-
-
+<ul>
+  <li><a href="https://www.spigotmc.org/resources/91756/">SkinsEvolved</a></li>
+  <li><a href="https://www.spigotmc.org/resources/39601/">LoginPlus</a></li>
+  <li><a href="https://www.spigotmc.org/resources/17573/">JumpLeaguePlus</a></li>
+</ul>
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -147,7 +153,6 @@ Contributions are what make the open source community such an amazing place to b
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
 
 
 <!-- LICENSE -->
