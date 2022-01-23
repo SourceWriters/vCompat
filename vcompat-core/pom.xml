@@ -14,7 +14,7 @@
         <dependency>
             <groupId>net.sourcewriters.minecraft</groupId>
             <artifactId>vcompat-api</artifactId>
-            <version>3.0.0</version>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <!-- vCompat Versions -->
@@ -22,17 +22,17 @@
         <dependency>
             <groupId>net.sourcewriters.minecraft</groupId>
             <artifactId>vcompat-legacy</artifactId>
-            <version>3.0.0</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sourcewriters.minecraft</groupId>
             <artifactId>vcompat-1_17_R1</artifactId>
-            <version>3.0.0</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sourcewriters.minecraft</groupId>
             <artifactId>vcompat-1_18_R1</artifactId>
-            <version>3.0.0</version>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 
