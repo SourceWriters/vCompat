@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sourcewriters.minecraft</groupId>
 	<artifactId>vcompat-parent</artifactId>
-	<version>3.0.2</version>
+	<version>3.0.3</version>
 	<packaging>pom</packaging>
 
 	<distributionManagement>
@@ -90,5 +90,6 @@
 		<module>vcompat-legacy</module>
 		<module>vcompat-1_17_R1</module>
 		<module>vcompat-1_18_R1</module>
+		<module>vcompat-1_18_R2</module>
 	</modules>
 </project>
