@@ -11,7 +11,7 @@
 */dependency-reduced-pom.xml
 *.class
 *.jar
-/libraries/spigot/
+/libraries/*
 /.settings/
 /.project
 /.classpath
