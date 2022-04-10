@@ -4,6 +4,7 @@ import com.syntaxphoenix.syntaxapi.utils.java.tools.Container;
 
 import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookupProvider;
+import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookups;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 import net.sourcewriters.minecraft.vcompat.version.Versions;
 
@@ -23,6 +24,7 @@ public abstract class VersionCompatProvider {
             throw new IllegalStateException("Can't initialize VersionCompatProvider!");
         }
         VersionCompatProvider provider = PROVIDER.replace((VersionCompatProvider) object).lock().get();
+        ClassLookups.globalSetup(provider.getLookupProvider());
         try {
             provider.init();
         } catch (Exception exception) {
