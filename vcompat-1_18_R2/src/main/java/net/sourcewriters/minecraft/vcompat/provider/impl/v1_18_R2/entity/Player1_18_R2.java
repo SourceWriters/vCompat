@@ -279,8 +279,8 @@ public class Player1_18_R2 extends EntityLiving1_18_R2<ServerPlayer> implements 
                 properties.put("textures", new Property("textures", skin.getValue(), skin.getSignature()));
             }
 
-            String name = getName();
-            if (name != null) {
+            String name = dataAdapter.get("name", WrapType.STRING);
+            if (name != null && !name.isBlank()) {
                 VersionCompatProvider.get().getLookupProvider().getLookup("mjGameProfile").setFieldValue(profile, "name", name);
             }
 
