@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sourcewriters.minecraft</groupId>
 	<artifactId>vcompat-parent</artifactId>
-	<version>3.0.4</version>
+	<version>3.0.5</version>
 	<packaging>pom</packaging>
 
 	<distributionManagement>
@@ -91,6 +91,9 @@
 		<module>vcompat-1_17_R1</module>
 		<module>vcompat-1_18_R1</module>
 		<module>vcompat-1_18_R2</module>
+<<<<<<< HEAD
         <module>vcompat-1_19_R1</module>
+=======
+>>>>>>> ef8c634 (Rebase (#41))
 	</modules>
 </project>
