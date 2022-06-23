@@ -39,6 +39,11 @@
             <artifactId>vcompat-1_18_R2</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>net.sourcewriters.minecraft</groupId>
+            <artifactId>vcompat-1_19_R1</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
