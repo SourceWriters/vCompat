@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>net.sourcewriters.minecraft</groupId>
 		<artifactId>vcompat-parent</artifactId>
-    <version>3.0.5</version>
+        <version>3.0.5</version>
 	</parent>
-	<artifactId>vcompat-1_18_R2</artifactId>
+	<artifactId>vcompat-1_19_R1</artifactId>
 
 	<properties>
 		<mapping.libPath>${project.basedir}/../libraries/mapping</mapping.libPath>
 		<spigot.libPath>${project.basedir}/../libraries/spigot</spigot.libPath>
-		<minecraft.version>1.18.2</minecraft.version>
+		<minecraft.version>1.19</minecraft.version>
 	</properties>
 
 	<repositories>

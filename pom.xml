@@ -91,5 +91,6 @@
 		<module>vcompat-1_17_R1</module>
 		<module>vcompat-1_18_R1</module>
 		<module>vcompat-1_18_R2</module>
+        <module>vcompat-1_19_R1</module>
 	</modules>
 </project>
