@@ -11,7 +11,7 @@ public final class VersionCompat extends VersionCompatProvider {
         Versions.getServerAsString(), Versions.getServerAsString().substring(1));
 
     private final Container<VersionControl> control = Container.of();
-    private boolean init = false;
+    private volatile boolean init = false;
 
     @Override
     protected final void init() throws Exception {
