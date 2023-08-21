@@ -17,6 +17,11 @@ public class ServerTools1_13_R2 extends ServerTools {
     public String getMotd() {
         return ((CraftServer) Bukkit.getServer()).getServer().getMotd();
     }
+
+    @Override
+    public String getLevelName() {
+        return ((CraftServer) Bukkit.getServer()).getServer().getPropertyManager().getString("level-name", "world");
+    }
     
     @Override
     public ConsoleReaderWrapper1_13_R2 getConsole() {

@@ -1,7 +1,9 @@
 package net.sourcewriters.minecraft.vcompat;
 
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
+
 import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
-import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.utils.java.tools.Container;
 import net.sourcewriters.minecraft.vcompat.version.Versions;
 
@@ -24,18 +26,21 @@ public final class VersionCompat extends VersionCompatProvider {
 
     @Override
     protected final void shutdown() {
-        if(!init) {
+        if (!init) {
             return;
         }
         control.ifPresent(VersionControl::shutdown);
     }
 
     private final VersionControl initControl() {
-        Object object = ClassLookup.of(VERSION_PATH).searchMethod("init", "init").run("init");
-        if (object == null || !(object instanceof VersionControl)) {
-            throw new IllegalStateException("Can't initialize VersionControl");
+        try {
+            Class<?> clazz = Class.forName(VERSION_PATH, true, getClass().getClassLoader());
+            Object object = MethodHandles.privateLookupIn(clazz, MethodHandles.lookup())
+                .findStatic(clazz, "init", MethodType.methodType(clazz)).invoke();
+            return (VersionControl) object;
+        } catch (Throwable e) {
+            throw new IllegalStateException("Couldn't initialize VersionControl", e);
         }
-        return (VersionControl) object;
     }
 
     @Override

@@ -3,7 +3,6 @@ package net.sourcewriters.minecraft.vcompat.provider.impl.v1_8_R3;
 import java.io.File;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import net.sourcewriters.minecraft.vcompat.provider.impl.v1_8_R3.entity.Player1_8_R3;
@@ -18,8 +17,9 @@ public class PlayerProvider1_8_R3 extends PlayerProvider<VersionControl1_8_R3> {
 
     protected PlayerProvider1_8_R3(VersionControl1_8_R3 versionControl) {
         super(versionControl);
-        distributor = versionControl.getDataProvider().createDistributor(new File(Bukkit.getWorlds().get(0).getWorldFolder(), "playerdata"),
-            uuid -> "custom_" + uuid.toString(), DataProvider.DEFAULT_RANDOM);
+        distributor = versionControl.getDataProvider().createDistributor(
+            new File(versionControl.getToolProvider().getServerTools().getWorldFolder(), "playerdata"), uuid -> "custom_" + uuid.toString(),
+            DataProvider.DEFAULT_RANDOM);
     }
 
     @Override
