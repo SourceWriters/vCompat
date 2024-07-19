@@ -1,0 +1,103 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sourcewriters.minecraft</groupId>
+	<artifactId>vcompat-parent</artifactId>
+	<version>3.0.6</version>
+	<packaging>pom</packaging>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+		    	<name>GitHub OWNER Apache Maven Packages</name>
+		    	<url>https://maven.pkg.github.com/SourceWriters/vCompat</url>
+		</repository>
+	</distributionManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>spigot</id>
+			<url>https://hub.spigotmc.org/nexus/content/repositories/public/</url>
+		</repository>
+		<repository>
+			<id>minecraft-libraries</id>
+			<url>https://libraries.minecraft.net</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+
+		<!-- Minecraft -->
+
+		<dependency>
+			<groupId>com.mojang</groupId>
+			<artifactId>authlib</artifactId>
+			<version>1.5.25</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>snakeyaml</artifactId>
+					<groupId>org.yaml</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>gson</artifactId>
+					<groupId>com.google.code.gson</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot-api</artifactId>
+			<version>1.18.1-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>11</source>
+					<target>11</target>
+				</configuration>
+			</plugin>
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-deploy-plugin</artifactId>
+			  <version>3.0.0-M2</version>
+			  <configuration>
+			    <skip>true</skip>
+			  </configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<modules>
+		<module>vcompat-api</module>
+		<module>vcompat-core</module>
+		<module>vcompat-legacy</module>
+		<module>vcompat-1_17_R1</module>
+		<module>vcompat-1_18_R1</module>
+		<module>vcompat-1_18_R2</module>
+        <module>vcompat-1_19_R1</module>
+        <module>vcompat-1_19_R2</module>
+        <module>vcompat-1_19_R3</module>
+        <module>vcompat-1_20_R1</module>
+        <module>vcompat-1_20_R2</module>
+        <module>vcompat-1_20_R3</module>
+        <module>vcompat-1_20_R4</module>
+        <module>vcompat-1_21_R1</module>
+	</modules>
+</project>

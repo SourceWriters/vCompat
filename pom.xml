@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sourcewriters.minecraft</groupId>
 	<artifactId>vcompat-parent</artifactId>
-	<version>3.0.6</version>
+	<version>3.0.7</version>
 	<packaging>pom</packaging>
 
 	<distributionManagement>
@@ -17,6 +17,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<specialsource.version>2.0.3</specialsource.version>
 	</properties>
 
 	<repositories>
@@ -92,5 +93,12 @@
 		<module>vcompat-1_18_R1</module>
 		<module>vcompat-1_18_R2</module>
         <module>vcompat-1_19_R1</module>
+        <module>vcompat-1_19_R2</module>
+        <module>vcompat-1_19_R3</module>
+        <module>vcompat-1_20_R1</module>
+        <module>vcompat-1_20_R2</module>
+        <module>vcompat-1_20_R3</module>
+        <module>vcompat-1_20_R4</module>
+        <module>vcompat-1_21_R1</module>
 	</modules>
 </project>

@@ -51,6 +51,7 @@ public class TextureProvider1_18_R2 extends TextureProvider<VersionControl1_18_R
         if (!(itemStack.getItemMeta() instanceof SkullMeta)) {
             return null;
         }
+        
         SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
         GameProfile profile = (GameProfile) craftMetaSkullRef.getFieldValue(meta, "profile");
         if (profile == null) {
