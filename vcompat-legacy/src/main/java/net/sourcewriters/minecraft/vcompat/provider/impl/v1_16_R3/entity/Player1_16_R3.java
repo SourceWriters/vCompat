@@ -18,8 +18,6 @@ import net.minecraft.server.v1_16_R3.EnumItemSlot;
 import net.minecraft.server.v1_16_R3.IChatBaseComponent;
 import net.minecraft.server.v1_16_R3.ItemStack;
 import net.minecraft.server.v1_16_R3.MathHelper;
-import net.minecraft.server.v1_16_R3.PacketPlayInClientCommand;
-import net.minecraft.server.v1_16_R3.PacketPlayInClientCommand.EnumClientCommand;
 import net.minecraft.server.v1_16_R3.PacketPlayOutEntityDestroy;
 import net.minecraft.server.v1_16_R3.PacketPlayOutEntityEquipment;
 import net.minecraft.server.v1_16_R3.PacketPlayOutEntityHeadRotation;
@@ -255,10 +253,11 @@ public class Player1_16_R3 extends EntityLiving1_16_R3<EntityPlayer> implements 
 
     @Override
     public void respawn() {
-        if (handle.playerConnection.isDisconnected()) {
+        CraftPlayer bukkitPlayer = handle.getBukkitEntity();
+        if (!bukkitPlayer.isOnline()) {
             return;
         }
-        handle.playerConnection.sendPacket(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
+        bukkitPlayer.spigot().respawn();
     }
 
     @Override

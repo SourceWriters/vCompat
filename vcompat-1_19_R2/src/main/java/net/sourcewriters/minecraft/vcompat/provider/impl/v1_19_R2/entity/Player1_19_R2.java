@@ -31,7 +31,6 @@ import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitlesAnimationPacket;
 import net.minecraft.network.protocol.game.ClientboundTabListPacket;
-import net.minecraft.network.protocol.game.ServerboundClientCommandPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -260,10 +259,11 @@ public class Player1_19_R2 extends EntityLiving1_19_R2<ServerPlayer> implements 
 
     @Override
     public void respawn() {
-        if (handle.connection.isDisconnected()) {
+        CraftPlayer bukkitPlayer = handle.getBukkitEntity();
+        if (!bukkitPlayer.isOnline()) {
             return;
         }
-        handle.connection.send(new ServerboundClientCommandPacket(ServerboundClientCommandPacket.Action.PERFORM_RESPAWN));
+        bukkitPlayer.spigot().respawn();
     }
 
     @Override

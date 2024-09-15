@@ -13,12 +13,10 @@ import com.mojang.authlib.properties.PropertyMap;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 
 import net.minecraft.server.v1_8_R1.EntityPlayer;
-import net.minecraft.server.v1_8_R1.EnumClientCommand;
 import net.minecraft.server.v1_8_R1.EnumPlayerInfoAction;
 import net.minecraft.server.v1_8_R1.EnumTitleAction;
 import net.minecraft.server.v1_8_R1.IChatBaseComponent;
 import net.minecraft.server.v1_8_R1.MathHelper;
-import net.minecraft.server.v1_8_R1.PacketPlayInClientCommand;
 import net.minecraft.server.v1_8_R1.PacketPlayOutChat;
 import net.minecraft.server.v1_8_R1.PacketPlayOutEntityDestroy;
 import net.minecraft.server.v1_8_R1.PacketPlayOutEntityEquipment;
@@ -255,10 +253,11 @@ public class Player1_8_R1 extends EntityLiving1_8_R1<EntityPlayer> implements Nm
 
     @Override
     public void respawn() {
-        if (handle.playerConnection.isDisconnected()) {
+        CraftPlayer bukkitPlayer = handle.getBukkitEntity();
+        if (!bukkitPlayer.isOnline()) {
             return;
         }
-        handle.playerConnection.sendPacket(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
+        bukkitPlayer.spigot().respawn();
     }
 
     @Override

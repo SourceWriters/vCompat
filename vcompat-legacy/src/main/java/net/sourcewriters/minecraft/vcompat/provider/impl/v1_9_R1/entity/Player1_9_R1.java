@@ -16,8 +16,6 @@ import net.minecraft.server.v1_9_R1.EntityPlayer;
 import net.minecraft.server.v1_9_R1.EnumItemSlot;
 import net.minecraft.server.v1_9_R1.IChatBaseComponent;
 import net.minecraft.server.v1_9_R1.MathHelper;
-import net.minecraft.server.v1_9_R1.PacketPlayInClientCommand;
-import net.minecraft.server.v1_9_R1.PacketPlayInClientCommand.EnumClientCommand;
 import net.minecraft.server.v1_9_R1.PacketPlayOutChat;
 import net.minecraft.server.v1_9_R1.PacketPlayOutEntityDestroy;
 import net.minecraft.server.v1_9_R1.PacketPlayOutEntityEquipment;
@@ -256,10 +254,11 @@ public class Player1_9_R1 extends EntityLiving1_9_R1<EntityPlayer> implements Nm
 
     @Override
     public void respawn() {
-        if (handle.playerConnection.isDisconnected()) {
+        CraftPlayer bukkitPlayer = handle.getBukkitEntity();
+        if (!bukkitPlayer.isOnline()) {
             return;
         }
-        handle.playerConnection.sendPacket(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
+        bukkitPlayer.spigot().respawn();
     }
 
     @Override
