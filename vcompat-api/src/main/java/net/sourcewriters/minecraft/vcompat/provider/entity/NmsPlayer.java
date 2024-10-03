@@ -2,6 +2,8 @@ package net.sourcewriters.minecraft.vcompat.provider.entity;
 
 import org.bukkit.entity.Player;
 
+import com.google.gson.JsonElement;
+
 import net.sourcewriters.minecraft.vcompat.provider.data.WrappedContainer;
 import net.sourcewriters.minecraft.vcompat.util.minecraft.Skin;
 
@@ -42,6 +44,10 @@ public interface NmsPlayer extends NmsEntityLiving {
     void sendTitle(String text);
 
     void sendActionBar(String text);
+    
+    void sendJson(JsonElement element);
+    
+    void sendActionBarJson(JsonElement element);
 
     void fakeRespawn();
 

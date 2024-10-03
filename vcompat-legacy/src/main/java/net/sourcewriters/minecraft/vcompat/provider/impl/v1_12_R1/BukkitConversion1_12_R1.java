@@ -3,6 +3,7 @@ package net.sourcewriters.minecraft.vcompat.provider.impl.v1_12_R1;
 import java.util.List;
 import java.util.Set;
 
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 
@@ -24,8 +25,12 @@ import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtShort;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtString;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtTag;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtType;
-
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.utils.key.Namespace;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.utils.key.NamespacedKey;
+import net.minecraft.server.v1_12_R1.EntityTypes;
+import net.minecraft.server.v1_12_R1.Item;
 import net.minecraft.server.v1_12_R1.ItemStack;
+import net.minecraft.server.v1_12_R1.MinecraftKey;
 import net.minecraft.server.v1_12_R1.NBTBase;
 import net.minecraft.server.v1_12_R1.NBTTagByte;
 import net.minecraft.server.v1_12_R1.NBTTagByteArray;
@@ -69,6 +74,20 @@ public class BukkitConversion1_12_R1 extends BukkitConversion<VersionControl1_12
         } catch (IllegalArgumentException ignore) {
             return null;
         }
+    }
+    
+    @Override
+    public NamespacedKey keyOf(EntityType type) {
+        return from(EntityTypes.b.b(EntityTypes.b.getId(type.getTypeId())));
+    }
+    
+    @Override
+    public NamespacedKey keyOf(Material type) {
+        return from(Item.REGISTRY.b(Item.getById(type.getId())));
+    }
+    
+    private NamespacedKey from(MinecraftKey key) {
+        return NamespacedKey.of(key.b(), key.getKey());
     }
 
     @Override
@@ -132,8 +151,8 @@ public class BukkitConversion1_12_R1 extends BukkitConversion<VersionControl1_12
         case INT_ARRAY:
             return new NbtIntArray(((NBTTagIntArray) tag).d());
         case LONG_ARRAY:
-            return new NbtLongArray(
-                (long[]) VersionCompatProvider.get().getLookupProvider().getLookup("nmsNBTTagLongArray").getFieldValue(((NBTTagLongArray) tag).c(), "value"));
+            return new NbtLongArray((long[]) VersionCompatProvider.get().getLookupProvider().getLookup("nmsNBTTagLongArray")
+                .getFieldValue(((NBTTagLongArray) tag).c(), "value"));
         case LIST:
             return fromMinecraftList(tag);
         case COMPOUND:
@@ -161,7 +180,8 @@ public class BukkitConversion1_12_R1 extends BukkitConversion<VersionControl1_12
             return null;
         }
         NBTTagList list = (NBTTagList) raw;
-        List<NBTBase> content = (List<NBTBase>) VersionCompatProvider.get().getLookupProvider().getLookup("nmsNBTTagList").getFieldValue(list, "value");
+        List<NBTBase> content = (List<NBTBase>) VersionCompatProvider.get().getLookupProvider().getLookup("nmsNBTTagList")
+            .getFieldValue(list, "value");
         NbtList<NbtTag> output = new NbtList<>(NbtType.getById(list.getTypeId()));
         for (NBTBase base : content) {
             output.add(fromMinecraftTag(base));

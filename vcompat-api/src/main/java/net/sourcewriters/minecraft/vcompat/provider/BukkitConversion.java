@@ -1,11 +1,13 @@
 package net.sourcewriters.minecraft.vcompat.provider;
 
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 import com.syntaxphoenix.syntaxapi.nbt.NbtCompound;
 import com.syntaxphoenix.syntaxapi.nbt.NbtList;
 import com.syntaxphoenix.syntaxapi.nbt.NbtTag;
+import com.syntaxphoenix.syntaxapi.utils.key.NamespacedKey;
 
 import net.sourcewriters.minecraft.vcompat.data.api.IDataAdapterContext;
 import net.sourcewriters.minecraft.vcompat.data.api.IDataType;
@@ -22,6 +24,10 @@ public abstract class BukkitConversion<V extends VersionControl> extends Version
     public abstract EntityType toEntityType(NmsEntityType type);
 
     public abstract NmsEntityType fromEntityType(EntityType type);
+    
+    public abstract NamespacedKey keyOf(EntityType type);
+    
+    public abstract NamespacedKey keyOf(Material material);
 
     public abstract Object toMinecraftTag(NbtTag tag);
 

@@ -3,6 +3,7 @@ package net.sourcewriters.minecraft.vcompat.provider.impl.v1_8_R1;
 import java.util.List;
 import java.util.Set;
 
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R1.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 
@@ -24,7 +25,10 @@ import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtShort;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtString;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtTag;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtType;
-
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.utils.key.Namespace;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.utils.key.NamespacedKey;
+import net.minecraft.server.v1_10_R1.EntityTypes;
+import net.minecraft.server.v1_8_R1.Item;
 import net.minecraft.server.v1_8_R1.ItemStack;
 import net.minecraft.server.v1_8_R1.NBTBase;
 import net.minecraft.server.v1_8_R1.NBTTagByte;
@@ -47,6 +51,8 @@ import net.sourcewriters.minecraft.vcompat.provider.data.wrap.SimpleWrapType;
 import net.sourcewriters.minecraft.vcompat.provider.entity.NmsEntityType;
 
 public class BukkitConversion1_8_R1 extends BukkitConversion<VersionControl1_8_R1> {
+    
+    private final Namespace minecraft = Namespace.of("minecraft");
 
     protected BukkitConversion1_8_R1(VersionControl1_8_R1 versionControl) {
         super(versionControl);
@@ -68,6 +74,16 @@ public class BukkitConversion1_8_R1 extends BukkitConversion<VersionControl1_8_R
         } catch (IllegalArgumentException ignore) {
             return null;
         }
+    }
+    
+    @Override
+    public NamespacedKey keyOf(EntityType type) {
+        return minecraft.create(EntityTypes.getName(EntityTypes.a(type.getTypeId())));
+    }
+    
+    @Override
+    public NamespacedKey keyOf(Material type) {
+        return minecraft.create(Item.getById(type.getId()).getName());
     }
 
     @Override

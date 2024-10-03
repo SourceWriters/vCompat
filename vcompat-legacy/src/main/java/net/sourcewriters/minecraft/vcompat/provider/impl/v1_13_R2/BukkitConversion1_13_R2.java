@@ -2,6 +2,7 @@ package net.sourcewriters.minecraft.vcompat.provider.impl.v1_13_R2;
 
 import java.util.Set;
 
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 
@@ -22,8 +23,11 @@ import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtShort;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtString;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtTag;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtType;
-
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.utils.key.NamespacedKey;
+import net.minecraft.server.v1_13_R2.EntityTypes;
+import net.minecraft.server.v1_13_R2.IRegistry;
 import net.minecraft.server.v1_13_R2.ItemStack;
+import net.minecraft.server.v1_13_R2.MinecraftKey;
 import net.minecraft.server.v1_13_R2.NBTBase;
 import net.minecraft.server.v1_13_R2.NBTNumber;
 import net.minecraft.server.v1_13_R2.NBTTagByte;
@@ -68,6 +72,24 @@ public class BukkitConversion1_13_R2 extends BukkitConversion<VersionControl1_13
         } catch (IllegalArgumentException ignore) {
             return null;
         }
+    }
+    
+    @Override
+    public NamespacedKey keyOf(EntityType type) {
+        return from(IRegistry.ENTITY_TYPE.getKey(IRegistry.ENTITY_TYPE.fromId(type.getTypeId())));
+    }
+    
+    @Override
+    public NamespacedKey keyOf(Material type) {
+        return from(type.getKey());
+    }
+    
+    private NamespacedKey from(org.bukkit.NamespacedKey key) {
+        return NamespacedKey.of(key.getKey(), key.getNamespace());
+    }
+    
+    private NamespacedKey from(MinecraftKey key) {
+        return NamespacedKey.of(key.b(), key.getKey());
     }
 
     @Override

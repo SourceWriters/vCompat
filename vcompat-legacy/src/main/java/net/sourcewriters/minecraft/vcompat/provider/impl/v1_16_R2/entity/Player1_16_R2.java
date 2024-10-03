@@ -7,17 +7,20 @@ import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_16_R2.util.CraftChatMessage;
 import org.bukkit.entity.Player;
 
+import com.google.gson.JsonElement;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.server.v1_16_R2.BiomeManager;
+import net.minecraft.server.v1_16_R2.ChatMessageType;
 import net.minecraft.server.v1_16_R2.EntityPlayer;
 import net.minecraft.server.v1_16_R2.EnumItemSlot;
 import net.minecraft.server.v1_16_R2.IChatBaseComponent;
 import net.minecraft.server.v1_16_R2.ItemStack;
 import net.minecraft.server.v1_16_R2.MathHelper;
+import net.minecraft.server.v1_16_R2.PacketPlayOutChat;
 import net.minecraft.server.v1_16_R2.PacketPlayOutEntityDestroy;
 import net.minecraft.server.v1_16_R2.PacketPlayOutEntityEquipment;
 import net.minecraft.server.v1_16_R2.PacketPlayOutEntityHeadRotation;
@@ -43,6 +46,7 @@ import net.sourcewriters.minecraft.vcompat.util.minecraft.MojangProfileServer;
 import net.sourcewriters.minecraft.vcompat.util.minecraft.Skin;
 import net.sourcewriters.minecraft.vcompat.util.thread.PostAsync;
 import net.minecraft.server.v1_16_R2.PlayerConnection;
+import net.minecraft.server.v1_16_R2.SystemUtils;
 import net.minecraft.server.v1_16_R2.WorldServer;
 
 public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements NmsPlayer {
@@ -185,7 +189,23 @@ public class Player1_16_R2 extends EntityLiving1_16_R2<EntityPlayer> implements 
         if (handle.playerConnection.isDisconnected()) {
             return;
         }
-        handle.playerConnection.sendPacket(new PacketPlayOutTitle(EnumTitleAction.ACTIONBAR, CraftChatMessage.fromStringOrNull(text)));
+        handle.playerConnection.sendPacket(new PacketPlayOutChat(CraftChatMessage.fromStringOrNull(text), ChatMessageType.GAME_INFO, SystemUtils.b));
+    }
+    
+    @Override
+    public void sendJson(JsonElement element) {
+        if (handle.playerConnection.isDisconnected()) {
+            return;
+        }
+        handle.playerConnection.sendPacket(new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a(element.toString()), ChatMessageType.SYSTEM, SystemUtils.b));
+    }
+    
+    @Override
+    public void sendActionBarJson(JsonElement element) {
+        if (handle.playerConnection.isDisconnected()) {
+            return;
+        }
+        handle.playerConnection.sendPacket(new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a(element.toString()), ChatMessageType.GAME_INFO, SystemUtils.b));
     }
 
     @Override

@@ -2,6 +2,7 @@ package net.sourcewriters.minecraft.vcompat.provider.impl.v1_16_R1;
 
 import java.util.Set;
 
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_16_R1.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 
@@ -22,7 +23,7 @@ import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtShort;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtString;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtTag;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtType;
-
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.utils.key.NamespacedKey;
 import net.minecraft.server.v1_16_R1.ItemStack;
 import net.minecraft.server.v1_16_R1.NBTBase;
 import net.minecraft.server.v1_16_R1.NBTNumber;
@@ -68,6 +69,20 @@ public class BukkitConversion1_16_R1 extends BukkitConversion<VersionControl1_16
         } catch (IllegalArgumentException ignore) {
             return null;
         }
+    }
+    
+    @Override
+    public NamespacedKey keyOf(EntityType type) {
+        return from(type.getKey());
+    }
+    
+    @Override
+    public NamespacedKey keyOf(Material type) {
+        return from(type.getKey());
+    }
+    
+    private NamespacedKey from(org.bukkit.NamespacedKey key) {
+        return NamespacedKey.of(key.getKey(), key.getNamespace());
     }
 
     @Override

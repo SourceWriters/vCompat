@@ -1,6 +1,7 @@
 package net.sourcewriters.minecraft.vcompat.provider.impl.v1_20_R4;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_20_R4.CraftServer;
 import org.bukkit.craftbukkit.v1_20_R4.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
@@ -44,6 +45,7 @@ import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtShort;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtString;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtTag;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtType;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.utils.key.NamespacedKey;
 
 public class BukkitConversion1_20_R4 extends BukkitConversion<VersionControl1_20_R4> {
     
@@ -69,6 +71,20 @@ public class BukkitConversion1_20_R4 extends BukkitConversion<VersionControl1_20
         } catch (IllegalArgumentException ignore) {
             return null;
         }
+    }
+    
+    @Override
+    public NamespacedKey keyOf(EntityType type) {
+        return from(type.getKey());
+    }
+    
+    @Override
+    public NamespacedKey keyOf(Material type) {
+        return from(type.getKey());
+    }
+    
+    private NamespacedKey from(org.bukkit.NamespacedKey key) {
+        return NamespacedKey.of(key.getKey(), key.getNamespace());
     }
 
     @Override

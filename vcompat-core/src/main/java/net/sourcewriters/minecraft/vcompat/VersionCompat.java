@@ -5,12 +5,12 @@ import java.lang.invoke.MethodType;
 
 import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.utils.java.tools.Container;
-import net.sourcewriters.minecraft.vcompat.version.Versions;
+import net.sourcewriters.minecraft.vcompat.version.IVersion;
 
 public final class VersionCompat extends VersionCompatProvider {
 
     private static final String VERSION_PATH = String.format("%s.provider.impl.%s.VersionControl%s", VersionCompat.class.getPackageName(),
-        Versions.getServerAsString(), Versions.getServerAsString().substring(1));
+        IVersion.VERSION.packageVersion(), IVersion.VERSION.coreVersion());
 
     private final Container<VersionControl> control = Container.of();
     private volatile boolean init = false;

@@ -7,11 +7,12 @@ import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R1.util.CraftChatMessage;
 import org.bukkit.entity.Player;
 
+import com.google.gson.JsonElement;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
-
+import net.minecraft.server.v1_8_R1.ChatSerializer;
 import net.minecraft.server.v1_8_R1.EntityPlayer;
 import net.minecraft.server.v1_8_R1.EnumPlayerInfoAction;
 import net.minecraft.server.v1_8_R1.EnumTitleAction;
@@ -186,6 +187,22 @@ public class Player1_8_R1 extends EntityLiving1_8_R1<EntityPlayer> implements Nm
             return;
         }
         handle.playerConnection.sendPacket(new PacketPlayOutChat(CraftChatMessage.fromString(text)[0], (byte) 2));
+    }
+    
+    @Override
+    public void sendJson(JsonElement element) {
+        if (handle.playerConnection.isDisconnected()) {
+            return;
+        }
+        handle.playerConnection.sendPacket(new PacketPlayOutChat(ChatSerializer.a(element.toString()), (byte) 1));
+    }
+    
+    @Override
+    public void sendActionBarJson(JsonElement element) {
+        if (handle.playerConnection.isDisconnected()) {
+            return;
+        }
+        handle.playerConnection.sendPacket(new PacketPlayOutChat(ChatSerializer.a(element.toString()), (byte) 2));
     }
 
     @Override

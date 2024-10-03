@@ -3,6 +3,7 @@ package net.sourcewriters.minecraft.vcompat.provider.impl.v1_11_R1;
 import java.util.List;
 import java.util.Set;
 
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_11_R1.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 
@@ -24,8 +25,12 @@ import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtShort;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtString;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtTag;
 import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.nbt.NbtType;
-
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.utils.key.Namespace;
+import net.sourcewriters.minecraft.vcompat.shaded.syntaxapi.utils.key.NamespacedKey;
+import net.minecraft.server.v1_11_R1.EntityTypes;
+import net.minecraft.server.v1_11_R1.Item;
 import net.minecraft.server.v1_11_R1.ItemStack;
+import net.minecraft.server.v1_11_R1.MinecraftKey;
 import net.minecraft.server.v1_11_R1.NBTBase;
 import net.minecraft.server.v1_11_R1.NBTTagByte;
 import net.minecraft.server.v1_11_R1.NBTTagByteArray;
@@ -47,6 +52,8 @@ import net.sourcewriters.minecraft.vcompat.provider.data.wrap.SimpleWrapType;
 import net.sourcewriters.minecraft.vcompat.provider.entity.NmsEntityType;
 
 public class BukkitConversion1_11_R1 extends BukkitConversion<VersionControl1_11_R1> {
+    
+    private final Namespace minecraft = Namespace.of("minecraft");
 
     protected BukkitConversion1_11_R1(VersionControl1_11_R1 versionControl) {
         super(versionControl);
@@ -68,6 +75,20 @@ public class BukkitConversion1_11_R1 extends BukkitConversion<VersionControl1_11
         } catch (IllegalArgumentException ignore) {
             return null;
         }
+    }
+    
+    @Override
+    public NamespacedKey keyOf(EntityType type) {
+        return from(EntityTypes.b.b(EntityTypes.b.getId(type.getTypeId())));
+    }
+    
+    @Override
+    public NamespacedKey keyOf(Material type) {
+        return from(Item.REGISTRY.b(Item.getById(type.getId())));
+    }
+    
+    private NamespacedKey from(MinecraftKey key) {
+        return NamespacedKey.of(key.b(), key.a());
     }
 
     @Override

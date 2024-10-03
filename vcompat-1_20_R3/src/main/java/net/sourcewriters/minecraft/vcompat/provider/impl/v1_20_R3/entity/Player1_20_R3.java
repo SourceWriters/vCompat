@@ -8,6 +8,7 @@ import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_20_R3.util.CraftChatMessage;
 import org.bukkit.entity.Player;
 
+import com.google.gson.JsonElement;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
@@ -22,13 +23,13 @@ import net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
 import net.minecraft.network.protocol.game.ClientboundRespawnPacket;
 import net.minecraft.network.protocol.game.ClientboundRotateHeadPacket;
-import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetCarriedItemPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEquipmentPacket;
 import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitlesAnimationPacket;
+import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
 import net.minecraft.network.protocol.game.ClientboundTabListPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -182,7 +183,23 @@ public class Player1_20_R3 extends EntityLiving1_20_R3<ServerPlayer> implements 
         if (handle.hasDisconnected()) {
             return;
         }
-        handle.connection.send(new ClientboundSetActionBarTextPacket(CraftChatMessage.fromStringOrNull(text)));
+        handle.connection.send(new ClientboundSystemChatPacket(CraftChatMessage.fromStringOrNull(text), true));
+    }
+    
+    @Override
+    public void sendJson(JsonElement element) {
+        if (handle.hasDisconnected()) {
+            return;
+        }
+        handle.connection.send(new ClientboundSystemChatPacket(CraftChatMessage.fromJSON(element.toString()), false));
+    }
+    
+    @Override
+    public void sendActionBarJson(JsonElement element) {
+        if (handle.hasDisconnected()) {
+            return;
+        }
+        handle.connection.send(new ClientboundSystemChatPacket(CraftChatMessage.fromJSON(element.toString()), true));
     }
 
     @Override

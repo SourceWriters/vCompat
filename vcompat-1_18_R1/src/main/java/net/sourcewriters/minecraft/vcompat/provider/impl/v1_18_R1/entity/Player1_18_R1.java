@@ -7,20 +7,23 @@ import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_18_R1.util.CraftChatMessage;
 import org.bukkit.entity.Player;
 
+import com.google.gson.JsonElement;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.datafixers.util.Pair;
 
+import net.minecraft.Util;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundAddPlayerPacket;
+import net.minecraft.network.protocol.game.ClientboundChatPacket;
 import net.minecraft.network.protocol.game.ClientboundEntityEventPacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoPacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
 import net.minecraft.network.protocol.game.ClientboundRespawnPacket;
 import net.minecraft.network.protocol.game.ClientboundRotateHeadPacket;
-import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetCarriedItemPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEquipmentPacket;
@@ -181,7 +184,23 @@ public class Player1_18_R1 extends EntityLiving1_18_R1<ServerPlayer> implements 
         if (handle.hasDisconnected()) {
             return;
         }
-        handle.connection.send(new ClientboundSetActionBarTextPacket(CraftChatMessage.fromStringOrNull(text)));
+        handle.connection.send(new ClientboundChatPacket(CraftChatMessage.fromStringOrNull(text), ChatType.GAME_INFO, Util.NIL_UUID));
+    }
+    
+    @Override
+    public void sendJson(JsonElement element) {
+        if (handle.hasDisconnected()) {
+            return;
+        }
+        handle.connection.send(new ClientboundChatPacket(CraftChatMessage.fromJSON(element.toString()), ChatType.CHAT, Util.NIL_UUID));
+    }
+    
+    @Override
+    public void sendActionBarJson(JsonElement element) {
+        if (handle.hasDisconnected()) {
+            return;
+        }
+        handle.connection.send(new ClientboundChatPacket(CraftChatMessage.fromJSON(element.toString()), ChatType.GAME_INFO, Util.NIL_UUID));
     }
 
     @Override

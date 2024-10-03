@@ -7,14 +7,17 @@ import org.bukkit.craftbukkit.v1_13_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_13_R1.util.CraftChatMessage;
 import org.bukkit.entity.Player;
 
+import com.google.gson.JsonElement;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
 
+import net.minecraft.server.v1_13_R1.ChatMessageType;
 import net.minecraft.server.v1_13_R1.EntityPlayer;
 import net.minecraft.server.v1_13_R1.EnumItemSlot;
 import net.minecraft.server.v1_13_R1.IChatBaseComponent;
 import net.minecraft.server.v1_13_R1.MathHelper;
+import net.minecraft.server.v1_13_R1.PacketPlayOutChat;
 import net.minecraft.server.v1_13_R1.PacketPlayOutEntityDestroy;
 import net.minecraft.server.v1_13_R1.PacketPlayOutEntityEquipment;
 import net.minecraft.server.v1_13_R1.PacketPlayOutEntityHeadRotation;
@@ -183,7 +186,23 @@ public class Player1_13_R1 extends EntityLiving1_13_R1<EntityPlayer> implements 
         if (handle.playerConnection.isDisconnected()) {
             return;
         }
-        handle.playerConnection.sendPacket(new PacketPlayOutTitle(EnumTitleAction.ACTIONBAR, CraftChatMessage.fromStringOrNull(text)));
+        handle.playerConnection.sendPacket(new PacketPlayOutChat(CraftChatMessage.fromStringOrNull(text), ChatMessageType.GAME_INFO));
+    }
+    
+    @Override
+    public void sendJson(JsonElement element) {
+        if (handle.playerConnection.isDisconnected()) {
+            return;
+        }
+        handle.playerConnection.sendPacket(new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a(element.toString()), ChatMessageType.SYSTEM));
+    }
+    
+    @Override
+    public void sendActionBarJson(JsonElement element) {
+        if (handle.playerConnection.isDisconnected()) {
+            return;
+        }
+        handle.playerConnection.sendPacket(new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a(element.toString()), ChatMessageType.GAME_INFO));
     }
 
     @Override

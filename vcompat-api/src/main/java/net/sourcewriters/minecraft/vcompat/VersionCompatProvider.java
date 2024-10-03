@@ -6,7 +6,7 @@ import net.sourcewriters.minecraft.vcompat.provider.VersionControl;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookupProvider;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.ClassLookups;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
-import net.sourcewriters.minecraft.vcompat.version.Versions;
+import net.sourcewriters.minecraft.vcompat.version.IVersion;
 
 public abstract class VersionCompatProvider {
 
@@ -18,7 +18,7 @@ public abstract class VersionCompatProvider {
             return PROVIDER.get();
         }
         System.out.println(
-            "Initializing vCompat on with '" + Versions.getServerAsString() + "' core on '" + Versions.getMinecraftAsString() + "'!");
+            "Initializing vCompat on with '" + IVersion.VERSION.packageVersion() + "' core on '" + IVersion.MINECRAFT_VERSION.toString() + "'!");
         Object object = ClassLookup.of(IMPLEMENTATION_PATH).init();
         if (object == null || !(object instanceof VersionCompatProvider)) {
             throw new IllegalStateException("Can't initialize VersionCompatProvider!");

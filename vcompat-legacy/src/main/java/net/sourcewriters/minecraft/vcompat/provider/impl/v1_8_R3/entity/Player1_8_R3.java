@@ -7,6 +7,7 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.util.CraftChatMessage;
 import org.bukkit.entity.Player;
 
+import com.google.gson.JsonElement;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
@@ -186,6 +187,22 @@ public class Player1_8_R3 extends EntityLiving1_8_R3<EntityPlayer> implements Nm
             return;
         }
         handle.playerConnection.sendPacket(new PacketPlayOutChat(CraftChatMessage.fromString(text)[0], (byte) 2));
+    }
+    
+    @Override
+    public void sendJson(JsonElement element) {
+        if (handle.playerConnection.isDisconnected()) {
+            return;
+        }
+        handle.playerConnection.sendPacket(new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a(element.toString()), (byte) 1));
+    }
+    
+    @Override
+    public void sendActionBarJson(JsonElement element) {
+        if (handle.playerConnection.isDisconnected()) {
+            return;
+        }
+        handle.playerConnection.sendPacket(new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a(element.toString()), (byte) 2));
     }
 
     @Override

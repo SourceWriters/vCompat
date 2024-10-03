@@ -7,19 +7,11 @@ import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookup;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.ClassLookupCache;
 import net.sourcewriters.minecraft.vcompat.provider.lookup.handle.FakeLookup;
 import net.sourcewriters.minecraft.vcompat.util.java.tools.ReflectionTools;
-import net.sourcewriters.minecraft.vcompat.version.Versions;
+import net.sourcewriters.minecraft.vcompat.version.IVersion;
 
 public final class ClassLookupProvider {
 
-    public static final String CB_PATH_FORMAT = "org.bukkit.craftbukkit.%s.%s";
-
-    public static final String NMS_PATH_FORMAT_LEGACY = "net.minecraft.server.%s.%s";
-    public static final String NMS_PATH_FORMAT_REMAP = "net.minecraft.%s";
-
     private final ClassLookupCache cache;
-
-    private final String cbPath;
-    private final String nmsPath;
 
     private boolean skip = false;
 
@@ -29,9 +21,6 @@ public final class ClassLookupProvider {
 
     public ClassLookupProvider(final ClassLookupCache cache) {
         this.cache = cache;
-        this.cbPath = String.format(CB_PATH_FORMAT, Versions.getServerAsString(), "%s");
-        this.nmsPath = Versions.getServer().getMinor() >= 17 ? NMS_PATH_FORMAT_REMAP
-            : String.format(NMS_PATH_FORMAT_LEGACY, Versions.getServerAsString(), "%s");
     }
 
     /*
@@ -82,14 +71,6 @@ public final class ClassLookupProvider {
         return cache;
     }
 
-    public String getNmsPath() {
-        return nmsPath;
-    }
-
-    public String getCbPath() {
-        return cbPath;
-    }
-
     public ClassLookup createNMSLookup(final String name, final String path) {
         return skip ? FakeLookup.FAKE : cache.create(name, getNMSClass(path));
     }
@@ -115,11 +96,11 @@ public final class ClassLookupProvider {
     }
 
     public Class<?> getNMSClass(final String path) {
-        return getClass(String.format(nmsPath, path));
+        return getClass(IVersion.VERSION.minecraftClassPath(path));
     }
 
     public Class<?> getCBClass(final String path) {
-        return getClass(String.format(cbPath, path));
+        return getClass(IVersion.VERSION.craftClassPath(path));
     }
 
     public Class<?> getClass(final String path) {
