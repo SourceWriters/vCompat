@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import net.minecraft.server.v1_8_R2.AxisAlignedBB;
 import net.minecraft.server.v1_8_R2.Entity;
 import net.minecraft.server.v1_8_R2.EntityTypes;
+import net.minecraft.server.v1_8_R2.Packet;
 import net.minecraft.server.v1_8_R2.PacketPlayOutEntityDestroy;
 import net.minecraft.server.v1_8_R2.PacketPlayOutEntityMetadata;
 import net.minecraft.server.v1_8_R2.PacketPlayOutSpawnEntity;
@@ -167,13 +168,17 @@ public abstract class Entity1_8_R2<E extends Entity> implements NmsEntity {
             }
         }
     }
+    
+    protected Packet<?> createSpawnPacket() {
+        return new PacketPlayOutSpawnEntity(handle, EntityTypes.a(handle));
+    }
 
     @Override
     public void show(Player... players) {
         if (players.length == 0) {
             return;
         }
-        PacketPlayOutSpawnEntity packet = new PacketPlayOutSpawnEntity(handle, EntityTypes.a(handle));
+        Packet<?> packet = createSpawnPacket();
         PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(handle.getId(), handle.getDataWatcher(), true);
         PlayerConnection connection;
         for (Player player : players) {

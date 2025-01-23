@@ -13,6 +13,7 @@
 		<mapping.libPath>${project.basedir}/../libraries/mapping</mapping.libPath>
 		<spigot.libPath>${project.basedir}/../libraries/spigot</spigot.libPath>
 		<minecraft.version>1.20.2</minecraft.version>
+		<java.version>17</java.version>
 	</properties>
 
 	<repositories>

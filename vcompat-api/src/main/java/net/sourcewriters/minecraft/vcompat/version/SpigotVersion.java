@@ -6,9 +6,11 @@ final class SpigotVersion implements IVersion {
 
     public static final SpigotVersion INSTANCE = new SpigotVersion();
 
-    public static IVersion create() {
+    final static IVersion create() {
         if (exists("com.destroystokyo.paper.PaperConfig") || exists("io.papermc.paper.configuration.Configuration")) {
-            return PaperVersion.INSTANCE;
+            if (MINECRAFT_VERSION.compareTo(MinecraftVersion.of(1, 20, 2)) >= 1) {
+                return PaperVersion.INSTANCE;
+            }
         }
         return INSTANCE;
     }

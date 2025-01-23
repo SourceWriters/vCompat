@@ -13,6 +13,7 @@ import org.bukkit.craftbukkit.v1_21_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_21_R1.util.CraftChatMessage;
 import org.bukkit.entity.Player;
 
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
@@ -174,13 +175,17 @@ public abstract class Entity1_21_R1<E extends Entity> implements NmsEntity {
             }
         }
     }
+    
+    protected Packet<?> createSpawnPacket() {
+        return new ClientboundAddEntityPacket(handle, 0, handle.blockPosition());
+    }
 
     @Override
     public void show(Player... players) {
         if (players.length == 0) {
             return;
         }
-        ClientboundAddEntityPacket packet = new ClientboundAddEntityPacket(handle, 0, handle.blockPosition());
+        Packet<?> packet = createSpawnPacket();
         ClientboundSetEntityDataPacket metadataPacket = new ClientboundSetEntityDataPacket(handle.getId(), handle.getEntityData().getNonDefaultValues());
         ServerGamePacketListenerImpl connection;
         for (Player player : players) {

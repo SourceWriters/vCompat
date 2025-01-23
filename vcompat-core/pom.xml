@@ -79,13 +79,23 @@
             <artifactId>vcompat-1_21_R1</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>net.sourcewriters.minecraft</groupId>
+            <artifactId>vcompat-1_21_R2</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sourcewriters.minecraft</groupId>
+            <artifactId>vcompat-1_21_R3</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
     </dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.2.4</version>
+                <version>3.6.0</version>
 				<executions>
 					<execution>
 						<phase>package</phase>

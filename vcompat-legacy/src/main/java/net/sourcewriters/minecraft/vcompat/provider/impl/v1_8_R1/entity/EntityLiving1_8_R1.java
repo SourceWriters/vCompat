@@ -1,6 +1,8 @@
 package net.sourcewriters.minecraft.vcompat.provider.impl.v1_8_R1.entity;
 
 import net.minecraft.server.v1_8_R1.EntityLiving;
+import net.minecraft.server.v1_8_R1.Packet;
+import net.minecraft.server.v1_8_R1.PacketPlayOutSpawnEntityLiving;
 import net.sourcewriters.minecraft.vcompat.provider.entity.NmsEntityLiving;
 
 public abstract class EntityLiving1_8_R1<E extends EntityLiving> extends Entity1_8_R1<E> implements NmsEntityLiving {
@@ -10,8 +12,11 @@ public abstract class EntityLiving1_8_R1<E extends EntityLiving> extends Entity1
     }
 
     @Override
-    public void setCollidable(boolean collidable) {
-
+    public void setCollidable(boolean collidable) {}
+    
+    @Override
+    protected Packet createSpawnPacket() {
+        return new PacketPlayOutSpawnEntityLiving(handle);
     }
 
 }

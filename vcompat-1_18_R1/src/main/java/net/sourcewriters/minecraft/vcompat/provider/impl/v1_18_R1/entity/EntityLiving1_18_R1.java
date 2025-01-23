@@ -1,5 +1,7 @@
 package net.sourcewriters.minecraft.vcompat.provider.impl.v1_18_R1.entity;
 
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
 import net.minecraft.world.entity.LivingEntity;
 import net.sourcewriters.minecraft.vcompat.provider.entity.NmsEntityLiving;
 
@@ -12,6 +14,11 @@ public abstract class EntityLiving1_18_R1<E extends LivingEntity> extends Entity
     @Override
     public void setCollidable(boolean collidable) {
         handle.collides = collidable;
+    }
+    
+    @Override
+    protected Packet<?> createSpawnPacket() {
+        return new ClientboundAddMobPacket(handle);
     }
 
 }

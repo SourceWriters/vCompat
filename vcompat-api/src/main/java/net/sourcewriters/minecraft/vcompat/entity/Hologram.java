@@ -210,7 +210,7 @@ public class Hologram extends CustomEntity {
             synchronized (entities) {
                 entity = entities.get(index);
             }
-            entity.setLocation(new Location(null, location.getX(), location.getY() + (this.offset * (amount - index)), location.getZ()));
+            entity.setLocation(new Location(location.getWorld(), location.getX(), location.getY() + (this.offset * (amount - index)), location.getZ()));
         }
     }
 
@@ -222,6 +222,7 @@ public class Hologram extends CustomEntity {
         entity.setCustomName(line);
         entity.setCustomNameVisible(true);
         entity.setInvisible(true);
+        entity.setGravity(false);
         entity.setSmall(true);
 
         NmsArmorStand entity0;
