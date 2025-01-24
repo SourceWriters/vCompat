@@ -11,3 +11,4 @@
 */dependency-reduced-pom.xml
 *.class
 /.apt_generated_tests/
+/.flattened-pom.xml
