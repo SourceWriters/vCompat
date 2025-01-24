@@ -37,6 +37,6 @@ jobs:
         run: mvn -B package
 
       - name: Publish to GitHub Packages
-        run: mvn deploy -s ${{ github.workspace }}/settings.xml
+        run: mvn deploy -P deploy -s ${{ github.workspace }}/settings.xml
         env:
           GITHUB_TOKEN: ${{ github.token }}
